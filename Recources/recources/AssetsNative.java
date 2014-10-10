@@ -46,9 +46,16 @@ public class AssetsNative extends Assets {
 	}
 	
 	private void loadGreyTiles(){
+		int rgb = 0;
 		for(int i = 0; i < 16; ++i){
 			BufferedImage img = new BufferedImage(32, 32, BufferedImage.TYPE_INT_RGB);
-			int rgb = (i*16 << 16)  + (i*16 << 8) + i*16;
+			
+			if(i == 0){
+				rgb = 0x0000FF;
+			}
+			else{
+				rgb = (i*16 << 16)  + (i*16 << 8) + i*16;
+			}
 			
 			for(int x = 0; x < 32; ++x){
 				for(int y = 0; y < 32; ++y){

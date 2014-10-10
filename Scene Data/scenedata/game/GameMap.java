@@ -81,7 +81,14 @@ public class GameMap {
 		
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){
-				rgb = ((int)nodes[i][j].height*16 << 16)  + ((int)nodes[i][j].height*16 << 8) + (int)nodes[i][j].height*16;
+
+				if(nodes[i][j].height == 0){
+					rgb = 0x0000FF;
+				}
+				else{
+					rgb = ((int)nodes[i][j].height*16 << 16)  + ((int)nodes[i][j].height*16 << 8) + (int)nodes[i][j].height*16;
+				}
+			
 				img.setRGB(i, j, rgb);
 			}
 		}

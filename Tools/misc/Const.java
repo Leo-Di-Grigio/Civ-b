@@ -4,7 +4,7 @@ public class Const {
 	
 	public static final String title = "Civ";
 	public static final int version = 0;
-	public static final int subVersion = 46;
+	public static final int subVersion = 47;
 	
 	// test data
 	public static final int mapSizeX = 150;

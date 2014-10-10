@@ -7,7 +7,7 @@ import units.Unit;
 public class Node {
 	
 	// Land data
-	public byte height = 3;
+	public byte height = 0;
 	
 	// Units data
 	private Vector<Unit> units;
