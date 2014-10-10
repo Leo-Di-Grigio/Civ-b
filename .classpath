@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Main"/>
+	<classpathentry kind="src" path="Tools"/>
+	<classpathentry kind="src" path="Engine"/>
+	<classpathentry kind="src" path="Recources"/>
+	<classpathentry kind="src" path="Script"/>
+	<classpathentry kind="src" path="Network"/>
+	<classpathentry kind="src" path="Task"/>
+	<classpathentry kind="src" path="UserAPI"/>
+	<classpathentry kind="src" path="Scene Data"/>
+	<classpathentry kind="src" path="GUI"/>
+	<classpathentry kind="src" path="Scenes"/>
+	<classpathentry kind="src" path="Units"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-all-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-all.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
