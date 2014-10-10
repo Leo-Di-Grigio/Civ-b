@@ -40,4 +40,4 @@ Icon
 .Trashes
 
 # Other
-.log
+*.log
