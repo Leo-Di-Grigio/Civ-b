@@ -1,5 +1,7 @@
 package gamecycle;
 
+import java.io.IOException;
+
 import javax.swing.JFrame;
 
 import painter.Painter;
@@ -21,7 +23,7 @@ public abstract class GameCycle extends Thread {
 	}
 	
 	abstract void initCycle();
-	abstract void draw();
+	abstract void draw() throws IOException;
 
 	abstract public int getWidth();
 	abstract public int getHeight();

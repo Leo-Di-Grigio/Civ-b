@@ -1,6 +1,7 @@
 package scene;
 
 import java.awt.Graphics;
+import java.io.IOException;
 
 import javax.media.opengl.GL3;
 
@@ -25,7 +26,7 @@ abstract public class Scene {
 		return type;
 	}
 	
-	public void update(){
+	public void update() throws IOException{
 		data.update(tasks);
 	}
 	

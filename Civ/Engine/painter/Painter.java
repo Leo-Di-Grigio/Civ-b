@@ -1,6 +1,7 @@
 package painter;
 
 import java.awt.Graphics;
+import java.io.IOException;
 import java.util.HashMap;
 
 import javax.media.opengl.GL3;
@@ -50,13 +51,13 @@ public class Painter {
 		currentScene.addTask(new Task(Enums.Task.SCENE_LOADING, null));
 	}
 	
-	public static void draw(Graphics g){
+	public static void draw(Graphics g) throws IOException{
 		currentScene.update();
 		currentScene.draw(g);
 		currentScene.drawGui(g);
 	}
 	
-	public static void draw(GL3 gl){
+	public static void draw(GL3 gl) throws IOException{
 		currentScene.update();
 		currentScene.draw(gl);
 		currentScene.drawGui(gl);

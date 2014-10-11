@@ -1,6 +1,7 @@
 package scenedata;
 
 import java.awt.Graphics;
+import java.io.IOException;
 
 import javax.media.opengl.GL3;
 
@@ -16,7 +17,7 @@ abstract public class SceneData {
 		this.gui = gui;
 	}
 	
-	public void update(TasksPool tasks){
+	public void update(TasksPool tasks) throws IOException{
 		while(tasks.hasNext()){
 			Task task = tasks.poll();
 			
@@ -34,5 +35,5 @@ abstract public class SceneData {
 		gui.draw(gl);
 	}
 	
-	abstract public void execute(Task task); 
+	abstract public void execute(Task task) throws IOException; 
 }

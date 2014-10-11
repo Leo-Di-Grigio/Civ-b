@@ -1,5 +1,8 @@
 package script.gui.button;
 
+import java.io.IOException;
+
+import network.Network;
 import painter.Painter;
 import misc.Const;
 import misc.Enums;
@@ -13,7 +16,7 @@ import tasks.Task;
 public class gui_button_CreateNewGame extends ScriptGui {
 
 	@Override
-	public void execute(Task task){
+	public void execute(Task task) throws IOException{
 		Log.debug("Execute gui_button_CreateNewGame");
 		
 		// prepare data
@@ -22,6 +25,7 @@ public class gui_button_CreateNewGame extends ScriptGui {
 		scene_SceneGame scene = new scene_SceneGame(gamedata);
 		
 		// add scene in to Painter
+		Network.createConnection("127.0.0.1", 6600);
 		Painter.addScene(Enums.Scene.GAME, scene);
 		Painter.currentScene.addTask(new Task(Enums.Task.PAINTER_CHANGE_SCENE, "game"));
 	}

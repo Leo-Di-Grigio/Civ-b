@@ -1,5 +1,7 @@
 package gamecycle;
 
+import java.io.IOException;
+
 import javax.media.opengl.GL3;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
@@ -82,7 +84,7 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 	}
 
 	@Override
-	void draw() {
+	void draw() throws IOException {
 		Painter.draw(gl);
 	}
 

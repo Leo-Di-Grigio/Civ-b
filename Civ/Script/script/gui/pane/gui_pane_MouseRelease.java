@@ -1,5 +1,7 @@
 package script.gui.pane;
 
+import java.io.IOException;
+
 import gui.GuiElement;
 import gui.elements.GuiElementPane;
 import misc.Enums;
@@ -10,7 +12,7 @@ import tasks.Task;
 public class gui_pane_MouseRelease extends ScriptGui {
 	
 	@Override
-	public void execute(Task task){
+	public void execute(Task task) throws IOException{
 		Log.debug("Execute gui_pane_MouseRelease");
 		
 		GuiElementPane pane = (GuiElementPane)task.data;

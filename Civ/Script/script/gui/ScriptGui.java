@@ -1,5 +1,7 @@
 package script.gui;
 
+import java.io.IOException;
+
 import script.Script;
 import tasks.Task;
 
@@ -10,7 +12,7 @@ public class ScriptGui extends Script {
 	}
 	
 	@Override
-	public void execute(Task e){
+	public void execute(Task e) throws IOException{
 		
 	}
 }

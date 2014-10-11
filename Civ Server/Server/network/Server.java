@@ -1,4 +1,4 @@
-package server;
+package network;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -13,13 +13,14 @@ public class Server implements Runnable {
 	
 	public Server() throws IOException {
 		server = new ServerSocket(Const.port);
+		clients = new ClientPool();
 		System.out.println(Const.title + " v" + Const.version + "." + Const.subVersion + " is runned");
 	}
 
 	@Override
 	public void run() {
 		try {
-			while(true) {
+			while(server.isBound()) {
             	Socket socket = server.accept();
             	System.err.println("Client accepted " + socket.getInetAddress() + " ID: " + socket.getPort());
             	

@@ -2,8 +2,8 @@ package main;
 
 import java.io.IOException;
 
+import network.Server;
 import control.GUI;
-import server.Server;
 
 public class Main {
 

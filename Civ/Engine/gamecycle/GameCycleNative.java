@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 
@@ -56,13 +57,17 @@ public class GameCycleNative extends GameCycle implements Runnable {
 		cycleTime = System.currentTimeMillis();
 		lastTime = System.currentTimeMillis();
 		
-		while(true){
-			cycle(strategy);
-			syncFrame();
+		try {
+			while(true){			
+				cycle(strategy);
+				syncFrame();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
-	private void cycle(BufferStrategy strategy){
+	private void cycle(BufferStrategy strategy) throws IOException{
 		g = strategy.getDrawGraphics();
 		g.setColor(Color.black);
 		g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -90,7 +95,7 @@ public class GameCycleNative extends GameCycle implements Runnable {
 	}
 	
 	@Override
-	void draw() {
+	void draw() throws IOException {
 		Painter.draw(g);
 	}
 

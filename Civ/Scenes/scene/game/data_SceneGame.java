@@ -1,5 +1,7 @@
 package scene.game;
 
+import java.io.IOException;
+
 import scene.painter.painter_SwitchScene;
 import scenedata.SceneData;
 import scenedata.game.GameData;
@@ -22,7 +24,7 @@ public class data_SceneGame extends SceneData {
 	}
 
 	@Override
-	public void execute(Task task) {
+	public void execute(Task task) throws IOException {
 		switch(task.type){
 			case MOUSE_MOVE:
 				gui_ElementCollision.execute(gui);

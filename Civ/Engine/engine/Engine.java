@@ -3,7 +3,6 @@ package engine;
 import java.awt.Dimension;
 import java.io.IOException;
 import javax.swing.JFrame;
-import network.Network;
 import recources.Recources;
 import render.Render;
 import script.Scripts;
@@ -39,6 +38,5 @@ public class Engine {
 		new Recources(Config.renderMode);
 		
 		new Thread(new Render(Config.renderMode, frame)).start();
-		new Thread(new Network()).start();
 	}
 }

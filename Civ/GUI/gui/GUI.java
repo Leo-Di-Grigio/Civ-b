@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Graphics;
+import java.io.IOException;
 import java.util.HashMap;
 
 import javax.media.opengl.GL3;
@@ -70,7 +71,7 @@ public class GUI implements Drawble {
 		}
 	}
 	
-	public boolean click(){ // return true if any script executed, return false if no scripts
+	public boolean click() throws IOException{ // return true if any script executed, return false if no scripts
 		if(selectedElementTitlte != null){
 			GuiElement element = gui.get(selectedElementTitlte);
 			

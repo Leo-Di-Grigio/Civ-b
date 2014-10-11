@@ -1,5 +1,7 @@
 package scene.menu_loadgame;
 
+import java.io.IOException;
+
 import scene.painter.painter_SwitchScene;
 import scenedata.SceneData;
 import script.gui.gui_ElementClick;
@@ -15,7 +17,7 @@ public class data_SceneMenuLoadGame extends SceneData {
 	}
 
 	@Override
-	public void execute(Task task) {
+	public void execute(Task task) throws IOException {
 		switch(task.type){
 			case MOUSE_MOVE:
 				gui_ElementCollision.execute(gui);
