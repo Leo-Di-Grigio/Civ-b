@@ -7,8 +7,8 @@ import script.Script;
 
 public class painter_SwitchScene extends Script {
 
-	public static void execute(String key) {
-		Log.debug("SWITCH SCENE -> " + key);
-		Painter.switchScene(Enums.Scene.getScene(key));
+	public static void execute(Enums.Scene scene) {
+		Log.debug("SWITCH SCENE -> " + scene);
+		Painter.switchScene(scene);
 	}
 }

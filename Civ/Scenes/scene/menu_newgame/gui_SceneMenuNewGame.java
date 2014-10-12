@@ -33,7 +33,7 @@ public class gui_SceneMenuNewGame extends GUI {
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
 		button.setTexture("button_menu");
 		button.setTextureSelected("button_menu_select");
-		button.setText("Back");
+		button.setText("Disconnect");
 		button.setVisible(true);
 		button.setScript(new gui_button_Menu());
 		this.add("back", button);

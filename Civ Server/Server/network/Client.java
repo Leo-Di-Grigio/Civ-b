@@ -49,10 +49,11 @@ public class Client implements Runnable {
 			Log.err("Currupted message from " + socket.getLocalAddress() + " ID: " + socket.getPort());
 		}
 		finally {
-			in = null;
-			out = null;
-			socket = null;
-			ClientPool.remove(id);
+			try {
+				ClientPool.remove(id);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 			System.gc();
 			Log.debug("Finalize connection");

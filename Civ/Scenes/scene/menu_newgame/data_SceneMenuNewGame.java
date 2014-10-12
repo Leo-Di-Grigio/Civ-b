@@ -2,12 +2,16 @@ package scene.menu_newgame;
 
 import java.io.IOException;
 
+import network.Message;
+import misc.Enums;
 import scene.painter.painter_SwitchScene;
 import scenedata.SceneData;
 import script.gui.gui_ElementClick;
 import script.gui.gui_ElementCollision;
 import script.gui.gui_ElementSelect;
 import script.gui.gui_UpdatePosition;
+import script.network.net_CreateConnection;
+import script.network.net_ReciveMsg;
 import tasks.Task;
 
 public class data_SceneMenuNewGame extends SceneData {
@@ -19,6 +23,10 @@ public class data_SceneMenuNewGame extends SceneData {
 	@Override
 	public void execute(Task task) throws IOException {
 		switch(task.type){
+			case NETWORK_MESSAGE_READ:
+				net_ReciveMsg.execute((Message)task.data);
+				break;
+				
 			case MOUSE_MOVE:
 				gui_ElementCollision.execute(gui);
 				break;
@@ -40,10 +48,11 @@ public class data_SceneMenuNewGame extends SceneData {
 				break;
 		
 			case PAINTER_CHANGE_SCENE:
-				painter_SwitchScene.execute((String)task.data);
+				painter_SwitchScene.execute((Enums.Scene)task.data);
 				break;
 			
 			case SCENE_LOADING:
+				net_CreateConnection.execute();
 				gui_UpdatePosition.execute(gui);
 				break;
 				

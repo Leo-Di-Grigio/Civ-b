@@ -2,6 +2,7 @@ package scene.menu_loadgame;
 
 import java.io.IOException;
 
+import misc.Enums;
 import scene.painter.painter_SwitchScene;
 import scenedata.SceneData;
 import script.gui.gui_ElementClick;
@@ -40,7 +41,7 @@ public class data_SceneMenuLoadGame extends SceneData {
 				break;
 		
 			case PAINTER_CHANGE_SCENE:
-				painter_SwitchScene.execute((String)task.data);
+				painter_SwitchScene.execute((Enums.Scene)task.data);
 				break;
 			
 			case SCENE_LOADING:

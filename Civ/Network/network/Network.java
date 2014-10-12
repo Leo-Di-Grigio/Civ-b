@@ -11,6 +11,14 @@ public class Network {
 		new Thread(connect).start();
 	}
 	
+	public static void disconnect() throws IOException{
+		if(connect != null){
+			if(connect.socket != null && connect.socket.isBound()){
+				sendMsg(new Message("disconnect", null));
+			}
+		}
+	}
+	
 	public synchronized static void sendMsg(Message msg) throws IOException{
 		connect.send(msg);
 	}

@@ -2,6 +2,7 @@ package scene.menu_connect;
 
 import java.io.IOException;
 
+import misc.Enums;
 import network.Message;
 import scene.painter.painter_SwitchScene;
 import scenedata.SceneData;
@@ -13,7 +14,7 @@ import script.network.net_ReciveMsg;
 import tasks.Task;
 
 public class data_SceneMenuConnect extends SceneData {
-
+	
 	public data_SceneMenuConnect() {
 		super(new gui_SceneMenuConnect());
 	}
@@ -46,7 +47,7 @@ public class data_SceneMenuConnect extends SceneData {
 				break;
 		
 			case PAINTER_CHANGE_SCENE:
-				painter_SwitchScene.execute((String)task.data);
+				painter_SwitchScene.execute((Enums.Scene)task.data);
 				break;
 			
 			case SCENE_LOADING:

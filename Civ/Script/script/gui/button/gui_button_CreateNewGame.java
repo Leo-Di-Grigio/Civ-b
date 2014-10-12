@@ -25,6 +25,6 @@ public class gui_button_CreateNewGame extends ScriptGui {
 		
 		// add scene in to Painter
 		Painter.addScene(Enums.Scene.GAME, scene);
-		Painter.currentScene.addTask(new Task(Enums.Task.PAINTER_CHANGE_SCENE, "game"));
+		Painter.currentScene.addTask(new Task(Enums.Task.PAINTER_CHANGE_SCENE, Enums.Scene.GAME));
 	}
 }

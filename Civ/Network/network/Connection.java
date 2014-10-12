@@ -35,32 +35,37 @@ public class Connection implements Runnable {
 
 	@Override
 	public void run() {
-		Log.debug("Connection sucess " + socket.getInetAddress().getHostAddress() + ":" + socket.getPort());
-		Log.debug("Begin client version check...");
-		// send client-server version
-		try {
-			this.send(new Message("checkVersion", ""+Const.version+"."+Const.subVersion));
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
+		if(socket == null){
+			Log.debug("No connection avaible");
 		}
+		else{
+			Log.debug("Connection sucess " + socket.getInetAddress().getHostAddress() + ":" + socket.getPort());
+			Log.debug("Begin client version check...");
+			// send client-server version
+			try {
+				this.send(new Message("checkVersion", ""+Const.version+"."+Const.subVersion));
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 		
-		try {
-			while(socket.isBound()){
-				Object obj = in.readObject();
+			try {
+				while(socket.isBound()){
+					Object obj = in.readObject();
 				
-				if(obj != null){
-					Message msg = (Message)obj;
-					Log.debug("NET_MSG_RECIVE:" + msg.prefix+ ":" + msg.data);
-					Painter.currentScene.addTask(new Task(Enums.Task.NETWORK_MESSAGE_READ, msg));
-				}
-        	}
-		}
-		catch (IOException e) {
-			Log.err("Disconnected by server");
-		} 
-		catch (ClassNotFoundException e) {
-			Log.err(("Currupted message from " + socket.getLocalAddress() + " ID: " + socket.getPort()));
+					if(obj != null){
+						Message msg = (Message)obj;
+						Log.debug("NET_MSG_RECIVE:" + msg.prefix+ ":" + msg.data);
+						Painter.currentScene.addTask(new Task(Enums.Task.NETWORK_MESSAGE_READ, msg));
+					}
+        		}
+			}
+			catch (IOException e) {
+				Log.err("Disconnected by server");
+			}
+			catch (ClassNotFoundException e) {
+				Log.err(("Currupted message from " + socket.getLocalAddress() + " ID: " + socket.getPort()));
+			}
 		}
 	}
 

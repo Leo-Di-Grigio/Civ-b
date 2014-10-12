@@ -2,12 +2,14 @@ package scene.menu;
 
 import java.io.IOException;
 
+import misc.Enums;
 import scene.painter.painter_SwitchScene;
 import scenedata.SceneData;
 import script.gui.gui_ElementClick;
 import script.gui.gui_ElementCollision;
 import script.gui.gui_ElementSelect;
 import script.gui.gui_UpdatePosition;
+import script.network.net_Disconnect;
 import tasks.Task;
 
 public class data_SceneMenu extends SceneData {
@@ -40,11 +42,12 @@ public class data_SceneMenu extends SceneData {
 				break;
 			
 			case PAINTER_CHANGE_SCENE:
-				painter_SwitchScene.execute((String)task.data);
+				painter_SwitchScene.execute((Enums.Scene)task.data);
 				break;
 				
 			case SCENE_LOADING:
 				gui_UpdatePosition.execute(gui);
+				net_Disconnect.execute();
 				break;
 				
 			default: break;

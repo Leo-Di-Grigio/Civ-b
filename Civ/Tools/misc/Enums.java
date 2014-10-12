@@ -15,19 +15,6 @@ public class Enums {
 		MENU_NEWGAME,
 		MENU_LOADGAME,
 		GAME;
-		
-		public static Scene getScene(String key){
-			switch(key){
-				case "menu": return MENU;
-				case "menu_exit": return MENU_EXIT;
-				case "menu_settings": return MENU_SETTINGS;
-				case "menu_connect": return MENU_CONNECT;
-				case "menu_newGame": return MENU_NEWGAME;
-				case "menu_loadGame": return MENU_LOADGAME;
-				case "game": return GAME;
-				default: return MENU;
-			}
-		}
 	}
 	
 	public static enum Task {

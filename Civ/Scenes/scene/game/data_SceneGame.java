@@ -2,6 +2,7 @@ package scene.game;
 
 import java.io.IOException;
 
+import misc.Enums;
 import network.Message;
 import scene.painter.painter_SwitchScene;
 import scenedata.SceneData;
@@ -69,7 +70,7 @@ public class data_SceneGame extends SceneData {
 				break;
 		
 			case PAINTER_CHANGE_SCENE:
-				painter_SwitchScene.execute((String)task.data);
+				painter_SwitchScene.execute((Enums.Scene)task.data);
 				break;
 			
 			case SCENE_LOADING:

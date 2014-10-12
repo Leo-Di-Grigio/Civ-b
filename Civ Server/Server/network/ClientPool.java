@@ -16,8 +16,9 @@ public class ClientPool {
 		new Thread(client).start();
 	}
 	
-	public static void remove(int id){
+	public static void remove(int id) throws IOException{
 		if(clients.containsKey(id)){
+			clients.get(id).socket.close();
 			clients.remove(id);
 		}
 	}
