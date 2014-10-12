@@ -61,7 +61,7 @@ public class GuiElementPane extends GuiElement {
 	@Override
 	public void updateDrawPosition(int xPos, int yPos, int w, int h) {
 		// update pane position
-		super.updateDrawPosition(0, 0, Environment.width, Environment.height);
+		super.updateDrawPosition(0, 0, Environment.frameSizeX, Environment.frameSizeY);
 		
 		for(GuiElement element: elements.values()){
 			element.updateDrawPosition(drawX, drawY, sizeX, sizeY);

@@ -17,6 +17,10 @@ public class Config {
 	// debug
 	public static boolean debug;
 	
+	// network
+	public static String serverAddress;
+	public static int serverPort;
+	
 	public Config(){
 		// render
 		renderMode = Enums.RenderMode.NATIVE;
@@ -30,7 +34,11 @@ public class Config {
 		// debug
 		debug = true;
 		
-		Log.msg("Config load:\n\t1) renderMode: " + renderMode);
-		Log.msg("\t2) " + frameWidth +"x" + frameHeight + ": fps " + fps);
+		// network
+		serverAddress = "127.0.0.1";
+		serverPort = 6600;
+		
+		Log.debug("Config load:\n\t1) renderMode: " + renderMode);
+		Log.debug("\t2) " + frameWidth +"x" + frameHeight + ": fps " + fps);
 	}
 }

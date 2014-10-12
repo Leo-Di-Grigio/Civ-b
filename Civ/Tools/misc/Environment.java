@@ -13,9 +13,9 @@ public class Environment {
 	public static int mouseY;
 	
 	// frame size
-	public static int width;
-	public static int height;
-	
+	public static int frameSizeX;
+	public static int frameSizeY;
+	 
 	// game camera
 	public static int cameraX;
 	public static int cameraY;
@@ -63,8 +63,8 @@ public class Environment {
 	}
 	
 	public static void updateFrameSize(int width, int height){
-		Environment.width = width;
-		Environment.height = height;
+		Environment.frameSizeX = width;
+		Environment.frameSizeY = height;
 		
 		Painter.currentScene.addTask(new Task(Enums.Task.GUI_UPDATE_POSITION, null));
 	}
@@ -72,7 +72,7 @@ public class Environment {
 	public static void moveCamera(Enums.Direct direct){
 		Image mapImage = Recources.getImage("minimap_height");
 		int mapX = mapImage.getWidth(null);
-		int h = Environment.height/32;
+		int h = Environment.frameSizeY/32;
 		
 		switch(direct){
 			case UP: {

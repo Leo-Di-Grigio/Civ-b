@@ -10,6 +10,7 @@ import misc.Enums;
 import misc.Log;
 import scene.Scene;
 import scene.menu.scene_SceneMenu;
+import scene.menu_connect.scene_SceneMenuConnect;
 import scene.menu_exit.scene_SceneMenuExit;
 import scene.menu_loadgame.scene_SceneMenuLoadGame;
 import scene.menu_newgame.scene_SceneMenuNewGame;
@@ -28,6 +29,7 @@ public class Painter {
 		scenes.put(Enums.Scene.MENU_NEWGAME, new scene_SceneMenuNewGame());
 		scenes.put(Enums.Scene.MENU_LOADGAME, new scene_SceneMenuLoadGame());
 		scenes.put(Enums.Scene.MENU_SETTINGS, new scene_SceneMenuSettings());
+		scenes.put(Enums.Scene.MENU_CONNECT, new scene_SceneMenuConnect());
 		scenes.put(Enums.Scene.MENU_EXIT, new scene_SceneMenuExit());
 		
 		currentScene = scenes.get(Enums.Scene.MENU);

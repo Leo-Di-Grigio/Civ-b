@@ -87,7 +87,7 @@ public class GUI implements Drawble {
 	
 	public void updatePosition(){
 		for(GuiElement element: gui.values()){
-			element.updateDrawPosition(0, 0, Environment.width, Environment.height);
+			element.updateDrawPosition(0, 0, Environment.frameSizeX, Environment.frameSizeY);
 		}
 	}
 	

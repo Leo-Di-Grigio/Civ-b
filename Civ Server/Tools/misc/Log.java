@@ -15,4 +15,10 @@ public class Log {
 			System.err.println("DEBUG: " + msg);
 		}
 	}
+	
+	public static void service(String msg){
+		if(Const.service){
+			System.out.println("SERVICE: " + msg);
+		}
+	}
 }

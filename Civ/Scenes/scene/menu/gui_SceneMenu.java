@@ -3,7 +3,7 @@ package scene.menu;
 import misc.Enums;
 import script.gui.button.gui_button_MenuExit;
 import script.gui.button.gui_button_MenuLoadGame;
-import script.gui.button.gui_button_MenuNewGame;
+import script.gui.button.gui_button_MenuConnect;
 import script.gui.button.gui_button_MenuSettings;
 import gui.GUI;
 import gui.elements.GuiElementButton;
@@ -23,9 +23,9 @@ public class gui_SceneMenu extends GUI {
 		button.setPositionType(Enums.GuiPosition.CENTER);
 		button.setTexture("button_menu");
 		button.setTextureSelected("button_menu_select");
-		button.setText("New Game");
+		button.setText("Connect");
 		button.setVisible(true);
-		button.setScript(new gui_button_MenuNewGame());
+		button.setScript(new gui_button_MenuConnect());
 		this.add("new_game", button);
 		
 		// Load Game

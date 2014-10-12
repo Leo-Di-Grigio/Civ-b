@@ -19,7 +19,7 @@ public class scene_SceneMenuExit extends Scene {
 
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(Recources.getImage("menu_background"), 0, 0, Environment.width, Environment.height, null);
+		g.drawImage(Recources.getImage("menu_background"), 0, 0, Environment.frameSizeX, Environment.frameSizeY, null);
 		
 		g.setColor(Color.white);
 		g.drawString("" + Const.title + " v" + Const.version +"."+Const.subVersion, 0, 10);

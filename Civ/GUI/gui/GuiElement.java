@@ -44,12 +44,12 @@ abstract public class GuiElement implements Drawble {
 	public void setPosition(int x, int y){
 		this.x = x;
 		this.y = y;
-		updateDrawPosition(0, 0, Environment.width, Environment.height);
+		updateDrawPosition(0, 0, Environment.frameSizeX, Environment.frameSizeY);
 	}
 	
 	public void setPositionType(Enums.GuiPosition type){
 		this.position = type;
-		updateDrawPosition(0, 0, Environment.width, Environment.height);
+		updateDrawPosition(0, 0, Environment.frameSizeX, Environment.frameSizeY);
 	}
 	
 	private void setDrawPosition(int x, int y){

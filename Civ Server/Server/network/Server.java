@@ -1,20 +1,32 @@
 package network;
 
+import game.Game;
+import game.GameList;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import misc.Const;
+import misc.Log;
 
 public class Server implements Runnable {
 	
 	protected static ServerSocket server;
-	protected static ClientPool clients;
 	
 	public Server() throws IOException {
+		
+		new ClientPool();
+		new TaskPool();
+		new GameList();
+		
+		// test
+		GameList.add(new Game("Test1"));
+		GameList.add(new Game("Test2"));
+		Log.debug(GameList.getList());
+		
 		server = new ServerSocket(Const.port);
-		clients = new ClientPool();
-		System.out.println(Const.title + " v" + Const.version + "." + Const.subVersion + " is runned");
+		Log.msg(Const.title + " v" + Const.version + "." + Const.subVersion + " is runned");
 	}
 
 	@Override
@@ -22,10 +34,10 @@ public class Server implements Runnable {
 		try {
 			while(server.isBound()) {
             	Socket socket = server.accept();
-            	System.err.println("Client accepted " + socket.getInetAddress() + " ID: " + socket.getPort());
+            	Log.service("Client accepted " + socket.getInetAddress() + " ID: " + socket.getPort());
             	
             	Client client = new Client(socket);
-            	clients.add(client);
+            	ClientPool.add(client);
         	}
 		}
 		catch (IOException e){

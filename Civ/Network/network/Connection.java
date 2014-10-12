@@ -7,6 +7,10 @@ import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import painter.Painter;
+import tasks.Task;
+import misc.Const;
+import misc.Enums;
 import misc.Log;
 
 public class Connection implements Runnable {
@@ -14,8 +18,6 @@ public class Connection implements Runnable {
 	protected Socket socket;
     protected ObjectOutputStream out;
     protected ObjectInputStream in;
-    
-	//new Thread(new Network()).start();
     
 	public Connection(String ip, int port) throws IOException {
 		
@@ -34,6 +36,14 @@ public class Connection implements Runnable {
 	@Override
 	public void run() {
 		Log.debug("Connection sucess " + socket.getInetAddress().getHostAddress() + ":" + socket.getPort());
+		Log.debug("Begin client version check...");
+		// send client-server version
+		try {
+			this.send(new Message("checkVersion", ""+Const.version+"."+Const.subVersion));
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		try {
 			while(socket.isBound()){
@@ -41,7 +51,8 @@ public class Connection implements Runnable {
 				
 				if(obj != null){
 					Message msg = (Message)obj;
-					Log.debug("MSG:" + msg.timestamp + ":" + msg.prefix + "." + msg.data);
+					Log.debug("NET_MSG_RECIVE:" + msg.prefix+ ":" + msg.data);
+					Painter.currentScene.addTask(new Task(Enums.Task.NETWORK_MESSAGE_READ, msg));
 				}
         	}
 		}
@@ -54,6 +65,7 @@ public class Connection implements Runnable {
 	}
 
 	public void send(Message msg) throws IOException{
+		Log.debug("NET_MSG:" + msg.prefix+ ":" + msg.data);
 		out.writeObject(msg);
 	}
 }

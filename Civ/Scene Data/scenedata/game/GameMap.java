@@ -32,8 +32,8 @@ public class GameMap {
 		int minX = Environment.cameraX;
 		int minY = Environment.cameraY;
 		
-		int w = Environment.width/32;
-		int h = Environment.height/32;
+		int w = Environment.frameSizeX/32;
+		int h = Environment.frameSizeY/32;
 		
 		int maxY = minY + h + 1;
 		

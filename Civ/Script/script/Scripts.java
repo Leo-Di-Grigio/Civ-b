@@ -3,7 +3,6 @@ package script;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseWheelEvent;
 
-import script.network.net_ReciveMsg;
 import script.userapi.api_MouseClicked;
 import script.userapi.api_MouseDragged;
 import script.userapi.api_MouseEntered;
@@ -90,10 +89,5 @@ public class Scripts {
 	
 	public static void canvasResized(){
 		api_CanvasResized.execute();
-	}
-
-	// NetworkAPI Scripts
-	public static void reciveMsg(){
-		net_ReciveMsg.execute();
 	}
 }

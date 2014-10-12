@@ -1,14 +1,10 @@
-package scene.game;
+package scene.menu_connect;
 
 import java.io.IOException;
 
 import network.Message;
 import scene.painter.painter_SwitchScene;
 import scenedata.SceneData;
-import scenedata.game.GameData;
-import scenedata.game.Node;
-import script.gui.gui_CurosorHide;
-import script.gui.gui_CursorShow;
 import script.gui.gui_ElementClick;
 import script.gui.gui_ElementCollision;
 import script.gui.gui_ElementSelect;
@@ -16,13 +12,10 @@ import script.gui.gui_UpdatePosition;
 import script.network.net_ReciveMsg;
 import tasks.Task;
 
-public class data_SceneGame extends SceneData {
-	
-	protected GameData gamedata;
-	
-	public data_SceneGame(GameData gamedata) {
-		super(new gui_SceneGame());
-		this.gamedata = gamedata;
+public class data_SceneMenuConnect extends SceneData {
+
+	public data_SceneMenuConnect() {
+		super(new gui_SceneMenuConnect());
 	}
 
 	@Override
@@ -31,7 +24,7 @@ public class data_SceneGame extends SceneData {
 			case NETWORK_MESSAGE_READ:
 				net_ReciveMsg.execute((Message)task.data);
 				break;
-				
+			
 			case MOUSE_MOVE:
 				gui_ElementCollision.execute(gui);
 				break;
@@ -39,27 +32,11 @@ public class data_SceneGame extends SceneData {
 			case MOUSE_RELEASED:
 				gui_ElementClick.execute(gui);
 				break;
-			
-			case KEYBOARD_PRESSED:
-				game_KeyPressed.execute(gamedata, (String)task.data);
-				break;
-				
-			case KEYBOARD_RELEASED:
-				game_KeyPressed.execute(gamedata, (String)task.data);
-				break;
 		
 			case GUI_UPDATE_POSITION:
 				gui_UpdatePosition.execute(gui);
 				break;
 			
-			case GUI_CURSOR_SHOW:
-				gui_CursorShow.execute(gui);
-				break;
-			
-			case GUI_CURSOR_HIDE:
-				gui_CurosorHide.execute(gui);
-				break;
-				
 			case GUI_SELECTION_RESET:
 				gui_ElementSelect.execute(gui, null);
 				break;
@@ -74,15 +51,6 @@ public class data_SceneGame extends SceneData {
 			
 			case SCENE_LOADING:
 				gui_UpdatePosition.execute(gui);
-				break;
-			
-			case SCENE_SELECTON:
-				game_SelectNode.execute(gamedata);
-				break;
-				
-			// scene events
-			case GAME_SELECT_NODE:
-				game_SelectNode.execute(gui, (Node)task.data);
 				break;
 				
 			default: break;

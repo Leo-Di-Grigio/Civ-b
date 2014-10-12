@@ -6,9 +6,9 @@ public class Message implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	protected long timestamp;
-	protected String prefix;
-	protected String data;
+	public long timestamp;
+	public String prefix;
+	public String data;
 	
 	public Message(String prefix, String data) {
 		this.timestamp = System.currentTimeMillis();

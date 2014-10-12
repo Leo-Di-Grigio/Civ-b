@@ -15,8 +15,8 @@ public class gui_minimap_MoveCamera extends ScriptGui {
 		
 		int mouseX = Environment.mouseX;
 		int mouseY = Environment.mouseY;
-		int halfW = Environment.width/64;
-		int halfH = Environment.height/64;
+		int halfW = Environment.frameSizeX/64;
+		int halfH = Environment.frameSizeY/64;
 		
 		int drawX = minimap.getDrawX();
 		int drawY = minimap.getDrawY();

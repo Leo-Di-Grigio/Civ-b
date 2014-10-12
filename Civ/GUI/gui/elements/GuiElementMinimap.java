@@ -63,8 +63,8 @@ public class GuiElementMinimap extends GuiElement {
 	public void draw(Graphics g) {
 		if(this.visible){
 			
-			int w = Environment.width/32;
-			int h = Environment.height/32;
+			int w = Environment.frameSizeX/32;
+			int h = Environment.frameSizeY/32;
 			int cameraX = Environment.cameraX;
 			int cameraY = Environment.cameraY;
 			

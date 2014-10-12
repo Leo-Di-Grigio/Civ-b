@@ -12,6 +12,6 @@ public abstract class ScriptNetwork extends Script {
 	
 	@Override
 	public void execute(Task e) {
-
+		
 	}
 }

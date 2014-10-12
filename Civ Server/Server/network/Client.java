@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import misc.Log;
 
 public class Client implements Runnable {
 	
@@ -36,23 +37,30 @@ public class Client implements Runnable {
 				
 				if(obj != null){
 					Message msg = (Message)obj;
-					System.out.println("Client ID:" + id + ":"  + msg.timestamp + ":" + msg.prefix + "." + msg.data);
+					Log.service("<- ID: "+id+":"+msg.prefix +":"+msg.data);
+					TaskPool.add(new Task(id, msg));
 				}
 			}
 		}
 		catch (IOException e) {
-			System.out.println("Disconnected " + socket.getLocalAddress() + " ID: " + socket.getPort());
+			Log.service("Disconnected " + socket.getLocalAddress() + " ID: " + socket.getPort());
 		} 
 		catch (ClassNotFoundException e) {
-			System.out.println("Currupted message from " + socket.getLocalAddress() + " ID: " + socket.getPort());
+			Log.err("Currupted message from " + socket.getLocalAddress() + " ID: " + socket.getPort());
 		}
 		finally {
-			System.out.println("Finalize connection");
+			in = null;
+			out = null;
+			socket = null;
+			ClientPool.remove(id);
+			
+			System.gc();
+			Log.debug("Finalize connection");
 		}
 	}
 	
 	public void send(Message msg) throws IOException{
+		Log.service("-> ID: "+id+":"+msg.prefix +":"+msg.data);
 		out.writeObject(msg);
-		//out.flush();
 	}
 }

@@ -11,6 +11,7 @@ public class Enums {
 		MENU,
 		MENU_EXIT,
 		MENU_SETTINGS,
+		MENU_CONNECT,
 		MENU_NEWGAME,
 		MENU_LOADGAME,
 		GAME;
@@ -20,6 +21,7 @@ public class Enums {
 				case "menu": return MENU;
 				case "menu_exit": return MENU_EXIT;
 				case "menu_settings": return MENU_SETTINGS;
+				case "menu_connect": return MENU_CONNECT;
 				case "menu_newGame": return MENU_NEWGAME;
 				case "menu_loadGame": return MENU_LOADGAME;
 				case "game": return GAME;
@@ -55,7 +57,10 @@ public class Enums {
 		GAME_SELECT_NODE,
 		
 		// Painter
-		PAINTER_CHANGE_SCENE; //(String)sceneKey
+		PAINTER_CHANGE_SCENE, //(String)sceneKey
+		
+		// Network
+		NETWORK_MESSAGE_READ; //(Message)message
 	}
 	
 	public static enum GuiPosition {
