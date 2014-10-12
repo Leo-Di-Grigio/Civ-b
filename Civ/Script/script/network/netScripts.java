@@ -4,16 +4,25 @@ import java.io.IOException;
 
 import painter.Painter;
 import tasks.Task;
+import main.Config;
 import misc.Enums;
 import misc.Log;
 import network.Message;
 import network.Network;
 import network.Message.Prefix;
 
-
-public class net_ReciveMsg extends ScriptNetwork {
-
-	public static void execute(Message msg) throws IOException {
+public class netScripts {
+	
+	public static void createConnection() throws IOException{
+		Log.debug("Execute net_CreateConnection");
+		Network.createConnection(Config.serverAddress, Config.serverPort);
+	}
+	
+	public static void disconnect() throws IOException{
+		Network.disconnect();
+	}
+	
+	public static void reciveMsg(Message msg) throws IOException {
 		
 		switch(msg.prefix){
 		
@@ -30,6 +39,15 @@ public class net_ReciveMsg extends ScriptNetwork {
 			// games list in Hub
 			case GAME_LIST:{
 				Painter.currentScene.addTask(new Task(Enums.Task.NETWORK_GAMELIST, msg.data));
+			} break;
+			
+			// join to the game
+			case GAME_CONNECTION_SUCESS:{
+				Painter.currentScene.addTask(new Task(Enums.Task.GAME_JOIN_SUCCESS, msg.data));
+			} break;
+			
+			case GAME_CONNECTION_ERR:{
+				Painter.currentScene.addTask(new Task(Enums.Task.GAME_JOIN_FAILED, msg.data));
 			} break;
 			
 			case DEBUG:{

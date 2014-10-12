@@ -8,6 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import misc.Const;
+import misc.ToolsConst;
 import misc.Log;
 
 public class Server implements Runnable {
@@ -21,11 +22,12 @@ public class Server implements Runnable {
 		new GameList();
 		
 		// test
-		GameList.add(new Game("Test1"));
-		GameList.add(new Game("Test2"));
+		GameList.add(new Game("Test1", Const.mapSizeX, Const.mapSizeY, Const.playersMax));
+		GameList.add(new Game("Test2", Const.mapSizeX, Const.mapSizeY, Const.playersMax));
 		
 		server = new ServerSocket(Const.port);
 		Log.msg(Const.title + " v" + Const.version + "." + Const.subVersion + " is runned");
+		Log.msg(ToolsConst.title + " v" + ToolsConst.version + "." + ToolsConst.subVersion);
 	}
 
 	@Override

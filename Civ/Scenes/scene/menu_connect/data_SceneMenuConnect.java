@@ -1,7 +1,6 @@
 package scene.menu_connect;
 
 import java.io.IOException;
-
 import misc.Enums;
 import network.Message;
 import scene.painter.painter_SwitchScene;
@@ -10,7 +9,7 @@ import script.gui.gui_ElementClick;
 import script.gui.gui_ElementCollision;
 import script.gui.gui_ElementSelect;
 import script.gui.gui_UpdatePosition;
-import script.network.net_ReciveMsg;
+import script.network.netScripts;
 import tasks.Task;
 
 public class data_SceneMenuConnect extends SceneData {
@@ -23,7 +22,7 @@ public class data_SceneMenuConnect extends SceneData {
 	public void execute(Task task) throws IOException {
 		switch(task.type){
 			case NETWORK_MESSAGE_READ:
-				net_ReciveMsg.execute((Message)task.data);
+				netScripts.reciveMsg((Message)task.data);
 				break;
 			
 			case MOUSE_MOVE:

@@ -17,4 +17,8 @@ public class Log {
 			System.err.println("DEBUG: " + msg);
 		}
 	}
+	
+	public static void showUsedMemory(){ // kb
+		Log.msg("" + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024));
+	}
 }

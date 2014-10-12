@@ -11,7 +11,7 @@ import misc.TableLine;
 
 public class GuiElementGamesList extends GuiElement {
 	
-	protected int selectedLine = 0;
+	protected int selectedLine = -1;
 	protected int lineSize = 20;
 	protected Vector<TableLine> gamesList;
 	
@@ -28,7 +28,12 @@ public class GuiElementGamesList extends GuiElement {
 	}
 	
 	public TableLine getSelectedLine(){
-		return gamesList.get(selectedLine);
+		if(selectedLine == -1){
+			return null;
+		}
+		else{
+			return gamesList.get(selectedLine);
+		}
 	}
 	
 	public void updateList(String data){

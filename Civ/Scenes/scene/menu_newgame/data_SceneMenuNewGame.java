@@ -1,7 +1,6 @@
 package scene.menu_newgame;
 
 import java.io.IOException;
-
 import network.Message;
 import misc.Enums;
 import scene.painter.painter_SwitchScene;
@@ -10,8 +9,7 @@ import script.gui.gui_ElementClick;
 import script.gui.gui_ElementCollision;
 import script.gui.gui_ElementSelect;
 import script.gui.gui_UpdatePosition;
-import script.network.net_CreateConnection;
-import script.network.net_ReciveMsg;
+import script.network.netScripts;
 import tasks.Task;
 
 public class data_SceneMenuNewGame extends SceneData {
@@ -24,11 +22,11 @@ public class data_SceneMenuNewGame extends SceneData {
 	public void execute(Task task) throws IOException {
 		switch(task.type){
 			case NETWORK_MESSAGE_READ:
-				net_ReciveMsg.execute((Message)task.data);
+				netScripts.reciveMsg((Message)task.data);
 				break;
 			
 			case NETWORK_GAMELIST:
-				gui_GamesList.execute(gui, (String)task.data);
+				gui_UpdateGamesList.execute(gui, (String)task.data);
 				break;
 				
 			case MOUSE_MOVE:
@@ -56,8 +54,16 @@ public class data_SceneMenuNewGame extends SceneData {
 				break;
 			
 			case SCENE_LOADING:
-				net_CreateConnection.execute();
+				netScripts.createConnection();
 				gui_UpdatePosition.execute(gui);
+				break;
+			
+			case GAME_JOIN_SUCCESS:
+				game_JoinGame.sucess((String)task.data);
+				break;
+			
+			case GAME_JOIN_FAILED:
+				game_JoinGame.failed((String)task.data);
 				break;
 				
 			default: break;

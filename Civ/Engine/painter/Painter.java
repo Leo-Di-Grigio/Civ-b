@@ -21,6 +21,7 @@ public class Painter {
 	
 	private static HashMap<Enums.Scene, Scene> scenes;
 	public static Scene currentScene;
+	public static Enums.Scene currentSceneTitle;
 	
 	public Painter() {
 		scenes = new HashMap<Enums.Scene, Scene>();
@@ -33,6 +34,7 @@ public class Painter {
 		scenes.put(Enums.Scene.MENU_EXIT, new scene_SceneMenuExit());
 		
 		currentScene = scenes.get(Enums.Scene.MENU);
+		currentSceneTitle = Enums.Scene.MENU;
 	}
 	
 	public static void addScene(Enums.Scene type, Scene scene){
@@ -50,6 +52,7 @@ public class Painter {
 	public static void switchScene(Enums.Scene scene){
 		currentScene.clearTasksPool();
 		currentScene = scenes.get(scene);
+		currentSceneTitle = scene;
 		currentScene.addTask(new Task(Enums.Task.SCENE_LOADING, null));
 	}
 	

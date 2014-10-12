@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 import network.Message.Prefix;
-import misc.Const;
+import misc.ToolsConst;
 
 public class TaskPool {
 	
@@ -57,11 +57,11 @@ public class TaskPool {
 				
 				// check version
 				case CHECK_VERSION:{
-					if(task.msg.data.compareTo(""+Const.version+"."+Const.subVersion) == 0){
+					if(task.msg.data.compareTo(""+ToolsConst.version+"."+ToolsConst.subVersion) == 0){
 						ClientPool.sendMsg(task.clientId, new Message(Prefix.CONNECTION_OK, null));
 					}
 					else{
-						ClientPool.sendMsg(task.clientId, new Message(Prefix.CONNECTION_ERR, ""+Const.version+"."+Const.subVersion));
+						ClientPool.sendMsg(task.clientId, new Message(Prefix.CONNECTION_ERR, ""+ToolsConst.version+"."+ToolsConst.subVersion));
 					}
 				} break;
 					
@@ -73,6 +73,11 @@ public class TaskPool {
 				// request game status
 				case REQUEST_GAMES_STATUS:{
 					ClientPool.sendMsg(task.clientId, new Message(Prefix.GAME_LIST, GameList.getList()));
+				} break;
+				
+				case REQUEST_GAME_CONNECTION:{
+					int gameId = Integer.valueOf(task.msg.data);
+					GameList.get(gameId).addPlayer(task.clientId);
 				} break;
 				
 				default: break;

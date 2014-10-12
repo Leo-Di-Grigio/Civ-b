@@ -31,7 +31,9 @@ public class Environment {
 		Environment.mouseY = y;
 		
 		if(Config.renderMode == Enums.RenderMode.NATIVE){
-			updateNodeSelectingNative();
+			if(Painter.currentSceneTitle == Enums.Scene.GAME){
+				updateNodeSelectingNative();
+			}
 			return;
 		}
 		
@@ -42,14 +44,22 @@ public class Environment {
 	}
 	
 	private static void updateNodeSelectingNative(){
+		
+		Image map = Recources.getImage(Const.imgMinimap);
+		if(map == null){
+			return;
+		}
+		
+		int sizeX = map.getWidth(null);
+		
 		int x = mouseX/32;
 		int y = mouseY/32;
 				
 		if(x + cameraX < 0){
-			nodeSelectedX = Const.mapSizeX + x + cameraX;
+			nodeSelectedX = sizeX + x + cameraX;
 		}
 		else{
-			nodeSelectedX = (x + cameraX)%Const.mapSizeX;
+			nodeSelectedX = (x + cameraX)%sizeX;
 		}
 		
 		nodeSelectedY = y + cameraY;

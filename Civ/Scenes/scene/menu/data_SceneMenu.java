@@ -1,7 +1,6 @@
 package scene.menu;
 
 import java.io.IOException;
-
 import misc.Enums;
 import scene.painter.painter_SwitchScene;
 import scenedata.SceneData;
@@ -9,7 +8,7 @@ import script.gui.gui_ElementClick;
 import script.gui.gui_ElementCollision;
 import script.gui.gui_ElementSelect;
 import script.gui.gui_UpdatePosition;
-import script.network.net_Disconnect;
+import script.network.netScripts;
 import tasks.Task;
 
 public class data_SceneMenu extends SceneData {
@@ -47,7 +46,7 @@ public class data_SceneMenu extends SceneData {
 				
 			case SCENE_LOADING:
 				gui_UpdatePosition.execute(gui);
-				net_Disconnect.execute();
+				netScripts.disconnect();
 				break;
 				
 			default: break;

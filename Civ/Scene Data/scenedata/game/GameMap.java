@@ -2,8 +2,7 @@ package scenedata.game;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
-import mapbuilder.GameMapGenerator;
+import builder.GameMapGenerator;
 import misc.Const;
 import misc.Environment;
 import recources.Recources;
@@ -11,6 +10,7 @@ import recources.nongl.Tile;
 
 public class GameMap {
 	
+	public long seed;
 	public int sizeX;
 	public int sizeY;
 	
@@ -18,16 +18,28 @@ public class GameMap {
 	
 	public Node [][] nodes;
 	
-	public GameMap(int sizeX, int sizeY) {
+	public GameMap(long seed, int sizeX, int sizeY) {
+		this.seed = seed;
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		
-		nodes = GameMapGenerator.buildMap(Const.mapSizeX, Const.mapSizeY);
-
+		generateMap();
 		generateMinimapImage();
 		System.gc();
 	}
 
+	private void generateMap(){
+		nodes = new Node[sizeX][sizeY];
+		byte [][] height = GameMapGenerator.buildHeightMap(seed, sizeX, sizeY);
+		
+		for(int i = 0; i < sizeX; ++i){
+			for(int j = 0; j < sizeY; ++j){
+				nodes[i][j] = new Node();
+				nodes[i][j].height = height[i][j];
+			}
+		}
+	}
+	
 	public void draw(Graphics g) {
 		int minX = Environment.cameraX;
 		int minY = Environment.cameraY;

@@ -10,7 +10,7 @@ import java.net.Socket;
 import network.Message.Prefix;
 import painter.Painter;
 import tasks.Task;
-import misc.Const;
+import misc.ToolsConst;
 import misc.Enums;
 import misc.Log;
 
@@ -44,7 +44,7 @@ public class Connection implements Runnable {
 			Log.debug("Begin client version check...");
 			// send client-server version
 			try {
-				this.send(new Message(Prefix.CHECK_VERSION, ""+Const.version+"."+Const.subVersion));
+				this.send(new Message(Prefix.CHECK_VERSION, ""+ToolsConst.version+"."+ToolsConst.subVersion));
 			}
 			catch (IOException e) {
 				e.printStackTrace();

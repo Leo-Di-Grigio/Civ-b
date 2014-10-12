@@ -3,6 +3,7 @@ package game;
 import java.io.IOException;
 import java.util.HashMap;
 
+import builder.GameMapGenerator;
 import network.ClientPool;
 import network.Message;
 import network.Message.Prefix;
@@ -18,15 +19,34 @@ public class Game {
 	
 	// gamedata
 	public String name = "";
+	public int playersMax = 0;
+	public long gameSeed = 0L;
 	public Enums.GameState state;
+	
+	// game map
+	public int sizeX = 0;
+	public int sizeY = 0;	
+	public byte [][] heightMap;
 	
 	// playres
 	public HashMap<Integer, Player> players;
+
 	
-	public Game(String name){
+	public Game(String name, int mapSizeX, int mapSizeY, int playersMax){
+		// id
 		this.id = ID++;
+		this.gameSeed = System.currentTimeMillis();
+		
+		// title data
 		this.name = name;
+		this.playersMax = playersMax;
 		this.players = new HashMap<Integer, Player>();
+		
+		// map
+		this.sizeX = mapSizeX;
+		this.sizeY = mapSizeY;
+		this.heightMap = GameMapGenerator.buildHeightMap(gameSeed, mapSizeX, mapSizeY);
+			
 		state = Enums.GameState.PREPEARING;
 	}
 	
@@ -38,7 +58,7 @@ public class Game {
 			}
 			else{
 				players.put(clientId, new Player());
-				ClientPool.sendMsg(clientId, new Message(Prefix.GAME_CONNECTION_SUCESS, ""));
+				ClientPool.sendMsg(clientId, new Message(Prefix.GAME_CONNECTION_SUCESS, "" + gameSeed + ":" + sizeX + ":" + sizeY));
 			}
 		}
 		else{

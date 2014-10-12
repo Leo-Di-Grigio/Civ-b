@@ -40,6 +40,10 @@ public class Enums {
 		SCENE_LOADING,
 		SCENE_SELECTON,
 		
+		// Game generating
+		GAME_JOIN_SUCCESS, //(String)gameMapSeed -> (Long)
+		GAME_JOIN_FAILED, //(String)error message
+		
 		// Scene Game
 		GAME_SELECT_NODE,
 		
