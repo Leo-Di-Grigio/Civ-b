@@ -7,6 +7,7 @@ import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import network.Message.Prefix;
 import painter.Painter;
 import tasks.Task;
 import misc.Const;
@@ -43,7 +44,7 @@ public class Connection implements Runnable {
 			Log.debug("Begin client version check...");
 			// send client-server version
 			try {
-				this.send(new Message("checkVersion", ""+Const.version+"."+Const.subVersion));
+				this.send(new Message(Prefix.CHECK_VERSION, ""+Const.version+"."+Const.subVersion));
 			}
 			catch (IOException e) {
 				e.printStackTrace();

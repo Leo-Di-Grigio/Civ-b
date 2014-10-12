@@ -2,10 +2,12 @@ package network;
 
 import java.io.IOException;
 
+import network.Message.Prefix;
+
 public class Network {
-
+	
 	protected static Connection connect;
-
+	
 	public static void createConnection(String ip, int port) throws IOException{
 		connect = new Connection(ip, port);
 		new Thread(connect).start();
@@ -14,7 +16,7 @@ public class Network {
 	public static void disconnect() throws IOException{
 		if(connect != null){
 			if(connect.socket != null && connect.socket.isBound()){
-				sendMsg(new Message("disconnect", null));
+				sendMsg(new Message(Prefix.DISCONNECT, null));
 			}
 		}
 	}

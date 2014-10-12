@@ -1,8 +1,11 @@
 package network;
 
 import game.GameList;
+
 import java.io.IOException;
 import java.util.LinkedList;
+
+import network.Message.Prefix;
 import misc.Const;
 
 public class TaskPool {
@@ -53,23 +56,23 @@ public class TaskPool {
 			switch(task.msg.prefix){			
 				
 				// check version
-				case "checkVersion":{
+				case CHECK_VERSION:{
 					if(task.msg.data.compareTo(""+Const.version+"."+Const.subVersion) == 0){
-						ClientPool.sendMsg(task.clientId, new Message("connection_ok", null));
+						ClientPool.sendMsg(task.clientId, new Message(Prefix.CONNECTION_OK, null));
 					}
 					else{
-						ClientPool.sendMsg(task.clientId, new Message("connection_err", ""+Const.version+"."+Const.subVersion));
+						ClientPool.sendMsg(task.clientId, new Message(Prefix.CONNECTION_ERR, ""+Const.version+"."+Const.subVersion));
 					}
 				} break;
 					
 				// request disconnect
-				case "disconnect":{
+				case DISCONNECT:{
 					ClientPool.remove(task.clientId);
 				} break;
 				
 				// request game status
-				case "requestGamesStatus":{
-					ClientPool.sendMsg(task.clientId, new Message("gamesList", GameList.getList()));
+				case REQUEST_GAMES_STATUS:{
+					ClientPool.sendMsg(task.clientId, new Message(Prefix.GAME_LIST, GameList.getList()));
 				} break;
 				
 				default: break;

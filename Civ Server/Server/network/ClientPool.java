@@ -3,6 +3,8 @@ package network;
 import java.io.IOException;
 import java.util.HashMap;
 
+import network.Message.Prefix;
+
 public class ClientPool {
 
 	protected static HashMap<Integer, Client> clients;
@@ -37,7 +39,7 @@ public class ClientPool {
 	
 	public static void sendDebugMsg(int id, String info) throws IOException{
 		if(clients.containsKey(id)){
-			clients.get(id).send(new Message("debug", info));
+			clients.get(id).send(new Message(Prefix.DEBUG, info));
 		}
 	}
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import misc.Log;
 import network.Message;
 import network.Network;
+import network.Message.Prefix;
 
 
 public class net_ReciveMsg extends ScriptNetwork {
@@ -14,24 +15,26 @@ public class net_ReciveMsg extends ScriptNetwork {
 		switch(msg.prefix){
 		
 			// normal connection
-			case "connection_ok":{
-				Log.debug("Ok, connection is valid");
-				Network.sendMsg(new Message("requestGamesStatus", null));
+			case CONNECTION_OK:{
+				Network.sendMsg(new Message(Prefix.REQUEST_GAMES_STATUS, null));
 			} break;
 			
 			// connection err, not valid game version
-			case "connection_err":{
-				Log.err("Not valid client version, need v" + msg.data);
-				Network.sendMsg(new Message("disconnect", null));
+			case CONNECTION_ERR:{
+				Network.sendMsg(new Message(Prefix.DISCONNECT, null));
 			} break;
 			
 			// games list in Hub
-			case "gamesList":{
-				Log.debug("GameList:\n" + msg.data);
+			case GAME_LIST:{
+				//
 			} break;
 			
-			case "debug":{
+			case DEBUG:{
 				Log.debug("MSG: " + msg.prefix + ":" + msg.data);
+			} break;
+			
+			default:{
+				Log.debug("MSG: " + msg.data);
 			} break;
 		}
 	}
