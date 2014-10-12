@@ -26,6 +26,10 @@ public class data_SceneMenuNewGame extends SceneData {
 			case NETWORK_MESSAGE_READ:
 				net_ReciveMsg.execute((Message)task.data);
 				break;
+			
+			case NETWORK_GAMELIST:
+				gui_GamesList.execute(gui, (String)task.data);
+				break;
 				
 			case MOUSE_MOVE:
 				gui_ElementCollision.execute(gui);

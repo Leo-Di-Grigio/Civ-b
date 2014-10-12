@@ -14,7 +14,7 @@ public class gui_SceneMenuConnect extends GUI {
 		
 		// GUI init
 		GuiElementButton button = null;
-				
+		
 		// Cancel
 		button = new GuiElementButton();
 		button.setPosition(0, 0);

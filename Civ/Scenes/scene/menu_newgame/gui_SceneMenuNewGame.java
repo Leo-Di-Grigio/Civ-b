@@ -5,6 +5,7 @@ import script.gui.button.gui_button_CreateNewGame;
 import script.gui.button.gui_button_Menu;
 import gui.GUI;
 import gui.elements.GuiElementButton;
+import gui.elements.GuiElementGamesList;
 
 public class gui_SceneMenuNewGame extends GUI {
 
@@ -14,11 +15,18 @@ public class gui_SceneMenuNewGame extends GUI {
 		// GUI init
 		GuiElementButton button = null;
 		
+		// Games List
+		GuiElementGamesList gameslist = new GuiElementGamesList();
+		gameslist.setPositionType(Enums.GuiPosition.CENTER);
+		gameslist.setVisible(true);
+		gameslist.setScript(new gui_GameList());
+		this.add("gameslist", gameslist);
+		
 		// Cancel
 		button = new GuiElementButton();
-		button.setPosition(0, 0);
+		button.setPosition(0, -120);
 		button.setSize(128, 32);
-		button.setPositionType(Enums.GuiPosition.CENTER);
+		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
 		button.setTexture("button_menu");
 		button.setTextureSelected("button_menu_select");
 		button.setText("Start new game");

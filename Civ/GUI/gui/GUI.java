@@ -76,7 +76,7 @@ public class GUI implements Drawble {
 			GuiElement element = gui.get(selectedElementTitlte);
 			
 			if(element != null && element.script != null){
-				element.script.execute(new Task(Enums.Task.MOUSE_RELEASED, element));
+				element.script.execute(new Task(Enums.Task.MOUSE_RELEASED, element, this));
 			}
 			return true;
 		}

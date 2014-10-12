@@ -17,7 +17,14 @@ public class Message implements Serializable {
 		
 		// requests
 		REQUEST_GAMES_STATUS,
+		REQUEST_GAME_CONNECTION,
+		
+		// data
 		GAME_LIST,
+		
+		// game connection
+		GAME_CONNECTION_ERR,
+		GAME_CONNECTION_SUCESS,
 		
 		// other
 		DEBUG;

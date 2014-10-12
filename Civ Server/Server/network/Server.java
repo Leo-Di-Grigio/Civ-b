@@ -23,7 +23,6 @@ public class Server implements Runnable {
 		// test
 		GameList.add(new Game("Test1"));
 		GameList.add(new Game("Test2"));
-		Log.debug(GameList.getList());
 		
 		server = new ServerSocket(Const.port);
 		Log.msg(Const.title + " v" + Const.version + "." + Const.subVersion + " is runned");

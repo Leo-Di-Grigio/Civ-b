@@ -2,6 +2,9 @@ package script.network;
 
 import java.io.IOException;
 
+import painter.Painter;
+import tasks.Task;
+import misc.Enums;
 import misc.Log;
 import network.Message;
 import network.Network;
@@ -26,7 +29,7 @@ public class net_ReciveMsg extends ScriptNetwork {
 			
 			// games list in Hub
 			case GAME_LIST:{
-				//
+				Painter.currentScene.addTask(new Task(Enums.Task.NETWORK_GAMELIST, msg.data));
 			} break;
 			
 			case DEBUG:{

@@ -47,7 +47,8 @@ public class Enums {
 		PAINTER_CHANGE_SCENE, //(String)sceneKey
 		
 		// Network
-		NETWORK_MESSAGE_READ; //(Message)message
+		NETWORK_MESSAGE_READ,
+		NETWORK_GAMELIST; //(Message)message
 	}
 	
 	public static enum GuiPosition {

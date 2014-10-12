@@ -10,6 +10,7 @@ public class Task {
 	
 	public Enums.Task type;
 	public Object data;
+	public Object dataPost;
 	
 	public Task(Enums.Task type, Object data) {
 		this.id = ID++;
@@ -19,5 +20,10 @@ public class Task {
 		if(ID % Const.tasksForGC == 0){
 			System.gc();
 		}
+	}
+
+	public Task(Enums.Task type, Object data, Object dataPost) {
+		this(type, data);
+		this.dataPost = dataPost;
 	}
 }
