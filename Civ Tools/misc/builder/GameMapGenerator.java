@@ -27,7 +27,7 @@ public class GameMapGenerator {
 		}
 		
 		// islands
-		int count = Tools.rand(1, 5, rand);
+		int count = Tools.rand(20, 30, rand);
 		HashMap<Point, Island> points = new HashMap<Point, Island>();
 		
 		for(int i = 0; i < count; ++i){
@@ -35,8 +35,8 @@ public class GameMapGenerator {
 					Tools.rand(0, sizeX - 1, rand), 
 					Tools.rand(0, sizeY - 1, rand)), 
 					
-					new Island(Tools.rand(10, 25, rand), 
-							   Tools.rand(10, 25, rand),
+					new Island(Tools.rand(7, 14, rand), 
+							   Tools.rand(7, 14, rand),
 							   rand)
 			);
 		}

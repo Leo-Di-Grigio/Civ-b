@@ -2,6 +2,7 @@ package scenedata.game;
 
 import java.util.Vector;
 
+import misc.Enums;
 import units.Unit;
 
 public class Node {
@@ -11,6 +12,14 @@ public class Node {
 	
 	// Units data
 	private Vector<Unit> units;
+	
+	// Terrain data
+	public Enums.Terrain terrainType;
+	public int terrainX; //[0,1,2];
+	public int terrainY; //[0,1,2];
+	
+	
+	public int border;
 	
 	public Node() {
 		units = new Vector<Unit>();

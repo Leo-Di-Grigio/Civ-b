@@ -2,12 +2,14 @@ package engine;
 
 import java.awt.Dimension;
 import java.io.IOException;
+
 import javax.swing.JFrame;
+
 import recources.Recources;
 import render.Render;
 import script.Scripts;
 import main.Config;
-import misc.ToolsConst;
+import misc.Const;
 import misc.Tools;
 
 public class Engine {
@@ -21,7 +23,7 @@ public class Engine {
 	
 	private void initFrame(){
 		frame = new JFrame();
-		frame.setTitle(ToolsConst.title + " v" + ToolsConst.version + "." + ToolsConst.subVersion 
+		frame.setTitle(Const.title + " v" + Const.version + "." + Const.subVersion 
 				+ " mode: " + Config.renderMode);
 		
 		Dimension dimension = new Dimension(Config.frameWidth, Config.frameHeight);

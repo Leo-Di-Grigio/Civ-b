@@ -5,7 +5,7 @@ public class Const {
 	// version
 	public static final String title = "Civ";
 	public static final int version = 0;
-	public static final int subVersion = 54;
+	public static final int subVersion = 55;
 
 	// assets
 	public static final String assetsNative = "recources\\assets\\native\\";
@@ -17,4 +17,9 @@ public class Const {
 	// constant image keys
 	public static final String imgMinimap = "minimap_height";
 	public static final String imgMinimapHeight = "minimap_height";
+	
+	// terrain atlas keys
+	public static final String imgTerrainWater = "terrain_water";
+	public static final String imgTerrainWaterBorder = "terrain_water_border";
+	public static final String imgTerrainLand = "terrain_land";
 }

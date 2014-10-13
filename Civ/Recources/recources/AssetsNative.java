@@ -29,7 +29,7 @@ public class AssetsNative extends Assets {
 		addImage("null_selected", Tile.getTile(Const.assetsNative+"gui\\null_selected.png"));
 		
 		// menu
-		addImage("menu_background", Tile.getTile("recources\\assets\\menu.jpg"));
+		addImage("menu_background", Tile.getTile("recources\\assets\\menu.png"));
 		
 		// buttons
 		addImage("button", Tile.getTile(Const.assetsNative+"gui\\button.png"));
@@ -83,10 +83,17 @@ public class AssetsNative extends Assets {
 		setCursor("cursor");
 	}
 
+	private void loadTerrain() {
+		addImage(Const.imgTerrainWater, Tile.getTile(Const.assetsNative + "terrain\\water.png"));
+		addImage(Const.imgTerrainWaterBorder, Tile.getTile(Const.assetsNative + "terrain\\waterBorder.png"));
+		addImage(Const.imgTerrainLand, Tile.getTile(Const.assetsNative + "terrain\\land.png"));
+	}
+	
 	@Override
 	public void init() {		
 		loadGui();
 		loadGreyTiles();
+		loadTerrain();
 		loadCursors();
 		
 		System.gc();

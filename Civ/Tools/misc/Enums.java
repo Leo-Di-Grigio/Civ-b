@@ -77,4 +77,14 @@ public class Enums {
 		DOWN_LEFT,
 		DOWN_RIGHT;
 	}
+	
+	public static enum Terrain {
+		WATER,
+		LAND;
+	}
+	
+	public static enum MapDrawMode {
+		HEIGHT,
+		TERRAIN;
+	}
 }
