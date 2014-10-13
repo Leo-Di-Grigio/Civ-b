@@ -13,6 +13,12 @@ import recources.nongl.Tile;
 
 public class GameMap {
 	
+	// sizes
+	private static final int nodeX = 32;
+	private static final int nodeY = 32;
+	private static final int atlasX = 32;
+	private static final int atlasY = 32;
+	
 	// public params
 	public long seed;
 	public int sizeX;
@@ -70,16 +76,12 @@ public class GameMap {
 				else{
 					nodes[i][j].terrainType = Enums.Terrain.LAND;
 				}
-				
-				// terrain image 
-				nodes[i][j].terrainX = 1;
-				nodes[i][j].terrainY = 1;
 			}
 		}
 		
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){				
-				checkNode(i, j);
+				checkNodes(i, j);
 			}
 		}
 	}
@@ -97,7 +99,18 @@ public class GameMap {
 		return i;
 	}
 	
-	private void checkNode(int i, int j){
+	private boolean checkNode(Node self, Node node){
+		//nodes[getX(i-1)][j-1].terrainType != nodes[i][j].terrainType
+		
+		if((self.terrainType != node.terrainType) || (node.height - self.height > 1)){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	private void checkNodes(int i, int j){
 		
 		int data = 0;
 		int counter = 0;
@@ -112,32 +125,25 @@ public class GameMap {
 
 			switch(counter){
 				case 0:
-					if(j - 1 >= 0 && 
-					   nodes[getX(i-1)][j-1].terrainType != nodes[i][j].terrainType)
-					{
+					if(j - 1 >= 0 && checkNode(nodes[getX(i-1)][j-1], nodes[i][j])) {
 						data += 0b1;
 					}
 					break;
 					
 				case 1:
-					if(j - 1 >= 0 &&
-					   nodes[i][j-1].terrainType != nodes[i][j].terrainType)
-					{
+					if(j - 1 >= 0 && checkNode(nodes[i][j-1], nodes[i][j])) {
 						data += 0b10;
 					}
 					break;
 					
 				case 2:
-					if(j - 1 >= 0 && 
-					   nodes[getX(i+1)][j-1].terrainType != nodes[i][j].terrainType)
-					{
+					if(j - 1 >= 0 && checkNode(nodes[getX(i+1)][j-1], nodes[i][j])) {
 						data += 0b100;
 					}
 					break;
 					
 				case 3:
-					if(nodes[getX(i-1)][j].terrainType != nodes[i][j].terrainType)
-					{
+					if(checkNode(nodes[getX(i-1)][j], nodes[i][j])) {
 						data += 0b1000;
 					}
 					break;
@@ -147,31 +153,24 @@ public class GameMap {
 					break;
 					
 				case 5:
-					if(nodes[getX(i+1)][j].terrainType != nodes[i][j].terrainType)
-					{
+					if(checkNode(nodes[getX(i+1)][j], nodes[i][j])) {
 						data += 0b10000;
 					}
 					break;
 					
 				case 6:
-					if(j + 1 < sizeY &&
-					   nodes[getX(i-1)][j+1].terrainType != nodes[i][j].terrainType)
-					{
+					if(j + 1 < sizeY && checkNode(nodes[getX(i-1)][j+1], nodes[i][j])) {
 						data += 0b100000;
 					}
 					break;
 					
 				case 7:
-					if(j + 1 < sizeY &&
-					   nodes[i][j+1].terrainType != nodes[i][j].terrainType)
-					{
+					if(j + 1 < sizeY && checkNode(nodes[i][j+1], nodes[i][j])){
 						data += 0b1000000;
 					}
 					break;
 				case 8:
-					if(j + 1 < sizeY &&
-					   nodes[getX(i+1)][j+1].terrainType != nodes[i][j].terrainType)
-					{
+					if(j + 1 < sizeY && checkNode(nodes[getX(i+1)][j+1], nodes[i][j])){
 						data += 0b10000000;
 					}
 					break;
@@ -182,18 +181,14 @@ public class GameMap {
 		}
 		
 		nodes[i][j].border = data;
-		
-		if(data != 0){
-			System.out.println("x " + i + " y " + j + " data " + Integer.toBinaryString(data));
-		}
 	}
 	
 	public void draw(Graphics g) {
 		int minX = Environment.cameraX;
 		int minY = Environment.cameraY;
 		
-		int w = Environment.frameSizeX/32;
-		int h = Environment.frameSizeY/32;
+		int w = Environment.frameSizeX/nodeX;
+		int h = Environment.frameSizeY/nodeY;
 		
 		int maxY = minY + h + 1;
 		
@@ -240,33 +235,28 @@ public class GameMap {
 			// draw Terrain
 			if(nodes[i][j].terrainType == Enums.Terrain.WATER){
 				g.drawImage(imgTerrainWater, x*nodeX, y*nodeY, null);
-				
-				if(nodes[i][j].border != 0){
-					// draw border
-					draw(g, imgTerrainWaterBorder, i, j, x, y);
-				}
 			}
 			else{
-				g.drawImage(imgTerrainLand, x*nodeX, y*nodeY, null);
+				drawNode(g, imgTerrainLand, i, j, x, y);
+			}
+			
+			// draw border
+			if(nodes[i][j].border != 0){
+				drawBorder(g, imgTerrainWaterBorder, i, j, x, y);
 			}
 		}
 	}
 	
-	private static final int nodeX = 32;
-	private static final int nodeY = 32;
-	private static final int atlasX = 32;
-	private static final int atlasY = 32;
-	
-	private void draw(Graphics g, Image atlas, int i, int j, int x, int y){
-		
+	private void drawNode(Graphics g, Image atlas, int i, int j, int x, int y){
+		drawFromAtlas(g, atlas, nodes[i][j].height, x, y);
+	}
+
+	private void drawBorder(Graphics g, Image atlas, int i, int j, int x, int y){
 		int data = nodes[i][j].border;
-		
-		//System.out.println("x: " + i + " y: " + j + " b: " + Integer.toBinaryString(data));
 		
 		for(int bit = 1, counter = 0; counter < 8; ++counter, bit = bit << 1){
 			if((data & bit) > 0){
 				drawFromAtlas(g, imgTerrainWaterBorder, counter, x, y);
-				//System.out.println("counter: " + counter + " bit " + bit);
 			}
 		}
 	}
@@ -289,23 +279,30 @@ public class GameMap {
 	
 	private void generateMinimapImage(){
 		BufferedImage img = new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_INT_RGB);
+		BufferedImage imgHeight = new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_INT_RGB);
+		
 		int rgb = 0;
+		int rgbHeight = 0;
 		
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){
 
 				if(nodes[i][j].height == 0){
 					rgb = 0x0000FF;
+					rgbHeight = 0x0000FF;
 				}
 				else{
-					rgb = ((int)nodes[i][j].height*16 << 16)  + ((int)nodes[i][j].height*16 << 8) + (int)nodes[i][j].height*16;
+					rgb = 0x2CA757; // green
+					rgbHeight = ((int)nodes[i][j].height*16 << 16)  + ((int)nodes[i][j].height*16 << 8) + (int)nodes[i][j].height*16;
 				}
 			
 				img.setRGB(i, j, rgb);
+				imgHeight.setRGB(i, j, rgbHeight);
 			}
 		}
 		
 		Recources.addImage(Const.imgMinimap, new Tile(img));
+		Recources.addImage(Const.imgMinimapHeight, new Tile(imgHeight));
 	}
 
 	public void drawModeSwitch() {

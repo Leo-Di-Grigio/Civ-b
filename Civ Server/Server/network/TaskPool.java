@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 import network.Message.Prefix;
+import misc.Const;
 import misc.ToolsConst;
 
 public class TaskPool {
@@ -61,7 +62,7 @@ public class TaskPool {
 						ClientPool.sendMsg(task.clientId, new Message(Prefix.CONNECTION_OK, null));
 					}
 					else{
-						ClientPool.sendMsg(task.clientId, new Message(Prefix.CONNECTION_ERR, ""+ToolsConst.version+"."+ToolsConst.subVersion));
+						ClientPool.sendMsg(task.clientId, new Message(Prefix.CONNECTION_ERR, ""+Const.version+"."+Const.subVersion));
 					}
 				} break;
 					

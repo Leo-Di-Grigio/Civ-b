@@ -100,8 +100,12 @@ class Island {
 	public void gen(Random rand){
 		for(int i = 0; i < sizeX; i++){
 			for(int j = 0; j < sizeY; j++){
-				map[i][j] = (byte)Tools.rand(1, 15, rand);
+				map[i][j] = 1;
 			}
+		}
+		
+		for(int i = 0; i < 30; ++i){
+			map[Tools.rand(0, sizeX - 1, rand)][Tools.rand(0, sizeY - 1, rand)] = (byte)Tools.rand(1, 5, rand);
 		}
 	}
 }

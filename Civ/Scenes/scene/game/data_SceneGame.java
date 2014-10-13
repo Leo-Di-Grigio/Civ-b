@@ -46,7 +46,7 @@ public class data_SceneGame extends SceneData {
 				break;
 				
 			case KEYBOARD_RELEASED:
-				game_KeyReleased.execute(gamedata, (String)task.data);
+				game_KeyReleased.execute(gamedata, gui, (String)task.data);
 				break;
 		
 			case GUI_UPDATE_POSITION:

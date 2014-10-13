@@ -15,10 +15,6 @@ public class Node {
 	
 	// Terrain data
 	public Enums.Terrain terrainType;
-	public int terrainX; //[0,1,2];
-	public int terrainY; //[0,1,2];
-	
-	
 	public int border;
 	
 	public Node() {
