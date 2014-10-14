@@ -6,8 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.TreeSet;
-
 import javax.imageio.ImageIO;
 
 import misc.Tools;
@@ -48,8 +46,9 @@ public class GameMapGenerator {
 			
 			for(int i = 0; i + x < sizeX && i < points.get(point).sizeX; ++i){
 				for(int j = 0; j + y < sizeY && j < points.get(point).sizeY; ++j){
-					if(points.get(point).map[i][j]!=0)
-					nodes[i + x][j + y] = points.get(point).map[i][j];
+					if(points.get(point).map[i][j] != 0){
+						nodes[i + x][j + y] = points.get(point).map[i][j];
+					}
 				}
 			}
 		}
@@ -100,10 +99,16 @@ class Island {
 	}
 	
 	public void gen(Random rand){
-		double[][]fractalMap=Fractals.Generate(sizeX, sizeY, rand.nextInt(5));
-		for(int i=0;i<sizeX;i++){
-			for(int t=0;t<sizeY;t++){
-				map[i][t]=(byte) (fractalMap[i][t]<0.3?0:(fractalMap[i][t]-0.3)*15/0.7);
+		double[][] fractalMap = Fractals.Generate(sizeX, sizeY, rand.nextInt(5));
+		
+		for(int i = 0; i < sizeX; i++){
+			for(int t = 0; t < sizeY; t++){
+				if(fractalMap[i][t] < 0.3){
+					map[i][t] = 0;
+				}
+				else{
+					map[i][t] = (byte)((fractalMap[i][t] - 0.3) * 15 / 0.7);
+				}
 			}
 		}
 	}
@@ -112,119 +117,26 @@ class Fractals
 {
     public static double GRoughness;
     public static double GBigSize;
-    static final Random _rnd=new Random();
+    static final Random _rnd = new Random();
     static double[][] map;
-    static boolean flag=false;
+    static boolean flag = false;
+    
     public static double[][] Generate(int iWidth, int iHeight, double iRoughness)
     {
         map = new double[iWidth + 1][iHeight + 1];
 
         //Assign the four corners of the intial grid random color values
         //These will end up being the colors of the four corners		
-        double c1 = _rnd.nextDouble()*0.3;
-        double c2 = _rnd.nextDouble()*0.3;
-        double c3 = _rnd.nextDouble()*0.3;
-        double c4 = _rnd.nextDouble()*0.3;
+        double c1 = _rnd.nextDouble() * 0.3;
+        double c2 = _rnd.nextDouble() * 0.3;
+        double c3 = _rnd.nextDouble() * 0.3;
+        double c4 = _rnd.nextDouble() * 0.3;
         GRoughness = iRoughness;
         GBigSize = iWidth + iHeight;
         DivideGrid(map, 0, 0, iWidth, iHeight, c1, c2, c3, c4);
         return map;
     }
-    public static double[][] Generate(int iWidth, int iHeight, double iRoughness, double[][] points){
-    	if(points[0].length!=3)return null;
-    	GRoughness = iRoughness;
-        GBigSize = iWidth + iHeight;
-    	map=new double[iWidth+1][iHeight+1];
-    	for(int i=0;i<map.length;i++){
-    		for(int t=0;t<map[i].length;t++){
-    			map[i][t]=-1;
-    		}
-    	}
-    	TreeSet<Integer> X=new TreeSet<>();
-    	TreeSet<Integer> Y=new TreeSet<>();
-    	X.add(0);
-    	Y.add(0);
-    	X.add(iWidth);
-    	Y.add(iHeight);
-    	for(int i=0;i<points.length;i++){
-    		X.add((int)points[i][0]);
-    		Y.add((int)points[i][1]);
-    		map[(int) points[i][0]][(int) points[i][1]]=points[i][2];
-    	}
-    	for(int i0=0;i0<iWidth+1;i0+=iWidth){
-			for(int i1=0;i1<iHeight+1;i1+=iHeight){
-				if(map[i0][i1]==-1)map[i0][i1]=0;
-			}
-		}
-    	Integer[]x=X.toArray(new Integer[0]);
-    	Integer[]y=Y.toArray(new Integer[0]);
-    	for(int i=0;i<x.length-1;i++){
-    		for(int t=0;t<y.length-1;t++){
-    			int x1=x[i];
-    			int x2=x[i+1];
-    			int y1=y[t];
-    			int y2=y[t+1];
-    			CheckMap(x1,y1,x2,y2);
-    			double c1=map[x1][y1];
-    			double c2=map[x2][y1];
-    			double c3=map[x2][y2];
-    			double c4=map[x1][y2];
-    			DivideGrid(map, x1, y1, x2-x1+1, y2-y1+1, c1, c2, c3, c4);
-    		}
-    	}
-    	for(double[]i:map){
-    		for(double t:i){
-    			t*=t;
-    		}
-    	}
-    	return map;
-    }
-    protected static void CheckMap(int prevX, int prevY, int x, int y) {
-    	
-		if(map[prevX][prevY]==-1){
-			if(prevX==0)
-				map[0][prevY]=map[0][0]+(map[0][map[0].length-1]-map[0][0])*prevY/map[0].length;
-			
-			if(prevY==0)
-				map[prevX][0]=map[0][0]+(map[map.length-1][0]-map[0][0])*prevX/map.length;
-			
-			if(prevX!=0&&prevY!=0)
-				map[prevX][prevY]=(map[0][prevY]+map[prevX][0])/2;
-		}
-		
-		if(map[x][y]==-1){
-			if(x==map.length-1)
-				map[map.length-1][y]=map[map.length-1][0]+(map[map.length-1][map[map.length-1].length-1]-map[map.length-1][0])*y/map[map.length-1].length;
-			
-			if(y==map[x].length-1)
-				map[x][map[x].length-1]=map[0][map[x].length-1]+(map[map.length-1][map[x].length-1]-map[0][map[x].length-1])*x/map.length;
-			
-			if(x!=map.length-1&&y!=map[x].length-1)
-				map[x][y]=(map[map.length-1][y]+map[x][map[x].length-1])/2;
-		}
-		
-		if(map[prevX][y]==-1){
-			if(prevX==0)
-				map[0][y]=map[0][0]+(map[0][map[0].length-1]-map[0][0])*y/map[0].length;
-			
-			if(y==map[prevX].length-1)
-				map[prevX][map[prevX].length-1]=map[0][map[prevX].length-1]+(map[map.length-1][map[prevX].length-1]-map[0][map[prevX].length-1])*prevX/map.length;
-			
-			if(prevX!=0&&y!=map[prevX].length-1)
-				map[prevX][y]=(map[0][y]+map[prevX][map[prevX].length-1])/2;
-		}
-		
-		if(map[x][prevY]==-1){
-			if(x==map.length-1)
-				map[map.length-1][prevY]=map[map.length-1][0]+(map[map.length-1][map[map.length-1].length-1]-map[map.length-1][0])*prevY/map[map.length-1].length;
-            
-            if(prevY==0)
-				map[x][0]=map[0][0]+(map[map.length-1][0]-map[0][0])*x/map.length;
-          	
-            if(x!=map.length-1&&prevY!=0)
-            	map[x][prevY]=(map[map.length-1][prevY]+map[x][0])/2;
-		}
-	}
+    
 	public static void DivideGrid(double[][] points, double x, double y, double width, double height, double c1, double c2, double c3, double c4)
     {
         int newWidth = (int) Math.floor(width / 2);
