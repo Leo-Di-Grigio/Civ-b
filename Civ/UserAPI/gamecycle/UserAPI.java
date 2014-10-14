@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import script.Scripts;
+import script.ScriptsAPI;
 
 public class UserAPI {
 	
@@ -38,15 +38,15 @@ public class UserAPI {
 	public static void reciveEvent(UserAPI.Event type, KeyEvent e){
 		switch(type){
 			case KEY_PRESSED:
-				Scripts.keyPressed(e);
+				ScriptsAPI.keyPressed(e);
 				break;
 				
 			case KEY_RELEASED:
-				Scripts.keyReleased(e);
+				ScriptsAPI.keyReleased(e);
 				break;
 				
 			case KEY_TYPED:
-				Scripts.keyTyped(e);
+				ScriptsAPI.keyTyped(e);
 				break;
 				
 			default: break;
@@ -57,31 +57,31 @@ public class UserAPI {
 		
 		switch(type){
 			case MOUSE_MOVED:
-				Scripts.mouseMoved(e.getX(), e.getY());
+				ScriptsAPI.mouseMoved(e.getX(), e.getY());
 				break;
 				
 			case MOUSE_DRAGGED:
-				Scripts.mouseDragged(e.getX(), e.getY());
+				ScriptsAPI.mouseDragged(e.getX(), e.getY());
 				break;
 			
 			case MOUSE_EXITED:
-				Scripts.mouseExited();
+				ScriptsAPI.mouseExited();
 				break;
 			
 			case MOUSE_ENTERED:
-				Scripts.mouseEntered();
+				ScriptsAPI.mouseEntered();
 				break;
 			
 			case MOUSE_PRESSED:
-				Scripts.mousePressed(e.getX(), e.getY());
+				ScriptsAPI.mousePressed(e.getX(), e.getY());
 				break;
 				
 			case MOUSE_CLICKED:
-				Scripts.mouseClicked(e.getX(), e.getY());
+				ScriptsAPI.mouseClicked(e.getX(), e.getY());
 				break;
 				
 			case MOUSE_RELEASED:
-				Scripts.mouseReleased(e.getX(), e.getY());
+				ScriptsAPI.mouseReleased(e.getX(), e.getY());
 				break;
 				
 			default: break;
@@ -90,26 +90,26 @@ public class UserAPI {
 	
 	public static void reciveEvent(UserAPI.Event type, MouseWheelEvent e){
 		if(type == UserAPI.Event.WHEEL_MOVED){
-			Scripts.mouseWheelMoved(e);
+			ScriptsAPI.mouseWheelMoved(e);
 		}
 	}
 	
 	public static void reciveEvent(UserAPI.Event type, ComponentEvent e){
 		switch(type){
 			case COMPONENT_HIDDEN:
-				Scripts.canvasHidden();
+				ScriptsAPI.canvasHidden();
 				break;	
 				
 			case COMPONENT_SHOWN:
-				Scripts.canvasShown();
+				ScriptsAPI.canvasShown();
 				break;
 				
 			case COMPONENT_MOVED:
-				Scripts.canvasMoved();
+				ScriptsAPI.canvasMoved();
 				break;
 				
 			case COMPONENT_RESIZED:
-				Scripts.canvasResized();
+				ScriptsAPI.canvasResized();
 				break;
 				
 			default: break;

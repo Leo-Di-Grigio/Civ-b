@@ -58,7 +58,7 @@ public class Connection implements Runnable {
 					if(obj != null){
 						Message msg = (Message)obj;
 						Log.debug("NET_MSG_RECIVE:" + msg.prefix+ ":" + msg.data);
-						Painter.currentScene.addTask(new Task(Enums.Task.NETWORK_MESSAGE_READ, msg));
+						Painter.addTask(new Task(Enums.Task.NETWORK_MESSAGE_READ, msg));
 					}
         		}
 			}

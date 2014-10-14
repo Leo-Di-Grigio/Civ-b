@@ -9,11 +9,12 @@ public class Enums {
 	
 	public static enum Scene {
 		MENU,
-		MENU_EXIT,
-		MENU_SETTINGS,
-		MENU_CONNECT,
-		MENU_NEWGAME,
-		MENU_LOADGAME,
+		EXIT,
+		SETTINGS,
+		LOAD,
+		CONNECT,
+		PREPEARE,
+		CHOOSE_GAME,
 		GAME;
 	}
 	

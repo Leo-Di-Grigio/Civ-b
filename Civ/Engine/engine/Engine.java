@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 import recources.Recources;
 import render.Render;
-import script.Scripts;
+import script.ScriptsAPI;
 import main.Config;
 import misc.Const;
 import misc.Tools;
@@ -36,7 +36,7 @@ public class Engine {
 	
 	private void initEngine() throws IOException{
 		new Tools();
-		new Scripts();
+		new ScriptsAPI();
 		new Recources(Config.renderMode);
 		
 		new Thread(new Render(Config.renderMode, frame)).start();

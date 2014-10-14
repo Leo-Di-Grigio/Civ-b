@@ -76,7 +76,7 @@ public class Environment {
 		Environment.frameSizeX = width;
 		Environment.frameSizeY = height;
 		
-		Painter.currentScene.addTask(new Task(Enums.Task.GUI_UPDATE_POSITION, null));
+		Painter.addTask(new Task(Enums.Task.GUI_UPDATE_POSITION, null));
 	}
 	
 	public static void moveCamera(Enums.Direct direct){

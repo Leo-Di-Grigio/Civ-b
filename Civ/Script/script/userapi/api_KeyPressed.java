@@ -10,6 +10,6 @@ public class api_KeyPressed extends ScriptApi {
 
 	public static void execute(KeyEvent e) {
 		String data = KeyEvent.getKeyText(e.getKeyCode());
-		Painter.currentScene.addTask(new Task(Enums.Task.KEYBOARD_PRESSED, data));
+		Painter.addTask(new Task(Enums.Task.KEYBOARD_PRESSED, data));
 	}
 }

@@ -29,7 +29,7 @@ public class AssetsNative extends Assets {
 		addImage("null_selected", Tile.getTile(Const.assetsNative+"gui\\null_selected.png"));
 		
 		// menu
-		addImage("menu_background", Tile.getTile("recources\\assets\\menu.png"));
+		addImage(Const.imgMenu, Tile.getTile("recources\\assets\\menu.png"));
 		
 		// buttons
 		addImage("button", Tile.getTile(Const.assetsNative+"gui\\button.png"));

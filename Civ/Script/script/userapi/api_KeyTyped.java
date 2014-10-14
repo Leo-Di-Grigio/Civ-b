@@ -10,6 +10,6 @@ public class api_KeyTyped extends ScriptApi {
 
 	public static void execute(KeyEvent e) {
 		String data = KeyEvent.getKeyText(e.getKeyCode());
-		Painter.currentScene.addTask(new Task(Enums.Task.KEYBOARD_TYPED, data));
+		Painter.addTask(new Task(Enums.Task.KEYBOARD_TYPED, data));
 	}
 }

@@ -14,7 +14,7 @@ public class gui_ElementClick extends ScriptGui {
 		Log.debug("Åxecute gui_ElementClick");
 		
 		if(!gui.click()){
-			Painter.currentScene.addTask(new Task(Enums.Task.SCENE_SELECTON, null));
+			Painter.addTask(new Task(Enums.Task.SCENE_SELECTON, null));
 		}
 	}
 }

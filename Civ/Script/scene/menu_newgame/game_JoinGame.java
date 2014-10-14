@@ -5,7 +5,7 @@ import java.io.IOException;
 import painter.Painter;
 import misc.Enums;
 import misc.Log;
-import scene.game.scene_SceneGame;
+import scene.game.scene_Game;
 import scenedata.game.GameData;
 import scenedata.game.GameMap;
 import script.Script;
@@ -27,11 +27,11 @@ public class game_JoinGame extends Script {
 		
 		// prepare GAME scene
 		GameData gamedata = new GameData(map);
-		scene_SceneGame scene = new scene_SceneGame(gamedata);
+		scene_Game scene = new scene_Game(gamedata);
 		
 		// add scene in to Painter
 		Painter.addScene(Enums.Scene.GAME, scene);
-		Painter.currentScene.addTask(new Task(Enums.Task.PAINTER_CHANGE_SCENE, Enums.Scene.GAME));
+		Painter.addTask(new Task(Enums.Task.PAINTER_CHANGE_SCENE, Enums.Scene.PREPEARE));
 	}
 
 	// update 

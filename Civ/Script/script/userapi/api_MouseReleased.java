@@ -7,6 +7,6 @@ import tasks.Task;
 public class api_MouseReleased extends ScriptApi {
 
 	public static void execute(int x, int y) {
-		Painter.currentScene.addTask(new Task(Enums.Task.MOUSE_RELEASED, ""+x+"."+y));
+		Painter.addTask(new Task(Enums.Task.MOUSE_RELEASED, ""+x+"."+y));
 	}
 }

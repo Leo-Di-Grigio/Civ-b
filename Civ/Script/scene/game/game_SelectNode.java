@@ -29,10 +29,10 @@ public class game_SelectNode extends Script {
 
 		if(nodeY >= 0 && nodeY < mapX){
 			Node node = gamedata.map.nodes[nodeX][nodeY];
-			Painter.currentScene.addTask(new Task(Enums.Task.GAME_SELECT_NODE, node));
+			Painter.addTask(new Task(Enums.Task.GAME_SELECT_NODE, node));
 		}
 		else{
-			Painter.currentScene.addTask(new Task(Enums.Task.GAME_SELECT_NODE, null));
+			Painter.addTask(new Task(Enums.Task.GAME_SELECT_NODE, null));
 		}
 	}
 

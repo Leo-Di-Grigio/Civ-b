@@ -9,12 +9,13 @@ import javax.media.opengl.GL3;
 import misc.Enums;
 import misc.Log;
 import scene.Scene;
-import scene.menu.scene_SceneMenu;
-import scene.menu_connect.scene_SceneMenuConnect;
-import scene.menu_exit.scene_SceneMenuExit;
-import scene.menu_loadgame.scene_SceneMenuLoadGame;
-import scene.menu_newgame.scene_SceneMenuNewGame;
-import scene.menu_settings.scene_SceneMenuSettings;
+import scene.choosegame.scene_ChooseGame;
+import scene.connect.scene_Connect;
+import scene.exit.scene_Exit;
+import scene.load.scene_Load;
+import scene.menu.scene_Menu;
+import scene.prepare.scene_Prepare;
+import scene.settings.scene_Settings;
 import tasks.Task;
 
 public class Painter {
@@ -26,15 +27,20 @@ public class Painter {
 	public Painter() {
 		scenes = new HashMap<Enums.Scene, Scene>();
 		
-		scenes.put(Enums.Scene.MENU, new scene_SceneMenu());
-		scenes.put(Enums.Scene.MENU_NEWGAME, new scene_SceneMenuNewGame());
-		scenes.put(Enums.Scene.MENU_LOADGAME, new scene_SceneMenuLoadGame());
-		scenes.put(Enums.Scene.MENU_SETTINGS, new scene_SceneMenuSettings());
-		scenes.put(Enums.Scene.MENU_CONNECT, new scene_SceneMenuConnect());
-		scenes.put(Enums.Scene.MENU_EXIT, new scene_SceneMenuExit());
+		scenes.put(Enums.Scene.MENU, new scene_Menu());
+		scenes.put(Enums.Scene.CHOOSE_GAME, new scene_ChooseGame());
+		scenes.put(Enums.Scene.LOAD, new scene_Load());
+		scenes.put(Enums.Scene.SETTINGS, new scene_Settings());
+		scenes.put(Enums.Scene.CONNECT, new scene_Connect());
+		scenes.put(Enums.Scene.EXIT, new scene_Exit());
+		scenes.put(Enums.Scene.PREPEARE, new scene_Prepare());
 		
 		currentScene = scenes.get(Enums.Scene.MENU);
 		currentSceneTitle = Enums.Scene.MENU;
+	}
+	
+	public static void addTask(Task task){
+		currentScene.addTask(task);
 	}
 	
 	public static void addScene(Enums.Scene type, Scene scene){
