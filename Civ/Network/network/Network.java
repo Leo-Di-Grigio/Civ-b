@@ -2,7 +2,8 @@ package network;
 
 import java.io.IOException;
 
-import network.Message.Prefix;
+import net.Message;
+import net.Message.Prefix;
 
 public class Network {
 	

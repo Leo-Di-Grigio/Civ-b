@@ -7,9 +7,9 @@ import tasks.Task;
 import main.Config;
 import misc.Enums;
 import misc.Log;
-import network.Message;
+import net.Message;
+import net.Message.Prefix;
 import network.Network;
-import network.Message.Prefix;
 
 public class netScripts {
 	

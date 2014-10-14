@@ -1,14 +1,14 @@
 package network;
 
 import java.io.IOException;
-
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 
-import network.Message.Prefix;
+import net.Message;
+import net.Message.Prefix;
 import painter.Painter;
 import tasks.Task;
 import misc.Const;

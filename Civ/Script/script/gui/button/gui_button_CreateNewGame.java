@@ -1,14 +1,13 @@
 package script.gui.button;
 
 import gui.GUI;
-
 import gui.elements.GuiElementGamesList;
 
 import java.io.IOException;
 
-import network.Message;
+import net.Message;
+import net.Message.Prefix;
 import network.Network;
-import network.Message.Prefix;
 import misc.Log;
 import misc.TableLine;
 import script.gui.ScriptGui;

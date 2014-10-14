@@ -5,9 +5,9 @@ import game.GameList;
 import java.io.IOException;
 import java.util.LinkedList;
 
-import network.Message.Prefix;
+import net.Message;
+import net.Message.Prefix;
 import misc.Const;
-import misc.ToolsConst;
 
 public class TaskPool {
 	
@@ -58,7 +58,7 @@ public class TaskPool {
 				
 				// check version
 				case CHECK_VERSION:{
-					if(task.msg.data.compareTo(""+ToolsConst.version+"."+ToolsConst.subVersion) == 0){
+					if(task.msg.data.compareTo(""+Const.version+"."+Const.subVersion) == 0){
 						ClientPool.sendMsg(task.clientId, new Message(Prefix.CONNECTION_OK, null));
 					}
 					else{

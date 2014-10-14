@@ -3,10 +3,11 @@ package game;
 import java.io.IOException;
 import java.util.HashMap;
 
+import player.Player;
 import builder.GameMapGenerator;
 import network.ClientPool;
-import network.Message;
-import network.Message.Prefix;
+import net.Message;
+import net.Message.Prefix;
 import misc.Const;
 import misc.Enums;
 import misc.Log;
@@ -57,7 +58,7 @@ public class Game {
 				ClientPool.sendMsg(clientId, new Message(Prefix.GAME_CONNECTION_ERR, "already played"));
 			}
 			else{
-				players.put(clientId, new Player());
+				players.put(clientId, new Player("Test Player ID: " + clientId));
 				ClientPool.sendMsg(clientId, new Message(Prefix.GAME_CONNECTION_SUCESS, "" + gameSeed + ":" + sizeX + ":" + sizeY));
 			}
 		}

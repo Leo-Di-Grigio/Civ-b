@@ -1,8 +1,9 @@
 package scene.menu_connect;
 
 import java.io.IOException;
+
+import net.Message;
 import misc.Enums;
-import network.Message;
 import scene.painter.painter_SwitchScene;
 import scenedata.SceneData;
 import script.gui.gui_ElementClick;

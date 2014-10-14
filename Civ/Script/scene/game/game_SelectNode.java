@@ -7,6 +7,7 @@ import gui.elements.GuiElementIcon;
 import gui.elements.GuiElementPane;
 import gui.elements.GuiElementTitle;
 import painter.Painter;
+import player.units.Unit;
 import misc.Const;
 import misc.Enums;
 import misc.Environment;
@@ -16,7 +17,6 @@ import scenedata.game.GameData;
 import scenedata.game.Node;
 import script.Script;
 import tasks.Task;
-import units.Unit;
 
 public class game_SelectNode extends Script {
 

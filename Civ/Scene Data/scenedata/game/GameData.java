@@ -1,6 +1,6 @@
 package scenedata.game;
 
-import units.UnitsMng;
+import player.units.UnitsMng;
 
 public class GameData {
 	

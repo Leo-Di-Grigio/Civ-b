@@ -30,12 +30,11 @@ public class GameMapGenerator {
 		HashMap<Point, Island> points = new HashMap<Point, Island>();
 		
 		for(int i = 0; i < count; ++i){
-			points.put(new Point(
-					Tools.rand(0, sizeX - 1, rand), 
-					Tools.rand(0, sizeY - 1, rand)), 
+			points.put(new Point(Tools.rand(0, sizeX - 1, rand), 
+								 Tools.rand(0, sizeY - 1, rand)), 
 					
-					new Island(Tools.rand((int)(sizeX*0.1), (int)(sizeX*0.3), rand), 
-							Tools.rand((int)(sizeY*0.1), (int)(sizeY*0.3), rand),
+					new Island(Tools.rand((int)(sizeX*0.25), (int)(sizeX*0.55), rand), 
+							   Tools.rand((int)(sizeY*0.25), (int)(sizeY*0.55), rand),
 							   rand)
 			);
 		}
@@ -99,7 +98,7 @@ class Island {
 	}
 	
 	public void gen(Random rand){
-		double[][] fractalMap = Fractals.Generate(sizeX, sizeY, rand.nextInt(5), rand);
+		double [][] fractalMap = Fractals.Generate(sizeX, sizeY, rand.nextInt(5), rand);
 		
 		for(int i = 0; i < sizeX; i++){
 			for(int t = 0; t < sizeY; t++){

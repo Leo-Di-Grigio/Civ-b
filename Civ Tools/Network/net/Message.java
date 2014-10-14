@@ -1,4 +1,4 @@
-package network;
+package net;
 
 import java.io.Serializable;
 
@@ -27,7 +27,17 @@ public class Message implements Serializable {
 		GAME_CONNECTION_SUCESS,
 		
 		// other
-		DEBUG;
+		DEBUG,
+		
+		// data (server)
+		OBJ_TEAM,
+		OBJ_PLAYER,
+		OBJ_UNIT,
+		
+		// update data (server)
+		UPD_TEAM,
+		UPD_PLAYER,
+		UPD_UNIT,
 	};
 	
 	public long timestamp;

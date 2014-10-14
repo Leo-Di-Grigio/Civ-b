@@ -1,7 +1,8 @@
 package scene.menu_newgame;
 
 import java.io.IOException;
-import network.Message;
+
+import net.Message;
 import misc.Enums;
 import scene.painter.painter_SwitchScene;
 import scenedata.SceneData;

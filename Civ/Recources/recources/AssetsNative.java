@@ -88,6 +88,10 @@ public class AssetsNative extends Assets {
 		addImage(Const.imgTerrainWaterBorder, Tile.getTile(Const.assetsNative + "terrain\\waterBorder.png"));
 		addImage(Const.imgTerrainLand, Tile.getTile(Const.assetsNative + "terrain\\land.png"));
 	}
+
+	private void loadUnits() {
+		addImage(Const.imgUnitAvatar, Tile.getTile(Const.assetsNative + "units\\avatar.png"));
+	}
 	
 	@Override
 	public void init() {		
@@ -95,6 +99,7 @@ public class AssetsNative extends Assets {
 		loadGreyTiles();
 		loadTerrain();
 		loadCursors();
+		loadUnits();
 		
 		System.gc();
 		Log.debug("Assets Native tiles loaded: " + tiles.size());

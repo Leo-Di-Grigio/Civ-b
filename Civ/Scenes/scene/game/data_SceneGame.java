@@ -2,8 +2,8 @@ package scene.game;
 
 import java.io.IOException;
 
+import net.Message;
 import misc.Enums;
-import network.Message;
 import scene.painter.painter_SwitchScene;
 import scenedata.SceneData;
 import scenedata.game.GameData;

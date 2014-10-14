@@ -3,7 +3,8 @@ package network;
 import java.io.IOException;
 import java.util.HashMap;
 
-import network.Message.Prefix;
+import net.Message;
+import net.Message.Prefix;
 
 public class ClientPool {
 

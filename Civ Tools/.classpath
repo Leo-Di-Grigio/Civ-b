@@ -2,6 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="misc"/>
 	<classpathentry kind="src" path="algorithm"/>
+	<classpathentry kind="src" path="Interfaces"/>
+	<classpathentry kind="src" path="Network"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

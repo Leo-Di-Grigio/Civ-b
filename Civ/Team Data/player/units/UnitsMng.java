@@ -1,4 +1,4 @@
-package units;
+package player.units;
 
 import java.util.HashMap;
 import java.util.Vector;
