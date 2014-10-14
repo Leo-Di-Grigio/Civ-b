@@ -5,7 +5,7 @@ public class Const {
 	// version
 	public static final String title = "Civ";
 	public static final int version = 0;
-	public static final int subVersion = 56;
+	public static final int subVersion = 57;
 
 	// assets
 	public static final String assetsNative = "recources\\assets\\native\\";
