@@ -15,7 +15,10 @@ public class ScriptsNetwork {
 	
 	public static void createConnection() throws IOException{
 		Log.debug("Execute net_CreateConnection");
-		Network.createConnection(Config.serverAddress, Config.serverPort);
+		
+		if(!Network.connectionExist()){
+			Network.createConnection(Config.serverAddress, Config.serverPort);
+		}
 	}
 	
 	public static void disconnect() throws IOException{

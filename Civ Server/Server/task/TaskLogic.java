@@ -32,11 +32,15 @@ public class TaskLogic {
 					requestGameJoin(task);
 					break;
 				
+				case REQ_GAME_LEAVE:
+					requestGameLeave(task);
+					break;
+				
 				default: break;
 			}
 		}
 	}
-	
+
 	private static void checkVersion(Task task) throws IOException{
 		if(task.msg.data.compareTo(""+Const.version+"."+Const.subVersion) == 0){
 			ClientPool.sendMsg(task.clientId, new Message(Prefix.CONNECTION_OK, null));
@@ -47,6 +51,10 @@ public class TaskLogic {
 	}
 	
 	private static void disconnect(Task task) throws IOException{
+		int gameId = ClientPool.getClient(task.clientId).gameId;
+		if(gameId != -1){
+			GameList.get(gameId).removePlayer(task.clientId);
+		}
 		ClientPool.remove(task.clientId);
 	}
 	
@@ -57,5 +65,10 @@ public class TaskLogic {
 	private static void requestGameJoin(Task task) throws IOException{
 		int gameId = Integer.valueOf(task.msg.data);
 		GameList.get(gameId).addPlayer(task.clientId);
+	}
+	
+	private static void requestGameLeave(Task task) {
+		int gameId = ClientPool.getClient(task.clientId).gameId;
+		GameList.get(gameId).removePlayer(task.clientId);
 	}
 }

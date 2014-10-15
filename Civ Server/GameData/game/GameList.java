@@ -2,6 +2,7 @@ package game;
 
 import java.util.HashMap;
 
+import misc.Const;
 import misc.Log;
 
 public class GameList {
@@ -10,6 +11,13 @@ public class GameList {
 	
 	public GameList(){
 		list = new HashMap<Integer, Game>();
+		
+		// test
+		add(new Game("Test 1 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax));
+		add(new Game("Test 2 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax));
+		add(new Game("Test 3 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax));
+		add(new Game("Test 4 ", Const.mapSizeX, Const.mapSizeY, 1));
+		add(new Game("Test 5 ", Const.mapSizeX, Const.mapSizeY, 0));
 	}
 	
 	public static void add(Game game){

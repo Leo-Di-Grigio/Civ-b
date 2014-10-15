@@ -34,7 +34,7 @@ public class scenegui_Prepare extends GUI {
 		button.setTextureSelected("button_menu_select");
 		button.setText("Back");
 		button.setVisible(true);
-		button.setScript(new gui_button_ChangeScene(Enums.Scene.CHOOSE_GAME));
+		button.setScript(new gui_button_LeaveGame());
 		this.add("back", button);
 	}
 }

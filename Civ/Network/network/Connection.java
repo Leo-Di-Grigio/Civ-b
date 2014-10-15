@@ -68,6 +68,10 @@ public class Connection implements Runnable {
 			catch (ClassNotFoundException e) {
 				Log.err(("Currupted message from " + socket.getLocalAddress() + " ID: " + socket.getPort()));
 			}
+			finally{
+				Network.removeConnection();
+				Log.debug("Finalize connection");
+			}
 		}
 	}
 

@@ -18,6 +18,7 @@ public class Message implements Serializable {
 		// requests
 		REQ_GAMES_LIST,// for Scene.ChooseGame (Games List)
 		REQ_GAME_JOIN, // for Scene.Prepare (Request Teams, Players data)
+		REQ_GAME_LEAVE,// for Scene.Prepare (Player levae the lobby)
 		REQ_GAME_PLAY, // for Scene.Game (ready check)
 
 		// data

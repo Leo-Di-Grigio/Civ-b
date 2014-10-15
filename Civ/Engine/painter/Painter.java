@@ -21,7 +21,7 @@ import tasks.Task;
 public class Painter {
 	
 	private static HashMap<Enums.Scene, Scene> scenes;
-	public static Scene currentScene;
+	private static Scene currentScene;
 	public static Enums.Scene currentSceneTitle;
 	
 	public Painter() {

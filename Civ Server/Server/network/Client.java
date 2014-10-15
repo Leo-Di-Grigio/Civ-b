@@ -1,5 +1,7 @@
 package network;
 
+import game.GameList;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -14,23 +16,30 @@ public class Client implements Runnable {
 	
 	// id
 	private static int ID = 0;
-	protected int id;
+	protected int clientId;
 	
 	// socket
     protected Socket socket;
     protected ObjectInputStream in;
     protected ObjectOutputStream out;
+    
+    // game id
+    public int gameId = -1;
 	
 	public Client(Socket socket) throws IOException {
-		this.id = ID++;
+		this.clientId = ID++;
 		this.socket = socket;
 		
 		this.in = new ObjectInputStream(socket.getInputStream());
 		this.out = new ObjectOutputStream(socket.getOutputStream());
 	}
 
-	public int getId(){
-		return id;
+	public int getClientId(){
+		return clientId;
+	}
+	
+	public void setGameId(int gameId){
+		this.gameId = gameId;
 	}
 	
 	@Override
@@ -41,8 +50,8 @@ public class Client implements Runnable {
 				
 				if(obj != null){
 					Message msg = (Message)obj;
-					Log.service("<- ID: "+id+":"+msg.prefix +":"+msg.data);
-					TaskPool.add(new Task(id, msg));
+					Log.service("<- ID: "+clientId+":"+msg.prefix +":"+msg.data);
+					TaskPool.add(new Task(clientId, msg));
 				}
 			}
 		}
@@ -54,18 +63,21 @@ public class Client implements Runnable {
 		}
 		finally {
 			try {
-				ClientPool.remove(id);
-			} catch (IOException e) {
+				if(gameId != -1){
+					GameList.get(gameId).removePlayer(clientId);
+				}
+				ClientPool.remove(clientId);
+				Log.debug("Finalize connection");
+			} 
+			catch (IOException e) {
 				e.printStackTrace();
+				Log.err("Finalize connection clientId: " + clientId);
 			}
-			
-			System.gc();
-			Log.debug("Finalize connection");
 		}
 	}
 	
 	public void send(Message msg) throws IOException{
-		Log.service("-> ID: "+id+":"+msg.prefix +":"+msg.data);
+		Log.service("-> ID: "+clientId+":"+msg.prefix +":"+msg.data);
 		out.writeObject(msg);
 	}
 }

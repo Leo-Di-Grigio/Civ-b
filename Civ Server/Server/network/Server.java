@@ -1,6 +1,5 @@
 package network;
 
-import game.Game;
 import game.GameList;
 
 import java.io.IOException;
@@ -21,10 +20,6 @@ public class Server implements Runnable {
 		new ClientPool();
 		new TaskPool();
 		new GameList();
-		
-		// test
-		GameList.add(new Game("Test1", Const.mapSizeX, Const.mapSizeY, Const.playersMax));
-		GameList.add(new Game("Test2", Const.mapSizeX, Const.mapSizeY, Const.playersMax));
 		
 		server = new ServerSocket(Const.port);
 		Log.msg(Const.title + " v" + Const.version + "." + Const.subVersion + " is runned");
