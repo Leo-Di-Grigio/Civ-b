@@ -28,25 +28,25 @@ public class ScriptsNetwork {
 		
 			// normal connection
 			case CONNECTION_OK:{
-				Network.sendMsg(new Message(Prefix.REQUEST_GAMES_STATUS, null));
+				Network.sendMsg(new Message(Prefix.REQ_GAMES_LIST, null));
 			} break;
 			
 			// connection err, not valid game version
 			case CONNECTION_ERR:{
-				Network.sendMsg(new Message(Prefix.DISCONNECT, null));
+				Network.sendMsg(new Message(Prefix.REQ_DISCONNECT, null));
 			} break;
 			
 			// games list in Hub
-			case GAME_LIST:{
+			case DATA_GAMES_LIST:{
 				Painter.addTask(new Task(Enums.Task.NETWORK_GAMELIST, msg.data));
 			} break;
 			
 			// join to the game
-			case GAME_CONNECTION_SUCESS:{
+			case DATA_GAME:{
 				Painter.addTask(new Task(Enums.Task.GAME_JOIN_SUCCESS, msg.data));
 			} break;
 			
-			case GAME_CONNECTION_ERR:{
+			case GAME_JOIN_ERR:{
 				Painter.addTask(new Task(Enums.Task.GAME_JOIN_FAILED, msg.data));
 			} break;
 			

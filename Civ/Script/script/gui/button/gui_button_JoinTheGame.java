@@ -30,7 +30,7 @@ public class gui_button_JoinTheGame extends ScriptGui {
 					String id = line.getCell(0);
 					
 					if(id != null){
-						Network.sendMsg(new Message(Prefix.REQUEST_GAME_CONNECTION, id));
+						Network.sendMsg(new Message(Prefix.REQ_GAME_JOIN, id));
 					}
 				}
 			}

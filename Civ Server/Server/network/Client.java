@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import task.Task;
+import task.TaskPool;
 import net.Message;
 import misc.Log;
 

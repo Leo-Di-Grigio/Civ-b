@@ -8,7 +8,7 @@ import script.gui.ScriptGui;
 public class gui_UpdateGamesList extends ScriptGui {
 
 	public static void execute(GUI gui, String data) {
-		Log.err("Execute gui_UpdateGamesList");
+		Log.debug("Execute gui_UpdateGamesList");
 		
 		if(gui != null){
 			GuiElementGamesList gameslist = (GuiElementGamesList)gui.get("gameslist");

@@ -17,7 +17,7 @@ public class Network {
 	public static void disconnect() throws IOException{
 		if(connect != null){
 			if(connect.socket != null && connect.socket.isBound()){
-				sendMsg(new Message(Prefix.DISCONNECT, null));
+				sendMsg(new Message(Prefix.REQ_DISCONNECT, null));
 			}
 		}
 	}

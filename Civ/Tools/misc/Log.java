@@ -14,7 +14,7 @@ public class Log {
 	
 	public static void debug(String msg){
 		if(Config.debug){
-			System.err.println("DEBUG: " + msg);
+			System.out.println("DEBUG: " + msg);
 		}
 	}
 	

@@ -55,15 +55,15 @@ public class Game {
 		if(players.size() < Const.playersMax){
 			if(players.containsKey(clientId)){
 				Log.err("Player already in game");
-				ClientPool.sendMsg(clientId, new Message(Prefix.GAME_CONNECTION_ERR, "already played"));
+				ClientPool.sendMsg(clientId, new Message(Prefix.GAME_JOIN_ERR, "already played"));
 			}
 			else{
 				players.put(clientId, new Player("Test Player ID: " + clientId));
-				ClientPool.sendMsg(clientId, new Message(Prefix.GAME_CONNECTION_SUCESS, "" + gameSeed + ":" + sizeX + ":" + sizeY));
+				ClientPool.sendMsg(clientId, new Message(Prefix.DATA_GAME, "" + gameSeed + ":" + sizeX + ":" + sizeY));
 			}
 		}
 		else{
-			ClientPool.sendMsg(clientId, new Message(Prefix.GAME_CONNECTION_ERR, "server full"));
+			ClientPool.sendMsg(clientId, new Message(Prefix.GAME_JOIN_ERR, "server full"));
 		}
 	}
 }
