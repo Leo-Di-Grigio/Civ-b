@@ -83,6 +83,19 @@ public class ScriptsNetwork {
 				Painter.addTask(new Task(Enums.Task.GAME_UPD_UNIT, msg.data));
 			} break;
 			
+			// Data del
+			case DEL_PLAYER:{
+				Painter.addTask(new Task(Enums.Task.GAME_DEL_PLAYER, msg.data));
+			} break;
+			
+			case DEL_TEAM:{
+				Painter.addTask(new Task(Enums.Task.GAME_DEL_TEAM, msg.data));
+			} break;
+			
+			case DEL_UNIT:{
+				Painter.addTask(new Task(Enums.Task.GAME_DEL_UNIT, msg.data));
+			} break;
+			
 			default:{
 				Log.debug("MSG: " + msg.data);
 			} break;

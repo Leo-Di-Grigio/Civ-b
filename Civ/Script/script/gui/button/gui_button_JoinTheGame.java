@@ -3,7 +3,7 @@ package script.gui.button;
 import java.io.IOException;
 
 import gui.GUI;
-import gui.elements.GuiElementGamesList;
+import gui.elements.GuiElementTable;
 import net.Message;
 import net.Message.Prefix;
 import network.Network;
@@ -22,7 +22,7 @@ public class gui_button_JoinTheGame extends ScriptGui {
 		GUI gui = (GUI)task.dataPost;
 		
 		if(gui != null){
-			GuiElementGamesList list = (GuiElementGamesList)gui.get("gameslist");
+			GuiElementTable list = (GuiElementTable)gui.get("gameslist");
 			
 			if(list != null){
 				TableLine line = list.getSelectedLine();

@@ -36,6 +36,10 @@ public class TaskLogic {
 					requestGameLeave(task);
 					break;
 				
+				case REQ_PLAYERS_LIST:
+					requestPlayersList(task);
+					break;
+				
 				default: break;
 			}
 		}
@@ -75,8 +79,13 @@ public class TaskLogic {
 		}
 	}
 	
-	private static void requestGameLeave(Task task) {
+	private static void requestGameLeave(Task task) throws IOException {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
 		GamesMng.get(gameId).removePlayer(task.clientId);
+	}
+	
+	private static void requestPlayersList(Task task) throws IOException {
+		int gameId = ClientPool.getClient(task.clientId).gameId;
+		GamesMng.get(gameId).sendPlayersList(task.clientId);
 	}
 }

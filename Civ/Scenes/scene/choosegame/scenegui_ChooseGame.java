@@ -1,13 +1,13 @@
 package scene.choosegame;
 
 import misc.Enums;
-import scene.menu_newgame.gui_GameList;
+import scene.menu_newgame.gui_Table;
 import script.gui.button.gui_button_ChangeScene;
 import script.gui.button.gui_button_CreateNewGame;
 import script.gui.button.gui_button_JoinTheGame;
 import gui.GUI;
 import gui.elements.GuiElementButton;
-import gui.elements.GuiElementGamesList;
+import gui.elements.GuiElementTable;
 
 public class scenegui_ChooseGame extends GUI {
 
@@ -18,10 +18,11 @@ public class scenegui_ChooseGame extends GUI {
 		GuiElementButton button = null;
 		
 		// Games List
-		GuiElementGamesList gameslist = new GuiElementGamesList();
+		GuiElementTable gameslist = new GuiElementTable(3);
+		gameslist.setSize(400, 400);
 		gameslist.setPositionType(Enums.GuiPosition.CENTER);
 		gameslist.setVisible(true);
-		gameslist.setScript(new gui_GameList());
+		gameslist.setScript(new gui_Table());
 		this.add("gameslist", gameslist);
 		
 		// Create new game

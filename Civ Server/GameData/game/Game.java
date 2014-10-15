@@ -1,13 +1,7 @@
 package game;
 
 import java.io.IOException;
-import java.util.HashMap;
-
-import player.Player;
 import builder.GameMapGenerator;
-import network.ClientPool;
-import net.Message;
-import net.Message.Prefix;
 import misc.Enums;
 import misc.Log;
 
@@ -19,7 +13,7 @@ public class Game {
 	
 	// gamedata
 	public String name = "";
-	public int playersMax = 0;
+	public int  playersMax = 0;
 	public long gameSeed = 0L;
 	public Enums.GameState state;
 	
@@ -29,7 +23,7 @@ public class Game {
 	public byte [][] heightMap;
 	
 	// playres
-	public HashMap<Integer, Player> players;
+	public GamePlayers players;
 	
 	// messaging
 	protected GameBroadcasting broad;
@@ -43,7 +37,7 @@ public class Game {
 		// title data
 		this.name = name;
 		this.playersMax = playersMax;
-		this.players = new HashMap<Integer, Player>();
+		this.players = new GamePlayers(id);
 		
 		// map
 		this.sizeX = mapSizeX;
@@ -51,7 +45,7 @@ public class Game {
 		this.heightMap = GameMapGenerator.buildHeightMap(gameSeed, mapSizeX, mapSizeY);
 		
 		// messaging
-		broad = new GameBroadcasting(this.players);
+		broad = new GameBroadcasting(players);
 		
 		// status
 		state = Enums.GameState.PREPEARING;
@@ -60,29 +54,14 @@ public class Game {
 	}
 	
 	public void addPlayer(int clientId, String playerName) throws IOException{
-		if(players.size() < playersMax){
-			if(players.containsKey(clientId)){
-				Log.err("Player already in game");
-				ClientPool.sendMsg(clientId, new Message(Prefix.GAME_JOIN_ERR, "already played"));
-			}
-			else{
-				Player player = new Player(playerName);
-				players.put(clientId, player);
-				ClientPool.getClient(clientId).setGameId(this.id);
-				ClientPool.sendMsg(clientId, new Message(Prefix.DATA_GAME, "" + gameSeed + ":" + sizeX + ":" + sizeY));
-				broad.send(player.toMessage());
-			}
-		}
-		else{
-			ClientPool.sendMsg(clientId, new Message(Prefix.GAME_JOIN_ERR, "server full"));
-		}
+		players.add(clientId, playerName, playersMax, gameSeed, sizeX, sizeY, broad);
 	}
 	
-	public void removePlayer(int clientId){
-		if(players.containsKey(clientId)){
-			players.remove(clientId);
-			ClientPool.getClient(clientId).gameId = -1;
-			Log.service("Player ID: " + clientId + " leave the game ID: " + this.id);
-		}
+	public void removePlayer(int clientId) throws IOException{
+		players.remove(clientId, broad);
+	}
+	
+	public void sendPlayersList(int clientId) throws IOException{
+		players.sendPlayesList(clientId);
 	}
 }

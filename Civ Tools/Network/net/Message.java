@@ -20,6 +20,7 @@ public class Message implements Serializable {
 		REQ_GAME_JOIN, // for Scene.Prepare (Request Teams, Players data)
 		REQ_GAME_LEAVE,// for Scene.Prepare (Player levae the lobby)
 		REQ_GAME_PLAY, // for Scene.Game (ready check)
+		REQ_PLAYERS_LIST,
 
 		// data
 		DATA_GAMES_LIST, // for Scene.ChooseGame (Games List)
@@ -56,7 +57,12 @@ public class Message implements Serializable {
 		UPD_TEAM,
 		UPD_PLAYER,
 		UPD_UNIT,
-
+		
+		// del objects (server)
+		DEL_TEAM,
+		DEL_PLAYER,
+		DEL_UNIT,
+		
 		// other
 		DEBUG;
 	};

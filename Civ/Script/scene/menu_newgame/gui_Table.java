@@ -1,6 +1,6 @@
 package scene.menu_newgame;
 
-import gui.elements.GuiElementGamesList;
+import gui.elements.GuiElementTable;
 
 import java.io.IOException;
 
@@ -9,13 +9,13 @@ import misc.Log;
 import script.gui.ScriptGui;
 import tasks.Task;
 
-public class gui_GameList extends ScriptGui {
+public class gui_Table extends ScriptGui {
 	
 	@Override
 	public void execute(Task task) throws IOException {
-		Log.debug("Execute gui_GameList");
+		Log.debug("Execute gui_Table");
 		
-		GuiElementGamesList list = (GuiElementGamesList)task.data;
+		GuiElementTable list = (GuiElementTable)task.data;
 		
 		if(list != null){
 			int x = Environment.mouseX;

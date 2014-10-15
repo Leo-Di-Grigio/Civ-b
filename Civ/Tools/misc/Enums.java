@@ -60,6 +60,11 @@ public class Enums {
 		GAME_UPD_TEAM,
 		GAME_UPD_UNIT,
 		
+		// Data delete
+		GAME_DEL_PLAYER,
+		GAME_DEL_TEAM,
+		GAME_DEL_UNIT,
+		
 		// Painter
 		PAINTER_CHANGE_SCENE, //(String)sceneKey
 		

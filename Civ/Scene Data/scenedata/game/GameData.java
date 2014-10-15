@@ -48,4 +48,16 @@ public class GameData {
 	public void updUnit(String data) {
 		
 	}
+	
+	public void delPlayer(int id){
+		
+	}
+	
+	public void delTeam(int id){
+		
+	}
+	
+	public void delUnit(int id){
+		
+	}
 }

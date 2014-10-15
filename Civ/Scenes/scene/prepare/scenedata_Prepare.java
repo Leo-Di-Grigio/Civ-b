@@ -3,6 +3,8 @@ package scene.prepare;
 import java.io.IOException;
 
 import net.Message;
+import net.Message.Prefix;
+import network.Network;
 import misc.Enums;
 import scene.game.game_Data;
 import scene.game.game_Msg;
@@ -31,7 +33,7 @@ public class scenedata_Prepare extends SceneData {
 			case NETWORK_MESSAGE_READ:
 				ScriptsNetwork.reciveMsg((Message)task.data);
 				break;
-				
+			
 			case MOUSE_MOVE:
 				gui_ElementCollision.execute(gui);
 				break;
@@ -58,25 +60,38 @@ public class scenedata_Prepare extends SceneData {
 				
 			case SCENE_LOADING:
 				gui_UpdatePosition.execute(gui);
+				Network.sendMsg(new Message(Prefix.REQ_PLAYERS_LIST, null));
 				break;
 			
 			// Data
 			case GAME_OBJ_PLAYER:
-				game_Data.objPlayer(gamedata, (String)task.data);
+				game_Data.objPlayer(gui, gamedata, (String)task.data);
 				break;
 				
 			case GAME_OBJ_TEAM:
-				game_Data.objTeam(gamedata, (String)task.data);
+				game_Data.objTeam(gui, gamedata, (String)task.data);
 				break;
 				
 			case GAME_UPD_PLAYER:
-				game_Data.updPlayer(gamedata, (String)task.data);
+				game_Data.updPlayer(gui, gamedata, (String)task.data);
 				break;
 			
 			case GAME_UPD_TEAM:
-				game_Data.updTeam(gamedata, (String)task.data);
+				game_Data.updTeam(gui, gamedata, (String)task.data);
+				break;
+				
+			case GAME_DEL_PLAYER:
+				game_Data.delPlayer(gui, gamedata, (String)task.data);
 				break;
 			
+			case GAME_DEL_TEAM:
+				game_Data.delTeam(gui, gamedata, (String)task.data);
+				break;
+				
+			case GAME_DEL_UNIT:
+				game_Data.delUnit(gui, gamedata, (String)task.data);
+				break;
+				
 			case GAME_MSG:
 				game_Msg.msg((String)task.data);
 				break;
