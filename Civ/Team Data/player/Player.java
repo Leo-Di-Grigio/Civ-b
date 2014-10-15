@@ -1,5 +1,6 @@
 package player;
 
+import misc.Log;
 import net.Message;
 import interfaces.Sentble;
 
@@ -12,9 +13,8 @@ public class Player implements Sentble {
 	// data
 	public String name;
 	
-	public Player(int id, String name) {
-		this.id = id;
-		this.name = name;
+	public Player(String data){
+		buildObj(data);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class Player implements Sentble {
 	public void buildObj(String data) {
 		String [] arr = data.split(":");
 		
-		this.id = Integer.getInteger(arr[0]);
+		this.id = Integer.parseInt(arr[0]);
 		this.name = arr[1];
 	}
 
@@ -40,7 +40,7 @@ public class Player implements Sentble {
 		String [] arr = data.split(":");
 		
 		switch(arr[0]){
-			case "id": id = Integer.getInteger(arr[1]); break;
+			case "id": id = Integer.parseInt(arr[1]); break;
 			case "name": name = arr[1]; break;
 		}
 	}

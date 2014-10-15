@@ -6,6 +6,7 @@ import painter.Painter;
 import misc.Enums;
 import misc.Log;
 import scene.game.scene_Game;
+import scene.prepare.scene_Prepare;
 import scenedata.game.GameData;
 import scenedata.game.GameMap;
 import script.Script;
@@ -27,9 +28,12 @@ public class game_JoinGame extends Script {
 		
 		// prepare GAME scene
 		GameData gamedata = new GameData(map);
+		
+		scene_Prepare prepeare = new scene_Prepare(gamedata);
 		scene_Game scene = new scene_Game(gamedata);
 		
 		// add scene in to Painter
+		Painter.addScene(Enums.Scene.PREPEARE, prepeare);
 		Painter.addScene(Enums.Scene.GAME, scene);
 		Painter.addTask(new Task(Enums.Task.PAINTER_CHANGE_SCENE, Enums.Scene.PREPEARE));
 	}

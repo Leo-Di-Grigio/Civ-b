@@ -30,6 +30,9 @@ public class Game {
 	
 	// playres
 	public HashMap<Integer, Player> players;
+	
+	// messaging
+	protected GameBroadcasting broad;
 
 	
 	public Game(String name, int mapSizeX, int mapSizeY, int playersMax){
@@ -46,22 +49,28 @@ public class Game {
 		this.sizeX = mapSizeX;
 		this.sizeY = mapSizeY;
 		this.heightMap = GameMapGenerator.buildHeightMap(gameSeed, mapSizeX, mapSizeY);
-			
+		
+		// messaging
+		broad = new GameBroadcasting(this.players);
+		
+		// status
 		state = Enums.GameState.PREPEARING;
 		
 		Log.service("Game created. Name: " + this.name + " playersMax: " + this.playersMax);
 	}
 	
-	public void addPlayer(int clientId) throws IOException{
+	public void addPlayer(int clientId, String playerName) throws IOException{
 		if(players.size() < playersMax){
 			if(players.containsKey(clientId)){
 				Log.err("Player already in game");
 				ClientPool.sendMsg(clientId, new Message(Prefix.GAME_JOIN_ERR, "already played"));
 			}
 			else{
-				players.put(clientId, new Player("Test Player ID: " + clientId));
+				Player player = new Player(playerName);
+				players.put(clientId, player);
 				ClientPool.getClient(clientId).setGameId(this.id);
 				ClientPool.sendMsg(clientId, new Message(Prefix.DATA_GAME, "" + gameSeed + ":" + sizeX + ":" + sizeY));
+				broad.send(player.toMessage());
 			}
 		}
 		else{

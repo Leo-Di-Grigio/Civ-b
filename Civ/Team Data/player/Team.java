@@ -12,9 +12,8 @@ public class Team implements Sentble {
 	// data
 	public String name;
 	
-	public Team(int id, String name) {
-		this.id = id;
-		this.name = name;
+	public Team(String data){
+		buildObj(data);
 	}
 
 	@Override
@@ -31,7 +30,7 @@ public class Team implements Sentble {
 	public void buildObj(String data) {
 		String [] arr = data.split(":");
 		
-		this.id = Integer.getInteger(arr[0]);
+		this.id = Integer.parseInt(arr[0]);
 		this.name = arr[1];
 	}
 
@@ -40,7 +39,7 @@ public class Team implements Sentble {
 		String [] arr = data.split(":");
 		
 		switch(arr[0]){
-			case "id": id = Integer.getInteger(arr[1]); break;
+			case "id": id = Integer.parseInt(arr[1]); break;
 			case "name": name = arr[1]; break;
 		}
 	}

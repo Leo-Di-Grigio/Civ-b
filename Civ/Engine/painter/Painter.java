@@ -14,7 +14,6 @@ import scene.connect.scene_Connect;
 import scene.exit.scene_Exit;
 import scene.load.scene_Load;
 import scene.menu.scene_Menu;
-import scene.prepare.scene_Prepare;
 import scene.settings.scene_Settings;
 import tasks.Task;
 
@@ -33,7 +32,6 @@ public class Painter {
 		scenes.put(Enums.Scene.SETTINGS, new scene_Settings());
 		scenes.put(Enums.Scene.CONNECT, new scene_Connect());
 		scenes.put(Enums.Scene.EXIT, new scene_Exit());
-		scenes.put(Enums.Scene.PREPEARE, new scene_Prepare());
 		
 		currentScene = scenes.get(Enums.Scene.MENU);
 		currentSceneTitle = Enums.Scene.MENU;

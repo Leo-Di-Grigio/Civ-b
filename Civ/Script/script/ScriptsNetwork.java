@@ -41,7 +41,7 @@ public class ScriptsNetwork {
 			
 			// games list in Hub
 			case DATA_GAMES_LIST:{
-				Painter.addTask(new Task(Enums.Task.NETWORK_GAMELIST, msg.data));
+				Painter.addTask(new Task(Enums.Task.DATA_GAMELIST, msg.data));
 			} break;
 			
 			// join to the game
@@ -55,6 +55,32 @@ public class ScriptsNetwork {
 			
 			case DEBUG:{
 				Log.debug("MSG: " + msg.prefix + ":" + msg.data);
+			} break;
+			
+			// Data objects
+			case OBJ_PLAYER:{
+				Painter.addTask(new Task(Enums.Task.GAME_OBJ_PLAYER, msg.data));
+			} break;
+			
+			case OBJ_TEAM:{
+				Painter.addTask(new Task(Enums.Task.GAME_OBJ_TEAM, msg.data));
+			} break;
+			
+			case OBJ_UNIT:{
+				Painter.addTask(new Task(Enums.Task.GAME_OBJ_UNIT, msg.data));
+			} break;
+			
+			// Data update
+			case UPD_PLAYER:{
+				Painter.addTask(new Task(Enums.Task.GAME_UPD_PLAYER, msg.data));
+			} break;
+			
+			case UPD_TEAM:{
+				Painter.addTask(new Task(Enums.Task.GAME_UPD_TEAM, msg.data));
+			} break;
+			
+			case UPD_UNIT:{
+				Painter.addTask(new Task(Enums.Task.GAME_UPD_UNIT, msg.data));
 			} break;
 			
 			default:{

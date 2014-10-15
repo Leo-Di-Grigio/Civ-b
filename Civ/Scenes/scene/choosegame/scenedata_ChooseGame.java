@@ -28,7 +28,7 @@ public class scenedata_ChooseGame extends SceneData {
 				ScriptsNetwork.reciveMsg((Message)task.data);
 				break;
 			
-			case NETWORK_GAMELIST:
+			case DATA_GAMELIST:
 				gui_UpdateGamesList.execute(gui, (String)task.data);
 				break;
 				

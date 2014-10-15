@@ -10,11 +10,15 @@ import misc.Enums;
 import misc.Environment;
 import recources.Recources;
 import scene.Scene;
+import scenedata.game.GameData;
 
 public class scene_Prepare extends Scene {
 
-	public scene_Prepare() {
-		super(Enums.Scene.PREPEARE, new scenedata_Prepare());
+	protected GameData gamedata;
+	
+	public scene_Prepare(GameData gamedata) {		
+		super(Enums.Scene.PREPEARE, new scenedata_Prepare(gamedata));
+		this.gamedata = gamedata;
 	}
 
 	@Override

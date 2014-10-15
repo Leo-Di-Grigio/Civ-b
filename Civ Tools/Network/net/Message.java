@@ -32,18 +32,20 @@ public class Message implements Serializable {
 		CHAT_MSG,
 		
 		// team control
-		TEAM_CHOOSE,
-		TEAM_CREATE,
+		REQ_TEAM_CHOOSE,
+		REQ_TEAM_CREATE,
 		
 		// scene Prepearing
-		READY_CHECK,
+		REQ_READY_CHECK,
 		
 		// game
 		GAME_BEGIN, // --> begin transfer start data
-		PLAYER_DATA,// updates and new game objects
-		TURN, 		// end of data transfer, back control to player
-		TURN_END, 	//
-		PLAYER_ACTION, // player turn actions
+		GAME_PLAYER_DATA,   // updates and new game objects
+		GAME_PLAYER_ACTION, // player turn actions		
+		// turns
+		GAME_TURN, 		// end of data transfer, back control to player
+		GAME_TURN_END, 	//
+		
 		
 		// data (server)
 		OBJ_TEAM,

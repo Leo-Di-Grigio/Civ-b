@@ -42,18 +42,29 @@ public class Enums {
 		SCENE_SELECTON,
 		
 		// Game generating
-		GAME_JOIN_SUCCESS, //(String)gameMapSeed -> (Long)
-		GAME_JOIN_FAILED, //(String)error message
+		GAME_JOIN_SUCCESS, //(String)gameMapSeed:(String)sizeX:(String)sizeY
+		GAME_JOIN_FAILED,  //(String)error message
 		
-		// Scene Game
+		// Scene ChooseGame
 		GAME_SELECT_NODE,
+		DATA_GAMELIST,     //(String)size:arrData
+		
+		// Data
+		GAME_MSG,
+		GAME_OBJ_PLAYER, //
+		GAME_OBJ_TEAM,   //
+		GAME_OBJ_UNIT,
+		
+		// Data update
+		GAME_UPD_PLAYER,
+		GAME_UPD_TEAM,
+		GAME_UPD_UNIT,
 		
 		// Painter
 		PAINTER_CHANGE_SCENE, //(String)sceneKey
 		
 		// Network
-		NETWORK_MESSAGE_READ,
-		NETWORK_GAMELIST; //(Message)message
+		NETWORK_MESSAGE_READ;
 	}
 	
 	public static enum GuiPosition {

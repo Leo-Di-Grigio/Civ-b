@@ -1,6 +1,6 @@
 package network;
 
-import game.GameList;
+import game.GamesMng;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -64,7 +64,7 @@ public class Client implements Runnable {
 		finally {
 			try {
 				if(gameId != -1){
-					GameList.get(gameId).removePlayer(clientId);
+					GamesMng.get(gameId).removePlayer(clientId);
 				}
 				ClientPool.remove(clientId);
 				Log.debug("Finalize connection");

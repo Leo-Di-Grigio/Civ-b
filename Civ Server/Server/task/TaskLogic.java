@@ -1,6 +1,6 @@
 package task;
 
-import game.GameList;
+import game.GamesMng;
 
 import java.io.IOException;
 
@@ -53,22 +53,30 @@ public class TaskLogic {
 	private static void disconnect(Task task) throws IOException{
 		int gameId = ClientPool.getClient(task.clientId).gameId;
 		if(gameId != -1){
-			GameList.get(gameId).removePlayer(task.clientId);
+			GamesMng.get(gameId).removePlayer(task.clientId);
 		}
 		ClientPool.remove(task.clientId);
 	}
 	
 	private static void requestGameStatus(Task task) throws IOException{
-		ClientPool.sendMsg(task.clientId, new Message(Prefix.DATA_GAMES_LIST, GameList.getList()));
+		ClientPool.sendMsg(task.clientId, new Message(Prefix.DATA_GAMES_LIST, GamesMng.getList()));
 	}
 	
 	private static void requestGameJoin(Task task) throws IOException{
-		int gameId = Integer.valueOf(task.msg.data);
-		GameList.get(gameId).addPlayer(task.clientId);
+		String [] arr = task.msg.data.split(":");
+		
+		if(arr != null && arr.length == 2){
+			int gameId = Integer.valueOf(arr[0]);
+			String playerName = arr[1];
+			GamesMng.get(gameId).addPlayer(task.clientId, playerName);
+		}
+		else{
+			ClientPool.sendMsg(task.clientId, new Message(Prefix.GAME_JOIN_ERR, "no game selected or no playerName"));
+		}
 	}
 	
 	private static void requestGameLeave(Task task) {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
-		GameList.get(gameId).removePlayer(task.clientId);
+		GamesMng.get(gameId).removePlayer(task.clientId);
 	}
 }

@@ -15,11 +15,8 @@ public class Unit implements Sentble{
 	public int y;
 	public int type;
 	
-	public Unit(int id, int playerId, int x, int y) {
-		this.id = id;
-		this.playerId = playerId;
-		this.x = x;
-		this.y = y;
+	public Unit(String data){
+		buildObj(data);
 	}
 
 	@Override
@@ -37,11 +34,11 @@ public class Unit implements Sentble{
 		String [] arr = data.split(":");
 		
 		// read
-		this.id = Integer.getInteger(arr[0]);
-		this.playerId = Integer.getInteger(arr[1]);
-		this.x = Integer.getInteger(arr[2]);
-		this.y = Integer.getInteger(arr[3]);
-		this.type = Integer.getInteger(arr[4]);
+		this.id = Integer.parseInt(arr[0]);
+		this.playerId = Integer.parseInt(arr[1]);
+		this.x = Integer.parseInt(arr[2]);
+		this.y = Integer.parseInt(arr[3]);
+		this.type = Integer.parseInt(arr[4]);
 	}
 
 	@Override
@@ -49,11 +46,11 @@ public class Unit implements Sentble{
 		String [] arr = data.split(":");
 		
 		switch(arr[0]){
-			case "id": 		 id = Integer.getInteger(arr[1]); break;
-			case "playerId": playerId = Integer.getInteger(arr[1]); break;
-			case "x": 		 x = Integer.getInteger(arr[1]); break;
-			case "y": 		 y = Integer.getInteger(arr[1]); break;
-			case "type": 	 type = Integer.getInteger(arr[1]); break;
+			case "id": 		 id = Integer.parseInt(arr[1]); break;
+			case "playerId": playerId = Integer.parseInt(arr[1]); break;
+			case "x": 		 x = Integer.parseInt(arr[1]); break;
+			case "y": 		 y = Integer.parseInt(arr[1]); break;
+			case "type": 	 type = Integer.parseInt(arr[1]); break;
 		}
 	}
 }
