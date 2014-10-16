@@ -1,10 +1,13 @@
 package recources;
 
 import java.awt.Cursor;
+import java.awt.FontFormatException;
 import java.awt.Image;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 
 import engine.Engine;
@@ -16,11 +19,12 @@ public class AssetsNative extends Assets {
 
 	private static HashMap<String, Tile> tiles;
 	private static HashMap<String, Cursor> cursors;
-	
-	public AssetsNative(){
+	public static Font Font;
+	public AssetsNative() throws FontFormatException, IOException{
 		super();
 		tiles = new HashMap<String, Tile>();
 		cursors = new HashMap<String, Cursor>();
+		Font=java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, AssetsNative.class.getResourceAsStream("..\\assets\\native\\Font.ttf"));
 	}
 	
 	private void loadGui(){
