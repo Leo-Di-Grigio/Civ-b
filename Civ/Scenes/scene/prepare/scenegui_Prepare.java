@@ -7,7 +7,9 @@ import script.gui.button.gui_button_CreateTeam;
 import script.gui.button.gui_button_JoinTeam;
 import gui.GUI;
 import gui.elements.GuiElementButton;
+import gui.elements.GuiElementMultiTable;
 import gui.elements.GuiElementTable;
+import gui.misc.MultiTableLine;
 
 public class scenegui_Prepare extends GUI {
 
@@ -26,6 +28,16 @@ public class scenegui_Prepare extends GUI {
 		players.setVisible(true);
 		players.setScript(new gui_Table());
 		this.add("players", players);
+		
+		// Players Table
+		GuiElementMultiTable players2 = new GuiElementMultiTable();
+		players2.setSize(400, 400);
+		players2.setPositionType(Enums.GuiPosition.CENTER_LEFT);
+		players2.setTexture("pane");
+		players2.setPosition(50, 0);
+		players2.setVisible(true);
+		players2.setScript(null);
+		this.add("players2", players2);
 		
 		// Join the game		
 		button = new GuiElementButton();
