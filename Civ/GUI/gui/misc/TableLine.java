@@ -1,4 +1,4 @@
-package misc;
+package gui.misc;
 
 public class TableLine{
 	

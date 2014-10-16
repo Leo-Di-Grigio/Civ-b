@@ -1,9 +1,9 @@
 package scene.game;
 
 import misc.Log;
-import misc.TableLine;
 import gui.GUI;
 import gui.elements.GuiElementTable;
+import gui.misc.TableLine;
 import player.Player;
 import player.Team;
 import player.units.Unit;

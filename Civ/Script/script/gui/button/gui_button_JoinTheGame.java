@@ -4,12 +4,12 @@ import java.io.IOException;
 
 import gui.GUI;
 import gui.elements.GuiElementTable;
+import gui.misc.TableLine;
 import net.Message;
 import net.Message.Prefix;
 import network.Network;
 import main.Config;
 import misc.Log;
-import misc.TableLine;
 import script.gui.ScriptGui;
 import tasks.Task;
 

@@ -7,7 +7,7 @@ import java.util.Vector;
 import javax.media.opengl.GL3;
 
 import gui.GuiElement;
-import misc.TableLine;
+import gui.misc.TableLine;
 
 public class GuiElementTable extends GuiElement {
 	
@@ -21,6 +21,7 @@ public class GuiElementTable extends GuiElement {
 		super();
 		setTexture("pane");
 		
+		this.lineSize = 20;
 		this.collumns = collumns;
 		list = new Vector<TableLine>();
 	}
@@ -59,7 +60,7 @@ public class GuiElementTable extends GuiElement {
 				line.setCell(j - 1, arr[i*collumns + j]);
 			}
 			
-			add(line);
+			list.add(line);
 		}
 	}
 	
