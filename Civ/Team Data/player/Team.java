@@ -11,6 +11,7 @@ public class Team implements Sentble {
 	
 	// data
 	public String name;
+	public int ownerPlayerId;
 	
 	public Team(String data){
 		buildObj(data);
@@ -32,6 +33,7 @@ public class Team implements Sentble {
 		
 		this.id = Integer.parseInt(arr[0]);
 		this.name = arr[1];
+		this.ownerPlayerId = Integer.parseInt(arr[2]);
 	}
 
 	@Override
@@ -41,6 +43,7 @@ public class Team implements Sentble {
 		switch(arr[0]){
 			case "id": id = Integer.parseInt(arr[1]); break;
 			case "name": name = arr[1]; break;
+			case "ownerPlayerId": ownerPlayerId = Integer.parseInt(arr[1]); break;
 		}
 	}
 }

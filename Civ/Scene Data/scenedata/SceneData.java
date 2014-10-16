@@ -25,6 +25,8 @@ abstract public class SceneData {
 				execute(task);
 			}
 		}
+		
+		tasks.swap();
 	}
 	
 	public void drawGui(Graphics g){

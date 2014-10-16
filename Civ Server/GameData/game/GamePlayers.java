@@ -30,7 +30,7 @@ public class GamePlayers {
 				ClientPool.sendMsg(clientId, new Message(Prefix.GAME_JOIN_ERR, "already played"));
 			}
 			else{
-				Player player = new Player(playerName);
+				Player player = new Player(clientId, playerName);
 				players.put(clientId, player);
 				ClientPool.getClient(clientId).setGameId(gameId);
 				
@@ -48,13 +48,10 @@ public class GamePlayers {
 	
 	public void remove(int clientId, GameBroadcasting broad) throws IOException{
 		if(players.containsKey(clientId)){
-			Player player = players.get(clientId);
-			int id = player.id;
 			players.remove(clientId);
 			ClientPool.getClient(clientId).gameId = -1;
 			Log.service("Player ID: " + clientId + " leave the game ID: " + gameId);
-			
-			broad.send(new Message(Prefix.DEL_PLAYER, "" + id));
+			broad.send(new Message(Prefix.DEL_PLAYER, "" + clientId));
 		}
 	}
 	

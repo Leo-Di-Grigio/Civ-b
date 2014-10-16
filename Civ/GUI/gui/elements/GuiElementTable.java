@@ -12,8 +12,9 @@ import misc.TableLine;
 public class GuiElementTable extends GuiElement {
 	
 	protected int selectedLine = -1;
-	protected int lineSize = 20;
-	protected int collumns = 0;
+	protected int lineSize;
+	
+	protected int collumns;
 	protected Vector<TableLine> list;
 	
 	public GuiElementTable(int collumns) {

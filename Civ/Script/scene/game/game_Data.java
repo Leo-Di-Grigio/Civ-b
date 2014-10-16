@@ -32,6 +32,10 @@ public class game_Data {
 	public static void objTeam(GUI gui, GameData gamedata, String data) {
 		Team team = new Team(data);
 		gamedata.addTeam(team);
+		
+		if(gui != null){
+			
+		}
 	}
 	
 	public static void objUnit(GUI gui, GameData gamedata, String data){

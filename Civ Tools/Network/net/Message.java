@@ -34,7 +34,8 @@ public class Message implements Serializable {
 		
 		// team control
 		REQ_TEAM_CHOOSE,
-		REQ_TEAM_CREATE,
+		REQ_TEAM_CREATE, 
+		REQ_TEAM_ERR,
 		
 		// scene Prepearing
 		REQ_READY_CHECK,

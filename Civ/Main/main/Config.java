@@ -21,6 +21,7 @@ public class Config {
 	public static String serverAddress;
 	public static int serverPort;
 	public static String playerName;
+	public static String teamName;
 	
 	public Config(){
 		// render
@@ -39,6 +40,7 @@ public class Config {
 		serverAddress = "127.0.0.1";
 		serverPort = 6600;
 		playerName = "Default Player";
+		teamName = "Default Team";
 		
 		Log.debug("Config load:\n\t1) renderMode: " + renderMode);
 		Log.debug("\t2) " + frameWidth +"x" + frameHeight + ": fps " + fps);

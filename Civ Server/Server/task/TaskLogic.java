@@ -39,6 +39,14 @@ public class TaskLogic {
 				case REQ_PLAYERS_LIST:
 					requestPlayersList(task);
 					break;
+					
+				case REQ_TEAM_CREATE:
+					requestTeamCreate(task);
+					break;
+				
+				case REQ_TEAM_CHOOSE:
+					requestTeamChoose(task);
+					break;
 				
 				default: break;
 			}
@@ -87,5 +95,15 @@ public class TaskLogic {
 	private static void requestPlayersList(Task task) throws IOException {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
 		GamesMng.get(gameId).sendPlayersList(task.clientId);
+	}
+	
+	private static void requestTeamCreate(Task task) throws IOException {
+		int gameId = ClientPool.getClient(task.clientId).gameId;
+		GamesMng.get(gameId).addTeam(task.clientId, task.msg.data);
+	}
+	
+	private static void requestTeamChoose(Task task) {
+		int gameId = ClientPool.getClient(task.clientId).gameId;
+		GamesMng.get(gameId).teamChoose(task.clientId, task.msg.data);
 	}
 }

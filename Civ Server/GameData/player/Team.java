@@ -13,10 +13,12 @@ public class Team implements Sentble  {
 	
 	// data
 	public String name;
+	public int ownerPlayerId;
 	
-	public Team(String name) {
+	public Team(int playerId, String name) {
 		this.id = ID++;
 		this.name = name;
+		this.ownerPlayerId = playerId;
 	}
 
 	@Override
@@ -25,6 +27,7 @@ public class Team implements Sentble  {
 		
 		data += id 	 + ":";
 		data += name + ":";
+		data += ownerPlayerId + ":";
 		
 		return new Message(Prefix.OBJ_TEAM, data);
 	}
@@ -37,7 +40,8 @@ public class Team implements Sentble  {
 		
 		switch(field){
 			case "id": 	 data += id; break;
-			case "name": name += name; break;
+			case "name": data += name; break;
+			case "ownerPlayerId": data += ownerPlayerId; break;
 		}
 		
 		return new Message(Prefix.UPD_TEAM, data);

@@ -1,6 +1,7 @@
 package game;
 
 import java.io.IOException;
+
 import builder.GameMapGenerator;
 import misc.Enums;
 import misc.Log;
@@ -24,6 +25,7 @@ public class Game {
 	
 	// playres
 	public GamePlayers players;
+	public GameTeams teams;
 	
 	// messaging
 	protected GameBroadcasting broad;
@@ -38,6 +40,7 @@ public class Game {
 		this.name = name;
 		this.playersMax = playersMax;
 		this.players = new GamePlayers(id);
+		this.teams = new GameTeams(id);
 		
 		// map
 		this.sizeX = mapSizeX;
@@ -63,5 +66,13 @@ public class Game {
 	
 	public void sendPlayersList(int clientId) throws IOException{
 		players.sendPlayesList(clientId);
+	}
+
+	public void addTeam(int clientId, String data) throws IOException {
+		teams.add(clientId, data, broad);
+	}
+
+	public void teamChoose(int clientId, String data) {
+		//
 	}
 }

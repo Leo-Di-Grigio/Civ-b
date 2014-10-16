@@ -8,15 +8,16 @@ public class Player implements Sentble {
 	
 	// SERVER
 	// ID
-	public static int ID = 0;
 	public int id;
 	
 	// data
 	public String name;
+	public int teamId;
 	
-	public Player(String name) {
-		this.id = ID++;
+	public Player(int clientId, String name) {
+		this.id = clientId;
 		this.name = name;
+		this.teamId = -1;
 	}
 	
 	@Override
@@ -25,6 +26,7 @@ public class Player implements Sentble {
 		
 		data += id 	 + ":";
 		data += name + ":";
+		data += teamId + ":";
 		
 		return new Message(Prefix.OBJ_PLAYER, data);
 	}
@@ -37,7 +39,8 @@ public class Player implements Sentble {
 		
 		switch(field){
 			case "id": 	 data += id; break;
-			case "name": name += name; break;
+			case "name": data += name; break;
+			case "teamId": data += teamId; break;
 		}
 		
 		return new Message(Prefix.UPD_PLAYER, data);
