@@ -1,6 +1,8 @@
 package recources;
 
+import java.awt.FontFormatException;
 import java.awt.Image;
+import java.io.IOException;
 
 import recources.nongl.Tile;
 import misc.Enums;
@@ -10,7 +12,7 @@ public class Recources {
 	
 	private static Assets assets;
 	
-	public Recources(Enums.RenderMode mode){
+	public Recources(Enums.RenderMode mode) throws FontFormatException, IOException{
 		Log.msg("Recources loaded " + mode);
 		
 		switch(mode){

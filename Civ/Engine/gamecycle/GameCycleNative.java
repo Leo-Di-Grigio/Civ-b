@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import painter.Painter;
+import recources.AssetsNative;
 import render.Render;
 import userapi.UserCanvasListener;
 import userapi.UserKey;
@@ -69,6 +70,7 @@ public class GameCycleNative extends GameCycle implements Runnable {
 	
 	private void cycle(BufferStrategy strategy) throws IOException{
 		g = strategy.getDrawGraphics();
+		g.setFont(AssetsNative.Font);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		
