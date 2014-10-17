@@ -1,5 +1,6 @@
 package recources;
 
+import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
 import java.io.IOException;
@@ -44,5 +45,9 @@ public class Recources {
 
 	public static void setCursor(String name) {
 		assets.setCursor(name);
+	}
+
+	public static Font getFont() {
+		return assets.getFont();
 	}
 }

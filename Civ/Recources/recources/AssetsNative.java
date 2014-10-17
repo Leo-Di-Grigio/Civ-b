@@ -2,11 +2,13 @@ package recources;
 
 import java.awt.Cursor;
 import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -19,12 +21,12 @@ public class AssetsNative extends Assets {
 
 	private static HashMap<String, Tile> tiles;
 	private static HashMap<String, Cursor> cursors;
-	public static Font Font;
-	public AssetsNative() throws FontFormatException, IOException{
+	private static Font font;
+	
+	public AssetsNative() {
 		super();
 		tiles = new HashMap<String, Tile>();
 		cursors = new HashMap<String, Cursor>();
-		Font=java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, AssetsNative.class.getResourceAsStream("..\\assets\\native\\Font.ttf"));
 	}
 	
 	private void loadGui(){
@@ -97,13 +99,20 @@ public class AssetsNative extends Assets {
 		addImage(Const.imgUnitAvatar, Tile.getTile(Const.assetsNative + "units\\avatar.png"));
 	}
 	
+	private void loadFont() throws FontFormatException, IOException {
+		font = Font.createFont(Font.TRUETYPE_FONT, new File(Const.assetsNative + "ttf\\font.otf")).deriveFont(12f);
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(font);
+	}
+	
 	@Override
-	public void init() {		
+	public void init() throws FontFormatException, IOException  {		
 		loadGui();
 		loadGreyTiles();
 		loadTerrain();
 		loadCursors();
 		loadUnits();
+		loadFont();
 		
 		System.gc();
 		Log.debug("Assets Native tiles loaded: " + tiles.size());
@@ -137,5 +146,10 @@ public class AssetsNative extends Assets {
 		if(cursors.containsKey(name)){
 			Engine.frame.getContentPane().setCursor(cursors.get(name));
 		}
+	}
+	
+	@Override
+	public Font getFont(){
+		return font;
 	}
 }

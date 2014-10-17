@@ -9,7 +9,6 @@ import gui.GUI;
 import gui.elements.GuiElementButton;
 import gui.elements.GuiElementMultiTable;
 import gui.elements.GuiElementTable;
-import gui.misc.MultiTableLine;
 
 public class scenegui_Prepare extends GUI {
 
