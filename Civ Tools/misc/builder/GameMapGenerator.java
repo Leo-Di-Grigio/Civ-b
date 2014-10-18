@@ -221,13 +221,14 @@ class Fractals {
 }
 
 class Voronoy{
-	private static int sizeX;	
-	public static byte[][] GenerateVoronoyMap(int sizeX, int sizeY, Random rand){
+	private static int sizeX;
+	
+	public static byte [][] GenerateVoronoyMap(int sizeX, int sizeY, Random rand){
 		Voronoy.sizeX = sizeX;
-		byte[][] ret = new byte[sizeX][sizeY];
+		byte [][] ret = new byte[sizeX][sizeY];
 		int nearCount = sizeX * sizeY / 100;
 		int count = (rand.nextInt(nearCount) - nearCount) / 10 + nearCount;
-		int[][] dots = new int[count][2];
+		int [][] dots = new int[count][2];
 		   
 		for(int i = 0; i < count; i++){
 			dots[i][0] = rand.nextInt(sizeX);

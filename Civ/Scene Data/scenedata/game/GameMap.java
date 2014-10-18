@@ -8,7 +8,6 @@ import builder.GameMapGenerator;
 import misc.Const;
 import misc.Enums;
 import misc.Environment;
-import misc.Tools;
 import recources.Recources;
 import recources.nongl.Tile;
 

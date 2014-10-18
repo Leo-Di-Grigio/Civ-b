@@ -81,7 +81,7 @@ public class game_SelectNode extends Script {
 					title3.setText("");
 				}
 				else{
-					title3.setText("Height in x: " + Environment.nodeSelectedX + " y: " + Environment.nodeSelectedY + " = " + data.height);
+					title3.setText("Recources type " + data.geology);
 				}
 			}
 		}
