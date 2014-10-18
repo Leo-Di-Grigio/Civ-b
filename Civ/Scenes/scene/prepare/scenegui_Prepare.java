@@ -9,6 +9,7 @@ import gui.GUI;
 import gui.elements.GuiElementButton;
 import gui.elements.GuiElementMultiTable;
 import gui.elements.GuiElementTable;
+import gui.misc.MultiTableLine;
 
 public class scenegui_Prepare extends GUI {
 
@@ -37,6 +38,46 @@ public class scenegui_Prepare extends GUI {
 		players2.setVisible(true);
 		players2.setScript(null);
 		this.add("players2", players2);
+		
+		// test data
+		String [] arr = {"Test", "Array"};
+		
+		MultiTableLine line1 = new MultiTableLine(arr);
+		line1.addLine(new MultiTableLine(arr));
+		
+		MultiTableLine line2 = new MultiTableLine(arr);
+		line2.addLine(new MultiTableLine(arr));
+		line2.addLine(new MultiTableLine(arr));
+		
+		MultiTableLine line3 = new MultiTableLine(arr);
+		line3.addLine(new MultiTableLine(arr));
+		line3.addLine(new MultiTableLine(arr));
+		
+		MultiTableLine line4 = new MultiTableLine(arr);
+		MultiTableLine line41 = new MultiTableLine(arr);
+		MultiTableLine line42 = new MultiTableLine(arr);
+		MultiTableLine line411 = new MultiTableLine(arr);
+		MultiTableLine line412 = new MultiTableLine(arr);
+		MultiTableLine line421 = new MultiTableLine(arr);
+		MultiTableLine line422 = new MultiTableLine(arr);
+		
+		line41.addLine(line411);
+		line41.addLine(line412);
+		line42.addLine(line421);
+		line42.addLine(line422);
+		line4.addLine(line41);
+		line4.addLine(line42);
+		
+		MultiTableLine line5 = new MultiTableLine(arr);
+		line5.addLine(new MultiTableLine(arr));
+		line5.addLine(new MultiTableLine(arr));
+		line5.addLine(new MultiTableLine(arr));
+		
+		players2.addLine(line1);
+		players2.addLine(line2);
+		players2.addLine(line3);
+		players2.addLine(line4);
+		players2.addLine(line5);
 		
 		// Join the game		
 		button = new GuiElementButton();

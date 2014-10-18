@@ -1,6 +1,5 @@
 package gui.elements;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.media.opengl.GL3;
@@ -19,7 +18,7 @@ public class GuiElementMultiTable extends GuiElement {
 		list = new MultiTableLine(arr);
 	}
 
-	public void add(MultiTableLine line){
+	public void addLine(MultiTableLine line){
 		list.addLine(line);
 	}
 	
@@ -28,8 +27,6 @@ public class GuiElementMultiTable extends GuiElement {
 		if(visible){
 			g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
 			list.setDraw(drawX, drawY);
-			
-			g.setColor(Color.black);
 			list.draw(g);
 		}
 	}

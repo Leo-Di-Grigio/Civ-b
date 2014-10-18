@@ -1,5 +1,6 @@
 package gui.misc;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Vector;
 
@@ -14,24 +15,18 @@ public class MultiTableLine implements Drawble {
 	
 	protected boolean selected;
 	
+	protected int level = 0;
 	protected int drawX = 0;
 	protected int drawY = 0;
 	protected int lineSize = 20;
 	
-	public MultiTableLine(String [] arr) {
+	public MultiTableLine(String [] arr){
 		list = new Vector<MultiTableLine>();
 		this.data = arr.clone();
 	}
 	
-	public void setData(String [] arr){
-		this.data = arr.clone();
-	}
-	
-	public void addLine(String [] arr){
-		list.add(new MultiTableLine(arr));
-	}
-	
-	public void addLine(MultiTableLine line){
+	public void addLine(MultiTableLine line) {
+		line.level = this.level + 1;
 		list.add(line);
 	}
 	
@@ -54,7 +49,7 @@ public class MultiTableLine implements Drawble {
 		String str = "";
 		
 		for(String item: data){
-			str += item + " : ";
+			str += item + ": ";
 		}
 		
 		return str;
@@ -71,15 +66,18 @@ public class MultiTableLine implements Drawble {
 	
 	@Override
 	public void draw(Graphics g) {
+		g.setColor(Color.black);
 		g.drawString(printData(), drawX, drawY);
 		
-		for(int i = 0, shift = 0; i < list.size(); ++i){
+		int shift = 0;
+		for(int i = 0; i < list.size(); ++i){
 			MultiTableLine item = list.get(i);
 			
-			shift = item.getSize() - 1;
-			
-			item.setDraw(drawX + 10, drawY + i * lineSize + shift * lineSize);
+			item.setDraw(drawX + 10, drawY + (i + shift) * lineSize + 20);
 			item.draw(g);
+			System.out.println("Level: " + item.level + " size: " + item.getSize());
+			
+			shift += item.getSize() - 1;
 		}
 	}
 
