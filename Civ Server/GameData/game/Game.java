@@ -2,6 +2,8 @@ package game;
 
 import java.io.IOException;
 
+import net.Message;
+import net.Message.Prefix;
 import player.Player;
 import builder.GameMapGenerator;
 import misc.Enums;
@@ -88,5 +90,13 @@ public class Game {
 
 	public void playerReadyCheck(int clientId) throws IOException {
 		players.readyCheckPlayer(clientId, broad);
+		
+		for(Player player: players.players.values()){
+			if(!player.ready){
+				return;
+			}
+		}
+		
+		broad.send(new Message(Prefix.GAME_BEGIN, null));
 	}
 }

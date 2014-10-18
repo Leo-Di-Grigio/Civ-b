@@ -1,7 +1,6 @@
 package scene.prepare;
 
 import misc.Enums;
-import script.gui.button.gui_button_ChangeScene;
 import script.gui.button.gui_button_CreateTeam;
 import script.gui.table.gui_table_Select;
 import gui.GUI;
@@ -25,18 +24,6 @@ public class scenegui_Prepare extends GUI {
 		players.setVisible(true);
 		players.setScript(new gui_table_Select());
 		this.add("players", players);
-		
-		// Join the game		
-		button = new GuiElementButton();
-		button.setPosition(270, -285);
-		button.setSize(128, 32);
-		button.setPositionType(Enums.GuiPosition.CENTER);
-		button.setTexture("button_menu");
-		button.setTextureSelected("button_menu_select");
-		button.setText("Join, MF!");
-		button.setVisible(true);
-		button.setScript(new gui_button_ChangeScene(Enums.Scene.GAME));
-		this.add("new_game", button);
 		
 		// Create Team
 		button = new GuiElementButton();
@@ -76,7 +63,7 @@ public class scenegui_Prepare extends GUI {
 		
 		// Ready check
 		button = new GuiElementButton();
-		button.setPosition(270, -100);
+		button.setPosition(270, -285);
 		button.setSize(128, 32);
 		button.setPositionType(Enums.GuiPosition.CENTER);
 		button.setTexture("button_menu");

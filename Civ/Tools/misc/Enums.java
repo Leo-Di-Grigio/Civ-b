@@ -49,6 +49,9 @@ public class Enums {
 		GAME_SELECT_NODE,
 		DATA_GAMELIST,     //(String)size:arrData
 		
+		// Scene Prepearing
+		GAME_BEGIN,
+		
 		// Data
 		GAME_MSG,
 		GAME_OBJ_PLAYER, //
