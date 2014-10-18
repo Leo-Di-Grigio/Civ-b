@@ -75,4 +75,8 @@ public class Game {
 	public void teamChoose(int clientId, String data) {
 		//
 	}
+
+	public void sendTeamList(int clientId) throws IOException {
+		teams.sendTeamList(clientId);
+	}
 }

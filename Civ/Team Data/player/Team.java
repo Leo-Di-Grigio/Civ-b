@@ -13,6 +13,13 @@ public class Team implements Sentble {
 	public String name;
 	public int ownerPlayerId;
 	
+	public Team(){
+		// default -1 team
+		id = -1;
+		name = "No team";
+		ownerPlayerId = -1;
+	}
+	
 	public Team(String data){
 		buildObj(data);
 	}

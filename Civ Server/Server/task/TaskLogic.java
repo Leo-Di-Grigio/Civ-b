@@ -36,8 +36,8 @@ public class TaskLogic {
 					requestGameLeave(task);
 					break;
 				
-				case REQ_PLAYERS_LIST:
-					requestPlayersList(task);
+				case REQ_GAME_DATA:
+					requestGameData(task);
 					break;
 					
 				case REQ_TEAM_CREATE:
@@ -91,9 +91,10 @@ public class TaskLogic {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
 		GamesMng.get(gameId).removePlayer(task.clientId);
 	}
-	
-	private static void requestPlayersList(Task task) throws IOException {
+
+	private static void requestGameData(Task task) throws IOException {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
+		GamesMng.get(gameId).sendTeamList(task.clientId);
 		GamesMng.get(gameId).sendPlayersList(task.clientId);
 	}
 	

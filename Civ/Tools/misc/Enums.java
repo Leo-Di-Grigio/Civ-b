@@ -104,4 +104,10 @@ public class Enums {
 		HEIGHT,
 		TERRAIN;
 	}
+	
+	public static enum TableMetadata {
+		NULL,
+		TEAM,
+		PLAYER;
+	}
 }
