@@ -58,12 +58,12 @@ public class GameMap {
 	private void generateMap(){
 		nodes = new Node[sizeX][sizeY];
 		byte [][] height = GameMapGenerator.buildHeightMap(seed, sizeX, sizeY);
-		
+		byte [][] geology = GameMapGenerator.buildGeologyMap(seed, sizeX, sizeY);
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){
 				nodes[i][j] = new Node();
 				nodes[i][j].height = height[i][j];
-				nodes[i][j].geology = (byte)Tools.rand(0, 127);
+				nodes[i][j].geology = geology[i][j];
 			}
 		}
 	}

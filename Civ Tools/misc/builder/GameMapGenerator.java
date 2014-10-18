@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
+
 import javax.imageio.ImageIO;
 
 import misc.Tools;
@@ -43,16 +44,27 @@ public class GameMapGenerator {
 			int x = point.x;
 			int y = point.y;
 			
-			for(int i = 0; i + x < sizeX && i < points.get(point).sizeX; ++i){
+			for(int i = 0; i < points.get(point).sizeX; ++i){
 				for(int j = 0; j + y < sizeY && j < points.get(point).sizeY; ++j){
 					if(points.get(point).map[i][j] != 0){
-						nodes[i + x][j + y] = points.get(point).map[i][j];
+						if(i + x < sizeX){
+							nodes[i + x][j + y] = points.get(point).map[i][j];
+						}
+						else{
+							nodes[i + x - sizeX][j + y] = points.get(point).map[i][j];
+						}
 					}
 				}
 			}
 		}
 		
 		return nodes;
+	}
+	
+	public static byte [][] buildGeologyMap(long seed, int sizeX, int sizeY){
+		rand = new Random(seed);
+		byte [][] ret = Voronoy.GenerateVoronoyMap(sizeX, sizeY, rand);		
+		return ret;
 	}
 	
 	public static void generateImageLog(byte [][] height, int sizeX, int sizeY, String fileName) {
@@ -207,3 +219,52 @@ class Fractals {
         return (random.nextDouble() - 0.5) * max;
     }
 }
+
+class Voronoy{
+	private static int sizeX;	
+	public static byte[][] GenerateVoronoyMap(int sizeX, int sizeY, Random rand){
+		Voronoy.sizeX = sizeX;
+		byte[][] ret = new byte[sizeX][sizeY];
+		int nearCount = sizeX * sizeY / 100;
+		int count = (rand.nextInt(nearCount) - nearCount) / 10 + nearCount;
+		int[][] dots = new int[count][2];
+		   
+		for(int i = 0; i < count; i++){
+			dots[i][0] = rand.nextInt(sizeX);
+			dots[i][1] = rand.nextInt(sizeY);
+			ret[ dots[i][0] ][ dots[i][1] ] = (byte)rand.nextInt(Byte.MAX_VALUE);
+		}
+	   	
+		for (int i = 0; i < sizeX; i++){
+			for (int j = 0; j < sizeY; j++){
+				int x = dots[0][0];
+				int y = dots[0][1];
+				int len = getLength(i, j, x, y);
+
+				for (int k = 1; k < dots.length; k++) {
+					int len1 = getLength(i, j, dots[k][0], dots[k][1]);
+
+					if(len > len1){
+						x = dots[k][0];
+						y = dots[k][1];
+						len = len1;
+					}
+				}
+
+				ret[i][j] = ret[x][y];
+			}
+		}
+		
+		return ret;
+	}
+	
+	private static int getLength(int x1, int y1, int x2, int y2) {
+		int r1 = (int) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));//Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2)); 
+		int r2 = (int) Math.sqrt(Math.pow(sizeX - Math.abs(x1 - x2), 2) + Math.pow(y1 - y2, 2));//Math.max(Math.abs(x1 - x2), sizeY - Math.abs(y1 - y2));
+		return Math.min(r1, r2);
+	}
+}
+
+
+
+
