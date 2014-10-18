@@ -14,7 +14,8 @@ public class Player implements Sentble {
 	public int teamId;
 	
 	public Player(String data){
-		buildObj(data);
+		String [] arr = data.split(":");
+		buildObj(arr);
 	}
 
 	@Override
@@ -28,22 +29,18 @@ public class Player implements Sentble {
 	}
 
 	@Override
-	public void buildObj(String data) {
-		String [] arr = data.split(":");
-		
+	public void buildObj(String [] arr) {
 		this.id = Integer.parseInt(arr[0]);
 		this.name = arr[1];
 		this.teamId = Integer.parseInt(arr[2]);
 	}
 
 	@Override
-	public void updateObj(String data) {
-		String [] arr = data.split(":");
-		
-		switch(arr[0]){
-			case "id": id = Integer.parseInt(arr[1]); break;
-			case "name": name = arr[1]; break;
-			case "teamId": teamId = Integer.parseInt(arr[1]);
+	public void updateObj(String [] arr) {
+		switch(arr[1]){
+			case "id": id = Integer.parseInt(arr[2]); break;
+			case "name": name = arr[2]; break;
+			case "teamId": teamId = Integer.parseInt(arr[2]);
 		}
 	}
 }

@@ -3,7 +3,6 @@ package scene.prepare;
 import misc.Enums;
 import script.gui.button.gui_button_ChangeScene;
 import script.gui.button.gui_button_CreateTeam;
-import script.gui.button.gui_button_JoinTeam;
 import script.gui.table.gui_table_Select;
 import gui.GUI;
 import gui.elements.GuiElementButton;
@@ -62,6 +61,18 @@ public class scenegui_Prepare extends GUI {
 		button.setVisible(true);
 		button.setScript(new gui_button_JoinTeam());
 		this.add("join_team", button);
+		
+		// Leave team
+		button = new GuiElementButton();
+		button.setPosition(270, -174);
+		button.setSize(128, 32);
+		button.setPositionType(Enums.GuiPosition.CENTER);
+		button.setTexture("button_menu");
+		button.setTextureSelected("button_menu_select");
+		button.setText("Leave Team");
+		button.setVisible(true);
+		button.setScript(new gui_button_LeaveTeam());
+		this.add("leave_team", button);
 		
 		// Back
 		button = new GuiElementButton();

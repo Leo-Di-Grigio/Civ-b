@@ -94,8 +94,7 @@ public class TaskLogic {
 
 	private static void requestGameData(Task task) throws IOException {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
-		GamesMng.get(gameId).sendTeamList(task.clientId);
-		GamesMng.get(gameId).sendPlayersList(task.clientId);
+		GamesMng.get(gameId).sendGameData(task.clientId);
 	}
 	
 	private static void requestTeamCreate(Task task) throws IOException {
@@ -103,7 +102,7 @@ public class TaskLogic {
 		GamesMng.get(gameId).addTeam(task.clientId, task.msg.data);
 	}
 	
-	private static void requestTeamChoose(Task task) {
+	private static void requestTeamChoose(Task task) throws IOException {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
 		GamesMng.get(gameId).teamChoose(task.clientId, task.msg.data);
 	}

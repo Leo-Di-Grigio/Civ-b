@@ -26,11 +26,33 @@ public class GamePlayersData {
 		teams.put(team.id, team);
 	}
 	
-	public void updTeam(){
+	public void updTeam(String data){
+		String [] arr = data.split(":");
+		int id = Integer.parseInt(arr[0]);
 		
+		if(teams.containsKey(id)){
+			teams.get(id).updateObj(arr);
+		}
 	}
 	
-	public void updPlayer(){
+	public void updPlayer(String data){
+		String [] arr = data.split(":");
+		int id = Integer.parseInt(arr[0]);
 		
+		if(players.containsKey(id)){
+			players.get(id).updateObj(arr);
+		}
+	}
+	
+	public void delTeam(int id){
+		if(teams.containsKey(id)){
+			teams.remove(id);
+		}
+	}
+	
+	public void delPlayer(int id){
+		if(players.containsKey(id)){
+			players.remove(id);
+		}
 	}
 }

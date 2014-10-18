@@ -36,8 +36,13 @@ public class GameTeams {
 
 		Team team = new Team(clientId, teamName);
 		teams.put(team.id, team);
+		
 		Log.service("Player ID: " + clientId + " created new team \"" + teamName + "\" in gameId: " + gameId);
 		broad.send(team.toMessage());
+		
+		Player player = GamesMng.get(gameId).players.players.get(clientId);
+		player.teamId = team.id;
+		broad.send(player.toMessageUpdate("teamId"));
 	}
 	
 	public void remove(int teamId, GameBroadcasting broad) throws IOException{

@@ -20,8 +20,7 @@ public class GameData {
 	public GameData(GameMap map) {
 		this.map = map;
 		this.users = new GamePlayersData();
-		units = new UnitsMng(map);
-		
+		this.units = new UnitsMng(map);
 	}
 
 	public void addPlayer(Player player) {
@@ -37,11 +36,11 @@ public class GameData {
 	}
 
 	public void updPlayer(String data) {
-		
+		users.updPlayer(data);
 	}
 
 	public void updTeam(String data) {
-		
+		users.updTeam(data);
 	}
 
 	public void updUnit(String data) {
@@ -49,11 +48,11 @@ public class GameData {
 	}
 	
 	public void delPlayer(int id){
-		
+		users.delPlayer(id);
 	}
 	
 	public void delTeam(int id){
-		
+		users.delTeam(id);
 	}
 	
 	public void delUnit(int id){

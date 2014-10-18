@@ -36,10 +36,20 @@ public class game_Data {
 
 	public static void updPlayer(GUI gui, GameData gamedata, String data) {
 		gamedata.updPlayer(data);
+		
+		if(gui != null){
+			GuiElementTable table = (GuiElementTable)gui.get("players");
+			table.sort(gamedata);
+		}
 	}
 	
 	public static void updTeam(GUI gui, GameData gamedata, String data) {
 		gamedata.updTeam(data);
+		
+		if(gui != null){
+			GuiElementTable table = (GuiElementTable)gui.get("players");
+			table.sort(gamedata);
+		}
 	}
 	
 	public static void updUnit(GUI gui, GameData gamedata, String data) {
@@ -52,7 +62,6 @@ public class game_Data {
 		
 		if(gui != null){
 			GuiElementTable table = (GuiElementTable)gui.get("players");
-			gamedata.users.players.remove(playerId);
 			
 			if(table != null){
 				table.sort(gamedata);
@@ -61,7 +70,16 @@ public class game_Data {
 	}
 
 	public static void delTeam(GUI gui, GameData gamedata, String data) {
+		int teamId = Integer.parseInt(data);
+		gamedata.delTeam(teamId);
 		
+		if(gui != null){
+			GuiElementTable table = (GuiElementTable)gui.get("players");
+			
+			if(table != null){
+				table.sort(gamedata);
+			}
+		}
 	}
 
 	public static void delUnit(GUI gui, GameData gamedata, String data) {
