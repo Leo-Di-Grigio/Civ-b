@@ -1,13 +1,10 @@
 package scenedata.game;
 
-import misc.Enums;
-import painter.Painter;
 import player.Player;
 import player.Team;
 import player.units.Unit;
 import player.units.UnitsMng;
-import tasks.Task;
-import teamdata.GameTeamData;
+import teamdata.GamePlayersData;
 
 public class GameData {
 	
@@ -15,22 +12,23 @@ public class GameData {
 	public GameMap map;
 	
 	// team
-	public GameTeamData team;
+	public GamePlayersData users;
 	
 	// units
 	public UnitsMng units;
 	
 	public GameData(GameMap map) {
 		this.map = map;
-		units = new UnitsMng(map);
+		this.users = new GamePlayersData();
+		this.units = new UnitsMng(map);
 	}
 
 	public void addPlayer(Player player) {
-		Painter.addTask(new Task(Enums.Task.GAME_MSG, "Player " + player.id + " name: " + player.name + " is joined"));
+		users.addPlayer(player);
 	}
 
 	public void addTeam(Team team) {
-		
+		users.addTeam(team);
 	}
 	
 	public void addUnit(Unit unit) {
@@ -38,11 +36,11 @@ public class GameData {
 	}
 
 	public void updPlayer(String data) {
-		
+		users.updPlayer(data);
 	}
 
 	public void updTeam(String data) {
-		
+		users.updTeam(data);
 	}
 
 	public void updUnit(String data) {
@@ -50,11 +48,11 @@ public class GameData {
 	}
 	
 	public void delPlayer(int id){
-		
+		users.delPlayer(id);
 	}
 	
 	public void delTeam(int id){
-		
+		users.delTeam(id);
 	}
 	
 	public void delUnit(int id){

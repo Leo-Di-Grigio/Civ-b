@@ -36,8 +36,8 @@ public class TaskLogic {
 					requestGameLeave(task);
 					break;
 				
-				case REQ_PLAYERS_LIST:
-					requestPlayersList(task);
+				case REQ_GAME_DATA:
+					requestGameData(task);
 					break;
 					
 				case REQ_TEAM_CREATE:
@@ -46,6 +46,10 @@ public class TaskLogic {
 				
 				case REQ_TEAM_CHOOSE:
 					requestTeamChoose(task);
+					break;
+					
+				case REQ_READY_CHECK:
+					requestReadyCheck(task);
 					break;
 				
 				default: break;
@@ -91,10 +95,10 @@ public class TaskLogic {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
 		GamesMng.get(gameId).removePlayer(task.clientId);
 	}
-	
-	private static void requestPlayersList(Task task) throws IOException {
+
+	private static void requestGameData(Task task) throws IOException {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
-		GamesMng.get(gameId).sendPlayersList(task.clientId);
+		GamesMng.get(gameId).sendGameData(task.clientId);
 	}
 	
 	private static void requestTeamCreate(Task task) throws IOException {
@@ -102,8 +106,13 @@ public class TaskLogic {
 		GamesMng.get(gameId).addTeam(task.clientId, task.msg.data);
 	}
 	
-	private static void requestTeamChoose(Task task) {
+	private static void requestTeamChoose(Task task) throws IOException {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
 		GamesMng.get(gameId).teamChoose(task.clientId, task.msg.data);
+	}
+	
+	private static void requestReadyCheck(Task task) throws IOException {
+		int gameId = ClientPool.getClient(task.clientId).gameId;
+		GamesMng.get(gameId).playerReadyCheck(task.clientId);
 	}
 }

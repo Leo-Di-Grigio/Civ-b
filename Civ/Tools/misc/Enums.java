@@ -49,6 +49,9 @@ public class Enums {
 		GAME_SELECT_NODE,
 		DATA_GAMELIST,     //(String)size:arrData
 		
+		// Scene Prepearing
+		GAME_BEGIN,
+		
 		// Data
 		GAME_MSG,
 		GAME_OBJ_PLAYER, //
@@ -102,6 +105,13 @@ public class Enums {
 	
 	public static enum MapDrawMode {
 		HEIGHT,
+		GEOLOGY,
 		TERRAIN;
+	}
+	
+	public static enum TableMetadata {
+		NULL,
+		TEAM,
+		PLAYER;
 	}
 }

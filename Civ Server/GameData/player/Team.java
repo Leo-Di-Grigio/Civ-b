@@ -36,10 +36,9 @@ public class Team implements Sentble  {
 	public Message toMessageUpdate(String field) {
 		String data = new String("");
 		
-		data += field + ":";
+		data += id + ":" + field + ":";
 		
 		switch(field){
-			case "id": 	 data += id; break;
 			case "name": data += name; break;
 			case "ownerPlayerId": data += ownerPlayerId; break;
 		}
@@ -48,12 +47,12 @@ public class Team implements Sentble  {
 	}
 
 	@Override
-	public void buildObj(String data) {
+	public void buildObj(String [] data) {
 		
 	}
 
 	@Override
-	public void updateObj(String data) {
+	public void updateObj(String [] data) {
 		
 	}
 }

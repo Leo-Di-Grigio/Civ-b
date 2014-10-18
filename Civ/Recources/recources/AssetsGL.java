@@ -1,5 +1,6 @@
 package recources;
 
+import java.awt.Font;
 import java.awt.Image;
 
 import recources.nongl.Tile;
@@ -9,7 +10,7 @@ public class AssetsGL extends Assets {
 
 	public AssetsGL() {
 		super();
-		Log.msg("Assets GL loaded");
+		Log.debug("Assets GL loaded");
 	}
 
 	@Override
@@ -30,5 +31,10 @@ public class AssetsGL extends Assets {
 	@Override
 	public void setCursor(String name) {
 		
+	}
+
+	@Override
+	public Font getFont() {
+		return null;
 	}
 }

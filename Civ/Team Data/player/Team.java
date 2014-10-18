@@ -13,8 +13,16 @@ public class Team implements Sentble {
 	public String name;
 	public int ownerPlayerId;
 	
+	public Team(){
+		// default -1 team
+		id = -1;
+		name = "No team";
+		ownerPlayerId = -1;
+	}
+	
 	public Team(String data){
-		buildObj(data);
+		String [] arr = data.split(":");
+		buildObj(arr);
 	}
 
 	@Override
@@ -28,22 +36,18 @@ public class Team implements Sentble {
 	}
 
 	@Override
-	public void buildObj(String data) {
-		String [] arr = data.split(":");
-		
+	public void buildObj(String [] arr) {
 		this.id = Integer.parseInt(arr[0]);
 		this.name = arr[1];
 		this.ownerPlayerId = Integer.parseInt(arr[2]);
 	}
 
 	@Override
-	public void updateObj(String data) {
-		String [] arr = data.split(":");
-		
-		switch(arr[0]){
-			case "id": id = Integer.parseInt(arr[1]); break;
-			case "name": name = arr[1]; break;
-			case "ownerPlayerId": ownerPlayerId = Integer.parseInt(arr[1]); break;
+	public void updateObj(String [] arr) {
+		switch(arr[1]){
+			case "id": id = Integer.parseInt(arr[2]); break;
+			case "name": name = arr[2]; break;
+			case "ownerPlayerId": ownerPlayerId = Integer.parseInt(arr[2]); break;
 		}
 	}
 }

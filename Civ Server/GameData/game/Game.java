@@ -2,6 +2,9 @@ package game;
 
 import java.io.IOException;
 
+import net.Message;
+import net.Message.Prefix;
+import player.Player;
 import builder.GameMapGenerator;
 import misc.Enums;
 import misc.Log;
@@ -64,15 +67,36 @@ public class Game {
 		players.remove(clientId, broad);
 	}
 	
-	public void sendPlayersList(int clientId) throws IOException{
+	public void sendGameData(int clientId) throws IOException{
 		players.sendPlayesList(clientId);
+		teams.sendTeamList(clientId);
 	}
 
 	public void addTeam(int clientId, String data) throws IOException {
 		teams.add(clientId, data, broad);
 	}
 
-	public void teamChoose(int clientId, String data) {
-		//
+	public void teamChoose(int clientId, String data) throws IOException {
+		if(players.players.containsKey(clientId)){
+			int teamId = Integer.parseInt(data);
+			
+			if(teams.teams.containsKey(teamId) || teamId == -1){
+				Player player = players.players.get(clientId);
+				player.teamId = teamId;
+				broad.send(player.toMessageUpdate("teamId"));
+			}
+		}
+	}
+
+	public void playerReadyCheck(int clientId) throws IOException {
+		players.readyCheckPlayer(clientId, broad);
+		
+		for(Player player: players.players.values()){
+			if(!player.ready){
+				return;
+			}
+		}
+		
+		broad.send(new Message(Prefix.GAME_BEGIN, null));
 	}
 }

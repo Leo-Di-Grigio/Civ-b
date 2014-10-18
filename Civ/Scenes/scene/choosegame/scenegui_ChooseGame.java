@@ -1,10 +1,10 @@
 package scene.choosegame;
 
 import misc.Enums;
-import scene.menu_newgame.gui_Table;
 import script.gui.button.gui_button_ChangeScene;
 import script.gui.button.gui_button_CreateNewGame;
 import script.gui.button.gui_button_JoinTheGame;
+import script.gui.table.gui_table_Select;
 import gui.GUI;
 import gui.elements.GuiElementButton;
 import gui.elements.GuiElementTable;
@@ -22,7 +22,7 @@ public class scenegui_ChooseGame extends GUI {
 		gameslist.setSize(400, 400);
 		gameslist.setPositionType(Enums.GuiPosition.CENTER);
 		gameslist.setVisible(true);
-		gameslist.setScript(new gui_Table());
+		gameslist.setScript(new gui_table_Select());
 		this.add("gameslist", gameslist);
 		
 		// Create new game

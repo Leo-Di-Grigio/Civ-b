@@ -1,10 +1,8 @@
 package scene.prepare;
 
 import misc.Enums;
-import scene.menu_newgame.gui_Table;
-import script.gui.button.gui_button_ChangeScene;
 import script.gui.button.gui_button_CreateTeam;
-import script.gui.button.gui_button_JoinTeam;
+import script.gui.table.gui_table_Select;
 import gui.GUI;
 import gui.elements.GuiElementButton;
 import gui.elements.GuiElementTable;
@@ -20,28 +18,16 @@ public class scenegui_Prepare extends GUI {
 		// Players Table
 		GuiElementTable players = new GuiElementTable(2);
 		players.setCollumns(2);
-		players.setSize(400, 400);
+		players.setSize(400, 600);
 		players.setPositionType(Enums.GuiPosition.CENTER);
-		players.setPosition(150, 0);
+		players.setPosition(0, 0);
 		players.setVisible(true);
-		players.setScript(new gui_Table());
+		players.setScript(new gui_table_Select());
 		this.add("players", players);
-		
-		// Join the game		
-		button = new GuiElementButton();
-		button.setPosition(430, -185);
-		button.setSize(128, 32);
-		button.setPositionType(Enums.GuiPosition.CENTER);
-		button.setTexture("button_menu");
-		button.setTextureSelected("button_menu_select");
-		button.setText("Join, MF!");
-		button.setVisible(true);
-		button.setScript(new gui_button_ChangeScene(Enums.Scene.GAME));
-		this.add("new_game", button);
 		
 		// Create Team
 		button = new GuiElementButton();
-		button.setPosition(430, -138);
+		button.setPosition(270, -248);
 		button.setSize(128, 32);
 		button.setPositionType(Enums.GuiPosition.CENTER);
 		button.setTexture("button_menu");
@@ -53,7 +39,7 @@ public class scenegui_Prepare extends GUI {
 		
 		// Join the Team
 		button = new GuiElementButton();
-		button.setPosition(430, -100);
+		button.setPosition(270, -211);
 		button.setSize(128, 32);
 		button.setPositionType(Enums.GuiPosition.CENTER);
 		button.setTexture("button_menu");
@@ -63,9 +49,33 @@ public class scenegui_Prepare extends GUI {
 		button.setScript(new gui_button_JoinTeam());
 		this.add("join_team", button);
 		
+		// Leave team
+		button = new GuiElementButton();
+		button.setPosition(270, -174);
+		button.setSize(128, 32);
+		button.setPositionType(Enums.GuiPosition.CENTER);
+		button.setTexture("button_menu");
+		button.setTextureSelected("button_menu_select");
+		button.setText("Leave Team");
+		button.setVisible(true);
+		button.setScript(new gui_button_LeaveTeam());
+		this.add("leave_team", button);
+		
+		// Ready check
+		button = new GuiElementButton();
+		button.setPosition(270, -285);
+		button.setSize(128, 32);
+		button.setPositionType(Enums.GuiPosition.CENTER);
+		button.setTexture("button_menu");
+		button.setTextureSelected("button_menu_select");
+		button.setText("Ready!");
+		button.setVisible(true);
+		button.setScript(new gui_button_ReadyCheck());
+		this.add("ready_check", button);
+		
 		// Back
 		button = new GuiElementButton();
-		button.setPosition(430, 185);
+		button.setPosition(270, 285);
 		button.setSize(128, 32);
 		button.setPositionType(Enums.GuiPosition.CENTER);
 		button.setTexture("button_menu");

@@ -8,6 +8,7 @@ import builder.GameMapGenerator;
 import misc.Const;
 import misc.Enums;
 import misc.Environment;
+import misc.Tools;
 import recources.Recources;
 import recources.nongl.Tile;
 
@@ -62,6 +63,7 @@ public class GameMap {
 			for(int j = 0; j < sizeY; ++j){
 				nodes[i][j] = new Node();
 				nodes[i][j].height = height[i][j];
+				nodes[i][j].geology = (byte)Tools.rand(0, 127);
 			}
 		}
 	}
@@ -227,23 +229,29 @@ public class GameMap {
 	}
 	
 	private void draw(Graphics g, int i, int j, int x, int y){
-		if(drawMode == Enums.MapDrawMode.HEIGHT){
-			// draw Height
-			g.drawImage(Recources.getImage("grey"+nodes[i][j].height), x*nodeX, y*nodeY, null);
-		}
-		else{
-			// draw Terrain
-			if(nodes[i][j].terrainType == Enums.Terrain.WATER){
-				g.drawImage(imgTerrainWater, x*nodeX, y*nodeY, null);
-			}
-			else{
-				drawNode(g, imgTerrainLand, i, j, x, y);
-			}
+		switch(drawMode) {
+			case HEIGHT:	
+				g.drawImage(Recources.getImage("grey"+nodes[i][j].height), x*nodeX, y*nodeY, null);
+				break;
+				
+			case TERRAIN:
+				// draw Terrain
+				if(nodes[i][j].terrainType == Enums.Terrain.WATER){
+					g.drawImage(imgTerrainWater, x*nodeX, y*nodeY, null);
+				}
+				else{
+					drawNode(g, imgTerrainLand, i, j, x, y);
+				}
 			
-			// draw border
-			if(nodes[i][j].border != 0){
-				drawBorder(g, imgTerrainWaterBorder, i, j, x, y);
-			}
+				// draw border
+				if(nodes[i][j].border != 0){
+					drawBorder(g, imgTerrainWaterBorder, i, j, x, y);
+				}
+				break;
+				
+			case GEOLOGY:
+				g.drawImage(Recources.getImage("geology" + nodes[i][j].geology), x*nodeX, y*nodeY, null);
+				break;
 		}
 	}
 	
@@ -280,9 +288,11 @@ public class GameMap {
 	private void generateMinimapImage(){
 		BufferedImage img = new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_INT_RGB);
 		BufferedImage imgHeight = new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_INT_RGB);
+		BufferedImage imgGeology = new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_INT_RGB);
 		
 		int rgb = 0;
 		int rgbHeight = 0;
+		int rgbGeology = 0;
 		
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){
@@ -295,22 +305,42 @@ public class GameMap {
 					rgb = 0x2CA757; // green
 					rgbHeight = ((int)nodes[i][j].height*16 << 16)  + ((int)nodes[i][j].height*16 << 8) + (int)nodes[i][j].height*16;
 				}
-			
+				
+				int geology = nodes[i][j].geology;
+				if(geology % 4 == 0)
+					rgbGeology = (int)geology*16 << 16 + (int)geology << 8 + (int)geology;
+				if(geology % 4 == 1)
+					rgbGeology = (int)geology << 16 + (int)geology*16 << 8 + (int)geology;
+				if(geology % 4 == 2)
+					rgbGeology = (int)geology << 16 + (int)geology << 8 + (int)geology*16;
+				if(geology % 4 == 3)
+					rgbGeology = (int)geology*16 << 16 + (int)geology*16 << 8 + (int)geology*16;
+				
 				img.setRGB(i, j, rgb);
 				imgHeight.setRGB(i, j, rgbHeight);
+				imgGeology.setRGB(i, j, rgbGeology);
 			}
 		}
 		
 		Recources.addImage(Const.imgMinimap, new Tile(img));
 		Recources.addImage(Const.imgMinimapHeight, new Tile(imgHeight));
+		Recources.addImage(Const.imgMinimapGeology, new Tile(imgGeology));
 	}
 
 	public void drawModeSwitch() {
-		if(drawMode == Enums.MapDrawMode.HEIGHT){
-			drawMode = Enums.MapDrawMode.TERRAIN;
-		}
-		else{
-			drawMode = Enums.MapDrawMode.HEIGHT;
+		
+		switch(drawMode){
+			case TERRAIN:
+				drawMode = Enums.MapDrawMode.HEIGHT;
+				break;
+				
+			case HEIGHT:
+				drawMode = Enums.MapDrawMode.GEOLOGY;
+				break;
+				
+			case GEOLOGY:
+				drawMode = Enums.MapDrawMode.TERRAIN;
+				break;
 		}
 	}
 }

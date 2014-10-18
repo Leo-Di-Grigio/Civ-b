@@ -60,7 +60,7 @@ public class scenedata_Prepare extends SceneData {
 				
 			case SCENE_LOADING:
 				gui_UpdatePosition.execute(gui);
-				Network.sendMsg(new Message(Prefix.REQ_PLAYERS_LIST, null));
+				Network.sendMsg(new Message(Prefix.REQ_GAME_DATA, null));
 				break;
 			
 			// Data
@@ -94,6 +94,10 @@ public class scenedata_Prepare extends SceneData {
 				
 			case GAME_MSG:
 				game_Msg.msg((String)task.data);
+				break;
+			
+			case GAME_BEGIN:
+				game_join.execute();
 				break;
 				
 			default: break;

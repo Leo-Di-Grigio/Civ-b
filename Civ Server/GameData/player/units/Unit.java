@@ -39,7 +39,7 @@ public class Unit implements Sentble{
 	public Message toMessageUpdate(String field) {
 		String data = new String("");
 		
-		data += field + ":";
+		data += id + ":" + field + ":";
 		
 		switch(field){
 			case "id": 		 data += id; break;
@@ -53,12 +53,12 @@ public class Unit implements Sentble{
 	}
 	
 	@Override
-	public void buildObj(String data) {
+	public void buildObj(String [] data) {
 
 	}
 
 	@Override
-	public void updateObj(String data) {
+	public void updateObj(String [] data) {
 
 	}
 }

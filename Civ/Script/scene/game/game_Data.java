@@ -1,9 +1,7 @@
 package scene.game;
 
-import misc.Log;
 import gui.GUI;
 import gui.elements.GuiElementTable;
-import gui.misc.TableLine;
 import player.Player;
 import player.Team;
 import player.units.Unit;
@@ -12,20 +10,12 @@ import scenedata.game.GameData;
 public class game_Data {
 
 	public static void objPlayer(GUI gui, GameData gamedata, String data) {
-		Log.debug("Execute game_Data - Player join");
-		
 		Player player = new Player(data);
 		gamedata.addPlayer(player);
 		
 		if(gui != null){
 			GuiElementTable table = (GuiElementTable)gui.get("players");
-			
-			if(table != null){
-				TableLine line = new TableLine(table.getCollumns());
-				line.setCell(0, ""+player.id);
-				line.setCell(1, player.name);
-				table.add(line);
-			}
+			table.sort(gamedata);
 		}
 	}
 
@@ -34,7 +24,8 @@ public class game_Data {
 		gamedata.addTeam(team);
 		
 		if(gui != null){
-			
+			GuiElementTable table = (GuiElementTable)gui.get("players");
+			table.sort(gamedata);
 		}
 	}
 	
@@ -45,10 +36,20 @@ public class game_Data {
 
 	public static void updPlayer(GUI gui, GameData gamedata, String data) {
 		gamedata.updPlayer(data);
+		
+		if(gui != null){
+			GuiElementTable table = (GuiElementTable)gui.get("players");
+			table.sort(gamedata);
+		}
 	}
 	
 	public static void updTeam(GUI gui, GameData gamedata, String data) {
 		gamedata.updTeam(data);
+		
+		if(gui != null){
+			GuiElementTable table = (GuiElementTable)gui.get("players");
+			table.sort(gamedata);
+		}
 	}
 	
 	public static void updUnit(GUI gui, GameData gamedata, String data) {
@@ -63,13 +64,22 @@ public class game_Data {
 			GuiElementTable table = (GuiElementTable)gui.get("players");
 			
 			if(table != null){
-				table.remove(0, ""+playerId);
+				table.sort(gamedata);
 			}
 		}
 	}
 
 	public static void delTeam(GUI gui, GameData gamedata, String data) {
+		int teamId = Integer.parseInt(data);
+		gamedata.delTeam(teamId);
 		
+		if(gui != null){
+			GuiElementTable table = (GuiElementTable)gui.get("players");
+			
+			if(table != null){
+				table.sort(gamedata);
+			}
+		}
 	}
 
 	public static void delUnit(GUI gui, GameData gamedata, String data) {

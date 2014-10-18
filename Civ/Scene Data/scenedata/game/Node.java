@@ -17,6 +17,9 @@ public class Node {
 	public Enums.Terrain terrainType;
 	public int border;
 	
+	// Geology
+	public byte geology;
+	
 	public Node() {
 		units = new Vector<Unit>();
 	}

@@ -1,4 +1,4 @@
-package scene.menu_newgame;
+package script.gui.table;
 
 import gui.elements.GuiElementTable;
 
@@ -9,7 +9,7 @@ import misc.Log;
 import script.gui.ScriptGui;
 import tasks.Task;
 
-public class gui_Table extends ScriptGui {
+public class gui_table_Select extends ScriptGui {
 	
 	@Override
 	public void execute(Task task) throws IOException {
@@ -24,7 +24,7 @@ public class gui_Table extends ScriptGui {
 			if(x > list.getDrawX() + 10 && x < list.getDrawX() + list.getSizeX() - 20 &&
 			   y > list.getDrawY() + 5  && y < list.getDrawY() + list.getSizeY() - 20)
 			{
-				int line = (y - (list.getDrawY() + 5)) / list.getLineSize();
+				int line = (y - (list.getDrawY() + 5)) / GuiElementTable.lineSize;
 				list.select(line);
 			}
 		}

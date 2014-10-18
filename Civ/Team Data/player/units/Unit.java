@@ -16,7 +16,8 @@ public class Unit implements Sentble{
 	public int type;
 	
 	public Unit(String data){
-		buildObj(data);
+		String [] arr = data.split(":");
+		buildObj(arr);
 	}
 
 	@Override
@@ -30,9 +31,7 @@ public class Unit implements Sentble{
 	}
 	
 	@Override
-	public void buildObj(String data) {
-		String [] arr = data.split(":");
-		
+	public void buildObj(String [] arr) {
 		// read
 		this.id = Integer.parseInt(arr[0]);
 		this.playerId = Integer.parseInt(arr[1]);
@@ -42,9 +41,7 @@ public class Unit implements Sentble{
 	}
 
 	@Override
-	public void updateObj(String data) {
-		String [] arr = data.split(":");
-		
+	public void updateObj(String [] arr) {
 		switch(arr[0]){
 			case "id": 		 id = Integer.parseInt(arr[1]); break;
 			case "playerId": playerId = Integer.parseInt(arr[1]); break;

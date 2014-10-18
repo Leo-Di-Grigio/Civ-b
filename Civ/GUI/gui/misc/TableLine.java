@@ -1,13 +1,21 @@
 package gui.misc;
 
+import java.awt.Color;
+
+import misc.Enums;
+
 public class TableLine{
 	
 	public int columns = 0;
+	
 	public String [] line;
+	public Enums.TableMetadata metadata;
+	
+	public Color selectingColor = Color.black;
 	
 	public TableLine(int columns){
 		line = new String[columns];
-		
+		metadata = Enums.TableMetadata.NULL;
 		for(int i = 0; i < columns; ++i){
 			line[i] = new String("");
 		}

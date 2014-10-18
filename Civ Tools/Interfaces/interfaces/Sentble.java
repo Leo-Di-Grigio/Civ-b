@@ -6,6 +6,6 @@ public interface Sentble {
 	
 	public Message toMessage();
 	public Message toMessageUpdate(String field);
-	public void buildObj(String data);
-	public void updateObj(String data);
+	public void buildObj(String [] data);
+	public void updateObj(String [] data);
 }

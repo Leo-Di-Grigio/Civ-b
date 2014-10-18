@@ -13,11 +13,13 @@ public class Player implements Sentble {
 	// data
 	public String name;
 	public int teamId;
+	public boolean ready;
 	
 	public Player(int clientId, String name) {
 		this.id = clientId;
 		this.name = name;
 		this.teamId = -1;
+		this.ready = false;
 	}
 	
 	@Override
@@ -27,6 +29,7 @@ public class Player implements Sentble {
 		data += id 	 + ":";
 		data += name + ":";
 		data += teamId + ":";
+		data += ready + ":";
 		
 		return new Message(Prefix.OBJ_PLAYER, data);
 	}
@@ -35,24 +38,24 @@ public class Player implements Sentble {
 	public Message toMessageUpdate(String field) {
 		String data = new String("");
 		
-		data += field + ":";
+		data += id + ":" + field + ":";
 		
 		switch(field){
-			case "id": 	 data += id; break;
 			case "name": data += name; break;
 			case "teamId": data += teamId; break;
+			case "ready": data += ready; break;
 		}
 		
 		return new Message(Prefix.UPD_PLAYER, data);
 	}
 
 	@Override
-	public void buildObj(String data) {
+	public void buildObj(String [] data) {
 		
 	}
 
 	@Override
-	public void updateObj(String data) {
+	public void updateObj(String [] data) {
 		
 	}
 }
