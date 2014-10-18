@@ -75,6 +75,30 @@ public class AssetsNative extends Assets {
 			addImage("grey"+i, new Tile(img));
 		}
 	}
+
+	private void loadGeologyTiles() {
+		int rgb = 0;
+		for(int i = 0; i < 128; ++i){
+			BufferedImage img = new BufferedImage(32, 32, BufferedImage.TYPE_INT_RGB);
+			
+			if(i % 4 == 0)
+				rgb = (int)i*16 << 16 + (int)i << 8 + (int)i;
+			if(i % 4 == 1)
+				rgb = (int)i << 16 + (int)i*16 << 8 + (int)i;
+			if(i % 4 == 2)
+				rgb = (int)i << 16 + (int)i << 8 + (int)i*16;
+			if(i % 4 == 3)
+				rgb = (int)i*16 << 16 + (int)i*16 << 8 + (int)i*16;
+			
+			for(int x = 0; x < 32; ++x){
+				for(int y = 0; y < 32; ++y){
+					img.setRGB(x, y, rgb); 
+				}
+			}
+			
+			addImage("geology"+i, new Tile(img));
+		}
+	}
 	
 	private void loadCursors(){
 		Image img = null;
@@ -112,6 +136,7 @@ public class AssetsNative extends Assets {
 	public void init() throws FontFormatException, IOException  {		
 		loadGui();
 		loadGreyTiles();
+		loadGeologyTiles();
 		loadTerrain();
 		loadCursors();
 		loadUnits();

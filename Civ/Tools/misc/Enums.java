@@ -105,6 +105,7 @@ public class Enums {
 	
 	public static enum MapDrawMode {
 		HEIGHT,
+		GEOLOGY,
 		TERRAIN;
 	}
 	
