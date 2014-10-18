@@ -44,6 +44,9 @@ public class AssetsNative extends Assets {
 		addImage("button_menu", Tile.getTile(Const.assetsNative+"gui\\button_menu.png"));
 		addImage("button_menu_select", Tile.getTile(Const.assetsNative+"gui\\button_menu_select.png"));
 		
+		// slider
+		addImage("slider", Tile.getTile(Const.assetsNative+"gui\\slider.png"));
+		
 		// panes
 		addImage("pane", Tile.getTile(Const.assetsNative+"gui\\pane.png"));
 		

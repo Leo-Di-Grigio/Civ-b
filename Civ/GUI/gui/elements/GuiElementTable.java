@@ -10,18 +10,17 @@ import gui.GuiElement;
 import gui.misc.TableLine;
 
 public class GuiElementTable extends GuiElement {
+
+	public static final int lineSize = 20;
 	
 	protected int selectedLine = -1;
-	protected int lineSize;
-	
+
 	protected int collumns;
 	protected Vector<TableLine> list;
 	
 	public GuiElementTable(int collumns) {
 		super();
 		setTexture("pane");
-		
-		this.lineSize = 20;
 		this.collumns = collumns;
 		list = new Vector<TableLine>();
 	}
@@ -77,6 +76,15 @@ public class GuiElementTable extends GuiElement {
 		list.add(line);
 	}
 	
+	public void remove(int collumn, String data) { // search specify (String)data in (int)collumn and remove line while data finded
+		for(int i = 0; i < list.size(); ++i){
+			if(list.get(i).getCell(collumn).compareTo(data) == 0){
+				list.remove(i);
+				return;
+			}
+		}
+	}
+	
 	@Override
 	public void draw(Graphics g) {
 		if(visible){
@@ -100,14 +108,5 @@ public class GuiElementTable extends GuiElement {
 	@Override
 	public void draw(GL3 gl) {
 
-	}
-
-	public void remove(int collumn, String data) { // search specify (String)data in (int)collumn and remove line while data finded
-		for(int i = 0; i < list.size(); ++i){
-			if(list.get(i).getCell(collumn).compareTo(data) == 0){
-				list.remove(i);
-				return;
-			}
-		}
 	}
 }
