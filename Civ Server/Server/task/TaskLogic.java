@@ -47,6 +47,10 @@ public class TaskLogic {
 				case REQ_TEAM_CHOOSE:
 					requestTeamChoose(task);
 					break;
+					
+				case REQ_READY_CHECK:
+					requestReadyCheck(task);
+					break;
 				
 				default: break;
 			}
@@ -105,5 +109,10 @@ public class TaskLogic {
 	private static void requestTeamChoose(Task task) throws IOException {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
 		GamesMng.get(gameId).teamChoose(task.clientId, task.msg.data);
+	}
+	
+	private static void requestReadyCheck(Task task) throws IOException {
+		int gameId = ClientPool.getClient(task.clientId).gameId;
+		GamesMng.get(gameId).playerReadyCheck(task.clientId);
 	}
 }

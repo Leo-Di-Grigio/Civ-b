@@ -74,6 +74,18 @@ public class scenegui_Prepare extends GUI {
 		button.setScript(new gui_button_LeaveTeam());
 		this.add("leave_team", button);
 		
+		// Ready check
+		button = new GuiElementButton();
+		button.setPosition(270, -100);
+		button.setSize(128, 32);
+		button.setPositionType(Enums.GuiPosition.CENTER);
+		button.setTexture("button_menu");
+		button.setTextureSelected("button_menu_select");
+		button.setText("Ready!");
+		button.setVisible(true);
+		button.setScript(new gui_button_ReadyCheck());
+		this.add("ready_check", button);
+		
 		// Back
 		button = new GuiElementButton();
 		button.setPosition(270, 285);

@@ -60,4 +60,12 @@ public class GamePlayers {
 			ClientPool.sendMsg(clientId, item.toMessage());
 		}
 	}
+	
+	public void readyCheckPlayer(int clientId, GameBroadcasting broad) throws IOException{
+		if(players.containsKey(clientId)){
+			Player player = players.get(clientId);
+			player.ready = true;
+			broad.send(player.toMessageUpdate("ready"));
+		}
+	}
 }

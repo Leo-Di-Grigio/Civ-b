@@ -6,6 +6,7 @@ import gui.misc.TableLine;
 
 import java.io.IOException;
 
+import misc.Enums;
 import misc.Log;
 import net.Message;
 import net.Message.Prefix;
@@ -25,11 +26,12 @@ public class gui_button_JoinTeam extends ScriptGui {
 			
 			TableLine line = table.getSelectedLine();
 			
-			if(line != null){
+			if(line != null && line.metadata ==  Enums.TableMetadata.TEAM){
 				String str = line.getCell(0);
 			
 				if(str != null && str.compareTo("") != 0){
 					int	id = Integer.parseInt(str); 
+					
 					Network.sendMsg(new Message(Prefix.REQ_TEAM_CHOOSE, ""+id));
 				}
 			}

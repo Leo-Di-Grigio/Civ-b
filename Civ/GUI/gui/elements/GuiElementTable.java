@@ -101,17 +101,24 @@ public class GuiElementTable extends GuiElement {
 			TableLine teamLine = new TableLine(2);
 			
 			teamLine.setCell(0, "" + team.id);
-			teamLine.setCell(1, team.name);
+			teamLine.setCell(1, " " + team.name);
 			teamLine.metadata = Enums.TableMetadata.TEAM;
 			teamLine.selectingColor = Color.red;
 			
 			list.add(teamLine);
 			
 			for(Player player: table.get(team.id)){
-				TableLine playerLine = new TableLine(3);
+				TableLine playerLine = new TableLine(4);
 				playerLine.setCell(0, "    ");
 				playerLine.setCell(1, ""+player.id);
-				playerLine.setCell(2, player.name);
+				playerLine.setCell(2, " "+player.name);
+				
+				if(player.ready){
+					playerLine.setCell(3, " ready");
+				}
+				else{
+					playerLine.setCell(3, " not ready");
+				}
 				playerLine.metadata = Enums.TableMetadata.PLAYER;
 				playerLine.selectingColor = Color.blue;
 				

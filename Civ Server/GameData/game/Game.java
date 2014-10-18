@@ -85,4 +85,8 @@ public class Game {
 			}
 		}
 	}
+
+	public void playerReadyCheck(int clientId) throws IOException {
+		players.readyCheckPlayer(clientId, broad);
+	}
 }
