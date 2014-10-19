@@ -21,8 +21,8 @@ public class GuiElementMinimap extends GuiElement {
 	protected int mapX;
 	protected int mapY;
 	
-	public GuiElementMinimap() {
-		super();
+	public GuiElementMinimap(String title) {
+		super(title);
 	}
 	
 	public void setMinimapTexture(Image texture){

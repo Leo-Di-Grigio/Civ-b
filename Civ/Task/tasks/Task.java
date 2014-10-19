@@ -24,6 +24,6 @@ public class Task {
 
 	public Task(Enums.Task type, Object data, Object dataPost) {
 		this(type, data);
-		this.dataPost = dataPost;
+		this.dataPost = dataPost; // GUI :)
 	}
 }

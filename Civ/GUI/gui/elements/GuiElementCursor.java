@@ -10,8 +10,8 @@ import gui.GuiElement;
 
 public class GuiElementCursor extends GuiElement {
 
-	public GuiElementCursor() {
-		super();
+	public GuiElementCursor(String title) {
+		super(title);
 		this.setSize(32, 32);
 		this.setPosition(Environment.nodeDrawCursorX*32, Environment.nodeDrawCursorY*32);
 		this.setVisible(true);

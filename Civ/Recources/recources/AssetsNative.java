@@ -31,6 +31,9 @@ public class AssetsNative extends Assets {
 	}
 	
 	private void loadGui(){
+		// Icon
+		addImage(Const.imgIcon, Tile.getTile(Const.assetsNative + "icon.ico"));
+		
 		// GUI ELEMENTS
 		addImage("null", Tile.getTile(Const.assetsNative+"gui/null.png"));
 		addImage("null_selected", Tile.getTile(Const.assetsNative+"gui/null_selected.png"));
@@ -53,6 +56,9 @@ public class AssetsNative extends Assets {
 		
 		// cursor
 		addImage("cursor_nodeselect", Tile.getTile(Const.assetsNative + "cursor/cursor_nodeselect_draw.png"));
+		
+		// window
+		addImage(Const.imgWindow, Tile.getTile(Const.assetsNative+"gui/window.png"));
 	}
 	
 	private void loadGreyTiles(){

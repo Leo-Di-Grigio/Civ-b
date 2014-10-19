@@ -22,11 +22,11 @@ public class scenegui_Game extends GUI {
 		
 		// cursor
 		GuiElementButton button = null;
-		GuiElementCursor cursor = new GuiElementCursor();
-		this.add("cursor", cursor);
+		GuiElementCursor cursor = new GuiElementCursor("cursor");
+		this.add(cursor);
 		
 		// minimap
-		GuiElementMinimap minimap = new GuiElementMinimap();
+		GuiElementMinimap minimap = new GuiElementMinimap("minimap");
 		minimap.setSize(300, 200);
 		minimap.setPosition(5, 0);
 		minimap.setPositionType(Enums.GuiPosition.BOTTOM_LEFT);
@@ -34,10 +34,10 @@ public class scenegui_Game extends GUI {
 		minimap.setMinimapTexture(Recources.getImage(Const.imgMinimap));
 		minimap.setVisible(true);
 		minimap.setScript(new gui_minimap_MoveCamera());
-		this.add("minimap", minimap);
+		this.add(minimap);
 		
 		// info pane
-		GuiElementPane pane = new GuiElementPane();
+		GuiElementPane pane = new GuiElementPane("infopane");
 		pane.setSize(300, 200);
 		pane.setPosition(-5, 0);
 		pane.setPositionType(Enums.GuiPosition.BOTTOM_RIGHT);
@@ -47,7 +47,7 @@ public class scenegui_Game extends GUI {
 		pane.setScript(null);
 		
 		// info icon
-		GuiElementIcon icon = new GuiElementIcon();
+		GuiElementIcon icon = new GuiElementIcon("icon");
 		icon.setSize(32, 32);
 		icon.setPosition(0, 0);
 		icon.setPositionType(Enums.GuiPosition.TOP_LEFT);
@@ -56,7 +56,7 @@ public class scenegui_Game extends GUI {
 		pane.addElement("icon", icon);
 		
 		// info string
-		GuiElementTitle title = new GuiElementTitle();
+		GuiElementTitle title = new GuiElementTitle("title-0");
 		title.setText("0");
 		title.setColor(Color.black);
 		title.setPosition(36, 12);
@@ -64,24 +64,24 @@ public class scenegui_Game extends GUI {
 		pane.addElement("title-0", title);
 		
 
-		title = new GuiElementTitle();
+		title = new GuiElementTitle("title-1");
 		title.setText("1");
 		title.setColor(Color.black);
 		title.setPosition(36, 24);
 		title.setPositionType(Enums.GuiPosition.TOP_LEFT);
 		pane.addElement("title-1", title);
 		
-		title = new GuiElementTitle();
+		title = new GuiElementTitle("title-2");
 		title.setText("2");
 		title.setColor(Color.black);
 		title.setPosition(36, 36);
 		title.setPositionType(Enums.GuiPosition.TOP_LEFT);
 		pane.addElement("title-2", title);
 		
-		this.add("infopane", pane);
+		this.add(pane);
 		
 		// button-0
-		button = new GuiElementButton();
+		button = new GuiElementButton("button-0");
 		button.setPosition(-163, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
@@ -90,9 +90,9 @@ public class scenegui_Game extends GUI {
 		button.setText("0");
 		button.setVisible(true);
 		button.setScript(null);
-		this.add("button-0", button);
+		this.add(button);
 		
-		button = new GuiElementButton();
+		button = new GuiElementButton("button-1");
 		button.setPosition(-98, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
@@ -101,9 +101,9 @@ public class scenegui_Game extends GUI {
 		button.setText("1");
 		button.setVisible(true);
 		button.setScript(null);
-		this.add("button-1", button);
+		this.add(button);
 		
-		button = new GuiElementButton();
+		button = new GuiElementButton("button-2");
 		button.setPosition(-33, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
@@ -112,9 +112,9 @@ public class scenegui_Game extends GUI {
 		button.setText("2");
 		button.setVisible(true);
 		button.setScript(null);
-		this.add("button-2", button);
+		this.add(button);
 		
-		button = new GuiElementButton();
+		button = new GuiElementButton("button-3");
 		button.setPosition(32, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
@@ -123,9 +123,9 @@ public class scenegui_Game extends GUI {
 		button.setText("3");
 		button.setVisible(true);
 		button.setScript(null);
-		this.add("button-3", button);
+		this.add(button);
 		
-		button = new GuiElementButton();
+		button = new GuiElementButton("button-4");
 		button.setPosition(97, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
@@ -134,9 +134,9 @@ public class scenegui_Game extends GUI {
 		button.setText("4");
 		button.setVisible(true);
 		button.setScript(null);
-		this.add("button-4", button);
+		this.add(button);
 		
-		button = new GuiElementButton();
+		button = new GuiElementButton("button-5");
 		button.setPosition(162, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
@@ -145,6 +145,6 @@ public class scenegui_Game extends GUI {
 		button.setText("5");
 		button.setVisible(true);
 		button.setScript(null);
-		this.add("button-5", button);
+		this.add(button);
 	}
 }

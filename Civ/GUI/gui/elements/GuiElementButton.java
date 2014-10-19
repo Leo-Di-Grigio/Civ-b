@@ -9,8 +9,8 @@ import gui.GuiElement;
 
 public class GuiElementButton extends GuiElement {
 		
-	public GuiElementButton() {
-		super();
+	public GuiElementButton(String title) {
+		super(title);
 	}
 
 	@Override

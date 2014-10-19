@@ -5,7 +5,7 @@ public class Const {
 	// version
 	public static final String title = "Civ";
 	public static final int version = 0;
-	public static final int subVersion = 76;
+	public static final int subVersion = 77;
 
 	// assets
 	public static final String assetsNative = "recources/assets/native/";
@@ -15,10 +15,12 @@ public class Const {
 	public static final int tasksForGC = 10000; // every 10000 tasks - call gc();
 	
 	// constant image keys
+	public static final String imgIcon = "icon";
 	public static final String imgMenu = "menu_background";
 	public static final String imgMinimap = "minimap";
 	public static final String imgMinimapHeight = "minimap_height";
 	public static final String imgMinimapGeology = "minima_geology";
+	public static final String imgWindow = "window";
 	
 	// terrain atlas keys
 	public static final String imgTerrainWater = "terrain_water";

@@ -12,8 +12,8 @@ public class GuiElementTitle extends GuiElement {
 	private String text = "";
 	private Color color = Color.white;
 	
-	public GuiElementTitle() {
-		super();
+	public GuiElementTitle(String title) {
+		super(title);
 	}
 	
 	public void setText(String text){

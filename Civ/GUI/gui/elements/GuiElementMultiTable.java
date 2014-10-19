@@ -26,7 +26,8 @@ public class GuiElementMultiTable extends GuiElement {
 	protected int sliderScale = 0;
 	protected boolean scrolled = true;
 	 
-	public GuiElementMultiTable() {
+	public GuiElementMultiTable(String title) {
+		super(title);
 		list = new MultiTableLine("");
 		list.setRoot();
 		

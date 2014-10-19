@@ -30,13 +30,17 @@ abstract public class GuiElement implements Drawble {
 	protected boolean selected;
 	
 	// label
+	protected String title = "";
 	protected String text = "";
 	
 	// scripts
+	protected GuiLayer layer;
 	protected ScriptGui script;
 	
-	public GuiElement() {
+	public GuiElement(String titile) {
+		this.title = titile;
 		position = Enums.GuiPosition.TOP_LEFT;
+		layer = new GuiLayer(0);
 		setTexture("null");
 		setTextureSelected("null_selected");
 	}
@@ -55,6 +59,10 @@ abstract public class GuiElement implements Drawble {
 	private void setDrawPosition(int x, int y){
 		this.drawX = x;
 		this.drawY = y;
+	}
+	
+	public void setLayer(int layer){
+		this.layer.value = layer;
 	}
 	
 	public void updateDrawPosition(int xPos, int yPos, int w, int h){
@@ -131,7 +139,7 @@ abstract public class GuiElement implements Drawble {
 	public void setSelected(boolean select) {
 		this.selected = select;
 	}
-	
+
 	public void setText(String text){
 		this.text = text;
 	}

@@ -25,8 +25,8 @@ public class GuiElementTable extends GuiElement {
 	protected int collumns;
 	protected Vector<TableLine> list;
 	
-	public GuiElementTable(int collumns) {
-		super();
+	public GuiElementTable(String title, int collumns) {
+		super(title);
 		setTexture("pane");
 		this.collumns = collumns;
 		list = new Vector<TableLine>();

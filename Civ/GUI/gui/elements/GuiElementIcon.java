@@ -8,8 +8,8 @@ import gui.GuiElement;
 
 public class GuiElementIcon extends GuiElement {
 
-	public GuiElementIcon() {
-		super();
+	public GuiElementIcon(String title) {
+		super(title);
 	}
 
 	@Override

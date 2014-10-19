@@ -15,7 +15,7 @@ public class scenegui_Connect extends GUI {
 		GuiElementButton button = null;
 		
 		// Conntect to address
-		button = new GuiElementButton();
+		button = new GuiElementButton("new_game");
 		button.setPosition(0, 0);
 		button.setSize(128, 32);
 		button.setPositionType(Enums.GuiPosition.CENTER);
@@ -24,10 +24,10 @@ public class scenegui_Connect extends GUI {
 		button.setText("Connect to " + Config.serverAddress + ":" + Config.serverPort);
 		button.setVisible(true);
 		button.setScript(new gui_button_ChangeScene(Enums.Scene.CHOOSE_GAME));
-		this.add("new_game", button);
+		this.add(button);
 				
 		// Back
-		button = new GuiElementButton();
+		button = new GuiElementButton("back");
 		button.setPosition(0, -80);
 		button.setSize(128, 32);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
@@ -36,6 +36,6 @@ public class scenegui_Connect extends GUI {
 		button.setText("Back");
 		button.setVisible(true);
 		button.setScript(new gui_button_ChangeScene(Enums.Scene.MENU));
-		this.add("back", button);
+		this.add(button);
 	}
 }

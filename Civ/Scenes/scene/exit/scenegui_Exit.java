@@ -15,7 +15,7 @@ public class scenegui_Exit extends GUI {
 		GuiElementButton button = null;
 		
 		// Cancel
-		button = new GuiElementButton();
+		button = new GuiElementButton("cancel");
 		button.setPosition(-100, 0);
 		button.setSize(128, 32);
 		button.setPositionType(Enums.GuiPosition.CENTER);
@@ -24,10 +24,10 @@ public class scenegui_Exit extends GUI {
 		button.setText("Cancel");
 		button.setVisible(true);
 		button.setScript(new gui_button_ChangeScene(Enums.Scene.MENU));
-		this.add("cancel", button);
+		this.add(button);
 		
 		// Exit
-		button = new GuiElementButton();
+		button = new GuiElementButton("exit");
 		button.setPosition(100, 0);
 		button.setSize(128, 32);
 		button.setPositionType(Enums.GuiPosition.CENTER);
@@ -36,6 +36,6 @@ public class scenegui_Exit extends GUI {
 		button.setText("Exit");
 		button.setVisible(true);
 		button.setScript(new gui_button_Exit());
-		this.add("exit", button);
+		this.add(button);
 	}
 }
