@@ -64,4 +64,13 @@ public class GameTeams {
 			ClientPool.sendMsg(clientId, item.toMessage());
 		}
 	}
+	
+	public int getTeamSize(int teamId, HashMap<Integer, Player> players){
+		if(teamId != -1 && teams.containsKey(teamId)){
+			return teams.get(teamId).getTeamSize(players);
+		}
+		else{
+			return -1;
+		}
+	}
 }

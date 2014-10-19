@@ -41,6 +41,14 @@ public class scenedata_Prepare extends SceneData {
 			case MOUSE_RELEASED:
 				gui_ElementClick.execute(gui);
 				break;
+				
+			case KEYBOARD_PRESSED:
+				prepare_Key.pressed(gamedata, (String)task.data);
+				break;
+				
+			case KEYBOARD_RELEASED:
+				prepare_Key.released(gamedata, gui, (String)task.data);
+				break;
 			
 			case GUI_UPDATE_POSITION:
 				gui_UpdatePosition.execute(gui);

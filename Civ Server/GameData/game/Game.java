@@ -64,6 +64,13 @@ public class Game {
 	}
 	
 	public void removePlayer(int clientId) throws IOException{
+		int teamId = players.players.get(clientId).teamId;
+		
+		// delete empty team
+		if(teams.getTeamSize(teamId, players.players) == 0){
+			teams.remove(teamId, broad);
+		}
+		
 		players.remove(clientId, broad);
 	}
 	
@@ -82,8 +89,14 @@ public class Game {
 			
 			if(teams.teams.containsKey(teamId) || teamId == -1){
 				Player player = players.players.get(clientId);
+				int oldTeam = player.teamId;
 				player.teamId = teamId;
 				broad.send(player.toMessageUpdate("teamId"));
+				
+				// delete empty team
+				if(teams.getTeamSize(oldTeam, players.players) == 0){
+					teams.remove(oldTeam, broad);
+				}
 			}
 		}
 	}

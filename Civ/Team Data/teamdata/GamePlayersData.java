@@ -31,7 +31,17 @@ public class GamePlayersData {
 		int id = Integer.parseInt(arr[0]);
 		
 		if(teams.containsKey(id)){
-			teams.get(id).updateObj(arr);
+			Team team = teams.get(id);
+			
+			if(arr[1].compareTo("id") == 0){
+				// re-register Team (update "id" field)
+				teams.remove(id);
+				team.updateObj(arr);
+				teams.put(team.id, team);
+			}
+			else{
+				team.updateObj(arr);
+			}
 		}
 	}
 	
@@ -39,8 +49,18 @@ public class GamePlayersData {
 		String [] arr = data.split(":");
 		int id = Integer.parseInt(arr[0]);
 		
-		if(players.containsKey(id)){
-			players.get(id).updateObj(arr);
+		if(players.containsKey(id)){	
+			Player player = players.get(id);
+			
+			if(arr[1].compareTo("id") == 0){
+				// re-register Player (update "id" field)
+				players.remove(id);
+				player.updateObj(arr);
+				players.put(player.id, player);
+			}
+			else{
+				player.updateObj(arr);
+			}
 		}
 	}
 	

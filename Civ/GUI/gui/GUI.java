@@ -154,6 +154,10 @@ public class GUI implements Drawble {
 		focusedElementTitle = null;
 	}
 	
+	public String getFocus(){
+		return focusedElementTitle;
+	}
+	
 	public void updatePosition(){
 		for(HashMap<String, GuiElement> gui: guiLayers.values()){
 			for(GuiElement element: gui.values()){

@@ -1,5 +1,7 @@
 package player;
 
+import java.util.HashMap;
+
 import net.Message;
 import net.Message.Prefix;
 import interfaces.Sentble;
@@ -21,6 +23,18 @@ public class Team implements Sentble  {
 		this.ownerPlayerId = playerId;
 	}
 
+	public int getTeamSize(HashMap<Integer, Player> players){
+		int size = 0;
+		
+		for(Player player: players.values()){
+			if(player.teamId == this.id){
+				size++;
+			}
+		}
+		
+		return size;
+	}
+	
 	@Override
 	public Message toMessage() {
 		String data = new String("");
