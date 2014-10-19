@@ -22,7 +22,8 @@ public class scenegui_Prepare extends GUI {
 		window.setPosition(0, 0);
 		window.setSize(300, 200);
 		window.setTexture(Const.imgWindow);
-		window.setVisible(true);
+		window.setVisible(false);
+		window.setScript(new gui_window_Click());
 		this.add(window);
 		
 		// GUI init

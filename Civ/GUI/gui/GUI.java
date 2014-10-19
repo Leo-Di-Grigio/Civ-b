@@ -22,6 +22,7 @@ public class GUI implements Drawble {
 	
 	// data
 	protected String selectedElementTitlte;
+	protected String focusedElementTitle;
 	
 	// Layer sorter
 	protected class SortLayers implements Comparator<GuiElement> {
@@ -74,7 +75,17 @@ public class GUI implements Drawble {
 		for(HashMap<String, GuiElement> gui: guiLayers.values()){
 			for(GuiElement element: gui.values()){
 				if(element.checkCollision()){
-					selectedSet.add(element);
+					if(focusedElementTitle == null){
+						selectedSet.add(element);
+					}
+					else{
+						if(element.title.compareTo(focusedElementTitle) == 0){
+							selectedSet.add(element);
+						}
+						else{
+							continue;
+						}
+					}
 				}
 			}
 		}
@@ -112,20 +123,35 @@ public class GUI implements Drawble {
 		}
 	}
 	
-	public boolean click() throws IOException{ // return true if any script executed, return false if no scripts
+	public boolean click() throws IOException { // return true if any script executed, return false if no scripts
 		if(selectedElementTitlte != null){
 			GuiElement element = null;
 			
 			element = this.get(selectedElementTitlte);
 
 			if(element != null && element.script != null){
-				element.script.execute(new Task(Enums.Task.MOUSE_RELEASED, element, this));
+				if(focusedElementTitle == null){
+					element.script.execute(new Task(Enums.Task.MOUSE_RELEASED, element, this));
+				}
+				else{
+					if(element.title.compareTo(focusedElementTitle) == 0){
+						element.script.execute(new Task(Enums.Task.MOUSE_RELEASED, element, this));
+					}
+				}
 			}
 			return true;
 		}
 		else{
 			return false;
 		}
+	}
+	
+	public void focus(String title){
+		focusedElementTitle = title;
+	}
+	
+	public void focusReset(){
+		focusedElementTitle = null;
 	}
 	
 	public void updatePosition(){

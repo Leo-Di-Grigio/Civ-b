@@ -12,7 +12,7 @@ public class ScriptGui extends Script {
 	}
 	
 	@Override
-	public void execute(Task e) throws IOException{
+	public void execute(Task task) throws IOException{
 		
 	}
 }
