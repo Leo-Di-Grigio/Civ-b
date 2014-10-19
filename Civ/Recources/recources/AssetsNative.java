@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import engine.Engine;
 import recources.nongl.Tile;
+import main.Config;
 import misc.Const;
 import misc.Log;
 
@@ -31,27 +32,27 @@ public class AssetsNative extends Assets {
 	
 	private void loadGui(){
 		// GUI ELEMENTS
-		addImage("null", Tile.getTile(Const.assetsNative+"gui\\null.png"));
-		addImage("null_selected", Tile.getTile(Const.assetsNative+"gui\\null_selected.png"));
+		addImage("null", Tile.getTile(Const.assetsNative+"gui/null.png"));
+		addImage("null_selected", Tile.getTile(Const.assetsNative+"gui/null_selected.png"));
 		
 		// menu
-		addImage(Const.imgMenu, Tile.getTile("recources\\assets\\menu.png"));
+		addImage(Const.imgMenu, Tile.getTile(Const.assetsNative + "menu.png"));
 		
 		// buttons
-		addImage("button", Tile.getTile(Const.assetsNative+"gui\\button.png"));
-		addImage("button_select", Tile.getTile(Const.assetsNative+"gui\\button_select.png"));
+		addImage("button", Tile.getTile(Const.assetsNative+"gui/button.png"));
+		addImage("button_select", Tile.getTile(Const.assetsNative+"gui/button_select.png"));
 		
-		addImage("button_menu", Tile.getTile(Const.assetsNative+"gui\\button_menu.png"));
-		addImage("button_menu_select", Tile.getTile(Const.assetsNative+"gui\\button_menu_select.png"));
+		addImage("button_menu", Tile.getTile(Const.assetsNative+"gui/button_menu.png"));
+		addImage("button_menu_select", Tile.getTile(Const.assetsNative+"gui/button_menu_select.png"));
 		
 		// slider
-		addImage("slider", Tile.getTile(Const.assetsNative+"gui\\slider.png"));
+		addImage("slider", Tile.getTile(Const.assetsNative+"gui/slider.png"));
 		
 		// panes
-		addImage("pane", Tile.getTile(Const.assetsNative+"gui\\pane.png"));
+		addImage("pane", Tile.getTile(Const.assetsNative+"gui/pane.png"));
 		
 		// cursor
-		addImage("cursor_nodeselect", Tile.getTile(Const.assetsNative + "cursor\\cursor_nodeselect_draw.png"));
+		addImage("cursor_nodeselect", Tile.getTile(Const.assetsNative + "cursor/cursor_nodeselect_draw.png"));
 	}
 	
 	private void loadGreyTiles(){
@@ -101,35 +102,38 @@ public class AssetsNative extends Assets {
 	}
 	
 	private void loadCursors(){
-		Image img = null;
-		Cursor cursor = null;
+		if(Config.os != "Linux"){
+			Image img = null;
+			Cursor cursor = null;
+	
+			img = Tile.getTile(Const.assetsNative + "cursor/cursor.png").getImage();
+			cursor = Toolkit.getDefaultToolkit().createCustomCursor(img, new Point(0, 0), "blank cursor");
+			cursors.put("cursor", cursor);
 		
-		img = Tile.getTile(Const.assetsNative + "cursor\\cursor.png").getImage();
-		cursor = Toolkit.getDefaultToolkit().createCustomCursor(img, new Point(0, 0), "blank cursor");
-		cursors.put("cursor", cursor);
+			img = Tile.getTile(Const.assetsNative + "cursor/null.png").getImage();
+			cursor = Toolkit.getDefaultToolkit().createCustomCursor(img, new Point(0, 0), "blank cursor");
+			cursors.put("null", cursor);
 		
-		img = Tile.getTile(Const.assetsNative + "cursor\\null.png").getImage();
-		cursor = Toolkit.getDefaultToolkit().createCustomCursor(img, new Point(0, 0), "blank cursor");
-		cursors.put("null", cursor);
-		
-		// set default
-		setCursor("cursor");
+			setCursor("cursor");
+		}
 	}
 
 	private void loadTerrain() {
-		addImage(Const.imgTerrainWater, Tile.getTile(Const.assetsNative + "terrain\\water.png"));
-		addImage(Const.imgTerrainWaterBorder, Tile.getTile(Const.assetsNative + "terrain\\waterBorder.png"));
-		addImage(Const.imgTerrainLand, Tile.getTile(Const.assetsNative + "terrain\\land.png"));
+		addImage(Const.imgTerrainWater, Tile.getTile(Const.assetsNative + "terrain/water.png"));
+		addImage(Const.imgTerrainWaterBorder, Tile.getTile(Const.assetsNative + "terrain/waterBorder.png"));
+		addImage(Const.imgTerrainLand, Tile.getTile(Const.assetsNative + "terrain/land.png"));
 	}
 
 	private void loadUnits() {
-		addImage(Const.imgUnitAvatar, Tile.getTile(Const.assetsNative + "units\\avatar.png"));
+		addImage(Const.imgUnitAvatar, Tile.getTile(Const.assetsNative + "units/avatar.png"));
 	}
 	
 	private void loadFont() throws FontFormatException, IOException {
-		font = Font.createFont(Font.TRUETYPE_FONT, new File(Const.assetsNative + "ttf\\font.otf")).deriveFont(12f);
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        ge.registerFont(font);
+		if(Config.os != "Linux"){
+			font = Font.createFont(Font.TRUETYPE_FONT, new File(Config.classPath + Const.assetsNative + "ttf/font.otf")).deriveFont(12f);
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(font);
+		}
 	}
 	
 	@Override
@@ -171,8 +175,10 @@ public class AssetsNative extends Assets {
 
 	@Override
 	public void setCursor(String name) {
-		if(cursors.containsKey(name)){
-			Engine.frame.getContentPane().setCursor(cursors.get(name));
+		if(Config.os != "Linux"){
+			if(cursors.containsKey(name)){
+				Engine.frame.getContentPane().setCursor(cursors.get(name));
+			}
 		}
 	}
 	

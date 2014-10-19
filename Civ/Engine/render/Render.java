@@ -29,11 +29,21 @@ public class Render implements Runnable {
 	}
 	
 	public static int getWidth(){
-		return gameCycle.getWidth();
+		if(gameCycle != null){
+			return gameCycle.getWidth();
+		}
+		else{
+			return 0;
+		}
 	}
 	
 	public static int getHeight(){
-		return gameCycle.getHeight();
+		if(gameCycle != null){
+			return gameCycle.getHeight();
+		}
+		else{
+			return 0;
+		}
 	}
 
 	@Override

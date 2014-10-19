@@ -5,6 +5,10 @@ import misc.Log;
 
 public class Config {
 	
+	// os
+	public static String os;
+	public static String classPath;
+	
 	// render
 	public static Enums.RenderMode renderMode;
 	public static int fps;
@@ -23,7 +27,39 @@ public class Config {
 	public static String playerName;
 	public static String teamName;
 	
-	public Config(){
+	public Config() {
+		// os
+		os = System.getProperty("os.name").intern();
+		Log.debug("OS: " + os);
+		
+		// classpath
+		String tmp = System.getProperty("java.class.path");
+		String [] arr = tmp.split(":");
+		
+		if(arr[0] != null){
+			classPath = arr[0];
+			
+			if(classPath.endsWith(".jar")){
+				if(os.startsWith("Linux")){
+					classPath = "./";
+				}
+				
+				if(os.startsWith("Windows")){
+					classPath = "";
+				}
+			}
+			else{
+				if(os.startsWith("Linux")){
+					classPath += "/";
+				}
+				
+				if(os.startsWith("Windows")){
+					classPath = "";
+				}
+			}
+		}
+		
+		
 		// render
 		renderMode = Enums.RenderMode.NATIVE;
 		fps = 60;
@@ -37,12 +73,15 @@ public class Config {
 		debug = true;
 		
 		// network
-		serverAddress = "127.0.0.1";
+		serverAddress = "134.17.135.59";
 		serverPort = 6600;
 		playerName = "Default Player";
 		teamName = "Default Team";
 		
-		Log.debug("Config load:\n\t1) renderMode: " + renderMode);
-		Log.debug("\t2) " + frameWidth +"x" + frameHeight + ": fps " + fps);
+		Log.debug("Config load:\n" +
+				  "\t1) " + os + "\n" +
+				  "\t2) " + classPath + "\n" + 
+				  "\t3) renderMode: " + renderMode + "\n" +
+				  "\t4) " + frameWidth +"x" + frameHeight + ": fps " + fps);
 	}
 }

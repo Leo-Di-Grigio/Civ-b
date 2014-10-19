@@ -4,7 +4,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
+
+import main.Config;
+import misc.Log;
 
 public class Tile {
 	
@@ -36,11 +40,13 @@ public class Tile {
    
 	public static Tile getTile(String path){
 	    Image image = null;
+	    
 	    try {
-	    	File img = new File(path);
-	        image = ImageIO.read(img);
+	    	File img = new File(Config.classPath + path);
+		    image = ImageIO.read(img);
 	    } 
 	    catch (IOException e){
+	    	Log.err("Cant read file " + Config.classPath + path);
 	        e.printStackTrace();
 	    }
 	    return new Tile(image);

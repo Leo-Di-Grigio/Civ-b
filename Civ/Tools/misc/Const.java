@@ -5,11 +5,11 @@ public class Const {
 	// version
 	public static final String title = "Civ";
 	public static final int version = 0;
-	public static final int subVersion = 75;
+	public static final int subVersion = 76;
 
 	// assets
-	public static final String assetsNative = "recources\\assets\\native\\";
-	public static final String assetsGL = "recources\\assets\\opengl\\";
+	public static final String assetsNative = "recources/assets/native/";
+	public static final String assetsGL = "recources/assets/opengl/";
 	
 	// memory garbage collector
 	public static final int tasksForGC = 10000; // every 10000 tasks - call gc();
