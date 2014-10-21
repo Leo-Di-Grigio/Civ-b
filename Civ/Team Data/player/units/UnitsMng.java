@@ -1,73 +1,46 @@
 package player.units;
 
 import java.util.HashMap;
-import java.util.Vector;
+import java.util.HashSet;
 
-import misc.Log;
 import scenedata.game.GameMap;
 
 public class UnitsMng {
 
 	protected GameMap map;
-	protected HashMap<Integer, Unit> register;
+	protected static HashMap<Integer, Unit> register;
 	
 	public UnitsMng(GameMap map) {
 		this.map = map;
-		this.register = new HashMap<Integer, Unit>();
+		register = new HashMap<Integer, Unit>();
 	}
 	
-	public void add(Unit unit){
+	public void addUnit(Unit unit){
+		register.put(unit.id, unit);
+		map.map[unit.x][unit.y].addUnit(unit);
+	}
+	
+	public void delUnit(int unitId){
+		Unit unit = register.remove(unitId);
 		if(unit != null){
-			map.map[unit.x][unit.y].add(unit);
-			register.put(unit.id, unit);
+			map.map[unit.x][unit.y].removeUnit(unitId);
 		}
 	}
 	
-	public void remove(int id){
-		if(register.containsKey(id)){
-			Unit unit = register.get(id);
-			map.map[unit.x][unit.y].remove(id);
-			register.remove(id);
-			unit = null;
-		}
-		else{
-			Log.err("Unit " + id + " not found in UnitMng register (remove())");
-		}
+	public HashSet<Integer> getAll(int x, int y){
+		return map.map[x][y].getAll();	
 	}
 	
-	public Unit get(int id){
-		if(register.containsKey(id)){
-			return register.get(id);
-		}
-		else{
-			Log.err("Unit " + id + " not found in UnitMng register (findUnit())");
-			return null;
-		}
+	public static Unit getUnit(int unitId){
+		return register.get(unitId);
 	}
-	
-	public Vector<Unit> get(int x, int y){
-		return map.map[x][y].getAll();
-	}
-	
-	public Vector<Unit> getPlayerUnits(int playerId){
-		Vector<Unit> units = new Vector<Unit>();
-		
-		for(Unit unit: register.values()){
-			if(unit.playerId == playerId){
-				units.add(unit);
-			}
-		}
-		
-		return units;
-	}
-	
-	public void changeUnit(Unit oldunit, Unit newunit) {
-		if(register.containsKey(oldunit.id)){
-			Unit tmp = register.get(oldunit.id);
-			register.put(tmp.id, newunit);
-			map.map[tmp.x][tmp.y].remove(tmp.id);
-			map.map[tmp.x][tmp.y].add(newunit);
-			tmp = null;
+
+	public void updUnit(String data) {
+		String [] arr = data.split(":");
+		int unitId = Integer.parseInt(arr[0]);
+		Unit unit = getUnit(unitId);
+		if(unit != null){
+			unit.updateObj(arr);
 		}
 	}
 }

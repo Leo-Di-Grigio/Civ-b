@@ -1,11 +1,15 @@
 package player.units;
 
+import game.GameBroadcasting;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.Message;
+import net.Message.Prefix;
 import map.GameMap;
-import misc.Log;
 
 public class UnitsMng {
 	
@@ -27,20 +31,28 @@ public class UnitsMng {
 		playerUnit.remove(playerId);
 	}
 	
-	public void addUnit(Unit unit){
+	public void addUnit(Unit unit, GameBroadcasting broad) throws IOException{
 		units.put(unit.id, unit);
 		playerUnit.get(unit.playerId).add(unit.id);
 		map.addUnit(unit.x, unit.y, unit.id);
 		
-		Log.debug("add Unit Id: " + unit.id + " type: " + unit.type + " x: " + unit.x + " y: " + unit.y + " playerId: " + unit.playerId);
+		broad.sendToPlayerTeam(unit.playerId, unit.toMessage());
 	}
 	
-	public void removeUnit(int unitId){
+	public void addUnits(HashSet<Unit> unitsSet, GameBroadcasting broad) throws IOException{
+		for(Unit unit: unitsSet){
+			addUnit(unit, broad); 
+		}
+	}
+	
+	public void removeUnit(int unitId, GameBroadcasting broad) throws IOException{
 		Unit unit = units.remove(unitId);
 		
 		if(unit != null){
 			map.removeUnit(unit.x, unit.y, unit.id);
 			playerUnit.get(unit.playerId).remove(unit.id);
+			
+			broad.sendToPlayers(new Message(Prefix.DEL_UNIT, "" + unit.id));
 		}
 	}
 	
@@ -54,11 +66,5 @@ public class UnitsMng {
 	
 	public Set<Integer> getPlayersUnits(int playerId){
 		return playerUnit.get(playerId);
-	}
-	
-	public void spawnAllPlayersAvatars(HashSet<Unit> avatars){
-		for(Unit unit: avatars){
-			addUnit(unit); 
-		}
 	}
 }

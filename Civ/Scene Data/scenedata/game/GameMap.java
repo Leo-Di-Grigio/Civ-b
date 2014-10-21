@@ -252,6 +252,9 @@ public class GameMap {
 				g.drawImage(Recources.getImage("geology" + map[i][j].geology), x*nodeX, y*nodeY, null);
 				break;
 		}
+		
+		// draw Units
+		map[i][j].draw(g, x*nodeX, y*nodeY);
 	}
 	
 	private void drawNode(Graphics g, Image atlas, int i, int j, int x, int y){

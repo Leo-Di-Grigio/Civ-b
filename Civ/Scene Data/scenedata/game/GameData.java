@@ -32,7 +32,7 @@ public class GameData {
 	}
 	
 	public void addUnit(Unit unit) {
-		
+		units.addUnit(unit);
 	}
 
 	public void updPlayer(String data) {
@@ -44,7 +44,7 @@ public class GameData {
 	}
 
 	public void updUnit(String data) {
-		
+		units.updUnit(data);
 	}
 	
 	public void delPlayer(int id){
@@ -56,6 +56,6 @@ public class GameData {
 	}
 	
 	public void delUnit(int id){
-		
+		units.delUnit(id);
 	}
 }

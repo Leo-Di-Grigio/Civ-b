@@ -1,7 +1,10 @@
 package scene.game;
 
+import misc.Enums;
+import misc.Environment;
 import gui.GUI;
 import gui.elements.GuiElementTable;
+import painter.Painter;
 import player.Player;
 import player.Team;
 import player.units.Unit;
@@ -32,6 +35,10 @@ public class game_Data {
 	public static void objUnit(GUI gui, GameData gamedata, String data){
 		Unit unit = new Unit(data);
 		gamedata.addUnit(unit);
+		
+		if(Painter.currentSceneTitle == Enums.Scene.PREPEARE){
+			Environment.moveCameraToUnit(unit);
+		}
 	}
 
 	public static void updPlayer(GUI gui, GameData gamedata, String data) {
@@ -83,6 +90,7 @@ public class game_Data {
 	}
 
 	public static void delUnit(GUI gui, GameData gamedata, String data) {
-		
+		int unitId = Integer.parseInt(data);
+		gamedata.delUnit(unitId);
 	}
 }

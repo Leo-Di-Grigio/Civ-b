@@ -1,13 +1,12 @@
 package scene.game;
 
-import java.util.Vector;
+import java.util.HashSet;
 
 import gui.GUI;
 import gui.elements.GuiElementIcon;
 import gui.elements.GuiElementPane;
 import gui.elements.GuiElementTitle;
 import painter.Painter;
-import player.units.Unit;
 import misc.Const;
 import misc.Enums;
 import misc.Environment;
@@ -65,7 +64,7 @@ public class game_SelectNode extends Script {
 					title2.setText("");
 				}
 				else{
-					Vector<Unit> units = data.getAll();
+					HashSet<Integer> units = data.getAll();
 					
 					if(units == null){
 						title2.setText("");

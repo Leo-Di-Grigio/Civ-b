@@ -110,7 +110,7 @@ public class GameLogic{
 			}
 			
 			boolean unregistered = teams.unregisterPlayer(player.teamId, player.id);
-			if(unregistered){
+			if(unregistered){ // team existing check
 				teams.deleteTeamIfNoPlayers(player.teamId, broad);
 				
 				// chose team
@@ -131,7 +131,7 @@ public class GameLogic{
 		}
 	}
 	
-	public void spawnAvatars(){
+	public void spawnAvatars() throws IOException{
 		HashSet<Point> spawnPoints = map.getSpawnPoints(teams.getTeamsCount());
 		HashSet<Unit> avatars = new HashSet<Unit>();
 		teams.setSpawns(spawnPoints);
@@ -145,6 +145,6 @@ public class GameLogic{
 			}
 		}
 		
-		units.spawnAllPlayersAvatars(avatars);
+		units.addUnits(avatars, broad);
 	}
 }

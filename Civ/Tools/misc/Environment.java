@@ -1,8 +1,10 @@
 package misc;
 
 import java.awt.Image;
+
 import main.Config;
 import painter.Painter;
+import player.units.Unit;
 import recources.Recources;
 import tasks.Task;
 
@@ -119,5 +121,10 @@ public class Environment {
 		}
 		
 		Environment.updateMousePosition(mouseX, mouseY);
+	}
+
+	public static void moveCameraToUnit(Unit unit) {
+		cameraX = unit.x - frameSizeX/64;
+		cameraY = unit.y - frameSizeY/64;
 	}
 }

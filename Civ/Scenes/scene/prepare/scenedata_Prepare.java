@@ -80,6 +80,10 @@ public class scenedata_Prepare extends SceneData {
 				game_Data.objTeam(gui, gamedata, (String)task.data);
 				break;
 				
+			case GAME_OBJ_UNIT:
+				game_Data.objUnit(gui, gamedata, (String)task.data);
+				break;
+				
 			case GAME_UPD_PLAYER:
 				game_Data.updPlayer(gui, gamedata, (String)task.data);
 				break;
