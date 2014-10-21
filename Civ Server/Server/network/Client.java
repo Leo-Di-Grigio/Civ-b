@@ -1,6 +1,5 @@
 package network;
 
-import game.GamesMng;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,6 +9,7 @@ import java.net.Socket;
 import task.Task;
 import task.TaskPool;
 import net.Message;
+import net.Message.Prefix;
 import misc.Log;
 
 public class Client implements Runnable {
@@ -63,10 +63,7 @@ public class Client implements Runnable {
 		}
 		finally {
 			try {
-				if(gameId != -1){
-					GamesMng.get(gameId).removePlayer(clientId);
-				}
-				ClientPool.remove(clientId);
+				TaskPool.add(new Task(clientId, new Message(Prefix.REQ_DISCONNECT, null)));
 				Log.debug("Finalize connection");
 			} 
 			catch (IOException e) {

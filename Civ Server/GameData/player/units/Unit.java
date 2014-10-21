@@ -53,12 +53,7 @@ public class Unit implements Sentble{
 	}
 	
 	@Override
-	public void buildObj(String [] data) {
-
-	}
-
+	public void buildObj(String [] data) {};
 	@Override
-	public void updateObj(String [] data) {
-
-	}
+	public void updateObj(String [] data) {};
 }

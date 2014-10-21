@@ -10,17 +10,23 @@ public class Team implements Sentble  {
 	
 	// SERVER
 	// ID
-	private static int ID = 0;
+	private static int ID = 1;
 	public int id;
 	
 	// data
 	public String name;
 	public int ownerPlayerId;
 	
-	public Team(int playerId, String name) {
+	public Team(){
+		this.id = 0;
+		this.name = "No team";
+		this.ownerPlayerId = -1;
+	}
+	
+	public Team(int ownerPlayerId, String name) {
 		this.id = ID++;
 		this.name = name;
-		this.ownerPlayerId = playerId;
+		this.ownerPlayerId = ownerPlayerId;
 	}
 
 	public int getTeamSize(HashMap<Integer, Player> players){

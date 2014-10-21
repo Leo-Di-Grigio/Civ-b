@@ -88,13 +88,13 @@ public class GuiElementTable extends GuiElement {
 		HashMap <Integer, Set<Player>> table = new HashMap<Integer, Set<Player>>();
 			
 		for(Team team: gamedata.users.teams.values()){
-			if(team != null){
+			if(team != null){ // !!check for null, because Team can receive AFTER receiving Player
 				table.put(team.id, new HashSet<Player>());
 			}
 		}
 		
 		for(Player player: gamedata.users.players.values()){
-			if(table.containsKey(player.teamId)){
+			if(table.containsKey(player.teamId)){ // !!check for null, because Player can be receive AFTER receiving Team
 				table.get(player.teamId).add(player);
 			}
 		}

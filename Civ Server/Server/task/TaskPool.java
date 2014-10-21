@@ -12,7 +12,7 @@ public class TaskPool {
 		list = new LinkedList<Task>();
 	}
 	
-	public static void add(Task task) throws IOException{
+	public synchronized static void add(Task task) throws IOException{
 		list.add(task);
 		
 		if(pause){

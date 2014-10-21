@@ -1,16 +1,16 @@
 package game;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import misc.Const;
-import misc.Log;
 
 public class GamesMng {
 	
-	public static HashMap<Integer, Game> list;
+	public static HashMap<Integer, Game> games;
 	
-	public GamesMng(){
-		list = new HashMap<Integer, Game>();
+	public GamesMng() throws IOException{
+		games = new HashMap<Integer, Game>();
 		
 		// test
 		add(new Game("Test 1 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax));
@@ -21,27 +21,21 @@ public class GamesMng {
 	}
 	
 	public static void add(Game game){
-		list.put(game.id, game);
+		games.put(game.id, game);
 	}
 	
 	public static Game get(int id){
-		if(list.containsKey(id)){
-			return list.get(id);
-		}
-		else{
-			Log.err("Game ID: " + id + " is not found");
-			return null;
-		}
+		return games.get(id);
 	}
 	
 	public static String getList(){
 		// "intSize:(id:name:status):(id:name:status):(...):...
 		String str = "";
 		
-		str += list.size() + ":";
+		str += games.size() + ":";
 		
-		for(Game game: list.values()){
-			str += game.id + ":" + game.name + ":" + game.state + ":";
+		for(Game game: games.values()){
+			str += game.id + ":" + game.title + ":" + game.logic.getState() + ":";
 		}
 		
 		return str;

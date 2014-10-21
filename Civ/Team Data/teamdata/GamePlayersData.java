@@ -13,9 +13,6 @@ public class GamePlayersData {
 	public GamePlayersData(){
 		teams = new HashMap<Integer, Team>();
 		players = new HashMap<Integer, Player>();
-		
-		Team defaultteam = new Team();
-		teams.put(-1, defaultteam);
 	}
 	
 	public void addPlayer(Player player){

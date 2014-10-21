@@ -18,7 +18,7 @@ public class UnitsMng {
 	
 	public void add(Unit unit){
 		if(unit != null){
-			map.nodes[unit.x][unit.y].add(unit);
+			map.map[unit.x][unit.y].add(unit);
 			register.put(unit.id, unit);
 		}
 	}
@@ -26,7 +26,7 @@ public class UnitsMng {
 	public void remove(int id){
 		if(register.containsKey(id)){
 			Unit unit = register.get(id);
-			map.nodes[unit.x][unit.y].remove(id);
+			map.map[unit.x][unit.y].remove(id);
 			register.remove(id);
 			unit = null;
 		}
@@ -46,7 +46,7 @@ public class UnitsMng {
 	}
 	
 	public Vector<Unit> get(int x, int y){
-		return map.nodes[x][y].getAll();
+		return map.map[x][y].getAll();
 	}
 	
 	public Vector<Unit> getPlayerUnits(int playerId){
@@ -65,8 +65,8 @@ public class UnitsMng {
 		if(register.containsKey(oldunit.id)){
 			Unit tmp = register.get(oldunit.id);
 			register.put(tmp.id, newunit);
-			map.nodes[tmp.x][tmp.y].remove(tmp.id);
-			map.nodes[tmp.x][tmp.y].add(newunit);
+			map.map[tmp.x][tmp.y].remove(tmp.id);
+			map.map[tmp.x][tmp.y].add(newunit);
 			tmp = null;
 		}
 	}

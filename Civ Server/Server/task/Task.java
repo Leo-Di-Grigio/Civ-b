@@ -3,6 +3,7 @@ package task;
 import net.Message;
 
 public class Task {
+	
 	public int clientId;
 	public Message msg;
 	

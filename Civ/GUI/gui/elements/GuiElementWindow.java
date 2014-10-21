@@ -21,7 +21,7 @@ public class GuiElementWindow extends GuiElement {
 			g.drawImage(this.textureNormal, drawX, drawY, sizeX, sizeY, null);
 			g.setColor(Color.black);
 			g.drawString(text, drawX + sizeX/2 - g.getFontMetrics().stringWidth(text)/2, drawY +  g.getFontMetrics().getHeight());
-			g.drawString(userText, drawX + sizeX/2 - g.getFontMetrics().stringWidth(userText)/2, drawY + sizeY/2 + g.getFontMetrics().getHeight());
+			g.drawString("New team name: " + userText, drawX + sizeX/2 - g.getFontMetrics().stringWidth(userText)/2, drawY + sizeY/2 + g.getFontMetrics().getHeight());
 		}
 	}
 

@@ -18,7 +18,7 @@ public class Player implements Sentble {
 	public Player(int clientId, String name) {
 		this.id = clientId;
 		this.name = name;
-		this.teamId = -1;
+		this.teamId = 0;
 		this.ready = false;
 	}
 	
@@ -50,12 +50,7 @@ public class Player implements Sentble {
 	}
 
 	@Override
-	public void buildObj(String [] data) {
-		
-	}
-
+	public void buildObj(String [] data) {};
 	@Override
-	public void updateObj(String [] data) {
-		
-	}
+	public void updateObj(String [] data) {};
 }

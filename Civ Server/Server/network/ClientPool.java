@@ -3,7 +3,6 @@ package network;
 import java.io.IOException;
 import java.util.HashMap;
 
-import misc.Log;
 import net.Message;
 import net.Message.Prefix;
 
@@ -20,22 +19,12 @@ public class ClientPool {
 		new Thread(client).start();
 	}
 	
-	public static void remove(int id) throws IOException{
-		if(clients.containsKey(id)){
-			clients.get(id).socket.close();
-			clients.remove(id);
-			System.gc();
-		}
+	public static Client remove(int id) throws IOException{
+		return clients.remove(id);
 	}
 	
 	public static Client getClient(int id){
-		if(clients.containsKey(id)){
-			return clients.get(id);
-		}
-		else{
-			Log.err("Client not found in ClientPool");
-			return null;
-		}
+		return clients.get(id);
 	}
 	
 	public static void sendToAll(Message msg) throws IOException{

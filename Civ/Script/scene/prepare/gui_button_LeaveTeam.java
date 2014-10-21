@@ -13,6 +13,6 @@ public class gui_button_LeaveTeam extends ScriptGui {
 	
 	@Override
 	public void execute(Task task) throws IOException {
-		Network.sendMsg(new Message(Prefix.REQ_TEAM_CHOOSE, ""+(-1)));
+		Network.sendMsg(new Message(Prefix.REQ_TEAM_CHOOSE, null));
 	}
 }

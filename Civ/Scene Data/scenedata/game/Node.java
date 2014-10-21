@@ -13,7 +13,7 @@ public class Node {
 	// Units data
 	private Vector<Unit> units;
 	
-	// Terrain data
+	// Drawing data
 	public Enums.Terrain terrainType;
 	public int border;
 	

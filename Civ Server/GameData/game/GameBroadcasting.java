@@ -2,19 +2,22 @@ package game;
 
 import java.io.IOException;
 import net.Message;
-import network.ClientPool;
 
 public class GameBroadcasting {
 	
-	protected GamePlayers players;
+	private GamePlayers players;
+	private GameTeams teams;
 	
-	public GameBroadcasting(GamePlayers players){
+	public GameBroadcasting(GamePlayers players, GameTeams teams){
 		this.players = players;
+		this.teams = teams;
 	}
 	
-	protected void send(Message msg) throws IOException{
-		for(Integer clientId: players.players.keySet()){
-			ClientPool.sendMsg(clientId , msg);
-		}
+	protected void sendToPlayers(Message msg) throws IOException{
+		players.setMessageToAllPlayers(msg);
+	}
+	
+	protected void sendToTeam(int teamId, Message msg) throws IOException{
+		players.setMessageToAllTeams(teams.getPlayers(teamId), msg);
 	}
 }
