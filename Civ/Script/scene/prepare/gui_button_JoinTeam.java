@@ -19,7 +19,7 @@ public class gui_button_JoinTeam extends ScriptGui {
 	@Override
 	public void execute(Task task) throws IOException {
 		Log.debug("Execute gui_button_JoinTeam");
-		GUI gui = (GUI)task.dataPost;
+		GUI gui = (GUI)task.sceneGui;
 		
 		if(gui != null){
 			GuiElementTable table = (GuiElementTable)gui.get("players");

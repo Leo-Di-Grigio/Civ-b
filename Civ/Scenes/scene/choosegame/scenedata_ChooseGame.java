@@ -72,5 +72,4 @@ public class scenedata_ChooseGame extends SceneData {
 			default: break;
 		}
 	}
-
 }

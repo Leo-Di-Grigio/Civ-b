@@ -6,12 +6,16 @@ import java.io.IOException;
 import javax.media.opengl.GL3;
 
 import gui.GUI;
+import script.Script;
 import tasks.Task;
 import tasks.TasksPool;
 
 abstract public class SceneData {
 	
 	protected GUI gui;
+	
+	// subscriber - you can load this script for temporary execution 
+	protected Script subscriber;
 	
 	public SceneData(GUI gui){
 		this.gui = gui;
@@ -22,7 +26,14 @@ abstract public class SceneData {
 			Task task = tasks.poll();
 			
 			if(task != null){
-				execute(task);
+				task.sceneGui = this.gui;
+				
+				if(subscriber != null){
+					subscriber.preexecute(task); // this script will be executed before sceneData receive task
+				}
+				if(!task.blocked){ // subscriber can block normal task execution 
+					execute(task);
+				}
 			}
 		}
 		
@@ -37,5 +48,13 @@ abstract public class SceneData {
 		gui.draw(gl);
 	}
 	
-	abstract public void execute(Task task) throws IOException; 
+	public void subscriberAdd(Script subscriber){
+		this.subscriber = subscriber;
+	}
+	
+	public void subscriberRemove(){
+		this.subscriber = null;
+	}
+	
+	abstract public void execute(Task task) throws IOException;
 }

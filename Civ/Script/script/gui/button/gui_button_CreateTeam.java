@@ -13,7 +13,7 @@ public class gui_button_CreateTeam extends ScriptGui {
 	public void execute(Task task) throws IOException {
 		Log.debug("Execute gui_button_CreateTeam");
 		
-		GUI gui = (GUI)task.dataPost;
+		GUI gui = (GUI)task.sceneGui;
 		
 		GuiElementWindow window = (GuiElementWindow)gui.get("window_new_team");
 		

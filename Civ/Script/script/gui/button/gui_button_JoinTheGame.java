@@ -19,7 +19,7 @@ public class gui_button_JoinTheGame extends ScriptGui {
 	public void execute(Task task) throws IOException{
 		Log.debug("Execute gui_button_JoinTheGame");
 		
-		GUI gui = (GUI)task.dataPost;
+		GUI gui = (GUI)task.sceneGui;
 		
 		if(gui != null){
 			GuiElementTable list = (GuiElementTable)gui.get("gameslist");

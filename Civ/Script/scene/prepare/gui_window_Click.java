@@ -15,7 +15,7 @@ public class gui_window_Click extends ScriptGui {
 	public void execute(Task task) throws IOException {
 		Log.debug("Execute gui_window_Click");
 		
-		GUI gui = (GUI)task.dataPost;
+		GUI gui = (GUI)task.sceneGui;
 		GuiElement element = (GuiElement)task.data;
 		
 		element.setVisible(false);

@@ -10,10 +10,13 @@ public class Task {
 	
 	public Enums.Task type;
 	public Object data;
-	public Object dataPost;
+	public Object sceneGui;
+	
+	public boolean blocked;
 	
 	public Task(Enums.Task type, Object data) {
 		this.id = ID++;
+		this.blocked = false;
 		this.type = type;
 		this.data = data;
 		
@@ -24,6 +27,6 @@ public class Task {
 
 	public Task(Enums.Task type, Object data, Object dataPost) {
 		this(type, data);
-		this.dataPost = dataPost; // GUI :)
+		this.sceneGui = dataPost; // GUI :)
 	}
 }

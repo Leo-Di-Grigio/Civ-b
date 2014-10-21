@@ -41,6 +41,8 @@ public class Enums {
 		// Scene
 		SCENE_LOADING,
 		SCENE_SELECTON,
+		SCENE_SUBSCRIBER_ADD, // (Script)subscriber script
+		SCENE_SUBSCRIBER_DEL, // null
 		
 		// Game generating
 		GAME_JOIN_SUCCESS, //(String)gameMapSeed:(String)sizeX:(String)sizeY

@@ -9,6 +9,7 @@ import misc.Enums;
 import scenedata.SceneData;
 import scenedata.game.GameData;
 import scenedata.game.Node;
+import script.Script;
 import script.ScriptsNetwork;
 import script.gui.gui_CurosorHide;
 import script.gui.gui_CursorShow;
@@ -85,6 +86,14 @@ public class scenedata_Game extends SceneData {
 			
 			case SCENE_SELECTON:
 				game_SelectNode.selectNode(gamedata);
+				break;
+				
+			case SCENE_SUBSCRIBER_ADD:
+				subscriberAdd((Script)task.data);
+				break;
+				
+			case SCENE_SUBSCRIBER_DEL:
+				subscriberRemove();
 				break;
 				
 			// scene events
