@@ -1,8 +1,11 @@
 package game;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import misc.Log;
 import net.Message;
@@ -24,6 +27,14 @@ public class GameTeams {
 		
 		// add "No team"
 		this.add(-1, null, null);
+	}
+	
+	public int getTeamsCount(){
+		return list.size();
+	}
+	
+	public Set<Integer> getTeamsId() {
+		return list.keySet();
 	}
 	
 	public int add(int clientId, String teamName, GameBroadcasting broad) throws IOException{
@@ -109,6 +120,24 @@ public class GameTeams {
 		}
 		else{
 			return -1;
+		}
+	}
+	
+	public Point getSpawn(int teamId){
+		if(list.containsKey(teamId)){
+			return list.get(teamId).spawn;
+		}
+		else{
+			return null;
+		}
+	}
+	
+	public void setSpawns(HashSet<Point> spawns){
+		Iterator<Point> iter = spawns.iterator();
+		Iterator<Integer> team = list.keySet().iterator();
+		
+		while(iter.hasNext()){
+			list.get(team.next()).spawn = iter.next();
 		}
 	}
 }

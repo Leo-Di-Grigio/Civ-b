@@ -1,12 +1,16 @@
 package game;
 
+import java.awt.Point;
 import java.io.IOException;
+import java.util.HashSet;
 
+import data.units.ConstUnits;
 import net.Message;
 import net.Message.Prefix;
 import network.Client;
 import network.ClientPool;
 import player.Player;
+import player.units.Unit;
 import player.units.UnitsMng;
 import map.GameMap;
 import misc.Enums;
@@ -88,7 +92,9 @@ public class GameLogic{
 		
 		if(teamId != -1){			
 			Player player = players.get(clientId);
+			teams.unregisterPlayer(player.teamId, player.id);
 			player.teamId = teamId;
+			teams.registerPlayer(teamId, player.id);
 			broad.sendToPlayers(player.toMessageUpdate("teamId"));
 		}
 	}
@@ -103,7 +109,7 @@ public class GameLogic{
 				teamId = Integer.parseInt(data);
 			}
 			
-			boolean unregistered = teams.unregisterPlayer(teamId, player.id);
+			boolean unregistered = teams.unregisterPlayer(player.teamId, player.id);
 			if(unregistered){
 				teams.deleteTeamIfNoPlayers(player.teamId, broad);
 				
@@ -119,8 +125,26 @@ public class GameLogic{
 		boolean allPlayersReady = players.readyCheckPlayer(clientId, broad);
 		
 		if(allPlayersReady){
+			spawnAvatars();
 			this.state = Enums.GameState.PLAYING;
 			broad.sendToPlayers(new Message(Prefix.GAME_BEGIN, null));
 		}
+	}
+	
+	public void spawnAvatars(){
+		HashSet<Point> spawnPoints = map.getSpawnPoints(teams.getTeamsCount());
+		HashSet<Unit> avatars = new HashSet<Unit>();
+		teams.setSpawns(spawnPoints);
+		Point spawn = null;
+		
+		for(Integer teamId: teams.getTeamsId()){
+			spawn = teams.getSpawn(teamId);
+			
+			for(Integer playerId: teams.getPlayers(teamId)){
+				avatars.add(new Unit(playerId, ConstUnits.unitAvatar, spawn.x, spawn.y));
+			}
+		}
+		
+		units.spawnAllPlayersAvatars(avatars);
 	}
 }

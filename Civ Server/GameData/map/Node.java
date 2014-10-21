@@ -1,7 +1,6 @@
 package map;
 
 import java.util.HashSet;
-import java.util.Set;
 
 public class Node {
 	
@@ -10,7 +9,7 @@ public class Node {
 	public byte geology = 0;
 	
 	// Units data
-	public Set<Integer> units;
+	public HashSet<Integer> units;
 	
 	public Node(){
 		units = new HashSet<Integer>();

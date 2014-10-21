@@ -1,5 +1,6 @@
 package player;
 
+import java.awt.Point;
 import java.util.HashMap;
 
 import net.Message;
@@ -16,6 +17,9 @@ public class Team implements Sentble  {
 	// data
 	public String name;
 	public int ownerPlayerId;
+	
+	// players spawn point
+	public Point spawn;
 	
 	public Team(){
 		this.id = 0;

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import map.GameMap;
+import misc.Log;
 
 public class UnitsMng {
 	
@@ -30,6 +31,8 @@ public class UnitsMng {
 		units.put(unit.id, unit);
 		playerUnit.get(unit.playerId).add(unit.id);
 		map.addUnit(unit.x, unit.y, unit.id);
+		
+		Log.debug("add Unit Id: " + unit.id + " type: " + unit.type + " x: " + unit.x + " y: " + unit.y + " playerId: " + unit.playerId);
 	}
 	
 	public void removeUnit(int unitId){
@@ -51,5 +54,11 @@ public class UnitsMng {
 	
 	public Set<Integer> getPlayersUnits(int playerId){
 		return playerUnit.get(playerId);
+	}
+	
+	public void spawnAllPlayersAvatars(HashSet<Unit> avatars){
+		for(Unit unit: avatars){
+			addUnit(unit); 
+		}
 	}
 }
