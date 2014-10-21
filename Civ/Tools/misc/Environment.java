@@ -82,7 +82,7 @@ public class Environment {
 	}
 	
 	public static void moveCamera(Enums.Direct direct){
-		Image mapImage = Recources.getImage("minimap_height");
+		Image mapImage = Recources.getImage(Const.imgMinimap);
 		int mapX = mapImage.getWidth(null);
 		int h = Environment.frameSizeY/32;
 		
@@ -124,7 +124,30 @@ public class Environment {
 	}
 
 	public static void moveCameraToUnit(Unit unit) {
+		Image mapImage = Recources.getImage(Const.imgMinimap);
+		int mapX = mapImage.getWidth(null);
+		int mapY = mapImage.getHeight(null);
+		
+
 		cameraX = unit.x - frameSizeX/64;
 		cameraY = unit.y - frameSizeY/64;
+		
+		if(cameraX < 0){
+			cameraX = 0;
+		}
+		else{
+			if(cameraX >= mapX){
+				cameraX = mapX - frameSizeX/32 - 1;
+			}
+		}
+		
+		if(cameraY < 0){
+			cameraY = 0;
+		}
+		else{
+			if(cameraX >= mapY){
+				cameraY = mapY - frameSizeY/32 - 1;
+			}
+		}
 	}
 }

@@ -64,6 +64,9 @@ public class Message implements Serializable {
 		DEL_PLAYER,
 		DEL_UNIT,
 		
+		// player actions
+		PLAYER_ACTION, // action opcodes -> data.units.ConstAction
+		
 		// other
 		DEBUG;
 	};

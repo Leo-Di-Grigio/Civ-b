@@ -131,6 +131,10 @@ public class GuiElementTable extends GuiElement {
 		}
 	}
 	
+	public void clear(){
+		list.clear();
+	}
+	
 	public void remove(int collumn, String data) { // search specify (String)data in (int)collumn and remove line while data finded
 		for(int i = 0; i < list.size(); ++i){
 			if(list.get(i).getCell(collumn).compareTo(data) == 0){

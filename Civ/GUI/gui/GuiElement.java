@@ -176,4 +176,8 @@ abstract public class GuiElement implements Drawble {
 	public ScriptGui getScript(){
 		return script;
 	}
+	
+	public String getTitle(){
+		return title;
+	}
 }

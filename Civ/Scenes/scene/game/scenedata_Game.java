@@ -78,12 +78,12 @@ public class scenedata_Game extends SceneData {
 				break;
 			
 			case SCENE_SELECTON:
-				game_SelectNode.execute(gamedata);
+				game_SelectNode.selectNode(gamedata);
 				break;
 				
 			// scene events
 			case GAME_SELECT_NODE:
-				game_SelectNode.execute(gui, (Node)task.data);
+				game_SelectNode.updateGuiData(gui, (Node)task.data);
 				break;
 				
 			default: break;

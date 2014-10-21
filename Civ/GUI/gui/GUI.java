@@ -13,6 +13,7 @@ import misc.Enums;
 import misc.Environment;
 import misc.Log;
 import render.Drawble;
+import scene.game.scenegui_Game;
 import tasks.Task;
 
 public class GUI implements Drawble {
@@ -190,8 +191,8 @@ public class GUI implements Drawble {
 
 	public void cursorShow(boolean visible) {
 		for(HashMap<String, GuiElement> gui: guiLayers.values()){
-			if(gui.containsKey("cursor")){
-				GuiElement cursor = get("cursor");
+			if(gui.containsKey(scenegui_Game.uiCursor)){
+				GuiElement cursor = get(scenegui_Game.uiCursor);
 				cursor.setVisible(visible);
 				return;
 			}

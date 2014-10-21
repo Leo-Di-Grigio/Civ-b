@@ -5,7 +5,7 @@ public class Const {
 	// version
 	public static final String title = "Civ";
 	public static final int version = 0;
-	public static final int subVersion = 83;
+	public static final int subVersion = 84;
 
 	// assets
 	public static final String assetsNative = "recources/assets/native/";
@@ -14,6 +14,9 @@ public class Const {
 	// memory garbage collector
 	public static final int tasksForGC = 10000; // every 10000 tasks - call gc();
 	
+	// constant cursor keys
+	public static final String cursorNull = "null";
+	public static final String cursorVisible = "cursor";
 	// constant image keys
 	public static final String imgIcon = "icon";
 	public static final String imgMenu = "menu_background";

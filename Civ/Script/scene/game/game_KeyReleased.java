@@ -19,7 +19,7 @@ public class game_KeyReleased extends ScriptGui {
 	}
 	
 	public static void changeMinimapTexture(GameData gamedata, GUI gui){
-		GuiElementMinimap map = (GuiElementMinimap)gui.get("minimap");
+		GuiElementMinimap map = (GuiElementMinimap)gui.get(scenegui_Game.uiMinimap);
 		
 		if(map != null){
 			switch(gamedata.map.drawMode){	

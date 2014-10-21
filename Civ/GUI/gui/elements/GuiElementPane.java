@@ -21,8 +21,8 @@ public class GuiElementPane extends GuiElement {
 		this.script = new gui_pane_MouseRelease();
 	}
 	
-	public void addElement(String title, GuiElement element){
-		elements.put(title, element);
+	public void addElement(GuiElement element){
+		elements.put(element.getTitle(), element);
 	}
 	
 	public GuiElement getElement(String title){
