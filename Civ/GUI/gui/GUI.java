@@ -130,13 +130,13 @@ public class GUI implements Drawble {
 			
 			element = this.get(selectedElementTitlte);
 
-			if(element != null && element.script != null){
+			if(element != null && element.getScript() != null){
 				if(focusedElementTitle == null){
-					element.script.execute(new Task(Enums.Task.MOUSE_RELEASED, element, this));
+					element.executeScript(new Task(Enums.Task.MOUSE_RELEASED, element, this));
 				}
 				else{
 					if(element.title.compareTo(focusedElementTitle) == 0){
-						element.script.execute(new Task(Enums.Task.MOUSE_RELEASED, element, this));
+						element.executeScript(new Task(Enums.Task.MOUSE_RELEASED, element, this));
 					}
 				}
 			}

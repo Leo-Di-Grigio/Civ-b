@@ -1,12 +1,14 @@
 package gui;
 
 import java.awt.Image;
+import java.io.IOException;
 
 import misc.Enums;
 import misc.Environment;
 import recources.Recources;
 import render.Drawble;
 import script.gui.ScriptGui;
+import tasks.Task;
 
 abstract public class GuiElement implements Drawble {
 	
@@ -35,7 +37,7 @@ abstract public class GuiElement implements Drawble {
 	
 	// scripts
 	protected GuiLayer layer;
-	protected ScriptGui script;
+	private ScriptGui script;
 	
 	public GuiElement(String titile) {
 		this.title = titile;
@@ -179,5 +181,9 @@ abstract public class GuiElement implements Drawble {
 	
 	public String getTitle(){
 		return title;
+	}
+
+	public void executeScript(Task task) throws IOException {
+		this.script.execute(task);
 	}
 }

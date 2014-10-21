@@ -10,9 +10,11 @@ import java.util.Vector;
 import javax.media.opengl.GL3;
 
 import misc.Enums;
+import painter.Painter;
 import player.Player;
 import player.Team;
 import scenedata.game.GameData;
+import tasks.Task;
 import gui.GuiElement;
 import gui.misc.TableLine;
 
@@ -53,6 +55,10 @@ public class GuiElementTable extends GuiElement {
 		}
 	}
 	
+	public int getSelectedLineNumber(){
+		return selectedLine;
+	}
+	
 	public void updateList(String data){
 		list.clear();
 		String [] arr = data.split(":");
@@ -77,6 +83,8 @@ public class GuiElementTable extends GuiElement {
 		else{
 			this.selectedLine = lineId;
 		}
+		
+		Painter.addTask(new Task(Enums.Task.GUI_TABLE_UPDATESELECTION, this));
 	}
 	
 	public void add(TableLine line){

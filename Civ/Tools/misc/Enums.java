@@ -36,6 +36,7 @@ public class Enums {
 		GUI_CURSOR_HIDE,
 		GUI_SELECTION_RESET,  //(GUI)gui, null
 		GUI_SELECTION_SELECT, //(GUI)gui, (String)guiElementTitle
+		GUI_TABLE_UPDATESELECTION,
 		
 		// Scene
 		SCENE_LOADING,
@@ -72,7 +73,10 @@ public class Enums {
 		PAINTER_CHANGE_SCENE, //(String)sceneKey
 		
 		// Network
-		NETWORK_MESSAGE_READ;
+		NETWORK_MESSAGE_READ,
+		
+		// Player action
+		UNIT_ACTION;
 	}
 	
 	public static enum GuiPosition {
@@ -112,6 +116,7 @@ public class Enums {
 	public static enum TableMetadata {
 		NULL,
 		TEAM,
-		PLAYER;
+		PLAYER,
+		UNIT;
 	}
 }

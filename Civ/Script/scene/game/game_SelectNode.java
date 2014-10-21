@@ -75,6 +75,7 @@ public class game_SelectNode extends Script {
 						if(unitSelectTable != null){
 							unitSelectTable.setVisible(false);
 							unitSelect(null, unitSelectTable);
+							game_PlayerActions.clearButtonsAction(gui);
 						}
 						title2.setText("");
 					}
@@ -87,6 +88,7 @@ public class game_SelectNode extends Script {
 							else{
 								unitSelectTable.setVisible(false);
 								unitSelect(null, unitSelectTable);
+								game_PlayerActions.clearButtonsAction(gui);
 							}
 						}
 						title2.setText("Units in node " + units.size());
@@ -116,9 +118,12 @@ public class game_SelectNode extends Script {
 				Unit unit = UnitsMng.getUnit(unitId);
 				TableLine line = new TableLine(3);
 				
-				line.setCell(0, "unitId: " + unit.id);
-				line.setCell(1, "unitType: " + unit.type);
-				line.setCell(2, "playerId: " + unit.playerId);
+				line.metadata = Enums.TableMetadata.UNIT;
+				line.setCell(0, "" + unit.id);
+				line.setCell(1, "playerId: " + unit.playerId);
+				line.setCell(2, "unitType: " + unit.type);
+				
+				line.setHidden(0); // hide unitId
 				table.add(line);
 			}
 			

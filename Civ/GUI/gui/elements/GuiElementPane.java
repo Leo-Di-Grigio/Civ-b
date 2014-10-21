@@ -18,7 +18,7 @@ public class GuiElementPane extends GuiElement {
 	public GuiElementPane(String title) {
 		super(title);
 		this.elements = new HashMap<String, GuiElement>();
-		this.script = new gui_pane_MouseRelease();
+		this.setScript(new gui_pane_MouseRelease());
 	}
 	
 	public void addElement(GuiElement element){

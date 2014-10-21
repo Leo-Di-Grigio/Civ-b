@@ -35,7 +35,8 @@ public class AssetsNative extends Assets {
 		addImage(Const.imgIcon, Tile.getTile(Const.assetsNative + "icon.ico"));
 		
 		// GUI ELEMENTS
-		addImage("null", Tile.getTile(Const.assetsNative+"gui/null.png"));
+		addImage(Const.imgNull, Tile.getTile(Const.assetsNative+"gui/null.png"));
+		addImage(Const.imgVoid, Tile.getTile(Const.assetsNative+"gui/void.png"));
 		addImage("null_selected", Tile.getTile(Const.assetsNative+"gui/null_selected.png"));
 		
 		// menu
@@ -134,6 +135,10 @@ public class AssetsNative extends Assets {
 		addImage(Const.imgUnitAvatar, Tile.getTile(Const.assetsNative + "units/avatar.png"));
 	}
 	
+	private void loadActions() {
+		addImage(Const.imgActionMoveto, Tile.getTile(Const.assetsNative + "actions/moveto.png"));
+	}
+	
 	private void loadFont() throws FontFormatException, IOException {
 		if(Config.os != "Linux"){
 			font = Font.createFont(Font.TRUETYPE_FONT, new File(Config.classPath + Const.assetsNative + "ttf/font.otf")).deriveFont(12f);
@@ -150,6 +155,7 @@ public class AssetsNative extends Assets {
 		loadTerrain();
 		loadCursors();
 		loadUnits();
+		loadActions();
 		loadFont();
 		
 		System.gc();

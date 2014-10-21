@@ -9,7 +9,7 @@ import script.gui.icon.gui_icon_Test;
 import script.gui.minimap.gui_minimap_MoveCamera;
 import script.gui.table.gui_table_Select;
 import gui.GUI;
-import gui.elements.GuiElementButton;
+import gui.elements.GuiElementButtonUnitAction;
 import gui.elements.GuiElementCursor;
 import gui.elements.GuiElementIcon;
 import gui.elements.GuiElementMinimap;
@@ -43,7 +43,6 @@ public class scenegui_Game extends GUI {
 		super();
 		
 		// cursor
-		GuiElementButton button = null;
 		GuiElementCursor cursor = new GuiElementCursor(uiCursor);
 		this.add(cursor);
 		
@@ -114,69 +113,64 @@ public class scenegui_Game extends GUI {
 		this.add(pane);
 		
 		// button-0
-		button = new GuiElementButton(uiButton0);
+		GuiElementButtonUnitAction button = null;
+		button = new GuiElementButtonUnitAction(uiButton0);
 		button.setPosition(-163, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
 		button.setTexture("button");
 		button.setTextureSelected("button_select");
 		button.setText("0");
-		button.setVisible(true);
 		button.setScript(null);
 		this.add(button);
 		
-		button = new GuiElementButton(uiButton1);
+		button = new GuiElementButtonUnitAction(uiButton1);
 		button.setPosition(-98, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
 		button.setTexture("button");
 		button.setTextureSelected("button_select");
 		button.setText("1");
-		button.setVisible(true);
 		button.setScript(null);
 		this.add(button);
 		
-		button = new GuiElementButton(uiButton2);
+		button = new GuiElementButtonUnitAction(uiButton2);
 		button.setPosition(-33, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
 		button.setTexture("button");
 		button.setTextureSelected("button_select");
 		button.setText("2");
-		button.setVisible(true);
 		button.setScript(null);
 		this.add(button);
 		
-		button = new GuiElementButton(uiButton3);
+		button = new GuiElementButtonUnitAction(uiButton3);
 		button.setPosition(32, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
 		button.setTexture("button");
 		button.setTextureSelected("button_select");
 		button.setText("3");
-		button.setVisible(true);
 		button.setScript(null);
 		this.add(button);
 		
-		button = new GuiElementButton(uiButton4);
+		button = new GuiElementButtonUnitAction(uiButton4);
 		button.setPosition(97, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
 		button.setTexture("button");
 		button.setTextureSelected("button_select");
 		button.setText("4");
-		button.setVisible(true);
 		button.setScript(null);
 		this.add(button);
 		
-		button = new GuiElementButton(uiButton5);
+		button = new GuiElementButtonUnitAction(uiButton5);
 		button.setPosition(162, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
 		button.setTexture("button");
 		button.setTextureSelected("button_select");
 		button.setText("5");
-		button.setVisible(true);
 		button.setScript(null);
 		this.add(button);
 	}

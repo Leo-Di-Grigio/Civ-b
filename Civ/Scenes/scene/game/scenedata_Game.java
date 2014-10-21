@@ -1,5 +1,7 @@
 package scene.game;
 
+import gui.elements.GuiElementTable;
+
 import java.io.IOException;
 
 import net.Message;
@@ -67,6 +69,10 @@ public class scenedata_Game extends SceneData {
 			
 			case GUI_SELECTION_SELECT:
 				gui_ElementSelect.execute(gui, (String)task.data);
+				break;
+				
+			case GUI_TABLE_UPDATESELECTION:
+				game_PlayerActions.updateTableSelection(gui, (GuiElementTable)task.data);
 				break;
 		
 			case PAINTER_CHANGE_SCENE:
