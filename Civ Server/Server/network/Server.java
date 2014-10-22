@@ -17,6 +17,8 @@ public class Server implements Runnable {
 	protected static ServerSocket server;
 	
 	public Server() throws IOException {
+		Log.msg(Const.title + " v" + Const.version + "." + Const.subVersion);
+		Log.msg(ToolsConst.title + " v" + ToolsConst.version + "." + ToolsConst.subVersion);
 		
 		try {
 			server = new ServerSocket(Const.port);
@@ -31,8 +33,7 @@ public class Server implements Runnable {
 		new TaskPool();
 		new GamesMng();
 		
-		Log.msg(Const.title + " v" + Const.version + "." + Const.subVersion + " is runned");
-		Log.msg(ToolsConst.title + " v" + ToolsConst.version + "." + ToolsConst.subVersion);
+		Log.service("Server launched");
 	}
 
 	@Override

@@ -10,7 +10,6 @@ public class gui_ElementCollision extends ScriptGui {
 	public static void execute(GUI gui) {
 		String title = gui.checkCollision();
 		
-		
 		if(title == null){
 			Painter.addTask(new Task(Enums.Task.GUI_SELECTION_RESET, null));
 		}

@@ -7,7 +7,9 @@ import javax.media.opengl.GL3;
 
 import player.units.Unit;
 import player.units.UnitsMng;
+import recources.Recources;
 import render.Drawble;
+import misc.Const;
 import misc.Enums;
 
 public class Node implements Drawble {
@@ -16,7 +18,8 @@ public class Node implements Drawble {
 	public byte height = 0;
 	
 	// Units data
-	private HashSet<Integer> units;
+	private HashSet<Integer> units;	   // set<unitId>
+	private HashSet<Integer> waypoint; // set<unitId>
 	
 	// Drawing data
 	public Enums.Terrain terrainType;
@@ -27,6 +30,7 @@ public class Node implements Drawble {
 	
 	public Node() {
 		units = new HashSet<Integer>();
+		waypoint = new HashSet<Integer>();
 	}
 	
 	public void addUnit(Unit unit){
@@ -41,6 +45,23 @@ public class Node implements Drawble {
 		return units;
 	}
 	
+	public void addWaypoint(int unitId){
+		waypoint.add(unitId);
+	}
+	
+	public void removeWaypoint(int unitId){
+		waypoint.remove(unitId);
+	}
+	
+	public boolean haveWaypoints(){
+		if(waypoint.size() > 0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
 	// Draw units
 	private int drawX;
 	private int drawY;
@@ -48,14 +69,18 @@ public class Node implements Drawble {
 	public void draw(Graphics g, int drawX, int drawY) {
 		this.drawX = drawX;
 		this.drawY = drawY;
-		
 		draw(g);
 	}
 	
 	@Override
 	public void draw(Graphics g) {
+		if(haveWaypoints()){
+			g.drawImage(Recources.getImage(Const.imgNull), drawX, drawY, 32, 32, null);
+		}
+		
 		for(Integer unitId: units){
-			UnitsMng.getUnit(unitId).draw(g, drawX, drawY);
+			Unit unit = UnitsMng.getUnit(unitId);
+			unit.draw(g, drawX, drawY);
 		}
 	}
 

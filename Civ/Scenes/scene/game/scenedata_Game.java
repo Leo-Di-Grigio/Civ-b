@@ -89,7 +89,7 @@ public class scenedata_Game extends SceneData {
 				break;
 				
 			case SCENE_SUBSCRIBER_ADD:
-				subscriberAdd((Script)task.data);
+				subscriberAdd((Script)task.data, gamedata);
 				break;
 				
 			case SCENE_SUBSCRIBER_DEL:

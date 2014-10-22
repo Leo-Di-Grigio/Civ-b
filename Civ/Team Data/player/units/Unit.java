@@ -1,6 +1,8 @@
 package player.units;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.util.ArrayList;
 
 import javax.media.opengl.GL3;
 
@@ -21,7 +23,7 @@ public class Unit implements Sentble, Drawble {
 	public int x;
 	public int y;
 	public int type;
-	
+
 	public Unit(String data){
 		String [] arr = data.split(":");
 		buildObj(arr);
@@ -61,6 +63,15 @@ public class Unit implements Sentble, Drawble {
 	// DRAW UNIT
 	private int drawX;
 	private int drawY;
+
+	public void setPath(ArrayList<Point> way) {
+		if(way == null){
+			UnitsMng.removeWay(id);
+		}
+		else{
+			UnitsMng.addWay(id, way);
+		}
+	}	
 	
 	public void draw(Graphics g, int drawX, int drawY) {
 		this.drawX = drawX;
@@ -77,5 +88,5 @@ public class Unit implements Sentble, Drawble {
 	@Override
 	public void draw(GL3 gl) {
 		
-	}	
+	}
 }

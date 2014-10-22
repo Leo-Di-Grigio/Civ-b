@@ -16,6 +16,7 @@ abstract public class SceneData {
 	
 	// subscriber - you can load this script for temporary execution 
 	protected Script subscriber;
+	protected Object subscriberAddData;
 	
 	public SceneData(GUI gui){
 		this.gui = gui;
@@ -29,9 +30,9 @@ abstract public class SceneData {
 				task.sceneGui = this.gui;
 				
 				if(subscriber != null){
-					subscriber.preexecute(task); // this script will be executed before sceneData receive task
+					task = subscriber.preexecute(task, subscriberAddData); // this script will be executed before sceneData receive task
 				}
-				if(!task.blocked){ // subscriber can block normal task execution 
+				if(task != null && !task.blocked){ // subscriber can block normal task execution 
 					execute(task);
 				}
 			}
@@ -48,12 +49,14 @@ abstract public class SceneData {
 		gui.draw(gl);
 	}
 	
-	public void subscriberAdd(Script subscriber){
+	public void subscriberAdd(Script subscriber,  Object subscriberAddData){
+		this.subscriberAddData = subscriberAddData;
 		this.subscriber = subscriber;
 	}
 	
 	public void subscriberRemove(){
 		this.subscriber = null;
+		this.subscriberAddData = null;
 	}
 	
 	abstract public void execute(Task task) throws IOException;

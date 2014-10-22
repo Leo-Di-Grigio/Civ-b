@@ -13,29 +13,29 @@ public class ToolsEnums {
 			// height > 0 -> land
 			
 			switch(this){
-				case FLY: 
+				case FLY:
 					return true;
 				
 				case GROUND: {
 					if(height > 0){
 						return true;
 					}
-				} break;
+					else{
+						return false;
+					}
+				}
 				
 				case SWIM: {
 					if(height == 0){
 						return true;
 					}
-				} break;
+					else{
+						return false;
+					}
+				}
 				
-				case NULL:
-					return false;
-					
-				default:
-					return false;
+				default: return false;
 			}
-			
-			return false;
 		}
 	}
 }

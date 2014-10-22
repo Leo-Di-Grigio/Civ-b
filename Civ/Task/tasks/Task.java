@@ -1,5 +1,6 @@
 package tasks;
 
+import gui.GUI;
 import misc.Const;
 import misc.Enums;
 
@@ -10,8 +11,8 @@ public class Task {
 	
 	public Enums.Task type;
 	public Object data;
-	public Object sceneGui;
-	
+	public GUI sceneGui;
+
 	public boolean blocked;
 	
 	public Task(Enums.Task type, Object data) {
@@ -24,9 +25,9 @@ public class Task {
 			System.gc();
 		}
 	}
-
-	public Task(Enums.Task type, Object data, Object dataPost) {
+	
+	public Task(Enums.Task type, Object data, GUI sceneGui){
 		this(type, data);
-		this.sceneGui = dataPost; // GUI :)
+		this.sceneGui = sceneGui;
 	}
 }

@@ -33,6 +33,7 @@ public class GameMap {
 	
 	// data
 	public Node [][] map;
+	public byte [][] height;
 	
 	public GameMap(long seed, int sizeX, int sizeY) {
 		this.seed = seed;
@@ -56,7 +57,7 @@ public class GameMap {
 	
 	private void generateMap(){
 		map = new Node[sizeX][sizeY];
-		byte [][] height = GameMapGenerator.buildHeightMap(seed, sizeX, sizeY);
+		height = GameMapGenerator.buildHeightMap(seed, sizeX, sizeY);
 		byte [][] geology = GameMapGenerator.buildGeologyMap(seed, sizeX, sizeY);
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){

@@ -10,7 +10,7 @@ abstract public class Script {
 		
 	}
 	
-	public void preexecute(Task task) throws IOException{
-		
+	public Task preexecute(Task task, Object addData) throws IOException{
+		return task;
 	}
 }

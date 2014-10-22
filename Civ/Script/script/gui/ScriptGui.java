@@ -17,7 +17,7 @@ public class ScriptGui extends Script {
 	}
 	
 	@Override
-	public void preexecute(Task task) throws IOException {
-	
+	public Task preexecute(Task task, Object subscriberAddData) throws IOException {
+		return task;
 	}
 }
