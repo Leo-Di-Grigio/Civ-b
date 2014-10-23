@@ -1,5 +1,6 @@
 package scene.game;
 
+import data.units.ConstAction;
 import misc.Enums;
 import misc.Environment;
 import gui.GUI;
@@ -9,6 +10,7 @@ import player.Player;
 import player.Team;
 import player.units.Unit;
 import scenedata.game.GameData;
+import script.unit.unit_MoveTo;
 
 public class game_Data {
 
@@ -92,5 +94,16 @@ public class game_Data {
 	public static void delUnit(GUI gui, GameData gamedata, String data) {
 		int unitId = Integer.parseInt(data);
 		gamedata.delUnit(unitId);
+	}
+
+	public static void playerAction(GUI gui, GameData gamedata, String data) {
+		String [] arr = data.split(":");
+		int action = Integer.parseInt(arr[0]);
+		
+		switch(action){
+			case ConstAction.moveTo:
+				unit_MoveTo.addWay(gamedata, arr);
+				break;
+		}
 	}
 }

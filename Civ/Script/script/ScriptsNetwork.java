@@ -100,6 +100,10 @@ public class ScriptsNetwork {
 				Painter.addTask(new Task(Enums.Task.GAME_BEGIN, msg.data));
 			} break;
 			
+			case PLAYER_ACTION:{
+				Painter.addTask(new Task(Enums.Task.PLAYER_ACTION, msg.data));
+			} break;
+				
 			default:{
 				Log.debug("MSG: " + msg.data);
 			} break;

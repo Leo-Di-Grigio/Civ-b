@@ -36,7 +36,7 @@ public class UnitsMng {
 		playerUnit.get(unit.playerId).add(unit.id);
 		map.addUnit(unit.x, unit.y, unit.id);
 		
-		broad.sendToPlayerTeam(unit.playerId, unit.toMessage());
+		broad.sendToPlayers(unit.toMessage());
 	}
 	
 	public void addUnits(HashSet<Unit> unitsSet, GameBroadcasting broad) throws IOException{

@@ -15,6 +15,8 @@ public class GameMap {
 	
 	// layers
 	private Node [][] map;
+	public  byte [][] height;
+	public  byte [][] geology;
 	
 	public GameMap(long seed, int sizeX, int sizeY) {
 		this.sizeX = sizeX;
@@ -27,8 +29,8 @@ public class GameMap {
 	private void buildMap(){
 		this.map = new Node[sizeX][sizeY];
 		
-		byte [][] height  = GameMapGenerator.buildHeightMap(seed, sizeX, sizeY);
-		byte [][] geology = GameMapGenerator.buildGeologyMap(seed, sizeX, sizeY);
+		height  = GameMapGenerator.buildHeightMap(seed, sizeX, sizeY);
+		geology = GameMapGenerator.buildGeologyMap(seed, sizeX, sizeY);
 		
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){

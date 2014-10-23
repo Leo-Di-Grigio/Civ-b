@@ -71,6 +71,9 @@ public class Enums {
 		GAME_DEL_TEAM,
 		GAME_DEL_UNIT,
 		
+		// Player actions
+		PLAYER_ACTION,
+		
 		// Painter
 		PAINTER_CHANGE_SCENE, //(String)sceneKey
 		

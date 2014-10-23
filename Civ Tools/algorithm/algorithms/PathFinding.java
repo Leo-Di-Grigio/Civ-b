@@ -11,27 +11,27 @@ import misc.ToolsEnums;
 public class PathFinding {	
 	
 	// key Nodes
-	public Node startNode;
-	public Node endNode;
+	private static Node startNode;
+	private static Node endNode;
 
 	// consts
-	private ToolsEnums.UnitMovementType movementType;
+	private static ToolsEnums.UnitMovementType movementType;
 	private static final int straightCost = 10;
 	private static final int diagCost = 14; // may be 14 if diagCost != strightCost
 	
 	// lists
-	protected ArrayList<Node> openList;
-	protected ArrayList<Node> closedList;
+	protected static ArrayList<Node> openList;
+	protected static ArrayList<Node> closedList;
 	
-	protected boolean isFinded;
-	protected ArrayList<Point> path;
+	protected static boolean isFinded;
+	protected static ArrayList<Point> path;
 	
 	// map
-	protected int mapSizeX;
-	protected int mapSizeY;
-	protected byte [][] map;
+	protected static int mapSizeX;
+	protected static int mapSizeY;
+	protected static byte [][] map;
 
-	protected class Node {
+	protected static class Node {
 		protected byte height;
 		public int x;
 		public int y;
@@ -78,28 +78,28 @@ public class PathFinding {
 		}
 	}
 
-	public ArrayList<Point> getPath(int x, int y, int toX, int toY, ToolsEnums.UnitMovementType movementType, byte [][] map, int mapSizeX, int mapSizeY){
+	public static ArrayList<Point> getPath(int x, int y, int toX, int toY, ToolsEnums.UnitMovementType movementType, byte [][] map, int mapSizeX, int mapSizeY){
 	
 		if(toY < 0 || toY >= mapSizeY){
 			return null;
 		}
 		
 		// init data
-		this.movementType = movementType;
-		this.map = map;
+		PathFinding.movementType = movementType;
+		PathFinding.map = map;
 		
 		if(!movementType.isPassable(map[toX][toY])){
 			return null;
 		}
 		
-		this.mapSizeX = mapSizeX;
-		this.mapSizeY = mapSizeY;
+		PathFinding.mapSizeX = mapSizeX;
+		PathFinding.mapSizeY = mapSizeY;
 		
-		openList = new ArrayList<Node>();
-		closedList = new ArrayList<Node>();
+		PathFinding.openList = new ArrayList<Node>();
+		PathFinding.closedList = new ArrayList<Node>();
 		
-		endNode = new Node(toX, toY, this.map[toX][toY]);
-		startNode = new Node(x, y, this.map[x][y]);
+		PathFinding.endNode = new Node(toX, toY, map[toX][toY]);
+		PathFinding.startNode = new Node(x, y, PathFinding.map[x][y]);
 		
 		if(endNode.compare(startNode)){
 			return null;
@@ -115,7 +115,7 @@ public class PathFinding {
 		return path;
 	}
 	
-	private void search(){
+	private static void search(){
 		Node node = startNode;
 		
 		while(!node.compare(endNode)){
@@ -135,7 +135,7 @@ public class PathFinding {
 					
 					if(test.compare(node) ||
 					   !movementType.isPassable(test.height) ||
-					   !isPassable(map[test.x][test.y], map[node.x][node.y]) )
+					   !PathFinding.isPassable(map[test.x][test.y], map[node.x][node.y]) )
 					{
 						continue;
 					}
@@ -166,7 +166,7 @@ public class PathFinding {
 			closedList.add(node);
 			
 			if(openList.size() == 0){
-				this.isFinded = false;
+				PathFinding.isFinded = false;
 				return;
 			}
 			
@@ -190,10 +190,10 @@ public class PathFinding {
 		}
 		
 		buildPath();
-		this.isFinded = true;
+		PathFinding.isFinded = true;
 	}
 	
-	private void buildPath(){
+	private static void buildPath(){
 		path = new ArrayList<Point>();
 		Node node = endNode;
 		path.add(new Point(node.x, node.y));
@@ -211,7 +211,7 @@ public class PathFinding {
 		closedList = null;
 	}
 	
-	private boolean isOpen(Node node){
+	private static boolean isOpen(Node node){
 		for(Node item: openList){
 			if(item.compare(node)){
 				return true;
@@ -220,7 +220,7 @@ public class PathFinding {
 		return false;
 	}
 	
-	private boolean isClosed(Node node){
+	private static boolean isClosed(Node node){
 		for(Node item: closedList){
 			if(item.compare(node)){
 				return true;
@@ -229,7 +229,7 @@ public class PathFinding {
 		return false;
 	}
 	
-	private boolean isPassable(byte heightFrom, byte heightTo){
+	private static boolean isPassable(byte heightFrom, byte heightTo){
 		if(Math.abs(heightFrom - heightTo) > 1){
 			return false;
 		}

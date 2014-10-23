@@ -2,8 +2,11 @@ package game;
 
 import java.awt.Point;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
+import algorithms.PathFinding;
+import data.units.ConstAction;
 import data.units.ConstUnits;
 import net.Message;
 import net.Message.Prefix;
@@ -146,5 +149,36 @@ public class GameLogic{
 		}
 		
 		units.addUnits(avatars, broad);
+	}
+
+	public void playerAcrion(int clientId, String data) throws IOException {
+		String [] arr = data.split(":");
+		int action = Integer.parseInt(arr[0]);
+		
+		switch(action){
+			case ConstAction.moveTo:
+				actionMoveTo(clientId, arr);
+				break;
+				
+			default: 
+				break;
+		}
+	}
+
+	private void actionMoveTo(int clientId, String[] arr) throws IOException {
+		// key:(int)unitId:(int)toX:(int)toY
+		int unitId = Integer.parseInt(arr[1]);
+		int toX = Integer.parseInt(arr[2]);
+		int toY = Integer.parseInt(arr[3]);
+		
+		Unit unit = units.getUnit(unitId);
+		
+		if(unit.playerId == clientId){
+			ArrayList<Point> way = PathFinding.getPath(unit.x, unit.y, toX, toY, ConstUnits.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
+		
+			if(way != null){
+				broad.sendToPlayers(new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + unitId + ":" + toX + ":" + toY));
+			}
+		}
 	}
 }

@@ -50,6 +50,10 @@ public class TaskLogic {
 			case REQ_READY_CHECK:
 				requestReadyCheck(task);
 				break;
+				
+			case PLAYER_ACTION:
+				playerAction(task);
+				break;
 		
 			default: break;
 		}
@@ -112,5 +116,10 @@ public class TaskLogic {
 	private static void requestReadyCheck(Task task) throws IOException {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
 		GamesMng.get(gameId).logic.playerReadyCheck(task.clientId);
+	}
+	
+	private static void playerAction(Task task) throws IOException {
+		int gameId = ClientPool.getClient(task.clientId).gameId;
+		GamesMng.get(gameId).logic.playerAcrion(task.clientId, task.msg.data);
 	}
 }

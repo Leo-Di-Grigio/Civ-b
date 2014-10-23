@@ -101,6 +101,47 @@ public class scenedata_Game extends SceneData {
 				game_SelectNode.updateGuiData(gui, (Node)task.data);
 				break;
 				
+			// Data
+			case GAME_OBJ_PLAYER:
+				game_Data.objPlayer(gui, gamedata, (String)task.data);
+				break;
+					
+			case GAME_OBJ_TEAM:
+				game_Data.objTeam(gui, gamedata, (String)task.data);
+				break;
+					
+			case GAME_OBJ_UNIT:
+				game_Data.objUnit(gui, gamedata, (String)task.data);
+				break;
+					
+			case GAME_UPD_PLAYER:
+				game_Data.updPlayer(gui, gamedata, (String)task.data);
+				break;
+				
+			case GAME_UPD_TEAM:
+				game_Data.updTeam(gui, gamedata, (String)task.data);
+				break;
+					
+			case GAME_DEL_PLAYER:
+				game_Data.delPlayer(gui, gamedata, (String)task.data);
+				break;
+				
+			case GAME_DEL_TEAM:
+				game_Data.delTeam(gui, gamedata, (String)task.data);
+				break;
+					
+			case GAME_DEL_UNIT:
+				game_Data.delUnit(gui, gamedata, (String)task.data);
+				break;
+					
+			case GAME_MSG:
+				game_Msg.msg((String)task.data);
+				break;
+				
+			case PLAYER_ACTION:
+				game_Data.playerAction(gui, gamedata, (String)task.data);
+				break;
+				
 			default: break;
 		}
 	}
