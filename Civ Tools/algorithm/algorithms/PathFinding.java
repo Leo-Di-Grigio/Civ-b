@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import misc.Tools;
 import misc.ToolsEnums;
 
 public class PathFinding {	
@@ -51,15 +52,10 @@ public class PathFinding {
 		
 		// diagonal heuristic
 		protected int h() {
-			// need fix to cycling map
-			int dx = Math.abs(this.x - endNode.x); 
+			//int dx = Math.abs(this.x - endNode.x);
+			int dx = Tools.getRangeX(this.x, endNode.x, mapSizeX);
 			int dy = Math.abs(this.y - endNode.y);
-			// 
-			
-			int diag = Math.min(dx, dy);
-			int straight = dx + dy;
-			
-			return diagCost * diag + straightCost * (straight - 2 * diag);
+			return diagCost * Math.max(dx, dy);
 		}
 		
 		protected void g(){
@@ -83,13 +79,19 @@ public class PathFinding {
 	}
 
 	public ArrayList<Point> getPath(int x, int y, int toX, int toY, ToolsEnums.UnitMovementType movementType, byte [][] map, int mapSizeX, int mapSizeY){
-		if(toX < 0 || toX >= mapSizeX || toY < 0 || toY >= mapSizeY){
+	
+		if(toY < 0 || toY >= mapSizeY){
 			return null;
 		}
 		
 		// init data
 		this.movementType = movementType;
 		this.map = map;
+		
+		if(!movementType.isPassable(map[toX][toY])){
+			return null;
+		}
+		
 		this.mapSizeX = mapSizeX;
 		this.mapSizeY = mapSizeY;
 		
@@ -112,21 +114,20 @@ public class PathFinding {
 		
 		return path;
 	}
-
 	
 	private void search(){
 		Node node = startNode;
 		
 		while(!node.compare(endNode)){
-			int startX = Math.max(0, node.x - 1);
-			int endX = Math.min(mapSizeX - 1, node.x + 1);
+			int startX = Tools.getX(node.x - 1, mapSizeX);
+			int endX = Tools.getX(node.x + 1, mapSizeX);
+			
 			int startY = Math.max(0, node.y - 1);
 			int endY = Math.min(mapSizeY - 1, node.y + 1);
-			
-			for(int i = startX; i <= endX; ++i){
-				for(int j = startY; j <= endY; ++j){
-					Node test = null;
-					test = new Node(i, j, map[i][j]);
+				
+			for(int i = startX, c = 0; c < 3 && Tools.equals(i, endX, mapSizeX) <= 0; i = Tools.getX(i + 1, mapSizeX), ++c){
+				for(int j = startY; j <= endY; ++j){					
+					Node test = new Node(i, j, map[i][j]);
 					
 					if(test.compare(endNode)){
 						test = endNode;

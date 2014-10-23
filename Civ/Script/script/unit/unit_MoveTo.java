@@ -62,10 +62,6 @@ public class unit_MoveTo extends ScriptGui {
 				
 				path = finder.getPath(unit.x, unit.y, nodeX, nodeY, ConstUnits.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
 				unit.setPath(path);
-				
-				if(path == null){
-					Log.err("no way");
-				}
 			}
 			
 			return task;

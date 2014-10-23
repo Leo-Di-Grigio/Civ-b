@@ -18,7 +18,6 @@ public class WaypointMng {
 	
 	public void addWay(int unitId, ArrayList<Point> way){
 		if(ways.containsKey(unitId)){
-			// clear old way
 			removeWay(unitId);
 		}
 		

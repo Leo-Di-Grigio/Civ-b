@@ -74,7 +74,6 @@ public class GameCycleNative extends GameCycle implements Runnable {
 	private void cycle(BufferStrategy strategy) throws IOException{
 		g = (Graphics2D)strategy.getDrawGraphics();
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		
