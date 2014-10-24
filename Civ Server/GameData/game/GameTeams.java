@@ -108,9 +108,13 @@ public class GameTeams {
 		return players.get(teamId);
 	}
 	
-	public void deleteTeamIfNoPlayers(int teamId, GameBroadcasting broad) throws IOException{
+	public boolean deleteTeamIfNoPlayers(int teamId, GameBroadcasting broad) throws IOException{
 		if(getTeamSize(teamId) == 0){
 			remove(teamId, broad);
+			return true;
+		}
+		else{
+			return false;
 		}
 	}
 	

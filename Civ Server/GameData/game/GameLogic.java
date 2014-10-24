@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import actions.Action;
+import actions.Action.PlayerAction;
+import actions.GameActions;
 import algorithms.PathFinding;
 import data.units.ConstAction;
 import data.units.ConstUnits;
@@ -22,18 +25,21 @@ import misc.Enums.GameState;
 
 public class GameLogic{
 	// game Id
-	private int gameId;
+	public int gameId;
 	
 	// Data
 	private long seed;
 	private Enums.GameState state;
-	private GamePlayers players;
-	private GameTeams teams;
-	private GameMap map;
-	private UnitsMng units;
+	public GamePlayers players;
+	public GameTeams teams;
+	public GameMap map;
+	public UnitsMng units;
 	
 	// Network
-	private GameBroadcasting broad;
+	public GameBroadcasting broad;
+	
+	// Actions
+	private GameActions actions;
 	
 	public GameLogic(int gameId, long seed, int mapSizeX, int mapSizeY, int playersMax) throws IOException {
 		// id
@@ -51,6 +57,9 @@ public class GameLogic{
 		
 		// broad
 		this.broad = new GameBroadcasting(players, teams);
+		
+		// actions
+		this.actions = new GameActions(this);
 	}
 	
 	public GameState getState() {
@@ -77,8 +86,11 @@ public class GameLogic{
 				client.gameId = -1;
 			}
 			
+			actions.unregisterPlayer(player.id);
 			teams.unregisterPlayer(player.teamId, player.id);
-			teams.deleteTeamIfNoPlayers(player.teamId, broad);
+			if(teams.deleteTeamIfNoPlayers(player.teamId, broad)){
+				actions.unregisterTeam(player.teamId);
+			}
 			
 			broad.sendToPlayers(new Message(Prefix.DEL_PLAYER, "" + clientId));
 			Log.service("Player ID: " + clientId + " leave the game ID: " + gameId);
@@ -114,7 +126,9 @@ public class GameLogic{
 			
 			boolean unregistered = teams.unregisterPlayer(player.teamId, player.id);
 			if(unregistered){ // team existing check
-				teams.deleteTeamIfNoPlayers(player.teamId, broad);
+				if(teams.deleteTeamIfNoPlayers(player.teamId, broad)){
+					actions.unregisterTeam(player.teamId);
+				}
 				
 				// chose team
 				player.teamId = teamId;
@@ -177,7 +191,8 @@ public class GameLogic{
 			ArrayList<Point> way = PathFinding.getPath(unit.x, unit.y, toX, toY, ConstUnits.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
 		
 			if(way != null){
-				broad.sendToPlayers(new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + unitId + ":" + toX + ":" + toY));
+				actions.addAction(clientId, new Action(PlayerAction.UNIT_MOVE_TO, unitId, toX, toY));
+				broad.sendToTeam(players.get(clientId).teamId, new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + unitId + ":" + toX + ":" + toY));
 			}
 		}
 	}
