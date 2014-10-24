@@ -3,7 +3,6 @@ package actions;
 public class Action {
 
 	private static int ID = 0;
-	private static int TURN = 0;
 	
 	public static enum PlayerAction {
 		UNIT_MOVE_TO,
@@ -25,7 +24,6 @@ public class Action {
 	
 	private Action(PlayerAction prefix){
 		this.id = ID++;
-		this.turn = TURN;
 		this.prefix = prefix;
 	}
 	

@@ -17,7 +17,7 @@ public class scenegui_Connect extends GUI {
 		// Conntect to address
 		button = new GuiElementButton("new_game");
 		button.setPosition(0, 0);
-		button.setSize(128, 32);
+		button.setSize(256, 32);
 		button.setPositionType(Enums.GuiPosition.CENTER);
 		button.setTexture("button_menu");
 		button.setTextureSelected("button_menu_select");

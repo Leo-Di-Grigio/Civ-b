@@ -54,7 +54,11 @@ public class TaskLogic {
 			case PLAYER_ACTION:
 				playerAction(task);
 				break;
-		
+				
+			case GAME_TURN_END:
+				gameTurnEnd(task);
+				break;
+				
 			default: break;
 		}
 	}
@@ -121,5 +125,10 @@ public class TaskLogic {
 	private static void playerAction(Task task) throws IOException {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
 		GamesMng.get(gameId).logic.playerAcrion(task.clientId, task.msg.data);
+	}
+	
+	private static void gameTurnEnd(Task task) {
+		int gameId = ClientPool.getClient(task.clientId).gameId;
+		GamesMng.get(gameId).logic.gameTurnEnd(task.clientId);
 	}
 }

@@ -15,7 +15,7 @@ public class Game {
 	public long gameSeed = 0L;
 	
 	// Logic
-	public GameLogic logic;
+	public GameData logic;
 	
 	public Game(String title, int mapSizeX, int mapSizeY, int playersMax) throws IOException{
 		this.id = ID++;
@@ -23,7 +23,7 @@ public class Game {
 		this.title = title;
 		
 		// Logic thread
-		logic = new GameLogic(id, gameSeed, mapSizeX, mapSizeY, playersMax);
+		logic = new GameData(id, gameSeed, mapSizeX, mapSizeY, playersMax);
 		
 		Log.service("Game created. Name: " + this.title + " playersMax: " + playersMax);
 	}

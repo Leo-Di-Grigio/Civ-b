@@ -20,12 +20,12 @@ public class GuiElementButton extends GuiElement {
 			
 			if(this.selected){
 				g.drawImage(this.textureSelected, drawX, drawY, sizeX, sizeY, null);
-				g.drawString(this.text, drawX + 5, drawY + 15);
 			}
 			else{
 				g.drawImage(this.textureNormal, drawX, drawY, sizeX, sizeY, null);
-				g.drawString(this.text, drawX + 5, drawY + 15);
 			}
+			
+			g.drawString(this.text, drawX + sizeX/2 - g.getFontMetrics().stringWidth(text)/2, drawY +  g.getFontMetrics().getHeight());
 		}
 	}
 

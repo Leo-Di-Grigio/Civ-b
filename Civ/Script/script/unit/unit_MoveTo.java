@@ -101,5 +101,8 @@ public class unit_MoveTo extends ScriptGui {
 		if(way != null){
 			gamedata.units.addWay(unitId, way);
 		}
+		else{
+			gamedata.units.removeWay(unitId);
+		}
 	}
 }

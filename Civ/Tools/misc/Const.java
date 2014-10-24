@@ -5,7 +5,7 @@ public class Const {
 	// version
 	public static final String title = "Civ";
 	public static final int version = 0;
-	public static final int subVersion = 91;
+	public static final int subVersion = 92;
 
 	// assets
 	public static final String assetsNative = "recources/assets/native/";
@@ -34,10 +34,13 @@ public class Const {
 	
 	// action buttons keys
 	public static final String imgActionMoveto = "action_moveto";
+	public static final String imgButton = "button";
+	public static final String imgButtonEndTurn = "button";
 	
 	// units
 	public static final String imgUnitAvatar = "unit_avatar";
 	
 	// misc
 	public static final String imgWaypoint = "null";
+	
 }

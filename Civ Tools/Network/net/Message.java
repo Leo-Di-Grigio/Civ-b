@@ -44,10 +44,10 @@ public class Message implements Serializable {
 		GAME_BEGIN, // --> begin transfer start data
 		GAME_PLAYER_DATA,   // updates and new game objects
 		GAME_PLAYER_ACTION, // player turn actions		
+		
 		// turns
 		GAME_TURN, 		// end of data transfer, back control to player
 		GAME_TURN_END, 	//
-		
 		
 		// data (server)
 		OBJ_TEAM,

@@ -9,6 +9,7 @@ import script.gui.icon.gui_icon_Test;
 import script.gui.minimap.gui_minimap_MoveCamera;
 import script.gui.table.gui_table_Select;
 import gui.GUI;
+import gui.elements.GuiElementButton;
 import gui.elements.GuiElementButtonUnitAction;
 import gui.elements.GuiElementCursor;
 import gui.elements.GuiElementIcon;
@@ -32,9 +33,11 @@ public class scenegui_Game extends GUI {
 	public static final String uiButton4 = "UI_button_4";
 	public static final String uiButton5 = "UI_button_5";
 	
+	public static final String uiButtonEndTurn = "UI_button_endturn";
+	
 	// infopane
-	public static final String uiInfopane   = "UI_infopane";
-	public static final String uiInfopaneIcon = "UI_infopaneIcon";
+	public static final String uiInfopane   	= "UI_infopane";
+	public static final String uiInfopaneIcon 	= "UI_infopaneIcon";
 	public static final String uiInfopaneTitle0 = "UI_infopaneTitle0";
 	public static final String uiInfopaneTitle1 = "UI_infopaneTitle1";
 	public static final String uiInfopaneTitle2 = "UI_infopaneTitle2";
@@ -173,5 +176,15 @@ public class scenegui_Game extends GUI {
 		button.setText("5");
 		button.setScript(null);
 		this.add(button);
+		
+		GuiElementButton endTurn = new GuiElementButton(uiButtonEndTurn);
+		endTurn.setPositionType(Enums.GuiPosition.BOTTOM_LEFT);
+		endTurn.setPosition(5, -205);
+		endTurn.setSize(72, 32);
+		endTurn.setTexture(Const.imgButtonEndTurn);
+		endTurn.setText("End turn");
+		endTurn.setScript(new game_EndTurn());
+		endTurn.setVisible(true);
+		this.add(endTurn);
 	}
 }
