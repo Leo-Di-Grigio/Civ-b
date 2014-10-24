@@ -3,7 +3,10 @@ package scenedata.game;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.HashSet;
 
+import player.units.Unit;
+import player.units.UnitsMng;
 import builder.GameMapGenerator;
 import misc.Const;
 import misc.Enums;
@@ -32,6 +35,7 @@ public class GameMap {
 	protected Image imgTerrainLand;
 	
 	// data
+	public UnitsMng units;
 	public Node [][] map;
 	public byte [][] height;
 	
@@ -254,8 +258,18 @@ public class GameMap {
 				break;
 		}
 		
+		// draw Waypoints
+		if(map[i][j].haveWaypoints()){
+			g.drawImage(Recources.getImage(Const.imgWaypoint), x*nodeX, y*nodeY, 32, 32, null);
+		}
+		
 		// draw Units
-		map[i][j].draw(g, x*nodeX, y*nodeY);
+		HashSet<Integer> nodeunits = map[i][j].getAll();
+		
+		for(Integer unitId: nodeunits){
+			Unit unit = this.units.getUnit(unitId);
+			unit.draw(g, x*nodeX, y*nodeY);
+		}
 	}
 	
 	private void drawNode(Graphics g, Image atlas, int i, int j, int x, int y){

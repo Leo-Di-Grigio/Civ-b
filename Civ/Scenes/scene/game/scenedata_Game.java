@@ -8,7 +8,6 @@ import net.Message;
 import misc.Enums;
 import scenedata.SceneData;
 import scenedata.game.GameData;
-import scenedata.game.Node;
 import script.Script;
 import script.ScriptsNetwork;
 import script.gui.gui_CurosorHide;
@@ -73,7 +72,7 @@ public class scenedata_Game extends SceneData {
 				break;
 				
 			case GUI_TABLE_UPDATESELECTION:
-				game_PlayerActions.updateTableSelection(gui, (GuiElementTable)task.data);
+				game_PlayerActions.updateTableSelection(gui, gamedata, (GuiElementTable)task.data);
 				break;
 		
 			case PAINTER_CHANGE_SCENE:
@@ -98,7 +97,7 @@ public class scenedata_Game extends SceneData {
 				
 			// scene events
 			case GAME_SELECT_NODE:
-				game_SelectNode.updateGuiData(gui, (Node)task.data);
+				game_SelectNode.updateGuiData(gui, gamedata, (String)task.data);
 				break;
 				
 			// Data

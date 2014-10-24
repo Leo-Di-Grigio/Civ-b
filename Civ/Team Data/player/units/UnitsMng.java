@@ -10,13 +10,13 @@ import scenedata.game.GameMap;
 public class UnitsMng {
 
 	protected GameMap map;
-	protected static WaypointMng waypoints;
-	protected static HashMap<Integer, Unit> register;
+	protected WaypointMng waypoints;
+	protected HashMap<Integer, Unit> register;
 	
 	public UnitsMng(GameMap map) {
 		this.map = map;
-		UnitsMng.register = new HashMap<Integer, Unit>();
-		UnitsMng.waypoints = new WaypointMng(map);
+		this.register = new HashMap<Integer, Unit>();
+		this.waypoints = new WaypointMng(map);
 	}
 	
 	public void addUnit(Unit unit){
@@ -35,19 +35,19 @@ public class UnitsMng {
 		return map.map[x][y].getAll();	
 	}
 	
-	public static Unit getUnit(int unitId){
+	public Unit getUnit(int unitId){
 		return register.get(unitId);
 	}
 	
-	public static boolean haveWay(int unitId){
+	public boolean haveWay(int unitId){
 		return waypoints.ways.containsKey(unitId);
 	}
 	
-	public static void addWay(int unitId, ArrayList<Point> way){
+	public void addWay(int unitId, ArrayList<Point> way){
 		waypoints.addWay(unitId, way);
 	}
 	
-	public static void removeWay(int unitId){
+	public void removeWay(int unitId){
 		waypoints.removeWay(unitId);
 	}
 	

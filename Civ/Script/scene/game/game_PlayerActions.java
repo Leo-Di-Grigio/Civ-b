@@ -1,6 +1,7 @@
 package scene.game;
 
-import player.units.UnitsMng;
+import player.units.Unit;
+import scenedata.game.GameData;
 import script.unit.unit_MoveTo;
 import data.units.ConstUnits;
 import misc.Const;
@@ -12,19 +13,19 @@ import gui.misc.TableLine;
 
 public class game_PlayerActions {
 
-	public static void updateTableSelection(GUI gui, GuiElementTable table) {
+	public static void updateTableSelection(GUI gui, GameData gamedata, GuiElementTable table) {
 		Log.debug("Execute game_PlayerActions.updateTableSelection(..)");
 		
 		if(table != null){
 			switch(table.getTitle()){
 				case scenegui_Game.uiUnitSelect:
-					selectUnit(gui, table);
+					selectUnit(gui, gamedata, table);
 					break;
 			}
 		}
 	}
 
-	private static void selectUnit(GUI gui, GuiElementTable table) {
+	private static void selectUnit(GUI gui, GameData gamedata, GuiElementTable table) {
 		Log.debug("Execute game_PlayerActions.selectUnit(..)");
 		
 		TableLine line = table.getSelectedLine();
@@ -33,20 +34,26 @@ public class game_PlayerActions {
 			clearButtonsAction(gui);
 		}
 		else{
-			setButtonsAction(gui, line);
+			setButtonsAction(gui, gamedata, line);
 		}
 	}
 	
-	private static void setButtonsAction(GUI gui, TableLine line) {
+	private static void setButtonsAction(GUI gui, GameData gamedata, TableLine line) {
 		int unitId = Integer.parseInt(line.getCell(0));
+		Unit unit = gamedata.units.getUnit(unitId);
 		
-		switch(UnitsMng.getUnit(unitId).type){
-			case ConstUnits.unitNull:
-				clearButtonsAction(gui);
-				break;
-			case ConstUnits.unitAvatar:
-				unitSelectedAvatar(gui);
-				break;
+		if(unit.playerId == gamedata.clientId){
+			switch(gamedata.units.getUnit(unitId).type){
+				case ConstUnits.unitNull:
+					clearButtonsAction(gui);
+					break;
+				case ConstUnits.unitAvatar:
+					unitSelectedAvatar(gui, gamedata);
+					break;
+			}
+		}
+		else{
+			clearButtonsAction(gui); // it's not your unit :)
 		}
 	}
 
@@ -80,11 +87,11 @@ public class game_PlayerActions {
 		button5.setVisible(false);
 	}
 	
-	private static void unitSelectedAvatar(GUI gui){
+	private static void unitSelectedAvatar(GUI gui, GameData gamedata){
 		// action 0 - "moveTo"
 		GuiElementButtonUnitAction button0 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton0);
 		button0.setActionIcon(Const.imgActionMoveto);
 		button0.setVisible(true);
-		button0.setScript(new unit_MoveTo());
+		button0.setScript(new unit_MoveTo(gamedata));
 	}
 }

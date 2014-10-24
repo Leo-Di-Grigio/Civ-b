@@ -15,12 +15,15 @@ public class GameData {
 	public GamePlayersData users;
 	
 	// units
+	public int clientId;
 	public UnitsMng units;
 	
-	public GameData(GameMap map) {
-		this.map = map;
+	public GameData(int clientId, long seed, int mapSizeX, int mapSizeY) {
+		this.map = new GameMap(seed, mapSizeX, mapSizeY);
 		this.users = new GamePlayersData();
 		this.units = new UnitsMng(map);
+		this.clientId = clientId;
+		this.map.units = this.units; // sorry for bullshitcode :\
 	}
 
 	public void addPlayer(Player player) {

@@ -8,7 +8,6 @@ import misc.Log;
 import scene.game.scene_Game;
 import scene.prepare.scene_Prepare;
 import scenedata.game.GameData;
-import scenedata.game.GameMap;
 import script.Script;
 import tasks.Task;
 
@@ -19,15 +18,13 @@ public class game_JoinGame extends Script {
 		Log.debug("Execute game_JoinGame.sucess()");
 		String [] info = data.split(":");
 		
-		long seed = Long.valueOf(info[0]);
-		int mapSizeX = Integer.valueOf(info[1]);
-		int mapSizeY = Integer.valueOf(info[2]);
-	
-		// prepare game map
-		GameMap map = new GameMap(seed, mapSizeX, mapSizeY);
+		long seed = Long.parseLong(info[0]);
+		int mapSizeX = Integer.parseInt(info[1]);
+		int mapSizeY = Integer.parseInt(info[2]);
+		int playerId = Integer.parseInt(info[3]); // self ID for correct unit selecting and contol
 		
 		// prepare GAME scene
-		GameData gamedata = new GameData(map);
+		GameData gamedata = new GameData(playerId, seed, mapSizeX, mapSizeY);
 		
 		scene_Prepare prepeare = new scene_Prepare(gamedata);
 		scene_Game scene = new scene_Game(gamedata);

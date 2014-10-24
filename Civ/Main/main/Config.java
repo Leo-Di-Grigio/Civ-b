@@ -27,6 +27,9 @@ public class Config {
 	public static String playerName;
 	public static String teamName;
 	
+	// gameplay settings
+	public static boolean gameShowUnitPathPrevew = false;
+	
 	public Config() {
 		// os
 		os = System.getProperty("os.name").intern();

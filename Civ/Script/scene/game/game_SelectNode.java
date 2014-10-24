@@ -10,12 +10,9 @@ import gui.elements.GuiElementTitle;
 import gui.misc.TableLine;
 import painter.Painter;
 import player.units.Unit;
-import player.units.UnitsMng;
-import misc.Const;
 import misc.Enums;
 import misc.Environment;
 import misc.Log;
-import recources.Recources;
 import scenedata.game.GameData;
 import scenedata.game.Node;
 import script.Script;
@@ -26,20 +23,19 @@ public class game_SelectNode extends Script {
 	public static void selectNode(GameData gamedata) {
 		int nodeX = Environment.nodeSelectedX;
 		int nodeY = Environment.nodeSelectedY;
-		int mapX = Recources.getImage(Const.imgMinimap).getHeight(null);
+		int mapX = gamedata.map.sizeX;
 		
 		Log.debug("Execute game_SelectNode (" + nodeX + "," + nodeY + ")");
 
-		if(nodeY >= 0 && nodeY < mapX){
-			Node node = gamedata.map.map[nodeX][nodeY];
-			Painter.addTask(new Task(Enums.Task.GAME_SELECT_NODE, node));
+		if(nodeY >= 0 && nodeY < mapX){			
+			Painter.addTask(new Task(Enums.Task.GAME_SELECT_NODE, "" + nodeX +":" + nodeY + ":" + gamedata.clientId));
 		}
 		else{
 			Painter.addTask(new Task(Enums.Task.GAME_SELECT_NODE, null));
 		}
 	}
 
-	public static void updateGuiData(GUI gui, Node data) {
+	public static void updateGuiData(GUI gui, GameData gamedata, String data) {
 		GuiElementPane pane = (GuiElementPane)gui.get(scenegui_Game.uiInfopane);
 		
 		if(pane != null){
@@ -49,32 +45,38 @@ public class game_SelectNode extends Script {
 			GuiElementTitle title3 = (GuiElementTitle)pane.getElement(scenegui_Game.uiInfopaneTitle2);
 			GuiElementTable unitSelectTable = (GuiElementTable)gui.get(scenegui_Game.uiUnitSelect);
 			
+			String [] arr = data.split(":");
+			int nodeX = Integer.parseInt(arr[0]);
+			int nodeY = Integer.parseInt(arr[1]);
+			int clientId = Integer.parseInt(arr[2]);
+			
+			Node node = gamedata.map.map[nodeX][nodeY];
+			
 			if(icon != null){
 				
 			}
 			
 			// Node map info
 			if(title1 != null){
-				if(data == null){
+				if(node == null){
 					title1.setText("");
 				}
 				else{
-					title1.setText("Height in x: " + Environment.nodeSelectedX + " y: " + Environment.nodeSelectedY + " = " + data.height);
+					title1.setText("Height in x: " + nodeX + " y: " + nodeY + " = " + node.height);
 				}
 			}
 			
 			// Node units
 			if(title2 != null){
-				if(data == null){
+				if(node == null){
 					title2.setText("");
 				}
 				else{
-					HashSet<Integer> units = data.getAll();
+					HashSet<Integer> units = node.getAll();
 					
 					if(units == null){
 						if(unitSelectTable != null){
-							unitSelectTable.setVisible(false);
-							unitSelect(null, unitSelectTable);
+							unitSelect(null, unitSelectTable, gamedata, clientId);
 							game_PlayerActions.clearButtonsAction(gui);
 						}
 						title2.setText("");
@@ -82,12 +84,10 @@ public class game_SelectNode extends Script {
 					else{
 						if(unitSelectTable != null){
 							if(units.size() > 0){
-								unitSelectTable.setVisible(true);
-								unitSelect(units, unitSelectTable);
+								unitSelect(units, unitSelectTable, gamedata, clientId);
 							}
 							else{
-								unitSelectTable.setVisible(false);
-								unitSelect(null, unitSelectTable);
+								unitSelect(null, unitSelectTable, gamedata, clientId);
 								game_PlayerActions.clearButtonsAction(gui);
 							}
 						}
@@ -97,17 +97,17 @@ public class game_SelectNode extends Script {
 			}
 			
 			if(title3 != null){
-				if(data == null){
+				if(node == null){
 					title3.setText("");
 				}
 				else{
-					title3.setText("Recources type " + data.geology);
+					title3.setText("Recources type " + node.geology);
 				}
 			}
 		}
 	}
 
-	private static void unitSelect(HashSet<Integer> units, GuiElementTable table) {
+	private static void unitSelect(HashSet<Integer> units, GuiElementTable table, GameData gamedata, int clientId) {
 		table.clear();
 		
 		if(units != null){
@@ -115,7 +115,8 @@ public class game_SelectNode extends Script {
 			table.setPosition(-5, -175 - table.getSizeY());
 			
 			for(Integer unitId: units){
-				Unit unit = UnitsMng.getUnit(unitId);
+				Unit unit = gamedata.units.getUnit(unitId);
+				
 				TableLine line = new TableLine(3);
 				
 				line.metadata = Enums.TableMetadata.UNIT;
@@ -124,10 +125,14 @@ public class game_SelectNode extends Script {
 				line.setCell(2, "unitType: " + unit.type);
 				
 				line.setHidden(0); // hide unitId
-				table.add(line);
+				table.add(line);				
 			}
 			
 			table.select(0);
+			table.setVisible(true);
+		}
+		else{
+			table.setVisible(false);
 		}
 	}
 }

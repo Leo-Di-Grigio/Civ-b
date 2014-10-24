@@ -6,7 +6,6 @@ import java.util.HashSet;
 import javax.media.opengl.GL3;
 
 import player.units.Unit;
-import player.units.UnitsMng;
 import recources.Recources;
 import render.Drawble;
 import misc.Const;
@@ -76,11 +75,6 @@ public class Node implements Drawble {
 	public void draw(Graphics g) {
 		if(haveWaypoints()){
 			g.drawImage(Recources.getImage(Const.imgNull), drawX, drawY, 32, 32, null);
-		}
-		
-		for(Integer unitId: units){
-			Unit unit = UnitsMng.getUnit(unitId);
-			unit.draw(g, drawX, drawY);
 		}
 	}
 

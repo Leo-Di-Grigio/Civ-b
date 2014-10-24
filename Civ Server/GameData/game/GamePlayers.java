@@ -51,7 +51,7 @@ public class GamePlayers {
 				broad.sendToPlayers(player.toMessage());
 				
 				// send data
-				ClientPool.sendMsg(clientId, new Message(Prefix.DATA_GAME, "" + gameSeed + ":" + sizeX + ":" + sizeY));
+				ClientPool.sendMsg(clientId, new Message(Prefix.DATA_GAME, "" + gameSeed + ":" + sizeX + ":" + sizeY + ":" + clientId));
 				return player.id;
 			}
 		}

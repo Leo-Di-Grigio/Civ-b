@@ -64,12 +64,12 @@ public class Unit implements Sentble, Drawble {
 	private int drawX;
 	private int drawY;
 
-	public void setPath(ArrayList<Point> way) {
+	public void setPath(UnitsMng units, ArrayList<Point> way) {
 		if(way == null){
-			UnitsMng.removeWay(id);
+			units.removeWay(id);
 		}
 		else{
-			UnitsMng.addWay(id, way);
+			units.addWay(id, way);
 		}
 	}	
 	

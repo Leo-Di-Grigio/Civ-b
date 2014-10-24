@@ -15,7 +15,7 @@ import net.Message.Prefix;
 import network.Network;
 import painter.Painter;
 import player.units.Unit;
-import player.units.UnitsMng;
+import main.Config;
 import misc.Enums;
 import misc.Environment;
 import misc.Log;
@@ -27,13 +27,19 @@ import tasks.Task;
 
 public class unit_MoveTo extends ScriptGui {
 	
-	protected GameMap map;
-	protected int nodeX;
-	protected int nodeY;
+	private GameData gamedata;
+	private GameMap map;
+	private int nodeX;
+	private int nodeY;
 	
 	protected ArrayList<Point> path;
 	
 	protected Unit unit;
+	
+	public unit_MoveTo(GameData gamedata) {
+		this.gamedata = gamedata;
+		this.map = gamedata.map;
+	}
 	
 	@Override
 	public void execute(Task task) throws IOException {
@@ -44,7 +50,7 @@ public class unit_MoveTo extends ScriptGui {
 		if(table != null){
 			TableLine line = table.getSelectedLine();
 			int unitId = Integer.parseInt(line.getCell(0));
-			this.unit = UnitsMng.getUnit(unitId);
+			this.unit = gamedata.units.getUnit(unitId);
 			Painter.addTask(new Task(Enums.Task.SCENE_SUBSCRIBER_ADD, this));
 		}
 	}
@@ -56,11 +62,10 @@ public class unit_MoveTo extends ScriptGui {
 				nodeX = Environment.nodeSelectedX;
 				nodeY = Environment.nodeSelectedY;
 				
-				GameData gamedata = (GameData)data;
-				this.map = gamedata.map;
-				
-				path = PathFinding.getPath(unit.x, unit.y, nodeX, nodeY, ConstUnits.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
-				unit.setPath(path);
+				if(Config.gameShowUnitPathPrevew){
+					path = PathFinding.getPath(unit.x, unit.y, nodeX, nodeY, ConstUnits.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
+					unit.setPath(gamedata.units, path);
+				}
 			}
 			
 			return task;
@@ -69,8 +74,11 @@ public class unit_MoveTo extends ScriptGui {
 		if(task.type == Enums.Task.GAME_SELECT_NODE){
 			Log.debug("Execute unit_MoveTo x: " + Environment.nodeSelectedX + " y: " + Environment.nodeSelectedY);
 			
+			path = PathFinding.getPath(unit.x, unit.y, nodeX, nodeY, ConstUnits.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
+			unit.setPath(gamedata.units, path);
+			
 			// send player action
-			if(UnitsMng.haveWay(unit.id)){
+			if(gamedata.units.haveWay(unit.id)){
 				Network.sendMsg(new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + this.unit.id + ":" + Environment.nodeSelectedX + ":" + Environment.nodeSelectedY));
 			}
 		
@@ -86,12 +94,12 @@ public class unit_MoveTo extends ScriptGui {
 		int toX = Integer.parseInt(arr[2]);
 		int toY = Integer.parseInt(arr[3]);
 		
-		Unit unit = UnitsMng.getUnit(unitId);
+		Unit unit = gamedata.units.getUnit(unitId);
 		
 		ArrayList<Point> way = PathFinding.getPath(unit.x, unit.y, toX, toY, ConstUnits.getMovementType(unit.type), gamedata.map.height, gamedata.map.sizeX, gamedata.map.sizeY);
 		
 		if(way != null){
-			UnitsMng.addWay(unitId, way);
+			gamedata.units.addWay(unitId, way);
 		}
 	}
 }
