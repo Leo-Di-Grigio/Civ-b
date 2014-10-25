@@ -121,6 +121,10 @@ public class scenedata_Game extends SceneData {
 				game_Data.updTeam(gui, gamedata, (String)task.data);
 				break;
 					
+			case GAME_UPD_UNIT:
+				game_Data.updUnit(gui, gamedata, (String)task.data);
+				break;
+				
 			case GAME_DEL_PLAYER:
 				game_Data.delPlayer(gui, gamedata, (String)task.data);
 				break;
@@ -132,7 +136,11 @@ public class scenedata_Game extends SceneData {
 			case GAME_DEL_UNIT:
 				game_Data.delUnit(gui, gamedata, (String)task.data);
 				break;
-					
+			
+			case GAME_TURN:
+				game_Turn.nextTurn(gui, gamedata);
+				break;
+				
 			case GAME_MSG:
 				game_Msg.msg((String)task.data);
 				break;

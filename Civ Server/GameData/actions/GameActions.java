@@ -1,9 +1,15 @@
 package actions;
 
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.TreeSet;
 
+import net.Message;
+import net.Message.Prefix;
+import data.units.ConstUnits;
+import player.units.Unit;
 import misc.Log;
 import game.GameData;
 
@@ -13,9 +19,9 @@ public class GameActions {
 	protected GameData gamedata;
 	protected GameActionsLogic logic;
 	
-	private HashMap<Integer, HashMap<Integer, Action>> turnActions; // <turn, map<actionId, Action>>
-	private HashMap<Integer, TreeSet<Integer>> teamActions;   		// <teamId, set<actionId>>
-	private HashMap<Integer, TreeSet<Integer>> playerActions; 		// <playerId, set<actionId>>
+	private HashMap<Integer, HashMap<Integer, Action>> turnActions; 		   // <turn, map<actionId, Action>>
+	private HashMap<Integer, HashMap<Integer, TreeSet<Integer>>> teamActions;  // <turn, map<teamId, set<actionId>>>
+	private HashMap<Integer, HashMap<Integer, TreeSet<Integer>>> playerActions; // <turn, map<playerId, set<actionId>>>
 	
 	protected class InvertSort implements Comparator<Integer>{
 		@Override
@@ -36,80 +42,139 @@ public class GameActions {
 	
 	public GameActions(GameData gamedata){
 		this.gamedata = gamedata;
-		this.logic = new GameActionsLogic(gamedata);
+		this.logic = new GameActionsLogic(gamedata, this);
 		
 		this.turnActions = new HashMap<Integer, HashMap<Integer, Action>>();
 		this.turnActions.put(this.TURN, new HashMap<Integer, Action>());
 		
-		this.teamActions = new HashMap<Integer, TreeSet<Integer>>();
-		this.teamActions.put(0, new TreeSet<Integer>(new InvertSort()));
+		this.teamActions = new HashMap<Integer, HashMap<Integer, TreeSet<Integer>>>();
+		this.teamActions.put(TURN, new HashMap<Integer, TreeSet<Integer>>());
+		this.teamActions.get(TURN).put(0, new TreeSet<Integer>(new InvertSort()));
 		
-		this.playerActions = new HashMap<Integer, TreeSet<Integer>>();
+		this.playerActions = new HashMap<Integer, HashMap<Integer, TreeSet<Integer>>>();
 	}
 
 	public void addAction(int clientId, Action action) {
-		action.turn = this.TURN;
+		action.turn = this.TURN + 1;
 		action.teamId = gamedata.players.get(clientId).teamId;
 		action.playerId = clientId;
 		
+		// Turn actions
+		if(!turnActions.containsKey(action.turn)){
+			turnActions.put(action.turn, new HashMap<Integer, Action>());
+		}
 		turnActions.get(action.turn).put(action.id, action);
-		teamActions.get(action.teamId).add(action.id);
-		playerActions.get(clientId).add(action.id);
+		
+		// Team actions
+		if(!teamActions.containsKey(action.turn)){
+			teamActions.put(action.turn, new HashMap<Integer, TreeSet<Integer>>());
+		}
+		if(!teamActions.get(action.turn).containsKey(action.teamId)){
+			teamActions.get(action.turn).put(action.teamId, new TreeSet<Integer>(new InvertSort()));
+		}
+		teamActions.get(action.turn).get(action.teamId).add(action.id);
+		
+		// Player actions
+		if(!playerActions.containsKey(action.turn)){
+			playerActions.put(action.turn, new HashMap<Integer, TreeSet<Integer>>());
+		}
+		if(!playerActions.get(action.turn).containsKey(action.playerId)){
+			playerActions.get(action.turn).put(action.playerId, new TreeSet<Integer>(new InvertSort()));
+		}
+		playerActions.get(action.turn).get(action.playerId).add(action.id);
 	}
 	
 	public void registerPlayer(int playerId){
 		if(!playerActions.containsKey(playerId)){
-			playerActions.put(playerId, new TreeSet<Integer>(new InvertSort()));
+			playerActions.put(TURN, new HashMap<Integer, TreeSet<Integer>>());
+			playerActions.get(TURN).put(playerId, new TreeSet<Integer>(new InvertSort()));
 		}
 	}
 	
 	public void registerTeam(int teamId){
 		if(!teamActions.containsKey(teamId)){
-			teamActions.put(teamId, new TreeSet<Integer>(new InvertSort()));
+			teamActions.put(TURN, new HashMap<Integer, TreeSet<Integer>>());
+			teamActions.get(TURN).put(teamId, new TreeSet<Integer>(new InvertSort()));
 		}
 	}
 	
 	// remove all team actions and unregister team
 	public void unregisterTeam(int teamId){
-		TreeSet<Integer> teamActionsIds = teamActions.remove(teamId);
+		HashMap<Integer, TreeSet<Integer>> turnTeamActions = teamActions.get(TURN + 1);
 		
-		if(teamActionsIds != null){
-			HashMap<Integer, Action> actionsSet = turnActions.get(this.TURN);
-			for(Integer actionId: teamActionsIds){
-				actionsSet.remove(actionId);
+		if(turnTeamActions != null){
+			TreeSet<Integer> teamActionsIds = turnTeamActions.remove(teamId);
+		
+			if(teamActionsIds != null){
+				HashMap<Integer, Action> turn = turnActions.get(TURN + 1);
+				
+				for(Integer actionId: teamActionsIds){
+					turn.remove(actionId);
+				}
 			}
-		}
 		
-		System.gc();
+			System.gc();
+		}
 	}
 	
 	// remove all player actions and unregister player
 	public void unregisterPlayer(int playerId){
-		TreeSet<Integer> playerActionsIds = new TreeSet<Integer>(playerActions.remove(playerId));
+		HashMap<Integer, TreeSet<Integer>> turnPlayeresActions = playerActions.get(TURN + 1);
 		
-		if(playerActionsIds != null){
-			HashMap<Integer, Action> actionsSet = turnActions.get(this.TURN);
-			for(Integer actionId: playerActionsIds){
-				actionsSet.remove(actionId);
+		if(turnPlayeresActions != null){
+			TreeSet<Integer> playerActionsIds = turnPlayeresActions.remove(playerId);
+		
+			if(playerActionsIds != null){
+				HashMap<Integer, Action> turn = turnActions.get(TURN + 1);
+				
+				for(Integer actionId: playerActionsIds){
+					turn.remove(actionId);
+				}
+			}
+		
+			System.gc();
+		}
+	}
+	
+	public void nextTurn(int clientId) throws IOException{
+		Log.service("" + gamedata.gameId + " - Turn " + TURN);
+		
+		this.TURN++;
+		int teamId = gamedata.players.get(clientId).teamId;
+		
+		newTurn(teamId);
+		turnActions(teamId);
+
+		// announce new turn 
+		gamedata.broad.sendToTeam(teamId, new Message(Prefix.GAME_TURN, null));
+	}
+	
+	private void newTurn(int teamId) throws IOException{
+		// reset all turn stats of team
+		HashSet<Integer> players =  gamedata.teams.getPlayers(teamId);
+		
+		for(Integer playerId: players){
+			HashSet<Integer> units = gamedata.units.getPlayersUnits(playerId);
+			
+			// reset units turn stats
+			for(Integer unitId: units){
+				Unit unit = gamedata.units.getUnit(unitId);
+				unit.movementEnd = false;
+				unit.movementPoints = ConstUnits.getMovementPoints(unit.type);
 			}
 		}
-		
-		System.gc();
 	}
 	
-	public void nextTurn(int clientId){
-		Log.service("" + gamedata.gameId + " - Turn " + TURN);
-		turn(clientId); // test
-		this.TURN++;
-		turnActions.put(this.TURN, new HashMap<Integer, Action>());
-	}
-	
-	private void turn(int clientId){
-		HashMap<Integer, Action> map = turnActions.get(this.TURN);
-		TreeSet<Integer> set = teamActions.get(gamedata.players.get(clientId).teamId);
+	private void turnActions(int teamId) throws IOException{
+		HashMap<Integer, Action> map = turnActions.get(TURN);
 		
-		for(Integer key: set){
-			logic.execute(map.remove(key));
+		if(map != null){
+			TreeSet<Integer> keys = teamActions.get(TURN).get(teamId);
+
+			for(Integer actionId: keys){
+				Action action = map.get(actionId);
+				logic.execute(action);
+			}
 		}
 	}
 }

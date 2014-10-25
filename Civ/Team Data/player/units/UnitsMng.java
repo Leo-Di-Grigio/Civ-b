@@ -52,11 +52,33 @@ public class UnitsMng {
 	}
 	
 	public void updUnit(String data) {
+		
 		String [] arr = data.split(":");
 		int unitId = Integer.parseInt(arr[0]);
+		
 		Unit unit = getUnit(unitId);
+		
 		if(unit != null){
-			unit.updateObj(arr);
+			int x = 0;
+			int y = 0;
+			boolean updPosition = false;
+			
+			switch(arr[1]){
+				case "x": x = Integer.parseInt(arr[2]); updPosition = true; break;
+				case "y": y = Integer.parseInt(arr[2]); updPosition = true; break;
+				case "xy": x = Integer.parseInt(arr[2]); y = Integer.parseInt(arr[3]); updPosition = true; break;
+			}
+			
+			if(updPosition){
+				if(unit.x == x && unit.y == y){
+					waypoints.removeWay(unitId);
+				}
+				else{
+					this.map.map[unit.x][unit.y].removeUnit(unitId);
+					this.map.map[x][y].addUnit(unit);
+					unit.updateObj(arr);
+				}
+			}
 		}
 	}
 }

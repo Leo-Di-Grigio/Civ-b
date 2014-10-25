@@ -52,11 +52,12 @@ public class Unit implements Sentble, Drawble {
 	@Override
 	public void updateObj(String [] arr) {
 		switch(arr[1]){
-			case "id": 		 id = Integer.parseInt(arr[1]); break;
-			case "playerId": playerId = Integer.parseInt(arr[1]); break;
-			case "x": 		 x = Integer.parseInt(arr[1]); break;
-			case "y": 		 y = Integer.parseInt(arr[1]); break;
-			case "type": 	 type = Integer.parseInt(arr[1]); break;
+			case "id": 		 id = Integer.parseInt(arr[2]); break;
+			case "playerId": playerId = Integer.parseInt(arr[2]); break;
+			case "x": 		 x = Integer.parseInt(arr[2]); break;
+			case "y": 		 y = Integer.parseInt(arr[2]); break;
+			case "xy":		 x = Integer.parseInt(arr[2]); y = Integer.parseInt(arr[3]); break;
+			case "type": 	 type = Integer.parseInt(arr[2]); break;
 		}
 	}
 

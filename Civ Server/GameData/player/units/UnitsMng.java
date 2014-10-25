@@ -5,7 +5,6 @@ import game.GameBroadcasting;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
 
 import net.Message;
 import net.Message.Prefix;
@@ -14,12 +13,12 @@ import map.GameMap;
 public class UnitsMng {
 	
 	private HashMap<Integer, Unit> units;
-	private HashMap<Integer, Set<Integer>> playerUnit; //<playerId, Set<unitId> >
+	private HashMap<Integer, HashSet<Integer>> playerUnit; //<playerId, Set<unitId> >
 	private GameMap map;
 	
 	public UnitsMng(GameMap map){
 		this.units = new HashMap<Integer, Unit>();
-		this.playerUnit = new HashMap<Integer, Set<Integer>>();
+		this.playerUnit = new HashMap<Integer, HashSet<Integer>>();
 		this.map = map;
 	}
 	
@@ -60,11 +59,11 @@ public class UnitsMng {
 		return units.get(unitId);
 	}
 	
-	public Set<Integer> getUnits(int x, int y){
+	public HashSet<Integer> getUnits(int x, int y){
 		return map.getUnits(x, y);
 	}
 	
-	public Set<Integer> getPlayersUnits(int playerId){
+	public HashSet<Integer> getPlayersUnits(int playerId){
 		return playerUnit.get(playerId);
 	}
 }

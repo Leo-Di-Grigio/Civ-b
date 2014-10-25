@@ -23,11 +23,11 @@ public class game_SelectNode extends Script {
 	public static void selectNode(GameData gamedata) {
 		int nodeX = Environment.nodeSelectedX;
 		int nodeY = Environment.nodeSelectedY;
-		int mapX = gamedata.map.sizeX;
+		int mapY = gamedata.map.sizeY;
 		
 		Log.debug("Execute game_SelectNode (" + nodeX + "," + nodeY + ")");
 
-		if(nodeY >= 0 && nodeY < mapX){			
+		if(nodeY >= 0 && nodeY < mapY){			
 			Painter.addTask(new Task(Enums.Task.GAME_SELECT_NODE, "" + nodeX +":" + nodeY + ":" + gamedata.clientId));
 		}
 		else{

@@ -103,7 +103,11 @@ public class ScriptsNetwork {
 			case PLAYER_ACTION:{
 				Painter.addTask(new Task(Enums.Task.PLAYER_ACTION, msg.data));
 			} break;
-				
+			
+			case GAME_TURN: {
+				Painter.addTask(new Task(Enums.Task.GAME_TURN, msg.data));
+			} break;
+			
 			default:{
 				Log.debug("MSG: " + msg.data);
 			} break;

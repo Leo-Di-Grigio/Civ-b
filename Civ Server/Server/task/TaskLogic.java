@@ -127,7 +127,7 @@ public class TaskLogic {
 		GamesMng.get(gameId).logic.playerAcrion(task.clientId, task.msg.data);
 	}
 	
-	private static void gameTurnEnd(Task task) {
+	private static void gameTurnEnd(Task task) throws IOException {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
 		GamesMng.get(gameId).logic.gameTurnEnd(task.clientId);
 	}

@@ -39,7 +39,7 @@ public class GameData{
 	public GameBroadcasting broad;
 	
 	// Actions
-	private GameActions actions;
+	public GameActions actions;
 	
 	public GameData(int gameId, long seed, int mapSizeX, int mapSizeY, int playersMax) throws IOException {
 		// id
@@ -207,7 +207,7 @@ public class GameData{
 		}
 	}
 
-	public void gameTurnEnd(int clientId) {
+	public void gameTurnEnd(int clientId) throws IOException {
 		actions.nextTurn(clientId);
 	}
 }

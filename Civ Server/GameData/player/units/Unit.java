@@ -62,6 +62,7 @@ public class Unit implements Sentble{
 	public Message toMessageUpdate(String field) {
 		String data = new String("");
 		
+		// 0-id, 1-fieldName, 2-field1, 3-field2 
 		data += id + ":" + field + ":";
 		
 		switch(field){
@@ -69,6 +70,7 @@ public class Unit implements Sentble{
 			case "playerId": data += playerId; break;
 			case "x": 		 data += x; break;
 			case "y": 		 data += y; break;
+			case "xy":       data += x + ":" + y; break;
 			case "type": 	 data += type; break;
 		}
 		
