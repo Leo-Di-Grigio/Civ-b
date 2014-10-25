@@ -184,7 +184,6 @@ public class scenegui_Game extends GUI {
 		endTurn.setTexture(Const.imgButtonEndTurn);
 		endTurn.setText("End turn");
 		endTurn.setScript(new game_Turn());
-		endTurn.setVisible(true);
 		this.add(endTurn);
 	}
 }

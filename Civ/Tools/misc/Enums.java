@@ -55,6 +55,7 @@ public class Enums {
 		// Scene Prepearing
 		GAME_BEGIN,
 		GAME_TURN,
+		GAME_TURN_END,
 		
 		// Data
 		GAME_MSG,

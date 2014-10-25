@@ -112,6 +112,10 @@ public class scenedata_Prepare extends SceneData {
 				game_join.execute();
 				break;
 				
+			case GAME_TURN:
+				gamedata.turn = true;
+				break;
+				
 			default: break;
 		}
 	}

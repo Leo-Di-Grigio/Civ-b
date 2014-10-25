@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Vector;
 
 import misc.Log;
 import net.Message;
@@ -19,11 +20,18 @@ public class GameTeams {
 	private HashMap<Integer, Team> list;
 	private HashMap<Integer, HashSet<Integer>> players; // <teamId, Set<playerId> >;
 	
+	public boolean newTurn = false;
+	private int turnIndex = 0;
+	private Vector<Integer> turnQueue;
+	
 	public GameTeams(int gameId) throws IOException{
 		this.gameId = gameId;
 		
 		list = new HashMap<Integer, Team>();
 		players = new HashMap<Integer, HashSet<Integer>>();
+		
+		// Turn
+		turnQueue = new Vector<Integer>();
 		
 		// add "No team"
 		this.add(-1, null, null);
@@ -63,6 +71,7 @@ public class GameTeams {
 		Team team = new Team(clientId, teamName);
 		list.put(team.id, team);
 		players.put(team.id, new HashSet<Integer>());
+		turnQueue.add(team.id);
 		
 		Log.service("Player ID: " + clientId + " created new team \"" + teamName + "\" in gameId: " + gameId);
 		broad.sendToPlayers(team.toMessage());
@@ -74,6 +83,13 @@ public class GameTeams {
 		if(teamId != 0 && list.containsKey(teamId)){
 			list.remove(teamId);
 			players.remove(teamId);
+			
+			for(int i = 0; i < turnQueue.size(); ++i){
+				if(turnQueue.get(i) == teamId){
+					turnQueue.remove(i);
+				}
+			}
+			
 			Log.service("TeamID: " + teamId + " in gameID: " + gameId + " removed");
 			broad.sendToPlayers(new Message(Prefix.DEL_TEAM, "" + teamId));
 		}
@@ -142,6 +158,35 @@ public class GameTeams {
 		
 		while(iter.hasNext()){
 			list.get(team.next()).spawn = iter.next();
+		}
+	}
+	
+	public int getTurnedTeam(){
+		if(turnQueue.size() == 0){
+			return 0;
+		}
+		else{
+			return turnQueue.get(turnIndex);
+		}
+	}
+	
+	public int nextTeamTurn(){
+		turnIndex++;
+		
+		if(turnIndex == turnQueue.size()){
+			newTurn = true;
+			turnIndex = 0;
+		}
+		
+		return turnQueue.get(turnIndex);
+	}
+	
+	public int getTeamOwner(int teamId){
+		if(list.containsKey(teamId)){
+			return list.get(teamId).ownerPlayerId;
+		}
+		else{
+			return -1;
 		}
 	}
 }

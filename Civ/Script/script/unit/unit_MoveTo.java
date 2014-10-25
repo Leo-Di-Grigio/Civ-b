@@ -15,6 +15,7 @@ import net.Message.Prefix;
 import network.Network;
 import painter.Painter;
 import player.units.Unit;
+import player.units.UnitsMng;
 import main.Config;
 import misc.Enums;
 import misc.Environment;
@@ -94,15 +95,18 @@ public class unit_MoveTo extends ScriptGui {
 		int toX = Integer.parseInt(arr[2]);
 		int toY = Integer.parseInt(arr[3]);
 		
-		Unit unit = gamedata.units.getUnit(unitId);
-		
-		ArrayList<Point> way = PathFinding.getPath(unit.x, unit.y, toX, toY, ConstUnits.getMovementType(unit.type), gamedata.map.height, gamedata.map.sizeX, gamedata.map.sizeY);
+		addWay(gamedata.units, unitId, toX, toY);
+	}
+	
+	public static void addWay(UnitsMng units, int unitId, int toX, int toY){
+		Unit unit = units.getUnit(unitId);
+		ArrayList<Point> way = PathFinding.getPath(unit.x, unit.y, toX, toY, ConstUnits.getMovementType(unit.type), units.map.height, units.map.sizeX, units.map.sizeY);
 		
 		if(way != null){
-			gamedata.units.addWay(unitId, way);
+			units.addWay(unitId, way);
 		}
 		else{
-			gamedata.units.removeWay(unitId);
+			units.removeWay(unitId);
 		}
 	}
 }

@@ -13,6 +13,7 @@ public class GameData {
 	
 	// team
 	public GamePlayersData users;
+	public boolean turn;
 	
 	// units
 	public int clientId;

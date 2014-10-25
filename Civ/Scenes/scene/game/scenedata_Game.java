@@ -81,6 +81,7 @@ public class scenedata_Game extends SceneData {
 			
 			case SCENE_LOADING:
 				gui_UpdatePosition.execute(gui);
+				game_Turn.nextTurn(gui, gamedata);
 				break;
 			
 			case SCENE_SELECTON:
@@ -138,7 +139,12 @@ public class scenedata_Game extends SceneData {
 				break;
 			
 			case GAME_TURN:
+				gamedata.turn = true;
 				game_Turn.nextTurn(gui, gamedata);
+				break;
+			
+			case GAME_TURN_END:
+				gamedata.turn = false;
 				break;
 				
 			case GAME_MSG:

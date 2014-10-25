@@ -146,7 +146,9 @@ public class GameData{
 		if(allPlayersReady){
 			spawnAvatars();
 			this.state = Enums.GameState.PLAYING;
+			
 			broad.sendToPlayers(new Message(Prefix.GAME_BEGIN, null));
+			broad.sendToTeam(teams.getTurnedTeam(), new Message(Prefix.GAME_TURN, null));
 		}
 	}
 	
@@ -208,6 +210,16 @@ public class GameData{
 	}
 
 	public void gameTurnEnd(int clientId) throws IOException {
-		actions.nextTurn(clientId);
+		if(clientId == teams.getTeamOwner(teams.getTurnedTeam())){
+			actions.teamActionsProcess(teams.getTurnedTeam());
+			teams.nextTeamTurn();
+			
+			if(teams.newTurn){
+				teams.newTurn = false;
+				actions.nextTurn();
+			}
+			
+			broad.sendToTeam(teams.getTurnedTeam(), new Message(Prefix.GAME_TURN, null));
+		}
 	}
 }

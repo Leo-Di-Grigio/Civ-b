@@ -136,20 +136,17 @@ public class GameActions {
 		}
 	}
 	
-	public void nextTurn(int clientId) throws IOException{
+	public void teamActionsProcess(int teamId) throws IOException{
 		Log.service("" + gamedata.gameId + " - Turn " + TURN);
-		
-		this.TURN++;
-		int teamId = gamedata.players.get(clientId).teamId;
-		
-		newTurn(teamId);
+			
+		newTeamTurn(teamId);
 		turnActions(teamId);
 
 		// announce new turn 
 		gamedata.broad.sendToTeam(teamId, new Message(Prefix.GAME_TURN, null));
 	}
 	
-	private void newTurn(int teamId) throws IOException{
+	private void newTeamTurn(int teamId) throws IOException{
 		// reset all turn stats of team
 		HashSet<Integer> players =  gamedata.teams.getPlayers(teamId);
 		
@@ -171,10 +168,16 @@ public class GameActions {
 		if(map != null){
 			TreeSet<Integer> keys = teamActions.get(TURN).get(teamId);
 
-			for(Integer actionId: keys){
-				Action action = map.get(actionId);
-				logic.execute(action);
+			if(keys != null){
+				for(Integer actionId: keys){
+					Action action = map.get(actionId);
+					logic.execute(action);
+				}
 			}
 		}
+	}
+	
+	public void nextTurn(){
+		this.TURN++;
 	}
 }

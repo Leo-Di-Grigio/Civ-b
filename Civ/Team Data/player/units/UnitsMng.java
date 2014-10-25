@@ -6,10 +6,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import scenedata.game.GameMap;
+import script.unit.unit_MoveTo;
 
 public class UnitsMng {
 
-	protected GameMap map;
+	public GameMap map;
 	protected WaypointMng waypoints;
 	protected HashMap<Integer, Unit> register;
 	
@@ -52,7 +53,6 @@ public class UnitsMng {
 	}
 	
 	public void updUnit(String data) {
-		
 		String [] arr = data.split(":");
 		int unitId = Integer.parseInt(arr[0]);
 		
@@ -66,17 +66,23 @@ public class UnitsMng {
 			switch(arr[1]){
 				case "x": x = Integer.parseInt(arr[2]); updPosition = true; break;
 				case "y": y = Integer.parseInt(arr[2]); updPosition = true; break;
-				case "xy": x = Integer.parseInt(arr[2]); y = Integer.parseInt(arr[3]); updPosition = true; break;
+				
+				case "xy": 
+					x = Integer.parseInt(arr[2]); 
+					y = Integer.parseInt(arr[3]); updPosition = true; 
+					break;
 			}
 			
 			if(updPosition){
-				if(unit.x == x && unit.y == y){
-					waypoints.removeWay(unitId);
-				}
-				else{
-					this.map.map[unit.x][unit.y].removeUnit(unitId);
-					this.map.map[x][y].addUnit(unit);
-					unit.updateObj(arr);
+				this.map.map[unit.x][unit.y].removeUnit(unitId);
+				this.map.map[x][y].addUnit(unit);
+				unit.updateObj(arr);
+				
+				ArrayList<Point> way = waypoints.ways.get(unitId);
+				
+				if(way != null){
+					Point endPoint = way.get(way.size() - 1);
+					unit_MoveTo.addWay(this, unitId, endPoint.x, endPoint.y);
 				}
 			}
 		}
