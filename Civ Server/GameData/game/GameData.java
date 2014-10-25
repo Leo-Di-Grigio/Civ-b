@@ -193,9 +193,17 @@ public class GameData{
 			ArrayList<Point> way = PathFinding.getPath(unit.x, unit.y, toX, toY, ConstUnits.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
 		
 			if(way != null){
+				// correct way
 				actions.addAction(clientId, new Action(PlayerAction.UNIT_MOVE_TO, unitId, toX, toY));
 				broad.sendToTeam(players.get(clientId).teamId, new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + unitId + ":" + toX + ":" + toY));
 			}
+			else{
+				// null way
+				actions.addAction(clientId, new Action(PlayerAction.UNIT_MOVE_TO, unitId, unit.x, unit.y));
+				broad.sendToTeam(players.get(clientId).teamId, new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + unitId + ":" + unit.x + ":" + unit.y));
+			}
+			
+			unit.way = way;
 		}
 	}
 

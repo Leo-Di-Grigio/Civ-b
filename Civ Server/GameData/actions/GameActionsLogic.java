@@ -1,5 +1,6 @@
 package actions;
 
+import player.units.Unit;
 import misc.Log;
 import game.GameData;
 
@@ -26,5 +27,19 @@ public class GameActionsLogic {
 	
 	public void unitMoveTo(Action action) {
 		Log.service("AtionID: " + action.id + " playerId: " + action.playerId + " pref: " + action.prefix);
+		
+		Unit unit = gamedata.units.getUnit(action.unitId);
+		if(unit.way != null){
+			// while(unit.movement > 0)
+			// {
+			// 	  //UDP send, continue movement
+			// 	  borad.udpSend(unitWayUpdate)
+			// 	  unit.movement--;
+			// }
+			// 
+			// TCP send, movement end
+			// unit.movementEnd = true;
+			// broad.send(unitEndPosition);
+		}
 	}
 }

@@ -25,4 +25,21 @@ public class ConstUnits {
 				return ToolsEnums.UnitMovementType.NULL;
 		}
 	}
+	
+	public static int getMovementPoints(int unitType){
+		
+		switch(unitType){
+			case unitWaypoint:
+				return 0;
+				
+			case unitNull:
+				return 0;
+				
+			case unitAvatar:
+				return 5;
+			
+			default: 
+				return 0;
+		}
+	}
 }

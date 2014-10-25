@@ -1,5 +1,8 @@
 package player.units;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
 import data.units.ConstUnits;
 import net.Message;
 import net.Message.Prefix;
@@ -18,6 +21,12 @@ public class Unit implements Sentble{
 	public int y;
 	public int type;
 	
+	// movement
+	public ArrayList<Point> way;
+	public boolean movementEnd;
+	public int movementPoints;
+	
+	// ..
 	public Unit() {
 		this.id = ID++;
 		this.type = ConstUnits.unitNull;
@@ -29,6 +38,10 @@ public class Unit implements Sentble{
 		this.playerId = playerId;
 		this.x = x;
 		this.y = y;
+		
+		// movement
+		this.movementEnd = false;
+		this.movementPoints = ConstUnits.getMovementPoints(this.type);
 	}
 
 	@Override

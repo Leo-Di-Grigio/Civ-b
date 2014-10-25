@@ -180,7 +180,7 @@ public class scenegui_Game extends GUI {
 		GuiElementButton endTurn = new GuiElementButton(uiButtonEndTurn);
 		endTurn.setPositionType(Enums.GuiPosition.BOTTOM_LEFT);
 		endTurn.setPosition(5, -205);
-		endTurn.setSize(72, 32);
+		endTurn.setSize(128, 32);
 		endTurn.setTexture(Const.imgButtonEndTurn);
 		endTurn.setText("End turn");
 		endTurn.setScript(new game_EndTurn());

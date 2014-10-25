@@ -25,10 +25,10 @@ public class GameActions {
 			}
 			else{
 				if(a < b){
-					return -1;
+					return 1;
 				}
 				else{
-					return 1;
+					return -1;
 				}
 			}
 		}
@@ -39,7 +39,7 @@ public class GameActions {
 		this.logic = new GameActionsLogic(gamedata);
 		
 		this.turnActions = new HashMap<Integer, HashMap<Integer, Action>>();
-		this.turnActions.put(TURN, new HashMap<Integer, Action>());
+		this.turnActions.put(this.TURN, new HashMap<Integer, Action>());
 		
 		this.teamActions = new HashMap<Integer, TreeSet<Integer>>();
 		this.teamActions.put(0, new TreeSet<Integer>(new InvertSort()));
@@ -71,10 +71,12 @@ public class GameActions {
 	
 	// remove all team actions and unregister team
 	public void unregisterTeam(int teamId){
-		TreeSet<Integer> actions = teamActions.remove(teamId);
-		if(actions != null){
-			for(Integer actionId: actions){
-				actions.remove(actionId);
+		TreeSet<Integer> teamActionsIds = teamActions.remove(teamId);
+		
+		if(teamActionsIds != null){
+			HashMap<Integer, Action> actionsSet = turnActions.get(this.TURN);
+			for(Integer actionId: teamActionsIds){
+				actionsSet.remove(actionId);
 			}
 		}
 		
@@ -83,10 +85,12 @@ public class GameActions {
 	
 	// remove all player actions and unregister player
 	public void unregisterPlayer(int playerId){
-		TreeSet<Integer> actions = new TreeSet<Integer>(playerActions.remove(playerId));
-		if(actions != null){
-			for(Integer actionId: actions){
-				actions.remove(actionId);
+		TreeSet<Integer> playerActionsIds = new TreeSet<Integer>(playerActions.remove(playerId));
+		
+		if(playerActionsIds != null){
+			HashMap<Integer, Action> actionsSet = turnActions.get(this.TURN);
+			for(Integer actionId: playerActionsIds){
+				actionsSet.remove(actionId);
 			}
 		}
 		
@@ -95,9 +99,9 @@ public class GameActions {
 	
 	public void nextTurn(int clientId){
 		Log.service("" + gamedata.gameId + " - Turn " + TURN);
+		turn(clientId); // test
 		this.TURN++;
 		turnActions.put(this.TURN, new HashMap<Integer, Action>());
-		turn(clientId); // test
 	}
 	
 	private void turn(int clientId){
