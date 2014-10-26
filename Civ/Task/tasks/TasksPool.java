@@ -1,65 +1,28 @@
 package tasks;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class TasksPool {
 	
-	private boolean swap = true;
-	private LinkedList<Task> list1;
-	private LinkedList<Task> list2;
+	private ArrayList<Task> pool;
 	
 	public TasksPool(){
-		list1 = new LinkedList<Task>();
-		list2 = new LinkedList<Task>();
+		pool = new ArrayList<Task>();
 	}
 	
-	public void add(Task e){
-		if(swap){
-			list2.add(e);
-		}
-		else{
-			list1.add(e);
-		}
+	public synchronized void add(Task task){
+		pool.add(task);
 	}
 	
-	public boolean hasNext(){
-		if(swap){
-			if(list1.size() > 0){
-				return true;
-			}
-			else{
-				return false;
-			}
-		}
-		else{
-			if(list2.size() > 0){
-				return true;
-			}
-			else{
-				return false;
-			}
-		}
+	public synchronized Task [] getPool(){
+		return pool.toArray(new Task [1]);
 	}
 	
-	public Task poll(){
-		if(swap){
-			return list1.poll();
-		}
-		else{
-			return list2.poll();
-		}
+	public synchronized Task poll(){
+		return pool.get(0);
 	}
 
-	public void clear() {
-		if(swap){
-			list1.clear();
-		}
-		else{
-			list2.clear();
-		}
-	}
-
-	public void swap() {
-		swap = !swap;
+	public synchronized void clear() {
+		pool.clear();
 	}
 }

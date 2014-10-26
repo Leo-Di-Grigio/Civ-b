@@ -23,22 +23,21 @@ abstract public class SceneData {
 	}
 	
 	public void update(TasksPool tasks) throws IOException{
-		while(tasks.hasNext()){
-			Task task = tasks.poll();
-			
-			if(task != null){
-				task.sceneGui = this.gui;
+		Task [] arr = tasks.getPool();
+		tasks.clear();
+		
+		for(int i = 0; i < arr.length; ++i){			
+			if(arr[i] != null){
+				arr[i].sceneGui = this.gui;
 				
 				if(subscriber != null){
-					task = subscriber.preexecute(task, subscriberAddData); // this script will be executed before sceneData receive task
+					arr[i] = subscriber.preexecute(arr[i], subscriberAddData); // this script will be executed before sceneData receive task
 				}
-				if(task != null && !task.blocked){ // subscriber can block normal task execution 
-					execute(task);
+				if(arr[i] != null && !arr[i].blocked){ // subscriber can block normal task execution 
+					execute(arr[i]);
 				}
 			}
 		}
-		
-		tasks.swap();
 	}
 	
 	public void drawGui(Graphics g){

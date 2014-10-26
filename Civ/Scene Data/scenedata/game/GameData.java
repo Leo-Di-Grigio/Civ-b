@@ -20,11 +20,12 @@ public class GameData {
 	public UnitsMng units;
 	
 	public GameData(int clientId, long seed, int mapSizeX, int mapSizeY) {
-		this.map = new GameMap(seed, mapSizeX, mapSizeY);
 		this.users = new GamePlayersData();
-		this.units = new UnitsMng(map);
 		this.clientId = clientId;
-		this.map.units = this.units; // sorry for bullshitcode :\
+		
+		this.map = new GameMap(seed, mapSizeX, mapSizeY);
+		this.units = new UnitsMng(map);
+		this.map.units = this.units; // sorry for bullshitcode t_t
 	}
 
 	public void addPlayer(Player player) {

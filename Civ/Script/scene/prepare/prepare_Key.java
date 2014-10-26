@@ -14,7 +14,7 @@ public class prepare_Key extends Script {
 	public static void released(GameData gamedata, GUI gui, String data) throws IOException {		
 		String title = gui.getFocus();
 
-		if(title != null && title.compareTo("window_new_team") == 0){
+		if(title != null && title.compareTo(scenegui_Prepare.uiWindiwNewTeam) == 0){
 			// enter new team name
 			GuiElementWindow window = (GuiElementWindow)gui.get(title);
 			

@@ -22,7 +22,7 @@ public class gui_button_JoinTeam extends ScriptGui {
 		GUI gui = (GUI)task.sceneGui;
 		
 		if(gui != null){
-			GuiElementTable table = (GuiElementTable)gui.get("players");
+			GuiElementTable table = (GuiElementTable)gui.get(scenegui_Prepare.uiPlayersTable);
 			
 			TableLine line = table.getSelectedLine();
 			
