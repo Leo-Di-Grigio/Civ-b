@@ -11,12 +11,14 @@ import script.gui.table.gui_table_Select;
 import gui.GUI;
 import gui.elements.GuiElementButton;
 import gui.elements.GuiElementButtonUnitAction;
+import gui.elements.GuiElementChat;
 import gui.elements.GuiElementCursor;
 import gui.elements.GuiElementIcon;
 import gui.elements.GuiElementMinimap;
 import gui.elements.GuiElementPane;
 import gui.elements.GuiElementTable;
 import gui.elements.GuiElementTitle;
+import gui.elements.GuiElementWindow;
 
 public class scenegui_Game extends GUI {
 
@@ -42,6 +44,10 @@ public class scenegui_Game extends GUI {
 	public static final String uiInfopaneTitle0 = "UI_infopaneTitle0";
 	public static final String uiInfopaneTitle1 = "UI_infopaneTitle1";
 	public static final String uiInfopaneTitle2 = "UI_infopaneTitle2";
+	
+	// chat
+	public static final String uiChat = "UI_chat";
+	public static final String uiChatEntry = "UI_chatEntry";
 	
 	public scenegui_Game() {
 		super();
@@ -180,7 +186,7 @@ public class scenegui_Game extends GUI {
 		
 		GuiElementButton endTurn = new GuiElementButton(uiButtonEndTurn);
 		endTurn.setPositionType(Enums.GuiPosition.BOTTOM_LEFT);
-		endTurn.setPosition(5, -205);
+		endTurn.setPosition(5, -430);
 		endTurn.setSize(128, 32);
 		endTurn.setTexture(Const.imgButtonEndTurn);
 		endTurn.setTextureSelected(Const.imgButtonSelected);
@@ -199,5 +205,23 @@ public class scenegui_Game extends GUI {
 		exit.setVisible(true);
 		exit.setScript(new game_Exit());
 		this.add(exit);
+		
+		GuiElementChat chat = new GuiElementChat(uiChat);
+		chat.setPositionType(Enums.GuiPosition.BOTTOM_LEFT);
+		chat.setPosition(5, -225);
+		chat.setSize(400, 200);
+		chat.setLayer(2);
+		chat.setTexture(Const.imgChat);
+		chat.setTextureSelected(Const.imgChatSelected);
+		chat.setVisible(true);
+		this.add(chat);
+		
+		GuiElementWindow chatWindow = new GuiElementWindow(uiChatEntry);
+		chatWindow.setPositionType(Enums.GuiPosition.BOTTOM_LEFT);
+		chatWindow.setPosition(5, -208);
+		chatWindow.setSize(400, 20);
+		chatWindow.setLayer(2);
+		chatWindow.setTexture(Const.imgWindow);
+		this.add(chatWindow);
 	}
 }

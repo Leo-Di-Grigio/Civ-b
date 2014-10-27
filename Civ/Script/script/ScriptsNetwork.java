@@ -108,6 +108,10 @@ public class ScriptsNetwork {
 				Painter.addTask(new Task(Enums.Task.GAME_TURN, msg.data));
 			} break;
 			
+			case CHAT_MSG: {
+				Painter.addTask(new Task(Enums.Task.CHAT_MSG, msg.data));
+			} break;
+			
 			default:{
 				Log.debug("MSG: " + msg.data);
 			} break;

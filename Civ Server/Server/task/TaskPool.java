@@ -1,6 +1,5 @@
 package task;
 
-import java.io.IOException;
 import java.util.LinkedList;
 
 public class TaskPool {
@@ -12,7 +11,7 @@ public class TaskPool {
 		list = new LinkedList<Task>();
 	}
 	
-	public synchronized static void add(Task task) throws IOException{
+	public synchronized static void add(Task task) throws Throwable{
 		list.add(task);
 		
 		if(pause){
@@ -39,7 +38,7 @@ public class TaskPool {
 		return list.poll();
 	}
 	
-	private static void execute() throws IOException{
+	private static void execute() throws Throwable{
 		while(hasNext()){
 			TaskLogic.pushTask(pool());
 		}

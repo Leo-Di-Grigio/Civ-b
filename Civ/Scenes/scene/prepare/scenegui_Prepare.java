@@ -25,6 +25,7 @@ public class scenegui_Prepare extends GUI {
 		// Window
 		GuiElementWindow window = new GuiElementWindow(uiWindiwNewTeam);
 		window.setText("Enter team title");
+		window.setEnterText("Title: ");
 		window.setLayer(1);
 		window.setPositionType(Enums.GuiPosition.CENTER);
 		window.setPosition(0, 0);

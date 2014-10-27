@@ -46,4 +46,8 @@ public class Network {
 	public synchronized static void sendMsg(Message msg) throws IOException{
 		connect.send(msg);
 	}
+
+	public static void sendMsg(Prefix chatMsg, String userText) {
+		
+	}
 }

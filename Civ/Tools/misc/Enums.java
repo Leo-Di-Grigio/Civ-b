@@ -24,6 +24,7 @@ public class Enums {
 		MOUSE_RELEASED,
 		MOUSE_CLICKED,
 		MOUSE_PRESSED,
+		MOUSE_WHEEL,
 		
 		// keyboard
 		KEYBOARD_PRESSED,
@@ -75,6 +76,7 @@ public class Enums {
 		
 		// Player actions
 		PLAYER_ACTION,
+		CHAT_MSG,
 		
 		// Painter
 		PAINTER_CHANGE_SCENE, //(String)sceneKey

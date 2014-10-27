@@ -1,5 +1,6 @@
 package scene.prepare;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import net.Message;
@@ -43,11 +44,11 @@ public class scenedata_Prepare extends SceneData {
 				break;
 				
 			case KEYBOARD_PRESSED:
-				prepare_Key.pressed(gamedata, (String)task.data);
+				prepare_Key.pressed(gamedata, (KeyEvent)task.data);
 				break;
 				
 			case KEYBOARD_RELEASED:
-				prepare_Key.released(gamedata, gui, (String)task.data);
+				prepare_Key.released(gamedata, gui, (KeyEvent)task.data);
 				break;
 			
 			case GUI_UPDATE_POSITION:

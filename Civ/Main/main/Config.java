@@ -30,6 +30,9 @@ public class Config {
 	// gameplay settings
 	public static boolean gameShowUnitPathPrevew = false;
 	
+	// chat
+	public static int chatHistorySize = 1024;
+	
 	public Config() {
 		// os
 		os = System.getProperty("os.name").intern();
@@ -78,7 +81,7 @@ public class Config {
 		// network
 		serverAddress = "134.17.135.59";
 		serverPort = 6600;
-		playerName = "Default Player";
+		playerName = "LUMINATI";
 		teamName = "Default Team";
 		
 		Log.debug("Config load:\n" +

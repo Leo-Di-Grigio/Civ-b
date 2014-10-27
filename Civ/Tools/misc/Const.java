@@ -5,7 +5,7 @@ public class Const {
 	// version
 	public static final String title = "Civ";
 	public static final int version = 0;
-	public static final int subVersion = 97;
+	public static final int subVersion = 98;
 
 	// assets
 	public static final String assetsNative = "recources/assets/native/";
@@ -21,11 +21,11 @@ public class Const {
 	public static final String imgNull = "null"; 
 	public static final String imgVoid = "void";
 	public static final String imgIcon = "icon";
-	public static final String imgMenu = "menu_background";
-	public static final String imgMinimap = "minimap";
-	public static final String imgMinimapHeight = "minimap_height";
-	public static final String imgMinimapGeology = "minima_geology";
+	public static final String imgMenu = "menu_background";	
+	public static final String imgPane = "pane";
 	public static final String imgWindow = "window";
+	public static final String imgChat = "chat";
+	public static final String imgChatSelected = "chat_selected";
 	
 	// terrain atlas keys
 	public static final String imgTerrainWater = "terrain_water";
@@ -44,4 +44,8 @@ public class Const {
 	// misc
 	public static final String imgWaypoint = "null";
 	
+	// minimap
+	public static final String imgMinimap = "minimap";
+	public static final String imgMinimapHeight = "minimap_height";
+	public static final String imgMinimapGeology = "minima_geology";	
 }

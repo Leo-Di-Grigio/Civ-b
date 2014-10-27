@@ -1,13 +1,23 @@
 package misc;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 public class Tools {
 	
 	protected static Random randomizer;
 	
+	// date
+	protected static DateFormat dateFormat;
+	protected static Date date;
+	
 	public Tools(){
 		randomizer = new Random(System.currentTimeMillis());
+		
+		dateFormat = new SimpleDateFormat("HH:mm");
+		date = new Date();
 	}
 	
 	public static int rand(int min, int max, Random rand){
@@ -66,5 +76,9 @@ public class Tools {
 				}
 			}
 		}
+	}
+	
+	public static String getTime(){
+		return dateFormat.format(date);
 	}
 }

@@ -8,8 +8,7 @@ import tasks.Task;
 
 public class api_KeyPressed extends ScriptApi {
 
-	public static void execute(KeyEvent e) {
-		String data = KeyEvent.getKeyText(e.getKeyCode());
-		Painter.addTask(new Task(Enums.Task.KEYBOARD_PRESSED, data));
+	public static void execute(KeyEvent event) {
+		Painter.addTask(new Task(Enums.Task.KEYBOARD_PRESSED, event));
 	}
 }

@@ -138,6 +138,10 @@ abstract public class GuiElement implements Drawble {
 		this.visible = visible;
 	}
 	
+	public boolean getVisible(){
+		return this.visible;
+	}
+	
 	public void setSelected(boolean select) {
 		this.selected = select;
 	}

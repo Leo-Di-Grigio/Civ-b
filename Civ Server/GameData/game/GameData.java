@@ -21,6 +21,7 @@ import player.units.UnitsMng;
 import map.GameMap;
 import misc.Enums;
 import misc.Log;
+import misc.Tools;
 import misc.Enums.GameState;
 
 public class GameData{
@@ -222,5 +223,12 @@ public class GameData{
 			teams.nextTeamTurn();
 			broad.sendToTeam(teams.getTurnedTeam(), new Message(Prefix.GAME_TURN, null));
 		}
+	}
+
+	public void gameChat(int clientId, String data) throws IOException {
+		String name = players.get(clientId).name;
+		String time = Tools.getTime();
+		
+		broad.sendToPlayers(new Message(Prefix.CHAT_MSG, "[" + time + "][" + name + "]: " + data));
 	}
 }

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import misc.Log;
 import net.Message;
 import net.Message.Prefix;
+import network.Client;
 import network.ClientPool;
 import player.Player;
 
@@ -45,7 +46,11 @@ public class GamePlayers {
 			else{
 				Player player = new Player(clientId, playerName);
 				list.put(clientId, player);
-				ClientPool.getClient(clientId).setGameId(gameId);
+				Client client = ClientPool.getClient(clientId);
+						
+				if(client != null){
+					client.setGameId(gameId);
+				}
 				
 				// broad data
 				broad.sendToPlayers(player.toMessage());

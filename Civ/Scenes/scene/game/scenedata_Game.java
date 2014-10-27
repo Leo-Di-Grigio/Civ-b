@@ -2,6 +2,8 @@ package scene.game;
 
 import gui.elements.GuiElementTable;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseWheelEvent;
 import java.io.IOException;
 
 import net.Message;
@@ -42,13 +44,17 @@ public class scenedata_Game extends SceneData {
 			case MOUSE_RELEASED:
 				gui_ElementClick.execute(gui);
 				break;
+				
+			case MOUSE_WHEEL:
+				game_WheelScroll.scroll(gui, gamedata, (MouseWheelEvent)task.data);
+				break;
 			
 			case KEYBOARD_PRESSED:
-				game_KeyPressed.execute(gamedata, (String)task.data);
+				game_KeyPressed.execute(gamedata, gui, (KeyEvent)task.data);
 				break;
 				
 			case KEYBOARD_RELEASED:
-				game_KeyReleased.execute(gamedata, gui, (String)task.data);
+				game_KeyReleased.execute(gamedata, gui, (KeyEvent)task.data);
 				break;
 		
 			case GUI_UPDATE_POSITION:
@@ -149,6 +155,10 @@ public class scenedata_Game extends SceneData {
 				
 			case GAME_MSG:
 				game_Msg.msg((String)task.data);
+				break;
+			
+			case CHAT_MSG:
+				game_Chat.msg(gui, (String)task.data);
 				break;
 				
 			case PLAYER_ACTION:

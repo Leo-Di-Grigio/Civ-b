@@ -1,7 +1,6 @@
 package scene.choosegame;
 
 import misc.Enums;
-import script.gui.button.gui_button_ChangeScene;
 import script.gui.button.gui_button_CreateNewGame;
 import script.gui.button.gui_button_JoinTheGame;
 import script.gui.table.gui_table_Select;
@@ -58,7 +57,7 @@ public class scenegui_ChooseGame extends GUI {
 		button.setTextureSelected("button_menu_select");
 		button.setText("Disconnect");
 		button.setVisible(true);
-		button.setScript(new gui_button_ChangeScene(Enums.Scene.MENU));
+		button.setScript(new gui_button_Disconnect());
 		this.add(button);
 	}
 }

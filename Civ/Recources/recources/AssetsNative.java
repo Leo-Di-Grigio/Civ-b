@@ -43,8 +43,8 @@ public class AssetsNative extends Assets {
 		addImage(Const.imgMenu, Tile.getTile(Const.assetsNative + "menu.png"));
 		
 		// buttons
-		addImage("button", Tile.getTile(Const.assetsNative+"gui/button.png"));
-		addImage("button_select", Tile.getTile(Const.assetsNative+"gui/button_select.png"));
+		addImage(Const.imgButton, Tile.getTile(Const.assetsNative+"gui/button.png"));
+		addImage(Const.imgButtonSelected, Tile.getTile(Const.assetsNative+"gui/button_select.png"));
 		
 		addImage("button_menu", Tile.getTile(Const.assetsNative+"gui/button_menu.png"));
 		addImage("button_menu_select", Tile.getTile(Const.assetsNative+"gui/button_menu_select.png"));
@@ -53,13 +53,17 @@ public class AssetsNative extends Assets {
 		addImage("slider", Tile.getTile(Const.assetsNative+"gui/slider.png"));
 		
 		// panes
-		addImage("pane", Tile.getTile(Const.assetsNative+"gui/pane.png"));
+		addImage(Const.imgPane, Tile.getTile(Const.assetsNative+"gui/pane.png"));
 		
 		// cursor
 		addImage("cursor_nodeselect", Tile.getTile(Const.assetsNative + "cursor/cursor_nodeselect_draw.png"));
 		
 		// window
 		addImage(Const.imgWindow, Tile.getTile(Const.assetsNative+"gui/window.png"));
+		
+		// chat
+		addImage(Const.imgChat, Tile.getTile(Const.assetsNative + "gui/chat.png"));
+		addImage(Const.imgChatSelected, Tile.getTile(Const.assetsNative + "gui/chat_selected.png"));
 	}
 	
 	private void loadGreyTiles(){

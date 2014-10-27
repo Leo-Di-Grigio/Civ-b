@@ -12,7 +12,7 @@ import network.ClientPool;
 
 public class TaskLogic {
 	
-	public static void pushTask(Task task) throws IOException{
+	public static void pushTask(Task task) throws Throwable{
 		switch(task.msg.prefix){
 		
 			case CHECK_VERSION:
@@ -58,16 +58,24 @@ public class TaskLogic {
 			case GAME_TURN_END:
 				gameTurnEnd(task);
 				break;
+			
+			case CHAT_MSG:
+				chatMsg(task);
+				break;
 				
 			default: break;
 		}
 	}
 
-	private static void disconnect(Task task) throws IOException {
+	private static void disconnect(Task task) throws Throwable {
 		Client client = ClientPool.remove(task.clientId);
 		
-		if(client != null && client.gameId != -1){
-			GamesMng.get(client.gameId).logic.removePlayer(task.clientId);
+		if(client != null){
+			if(client.gameId != -1){
+				GamesMng.get(client.gameId).logic.removePlayer(task.clientId);
+			}
+			
+			client.disconnect();
 		}
 	}
 	
@@ -131,4 +139,11 @@ public class TaskLogic {
 		int gameId = ClientPool.getClient(task.clientId).gameId;
 		GamesMng.get(gameId).logic.gameTurnEnd(task.clientId);
 	}
+	
+
+	private static void chatMsg(Task task) throws IOException {
+		int gameId = ClientPool.getClient(task.clientId).gameId;
+		GamesMng.get(gameId).logic.gameChat(task.clientId, task.msg.data);
+	}
+
 }

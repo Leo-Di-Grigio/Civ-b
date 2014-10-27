@@ -60,6 +60,9 @@ public class Client implements Runnable {
 		} 
 		catch (ClassNotFoundException e) {
 			Log.err("Currupted message from " + socket.getLocalAddress() + " ID: " + socket.getPort());
+		} 
+		catch (Throwable e) {
+			e.printStackTrace();
 		}
 		finally {
 			try {
@@ -69,8 +72,23 @@ public class Client implements Runnable {
 			catch (IOException e) {
 				e.printStackTrace();
 				Log.err("Finalize connection clientId: " + clientId);
+			} 
+			catch (Throwable e) {
+				e.printStackTrace();
 			}
 		}
+	}
+
+	public void disconnect() throws Throwable {
+		this.finalize();
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		this.in.close();
+		this.out.close();
+		this.socket.close();
+		super.finalize();
 	}
 	
 	public void send(Message msg) throws IOException{
