@@ -93,6 +93,7 @@ public class GameData{
 				actions.unregisterTeam(player.teamId);
 			}
 			
+			broad.sendToPlayer(clientId, new Message(Prefix.DATA_GAMES_LIST, GamesMng.getList()));
 			broad.sendToPlayers(new Message(Prefix.DEL_PLAYER, "" + clientId));
 			Log.service("Player ID: " + clientId + " leave the game ID: " + gameId);
 		}
@@ -169,7 +170,7 @@ public class GameData{
 		units.addUnits(avatars, broad);
 	}
 
-	public void playerAcrion(int clientId, String data) throws IOException {
+	public void playerAction(int clientId, String data) throws IOException {
 		String [] arr = data.split(":");
 		int action = Integer.parseInt(arr[0]);
 		
@@ -211,14 +212,14 @@ public class GameData{
 
 	public void gameTurnEnd(int clientId) throws IOException {
 		if(clientId == teams.getTeamOwner(teams.getTurnedTeam())){
-			actions.teamActionsProcess(teams.getTurnedTeam());
-			teams.nextTeamTurn();
-			
 			if(teams.newTurn){
 				teams.newTurn = false;
 				actions.nextTurn();
 			}
 			
+			actions.teamActionsProcess(teams.getTurnedTeam());
+			
+			teams.nextTeamTurn();
 			broad.sendToTeam(teams.getTurnedTeam(), new Message(Prefix.GAME_TURN, null));
 		}
 	}

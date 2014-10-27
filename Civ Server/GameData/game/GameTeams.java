@@ -20,7 +20,7 @@ public class GameTeams {
 	private HashMap<Integer, Team> list;
 	private HashMap<Integer, HashSet<Integer>> players; // <teamId, Set<playerId> >;
 	
-	public boolean newTurn = false;
+	public boolean newTurn = true;
 	private int turnIndex = 0;
 	private Vector<Integer> turnQueue;
 	
@@ -166,7 +166,12 @@ public class GameTeams {
 			return 0;
 		}
 		else{
-			return turnQueue.get(turnIndex);
+			if(turnIndex < turnQueue.size()){
+				return turnQueue.get(turnIndex);
+			}
+			else{
+				return 0;
+			}
 		}
 	}
 	

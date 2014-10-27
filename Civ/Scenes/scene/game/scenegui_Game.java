@@ -34,6 +34,7 @@ public class scenegui_Game extends GUI {
 	public static final String uiButton5 = "UI_button_5";
 	
 	public static final String uiButtonEndTurn = "UI_button_endturn";
+	public static final String uiButtonExit    = "UI_button_exit";
 	
 	// infopane
 	public static final String uiInfopane   	= "UI_infopane";
@@ -121,8 +122,8 @@ public class scenegui_Game extends GUI {
 		button.setPosition(-163, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
-		button.setTexture("button");
-		button.setTextureSelected("button_select");
+		button.setTexture(Const.imgButton);
+		button.setTextureSelected(Const.imgButtonSelected);
 		button.setText("0");
 		button.setScript(null);
 		this.add(button);
@@ -131,8 +132,8 @@ public class scenegui_Game extends GUI {
 		button.setPosition(-98, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
-		button.setTexture("button");
-		button.setTextureSelected("button_select");
+		button.setTexture(Const.imgButton);
+		button.setTextureSelected(Const.imgButtonSelected);
 		button.setText("1");
 		button.setScript(null);
 		this.add(button);
@@ -141,8 +142,8 @@ public class scenegui_Game extends GUI {
 		button.setPosition(-33, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
-		button.setTexture("button");
-		button.setTextureSelected("button_select");
+		button.setTexture(Const.imgButton);
+		button.setTextureSelected(Const.imgButtonSelected);
 		button.setText("2");
 		button.setScript(null);
 		this.add(button);
@@ -151,8 +152,8 @@ public class scenegui_Game extends GUI {
 		button.setPosition(32, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
-		button.setTexture("button");
-		button.setTextureSelected("button_select");
+		button.setTexture(Const.imgButton);
+		button.setTextureSelected(Const.imgButtonSelected);
 		button.setText("3");
 		button.setScript(null);
 		this.add(button);
@@ -161,8 +162,8 @@ public class scenegui_Game extends GUI {
 		button.setPosition(97, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
-		button.setTexture("button");
-		button.setTextureSelected("button_select");
+		button.setTexture(Const.imgButton);
+		button.setTextureSelected(Const.imgButtonSelected);
 		button.setText("4");
 		button.setScript(null);
 		this.add(button);
@@ -171,8 +172,8 @@ public class scenegui_Game extends GUI {
 		button.setPosition(162, 0);
 		button.setSize(64, 64);
 		button.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
-		button.setTexture("button");
-		button.setTextureSelected("button_select");
+		button.setTexture(Const.imgButton);
+		button.setTextureSelected(Const.imgButtonSelected);
 		button.setText("5");
 		button.setScript(null);
 		this.add(button);
@@ -182,8 +183,21 @@ public class scenegui_Game extends GUI {
 		endTurn.setPosition(5, -205);
 		endTurn.setSize(128, 32);
 		endTurn.setTexture(Const.imgButtonEndTurn);
+		endTurn.setTextureSelected(Const.imgButtonSelected);
 		endTurn.setText("End turn");
 		endTurn.setScript(new game_Turn());
 		this.add(endTurn);
+		
+		GuiElementButton exit = new GuiElementButton(uiButtonExit);
+		exit.setPositionType(Enums.GuiPosition.TOP_RIGHT);
+		exit.setLayer(2);
+		exit.setSize(64, 32);
+		exit.setPosition(-5, 5);
+		exit.setText("Exit");
+		exit.setTexture(Const.imgButton);
+		exit.setTextureSelected(Const.imgButtonSelected);
+		exit.setVisible(true);
+		exit.setScript(new game_Exit());
+		this.add(exit);
 	}
 }

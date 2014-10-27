@@ -76,7 +76,7 @@ public class Config {
 		debug = true;
 		
 		// network
-		serverAddress = "127.0.0.1";
+		serverAddress = "134.17.135.59";
 		serverPort = 6600;
 		playerName = "Default Player";
 		teamName = "Default Team";

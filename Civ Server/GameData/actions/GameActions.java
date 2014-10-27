@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-import net.Message;
-import net.Message.Prefix;
 import data.units.ConstUnits;
 import player.units.Unit;
 import misc.Log;
@@ -141,9 +139,6 @@ public class GameActions {
 			
 		newTeamTurn(teamId);
 		turnActions(teamId);
-
-		// announce new turn 
-		gamedata.broad.sendToTeam(teamId, new Message(Prefix.GAME_TURN, null));
 	}
 	
 	private void newTeamTurn(int teamId) throws IOException{

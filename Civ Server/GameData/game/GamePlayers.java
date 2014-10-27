@@ -86,14 +86,18 @@ public class GamePlayers {
 		
 		return true;
 	}
+	
+	public void sendMessageToPlayer(int playerId, Message msg) throws IOException{
+		ClientPool.sendMsg(playerId, msg);
+	}
 
-	public void setMessageToAllPlayers(Message msg) throws IOException {
+	public void sendMessageToAllPlayers(Message msg) throws IOException {
 		for(Integer clientId: list.keySet()){
 			ClientPool.sendMsg(clientId , msg);
 		}
 	}
 
-	public void setMessageToAllTeams(HashSet<Integer> players, Message msg) throws IOException {
+	public void sendMessageToAllTeams(HashSet<Integer> players, Message msg) throws IOException {
 		for(Integer clientId: players){
 			ClientPool.sendMsg(clientId, msg);
 		}

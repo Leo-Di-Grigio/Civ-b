@@ -13,12 +13,16 @@ public class GameBroadcasting {
 		this.teams = teams;
 	}
 	
+	public void sendToPlayer(int playerId, Message msg) throws IOException{
+		players.sendMessageToPlayer(playerId, msg);
+	}
+	
 	public void sendToPlayers(Message msg) throws IOException{
-		players.setMessageToAllPlayers(msg);
+		players.sendMessageToAllPlayers(msg);
 	}
 	
 	public void sendToTeam(int teamId, Message msg) throws IOException{
-		players.setMessageToAllTeams(teams.getPlayers(teamId), msg);
+		players.sendMessageToAllTeams(teams.getPlayers(teamId), msg);
 	}
 	
 	public void sendToPlayerTeam(int playerId, Message msg) throws IOException{
