@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 
 import misc.Enums;
 import misc.Environment;
+import misc.ToolsKeyUpdate;
 import scenedata.game.GameData;
 import script.gui.ScriptGui;
 
@@ -32,24 +33,13 @@ public class game_KeyPressed extends ScriptGui {
 	private static void chatEnter(GuiElementWindow chatEnter, KeyEvent event) {
 		String key = KeyEvent.getKeyText(event.getKeyCode());
 		
-		if(key.compareTo("Backspace") == 0 && chatEnter.userText.length() > 0){
-			chatEnter.userText = chatEnter.userText.substring(0, chatEnter.userText.length()-1);
-		}
-		if(key.compareTo("Space") == 0){
-			chatEnter.userText += " ";
-		}
+	
 		if(key.compareTo("Escape") == 0){
 			chatEnter.userText = "";
 			chatEnter.setVisible(false);
 		}
 		else{
-			if(key.length() == 1){
-				char ch = event.getKeyChar();
-				
-				if(Character.isLetter(ch) && chatEnter.userText.length() < 128){
-					chatEnter.userText += key;
-				}
-			}
+			chatEnter.userText = ToolsKeyUpdate.update(chatEnter.userText, key, event, 128);
 		}
 	}
 	

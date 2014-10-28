@@ -145,7 +145,7 @@ public class AssetsNative extends Assets {
 	
 	private void loadFont() throws FontFormatException, IOException {
 		if(Config.os != "Linux"){
-			font = Font.createFont(Font.TRUETYPE_FONT, new File(Config.classPath + Const.assetsNative + "ttf/font.otf")).deriveFont(12f);
+			font = Font.createFont(Font.TRUETYPE_FONT, new File(Config.classPath + Const.assetsNative + "ttf/Pragmatica BoldItalic.ttf")).deriveFont(12f);
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(font);
 		}

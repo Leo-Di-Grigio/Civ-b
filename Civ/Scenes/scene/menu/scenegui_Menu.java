@@ -32,7 +32,7 @@ public class scenegui_Menu extends GUI {
 		button.setPositionType(Enums.GuiPosition.CENTER);
 		button.setTexture("button_menu");
 		button.setTextureSelected("button_menu_select");
-		button.setText("Load Game");
+		button.setText("Load game");
 		button.setVisible(true);
 		button.setScript(new gui_button_ChangeScene(Enums.Scene.LOAD));
 		this.add(button);

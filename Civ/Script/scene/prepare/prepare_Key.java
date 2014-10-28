@@ -3,6 +3,7 @@ package scene.prepare;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
+import misc.ToolsKeyUpdate;
 import net.Message;
 import net.Message.Prefix;
 import network.Network;
@@ -26,24 +27,14 @@ public class prepare_Key extends Script {
 				window.setVisible(false);
 				Network.sendMsg(new Message(Prefix.REQ_TEAM_CREATE, window.userText));
 			}
-			if(key.compareTo("Backspace") == 0 && window.userText.length() > 0){
-				window.userText = window.userText.substring(0, window.userText.length()-1);
-			}
-			if(key.compareTo("Space") == 0){
-				window.userText += " ";
-			}
-			if(key.compareTo("Escape") == 0){
-				window.userText = "";
-				window.setVisible(false);
-				gui.focusReset();
-			}
 			else{
-				if(key.length() == 1){
-					char ch = key.charAt(0);
-				
-					if(Character.isLetter(ch)){
-						window.userText += key;
-					}
+				if(key.compareTo("Escape") == 0){
+					window.userText = "";
+					window.setVisible(false);
+					gui.focusReset();
+				}
+				else{
+					window.userText = ToolsKeyUpdate.update(window.userText, key, event, 36);
 				}
 			}
 		}
