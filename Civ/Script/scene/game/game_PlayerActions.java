@@ -2,6 +2,7 @@ package scene.game;
 
 import player.units.Unit;
 import scenedata.game.GameData;
+import script.unit.unit_CityBuild;
 import script.unit.unit_MoveTo;
 import data.units.ConstUnits;
 import misc.Const;
@@ -47,8 +48,17 @@ public class game_PlayerActions {
 				case ConstUnits.unitNull:
 					clearButtonsAction(gui);
 					break;
+				
 				case ConstUnits.unitAvatar:
-					unitSelectedAvatar(gui, gamedata);
+					unitSelectedAvatar(gui, gamedata, unitId);
+					break;
+					
+				case ConstUnits.unitCity:
+					unitSelectedCity(gui, gamedata, unitId);
+					break;
+					
+				default:
+					clearButtonsAction(gui);
 					break;
 			}
 		}
@@ -87,11 +97,21 @@ public class game_PlayerActions {
 		button5.setVisible(false);
 	}
 	
-	private static void unitSelectedAvatar(GUI gui, GameData gamedata){
+	private static void unitSelectedAvatar(GUI gui, GameData gamedata, int unitId){
 		// action 0 - "moveTo"
 		GuiElementButtonUnitAction button0 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton0);
 		button0.setActionIcon(Const.imgActionMoveto);
 		button0.setVisible(true);
 		button0.setScript(new unit_MoveTo(gamedata));
+		
+		// action 5 - "city build"
+		GuiElementButtonUnitAction button5 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton5);
+		button5.setActionIcon(Const.imgActionCityBuild);
+		button5.setVisible(true);
+		button5.setScript(new unit_CityBuild(gamedata, unitId));
+	}
+	
+	private static void unitSelectedCity(GUI gui, GameData gamedata, int unitId){
+		
 	}
 }

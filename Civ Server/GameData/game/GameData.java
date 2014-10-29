@@ -179,6 +179,10 @@ public class GameData{
 			case ConstAction.moveTo:
 				actionMoveTo(clientId, arr);
 				break;
+			
+			case ConstAction.cityBuild:
+				actionCityBuild(clientId, arr);
+				break;
 				
 			default: 
 				break;
@@ -210,6 +214,12 @@ public class GameData{
 			unit.way = way;
 		}
 	}
+	
+	private void actionCityBuild(int clientId, String [] arr) {
+		// key:(int)unitId
+		int unitId = Integer.parseInt(arr[1]);
+		actions.addAction(clientId, new Action(PlayerAction.UNIT_CITY_BUILD, unitId));
+	}
 
 	public void gameTurnEnd(int clientId) throws IOException {
 		if(clientId == teams.getTeamOwner(teams.getTurnedTeam())){
@@ -221,7 +231,7 @@ public class GameData{
 			actions.teamActionsProcess(teams.getTurnedTeam());
 			
 			teams.nextTeamTurn();
-			broad.sendToTeam(teams.getTurnedTeam(), new Message(Prefix.GAME_TURN, null));
+			broad.sendToPlayer(teams.getTeamOwner(players.get(clientId).teamId), new Message(Prefix.GAME_TURN, null));
 		}
 	}
 

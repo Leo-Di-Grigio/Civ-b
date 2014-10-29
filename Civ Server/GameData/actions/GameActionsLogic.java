@@ -3,6 +3,7 @@ package actions;
 import java.awt.Point;
 import java.io.IOException;
 
+import data.units.ConstUnits;
 import actions.Action.PlayerAction;
 import player.units.Unit;
 import misc.Log;
@@ -27,12 +28,16 @@ public class GameActionsLogic {
 				case UNIT_MOVE_TO:
 					unitMoveTo(action);
 					break;
+					
+				case UNIT_CITY_BUILD:
+					unitCityBuild(action);
+					break;
 			}
 		}
 	}
 	
-	public void unitMoveTo(Action action) throws IOException {
-		Log.service("AtionID: " + action.id + " playerId: " + action.playerId + " pref: " + action.prefix);
+	private void unitMoveTo(Action action) throws IOException {
+		Log.service("ActionID: " + action.id + " playerId: " + action.playerId + " pref: " + action.prefix);
 		
 		Unit unit = gamedata.units.getUnit(action.unitId);
 		
@@ -59,6 +64,19 @@ public class GameActionsLogic {
 			unit.x = endPoint.x;
 			unit.y = endPoint.y;
 			gamedata.broad.sendToPlayers(unit.toMessageUpdate("xy"));
+		}
+	}
+	
+	private void unitCityBuild(Action action) throws IOException {
+		Log.service("ActionID: " + action.id + " playerId: " + action.playerId + " pref: " + action.prefix);
+		
+		Unit unit = gamedata.units.getUnit(action.unitId);
+		
+		if(unit.type == ConstUnits.unitAvatar && !unit.movementEnd && unit.way == null && unit.movementPoints > 0){
+			unit.movementEnd = true;
+			
+			Unit city = new Unit(unit.playerId, ConstUnits.unitCity, unit.x, unit.y);
+			gamedata.units.addUnit(city, gamedata.broad);
 		}
 	}
 }

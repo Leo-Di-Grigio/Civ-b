@@ -5,7 +5,9 @@ import java.awt.FontFormatException;
 import java.awt.Image;
 import java.io.IOException;
 
+import data.units.ConstUnits;
 import recources.nongl.Tile;
+import misc.Const;
 import misc.Enums;
 import misc.Log;
 
@@ -49,5 +51,20 @@ public class Recources {
 
 	public static Font getFont() {
 		return assets.getFont();
+	}
+
+	public static Image getUnitImage(int unitCode) {
+		Image img = getImage(Const.imgNull);
+		
+		switch(unitCode){
+			
+			case ConstUnits.unitAvatar:
+				return getImage(Const.imgUnitAvatar);
+				
+			case ConstUnits.unitCity:
+				return getImage(Const.imgUnitCity);
+		}
+		
+		return img;
 	}
 }

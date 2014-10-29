@@ -5,7 +5,8 @@ public class Action {
 	private static int ID = 0;
 	
 	public static enum PlayerAction {
-		UNIT_MOVE_TO,
+		UNIT_MOVE_TO, 
+		UNIT_CITY_BUILD,
 	};
 	
 	// id
@@ -31,11 +32,12 @@ public class Action {
 		this(prefix);
 		
 		switch (prefix) {
-			
-			case UNIT_MOVE_TO:
-				// null
+			case UNIT_CITY_BUILD:
+				this.unitId = field;
 				break;
-		
+				
+			default:
+				break;
 		}
 	}
 	
@@ -44,8 +46,7 @@ public class Action {
 		
 		switch(prefix){
 		
-			case UNIT_MOVE_TO:
-				// null
+			default: 
 				break;
 		}
 	}
@@ -67,6 +68,9 @@ public class Action {
 				this.unitId = field1;
 				this.x = field2;
 				this.y = field3;
+				break;
+				
+			default: 
 				break;
 		}
 	}

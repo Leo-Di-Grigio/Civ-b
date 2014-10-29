@@ -8,7 +8,6 @@ import javax.media.opengl.GL3;
 
 import recources.Recources;
 import render.Drawble;
-import misc.Const;
 import net.Message;
 import interfaces.Sentble;
 
@@ -83,7 +82,7 @@ public class Unit implements Sentble, Drawble {
 
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(Recources.getImage(Const.imgUnitAvatar), drawX, drawY-37, 32, 69, null);
+		g.drawImage(Recources.getUnitImage(this.type), drawX, drawY-37, 32, 69, null);
 	}
 
 	@Override
