@@ -137,15 +137,17 @@ public class AssetsNative extends Assets {
 
 	private void loadUnits() {
 		addImage(Const.imgUnitAvatar, Tile.getTile(Const.assetsNative + "units/avatar.png"));
+		addImage(Const.imgUnitCity, Tile.getTile(Const.assetsNative + "units/unit_city.png"));
 	}
 	
 	private void loadActions() {
 		addImage(Const.imgActionMoveto, Tile.getTile(Const.assetsNative + "actions/moveto.png"));
+		addImage(Const.imgActionCityBuild, Tile.getTile(Const.assetsNative + "actions/citybuild.png"));
 	}
 	
 	private void loadFont() throws FontFormatException, IOException {
 		if(Config.os != "Linux"){
-			font = Font.createFont(Font.TRUETYPE_FONT, new File(Config.classPath + Const.assetsNative + "ttf/Pragmatica BoldItalic.ttf")).deriveFont(12f);
+			font = Font.createFont(Font.TRUETYPE_FONT, new File(Config.classPath + Const.assetsNative + "ttf/PTC75F.ttf")).deriveFont(12f);
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(font);
 		}

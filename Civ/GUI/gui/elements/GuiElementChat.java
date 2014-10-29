@@ -14,7 +14,7 @@ public class GuiElementChat extends GuiElement {
 	
 	protected ArrayList<String> chatLog;
 	protected int scroll = 0;
-	protected int viewLines = 15;
+	protected int viewLines = 13;
 	
 	public GuiElementChat(String titile) {
 		super(titile);
@@ -77,7 +77,7 @@ public class GuiElementChat extends GuiElement {
 				}
 			
 				for(int lineShift = 1; line < lineMax; ++line, ++lineShift){
-					g.drawString(chatLog.get(line), drawX, drawY + g.getFontMetrics().getHeight() * lineShift);
+					g.drawString(chatLog.get(line), drawX, drawY + (g.getFontMetrics().getHeight() - 2) * lineShift);
 				}
 			}
 		}

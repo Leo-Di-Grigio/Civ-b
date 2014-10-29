@@ -9,6 +9,9 @@ public class ConstUnits {
 	public static final int unitNull = 0;
 	public static final int unitAvatar = 1; 
 	
+	// cities
+	public static final int unitCity = 2;
+	
 	public static ToolsEnums.UnitMovementType getMovementType(int unitType){
 		
 		switch(unitType){
