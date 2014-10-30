@@ -2,6 +2,7 @@ package scene.game;
 
 import java.util.HashSet;
 
+import database.DB;
 import gui.GUI;
 import gui.elements.GuiElementIcon;
 import gui.elements.GuiElementPane;
@@ -13,6 +14,7 @@ import player.units.Unit;
 import misc.Enums;
 import misc.Environment;
 import misc.Log;
+import recources.Recources;
 import scenedata.game.GameData;
 import scenedata.game.Node;
 import script.Script;
@@ -51,9 +53,10 @@ public class game_SelectNode extends Script {
 			int clientId = Integer.parseInt(arr[2]);
 			
 			Node node = gamedata.map.map[nodeX][nodeY];
+			HashSet<Integer> units = null;
 			
-			if(icon != null){
-				
+			if(node != null){
+				units = node.getAll();
 			}
 			
 			// Node map info
@@ -72,11 +75,9 @@ public class game_SelectNode extends Script {
 					title2.setText("");
 				}
 				else{
-					HashSet<Integer> units = node.getAll();
-					
 					if(units == null){
 						if(unitSelectTable != null){
-							unitSelect(null, unitSelectTable, gamedata, clientId);
+							unitSelect(null, unitSelectTable, gamedata, clientId, icon);
 							game_PlayerActions.clearButtonsAction(gui);
 						}
 						title2.setText("");
@@ -84,10 +85,10 @@ public class game_SelectNode extends Script {
 					else{
 						if(unitSelectTable != null){
 							if(units.size() > 0){
-								unitSelect(units, unitSelectTable, gamedata, clientId);
+								unitSelect(units, unitSelectTable, gamedata, clientId, icon);
 							}
 							else{
-								unitSelect(null, unitSelectTable, gamedata, clientId);
+								unitSelect(null, unitSelectTable, gamedata, clientId, icon);
 								game_PlayerActions.clearButtonsAction(gui);
 							}
 						}
@@ -107,28 +108,54 @@ public class game_SelectNode extends Script {
 		}
 	}
 
-	private static void unitSelect(HashSet<Integer> units, GuiElementTable table, GameData gamedata, int clientId) {
+	private static void unitSelect(HashSet<Integer> units, GuiElementTable table, GameData gamedata, int clientId, GuiElementIcon icon) {
 		table.clear();
 		
 		if(units != null){
 			table.setSize(table.getSizeX(), GuiElementTable.lineSize * units.size() + 15);
 			table.setPosition(-5, -175 - table.getSizeY());
 			
+			int counter = 0;
+			int toSelect = 0;
+			boolean selected = false;
+			
 			for(Integer unitId: units){
 				Unit unit = gamedata.units.getUnit(unitId);
 				
-				TableLine line = new TableLine(3);
+				TableLine line = new TableLine(5);
 				
 				line.metadata = Enums.TableMetadata.UNIT;
-				line.setCell(0, "" + unit.id);
-				line.setCell(1, "playerId: " + unit.playerId);
-				line.setCell(2, "unitType: " + unit.type);
 				
+				// hidden data
+				line.setCell(0, "" + unit.id);
+				line.setCell(1, "" + unit.playerId);
+				line.setCell(2, "" + unit.type);
+				
+				// showed data
+				line.setCell(3, gamedata.users.players.get(unit.playerId).name);
+				line.setCell(4, DB.getUnitTitle(unit.type));
+				
+				// set hidden cells
 				line.setHidden(0); // hide unitId
-				table.add(line);				
+				line.setHidden(1); // hide playerId
+				line.setHidden(2); // hide unit.type
+				table.add(line);
+				
+				// select first player unit
+				if(!selected && unit.playerId == gamedata.clientId){
+					toSelect = counter;
+					selected = true;
+				}
+				counter++;
 			}
 			
-			table.select(0);
+			table.select(toSelect);
+			
+			if(icon != null){
+				int selectedUnitType = Integer.parseInt(table.getSelectedLine().getCell(2)); // get unit.type
+				icon.setTexture(Recources.getUnitImage(selectedUnitType));
+			}
+			
 			table.setVisible(true);
 		}
 		else{

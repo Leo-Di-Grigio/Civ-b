@@ -118,8 +118,16 @@ abstract public class GuiElement implements Drawble {
 		textureNormal = Recources.getImage(name);
 	}
 	
+	public void setTexture(Image image){
+		textureNormal = image;
+	}
+	
 	public void setTextureSelected(String name){
 		textureSelected = Recources.getImage(name);
+	}
+	
+	public void setTextureSelected(Image image){
+		textureSelected  = image;
 	}
 	
 	public boolean checkCollision() {

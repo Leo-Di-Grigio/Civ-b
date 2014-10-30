@@ -136,13 +136,16 @@ public class AssetsNative extends Assets {
 	}
 
 	private void loadUnits() {
+		addImage(Const.imgUnitPlayerAtlas, Tile.getTile(Const.assetsNative + "units/playerColor.png"));
 		addImage(Const.imgUnitAvatar, Tile.getTile(Const.assetsNative + "units/avatar.png"));
+		addImage(Const.imgUnitRecruit, Tile.getTile(Const.assetsNative + "units/unit_recruit.png"));
 		addImage(Const.imgUnitCity, Tile.getTile(Const.assetsNative + "units/unit_city.png"));
 	}
 	
 	private void loadActions() {
 		addImage(Const.imgActionMoveto, Tile.getTile(Const.assetsNative + "actions/moveto.png"));
 		addImage(Const.imgActionCityBuild, Tile.getTile(Const.assetsNative + "actions/citybuild.png"));
+		addImage(Const.imgActionBuildRecruit, Tile.getTile(Const.assetsNative + "actions/buildrecruit.png"));
 	}
 	
 	private void loadFont() throws FontFormatException, IOException {

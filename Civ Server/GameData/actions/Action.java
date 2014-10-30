@@ -6,7 +6,8 @@ public class Action {
 	
 	public static enum PlayerAction {
 		UNIT_MOVE_TO, 
-		UNIT_CITY_BUILD,
+		UNIT_CITY_BUILD, 
+		UNIT_BUILD_UNIT,
 	};
 	
 	// id
@@ -22,6 +23,9 @@ public class Action {
 	// action location
 	public int x;
 	public int y;
+	
+	// additional data
+	public int unitType;
 	
 	private Action(PlayerAction prefix){
 		this.id = ID++;
@@ -45,7 +49,11 @@ public class Action {
 		this(prefix);
 		
 		switch(prefix){
-		
+			case UNIT_BUILD_UNIT:
+				this.unitId = field1;   // unit who build new unit
+				this.unitType = field2; // new unit type to build
+				break;
+				
 			default: 
 				break;
 		}
