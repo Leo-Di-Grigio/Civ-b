@@ -9,8 +9,8 @@ import actions.Action;
 import actions.Action.PlayerAction;
 import actions.GameActions;
 import algorithms.PathFinding;
-import data.units.ConstAction;
-import data.units.ConstUnits;
+import database.ConstAction;
+import database.DB;
 import net.Message;
 import net.Message.Prefix;
 import network.Client;
@@ -164,7 +164,7 @@ public class GameData{
 			spawn = teams.getSpawn(teamId);
 			
 			for(Integer playerId: teams.getPlayers(teamId)){
-				avatars.add(new Unit(playerId, ConstUnits.unitAvatar, spawn.x, spawn.y));
+				avatars.add(new Unit(playerId, DB.unitAvatar, spawn.x, spawn.y));
 			}
 		}
 		
@@ -184,6 +184,10 @@ public class GameData{
 				actionCityBuild(clientId, arr);
 				break;
 				
+			case ConstAction.cityBuildUnit:
+				actionBuildUnit(clientId, arr);
+				break;
+				
 			default: 
 				break;
 		}
@@ -198,7 +202,7 @@ public class GameData{
 		Unit unit = units.getUnit(unitId);
 		
 		if(unit.playerId == clientId){
-			ArrayList<Point> way = PathFinding.getPath(unit.x, unit.y, toX, toY, ConstUnits.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
+			ArrayList<Point> way = PathFinding.getPath(unit.x, unit.y, toX, toY, DB.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
 		
 			if(way != null){
 				// correct way
@@ -221,6 +225,12 @@ public class GameData{
 		actions.addAction(clientId, new Action(PlayerAction.UNIT_CITY_BUILD, unitId));
 	}
 
+	private void actionBuildUnit(int clientId, String [] arr){
+		int unitId = Integer.parseInt(arr[1]);
+		int unitType = Integer.parseInt(arr[2]);
+		actions.addAction(clientId, new Action(PlayerAction.UNIT_BUILD_UNIT, unitId, unitType));
+	}
+	
 	public void gameTurnEnd(int clientId) throws IOException {
 		if(clientId == teams.getTeamOwner(teams.getTurnedTeam())){
 			if(teams.newTurn){

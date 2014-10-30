@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-import data.units.ConstUnits;
+import database.DB;
 import player.units.Unit;
 import misc.Log;
 import game.GameData;
@@ -152,7 +152,7 @@ public class GameActions {
 			for(Integer unitId: units){
 				Unit unit = gamedata.units.getUnit(unitId);
 				unit.movementEnd = false;
-				unit.movementPoints = ConstUnits.getMovementPoints(unit.type);
+				unit.movementPoints = DB.getMovementPoints(unit.type);
 			}
 		}
 	}

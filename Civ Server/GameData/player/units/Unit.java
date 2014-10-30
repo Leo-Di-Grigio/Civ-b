@@ -3,7 +3,7 @@ package player.units;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import data.units.ConstUnits;
+import database.DB;
 import net.Message;
 import net.Message.Prefix;
 import interfaces.Sentble;
@@ -29,7 +29,7 @@ public class Unit implements Sentble{
 	// ..
 	public Unit() {
 		this.id = ID++;
-		this.type = ConstUnits.unitNull;
+		this.type = DB.unitNull;
 	}
 	
 	public Unit(int playerId, int type, int x, int y) {
@@ -41,7 +41,7 @@ public class Unit implements Sentble{
 		
 		// movement
 		this.movementEnd = false;
-		this.movementPoints = ConstUnits.getMovementPoints(this.type);
+		this.movementPoints = DB.getMovementPoints(this.type);
 	}
 
 	@Override

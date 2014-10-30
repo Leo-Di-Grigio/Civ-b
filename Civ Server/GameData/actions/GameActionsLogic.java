@@ -3,7 +3,7 @@ package actions;
 import java.awt.Point;
 import java.io.IOException;
 
-import data.units.ConstUnits;
+import database.DB;
 import actions.Action.PlayerAction;
 import player.units.Unit;
 import misc.Log;
@@ -22,6 +22,7 @@ public class GameActionsLogic {
 	
 	public void execute(Action action) throws IOException{
 		if(action != null){
+			Log.service("ActionID: " + action.id + " playerId: " + action.playerId + " pref: " + action.prefix);
 			
 			switch(action.prefix){
 			
@@ -32,13 +33,15 @@ public class GameActionsLogic {
 				case UNIT_CITY_BUILD:
 					unitCityBuild(action);
 					break;
+					
+				case UNIT_BUILD_UNIT:
+					unitBuildUnit(action);
+					break;
 			}
 		}
 	}
-	
-	private void unitMoveTo(Action action) throws IOException {
-		Log.service("ActionID: " + action.id + " playerId: " + action.playerId + " pref: " + action.prefix);
-		
+
+	private void unitMoveTo(Action action) throws IOException {		
 		Unit unit = gamedata.units.getUnit(action.unitId);
 		
 		if(!unit.movementEnd && unit.way != null && unit.movementPoints > 0){
@@ -68,15 +71,26 @@ public class GameActionsLogic {
 	}
 	
 	private void unitCityBuild(Action action) throws IOException {
-		Log.service("ActionID: " + action.id + " playerId: " + action.playerId + " pref: " + action.prefix);
-		
 		Unit unit = gamedata.units.getUnit(action.unitId);
 		
-		if(unit.type == ConstUnits.unitAvatar && !unit.movementEnd && unit.way == null && unit.movementPoints > 0){
+		if(unit.type == DB.unitAvatar && !unit.movementEnd && unit.way == null && unit.movementPoints > 0){
 			unit.movementEnd = true;
 			
-			Unit city = new Unit(unit.playerId, ConstUnits.unitCity, unit.x, unit.y);
+			Unit city = new Unit(unit.playerId, DB.unitCity, unit.x, unit.y);
 			gamedata.units.addUnit(city, gamedata.broad);
 		}
 	}
+	
+	private void unitBuildUnit(Action action) throws IOException {
+		// build new unit
+		Unit unit = gamedata.units.getUnit(action.unitId);
+		
+		if(unit.type == DB.unitCity && !unit.movementEnd){
+			unit.movementEnd = true;
+			
+			Unit newunit = new Unit(unit.playerId, action.unitType, unit.x, unit.y);
+			gamedata.units.addUnit(newunit, gamedata.broad);
+		}
+	}
+
 }

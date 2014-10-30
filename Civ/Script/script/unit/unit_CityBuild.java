@@ -2,7 +2,7 @@ package script.unit;
 
 import java.io.IOException;
 
-import data.units.ConstAction;
+import database.ConstAction;
 import net.Message;
 import net.Message.Prefix;
 import network.Network;

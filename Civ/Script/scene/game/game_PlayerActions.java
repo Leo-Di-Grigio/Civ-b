@@ -1,14 +1,18 @@
 package scene.game;
 
 import player.units.Unit;
+import recources.Recources;
 import scenedata.game.GameData;
+import script.unit.unit_BuildRecruit;
 import script.unit.unit_CityBuild;
 import script.unit.unit_MoveTo;
-import data.units.ConstUnits;
+import database.DB;
 import misc.Const;
 import misc.Log;
 import gui.GUI;
 import gui.elements.GuiElementButtonUnitAction;
+import gui.elements.GuiElementIcon;
+import gui.elements.GuiElementPane;
 import gui.elements.GuiElementTable;
 import gui.misc.TableLine;
 
@@ -21,6 +25,10 @@ public class game_PlayerActions {
 			switch(table.getTitle()){
 				case scenegui_Game.uiUnitSelect:
 					selectUnit(gui, gamedata, table);
+					break;
+					
+				default:
+					clearButtonsAction(gui);
 					break;
 			}
 		}
@@ -35,25 +43,46 @@ public class game_PlayerActions {
 			clearButtonsAction(gui);
 		}
 		else{
+			updateGui(gui, gamedata, line);
 			setButtonsAction(gui, gamedata, line);
 		}
 	}
 	
+	private static void updateGui(GUI gui, GameData gamedata, TableLine line) {
+		clearButtonsAction(gui);
+		
+		GuiElementPane pane = (GuiElementPane)gui.get(scenegui_Game.uiInfopane);
+		
+		if(pane != null){
+			GuiElementIcon icon = (GuiElementIcon)pane.getElement(scenegui_Game.uiInfopaneIcon);
+			GuiElementTable unitSelectTable = (GuiElementTable)gui.get(scenegui_Game.uiUnitSelect);
+			
+			if(icon != null){
+				int selectedUnitType = Integer.parseInt(unitSelectTable.getSelectedLine().getCell(2)); // get unit.type
+				icon.setTexture(Recources.getUnitImage(selectedUnitType));
+			}
+		}
+	}
+
 	private static void setButtonsAction(GUI gui, GameData gamedata, TableLine line) {
 		int unitId = Integer.parseInt(line.getCell(0));
 		Unit unit = gamedata.units.getUnit(unitId);
 		
 		if(unit.playerId == gamedata.clientId){
 			switch(gamedata.units.getUnit(unitId).type){
-				case ConstUnits.unitNull:
+				case DB.unitNull:
 					clearButtonsAction(gui);
 					break;
 				
-				case ConstUnits.unitAvatar:
+				case DB.unitAvatar:
 					unitSelectedAvatar(gui, gamedata, unitId);
 					break;
 					
-				case ConstUnits.unitCity:
+				case DB.unitRecruit:
+					unitSelectedRecruit(gui, gamedata, unitId);
+					break;
+					
+				case DB.unitCity:
 					unitSelectedCity(gui, gamedata, unitId);
 					break;
 					
@@ -98,12 +127,27 @@ public class game_PlayerActions {
 	}
 	
 	private static void unitSelectedAvatar(GUI gui, GameData gamedata, int unitId){
+		buttonMoveTo(gui, gamedata); // 0
+		buttonCityBuild(gui, gamedata, unitId); // 5
+	}
+	
+	private static void unitSelectedRecruit(GUI gui, GameData gamedata, int unitId){
+		buttonMoveTo(gui, gamedata); // 0
+	}
+	
+	private static void unitSelectedCity(GUI gui, GameData gamedata, int unitId){
+		buttonCityBuildRecruit(gui, gamedata, unitId); // 0
+	}
+	
+	private static void buttonMoveTo(GUI gui, GameData gamedata){
 		// action 0 - "moveTo"
 		GuiElementButtonUnitAction button0 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton0);
 		button0.setActionIcon(Const.imgActionMoveto);
 		button0.setVisible(true);
 		button0.setScript(new unit_MoveTo(gamedata));
-		
+	}
+	
+	private static void buttonCityBuild(GUI gui, GameData gamedata, int unitId){
 		// action 5 - "city build"
 		GuiElementButtonUnitAction button5 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton5);
 		button5.setActionIcon(Const.imgActionCityBuild);
@@ -111,7 +155,11 @@ public class game_PlayerActions {
 		button5.setScript(new unit_CityBuild(gamedata, unitId));
 	}
 	
-	private static void unitSelectedCity(GUI gui, GameData gamedata, int unitId){
-		
+	private static void buttonCityBuildRecruit(GUI gui, GameData gamedata, int unitId){
+		// action 0 - "Build Recruit"
+		GuiElementButtonUnitAction button0 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton0);
+		button0.setActionIcon(Const.imgActionBuildRecruit);
+		button0.setVisible(true);
+		button0.setScript(new unit_BuildRecruit(gamedata, unitId));
 	}
 }

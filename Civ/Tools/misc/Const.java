@@ -5,7 +5,7 @@ public class Const {
 	// version
 	public static final String title = "Civ";
 	public static final int version = 0;
-	public static final int subVersion = 100;
+	public static final int subVersion = 101;
 
 	// assets
 	public static final String assetsNative = "recources/assets/native/";
@@ -35,13 +35,16 @@ public class Const {
 	// action buttons keys
 	public static final String imgActionMoveto = "action_moveto";
 	public static final String imgActionCityBuild = "action_citybuild";
+	public static final String imgActionBuildRecruit = "action_buildrecruit";
 	
 	public static final String imgButton = "button";
 	public static final String imgButtonSelected = "button_select";
 	public static final String imgButtonEndTurn = "button";
 	
 	// units
+	public static final String imgUnitPlayerAtlas = "atlas_players";
 	public static final String imgUnitAvatar = "unit_avatar";
+	public static final String imgUnitRecruit = "unit_recrut";
 	public static final String imgUnitCity   = "unit_city";
 	
 	// misc

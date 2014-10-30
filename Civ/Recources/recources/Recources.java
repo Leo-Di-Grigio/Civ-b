@@ -5,7 +5,7 @@ import java.awt.FontFormatException;
 import java.awt.Image;
 import java.io.IOException;
 
-import data.units.ConstUnits;
+import database.DB;
 import recources.nongl.Tile;
 import misc.Const;
 import misc.Enums;
@@ -58,11 +58,14 @@ public class Recources {
 		
 		switch(unitCode){
 			
-			case ConstUnits.unitAvatar:
+			case DB.unitAvatar:
 				return getImage(Const.imgUnitAvatar);
 				
-			case ConstUnits.unitCity:
+			case DB.unitCity:
 				return getImage(Const.imgUnitCity);
+				
+			case DB.unitRecruit:
+				return getImage(Const.imgUnitRecruit);
 		}
 		
 		return img;

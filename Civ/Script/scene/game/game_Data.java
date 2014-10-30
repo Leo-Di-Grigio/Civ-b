@@ -1,6 +1,6 @@
 package scene.game;
 
-import data.units.ConstAction;
+import database.ConstAction;
 import misc.Enums;
 import misc.Environment;
 import gui.GUI;

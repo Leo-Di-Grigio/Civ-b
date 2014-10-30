@@ -7,8 +7,8 @@ import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import data.units.ConstAction;
-import data.units.ConstUnits;
+import database.ConstAction;
+import database.DB;
 import algorithms.PathFinding;
 import net.Message;
 import net.Message.Prefix;
@@ -64,7 +64,7 @@ public class unit_MoveTo extends ScriptGui {
 				nodeY = Environment.nodeSelectedY;
 				
 				if(Config.gameShowUnitPathPrevew){
-					path = PathFinding.getPath(unit.x, unit.y, nodeX, nodeY, ConstUnits.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
+					path = PathFinding.getPath(unit.x, unit.y, nodeX, nodeY, DB.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
 					unit.setPath(gamedata.units, path);
 				}
 			}
@@ -75,7 +75,7 @@ public class unit_MoveTo extends ScriptGui {
 		if(task.type == Enums.Task.GAME_SELECT_NODE){
 			Log.debug("Execute unit_MoveTo x: " + Environment.nodeSelectedX + " y: " + Environment.nodeSelectedY);
 			
-			path = PathFinding.getPath(unit.x, unit.y, nodeX, nodeY, ConstUnits.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
+			path = PathFinding.getPath(unit.x, unit.y, nodeX, nodeY, DB.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
 			unit.setPath(gamedata.units, path);
 			
 			// send player action
@@ -100,7 +100,7 @@ public class unit_MoveTo extends ScriptGui {
 	
 	public static void addWay(UnitsMng units, int unitId, int toX, int toY){
 		Unit unit = units.getUnit(unitId);
-		ArrayList<Point> way = PathFinding.getPath(unit.x, unit.y, toX, toY, ConstUnits.getMovementType(unit.type), units.map.height, units.map.sizeX, units.map.sizeY);
+		ArrayList<Point> way = PathFinding.getPath(unit.x, unit.y, toX, toY, DB.getMovementType(unit.type), units.map.height, units.map.sizeX, units.map.sizeY);
 		
 		if(way != null){
 			units.addWay(unitId, way);
