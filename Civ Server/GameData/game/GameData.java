@@ -188,6 +188,10 @@ public class GameData{
 				actionBuildUnit(clientId, arr);
 				break;
 				
+			case ConstAction.mine:
+				actionMine(clientId, arr);
+				break;
+				
 			default: 
 				break;
 		}
@@ -231,6 +235,11 @@ public class GameData{
 		actions.addAction(clientId, new Action(PlayerAction.UNIT_BUILD_UNIT, unitId, unitType));
 	}
 	
+	private void actionMine(int clientId, String[] arr) {
+		int unitId = Integer.parseInt(arr[1]);
+		actions.addAction(clientId, new Action(PlayerAction.UNIT_MINE, unitId));
+	}
+
 	public void gameTurnEnd(int clientId) throws IOException {
 		if(clientId == teams.getTeamOwner(teams.getTurnedTeam())){
 			if(teams.newTurn){

@@ -143,9 +143,10 @@ public class AssetsNative extends Assets {
 	}
 	
 	private void loadActions() {
-		addImage(Const.imgActionMoveto, Tile.getTile(Const.assetsNative + "actions/moveto.png"));
-		addImage(Const.imgActionCityBuild, Tile.getTile(Const.assetsNative + "actions/citybuild.png"));
-		addImage(Const.imgActionBuildRecruit, Tile.getTile(Const.assetsNative + "actions/buildrecruit.png"));
+		addImage(Const.imgActionMoveto, Tile.getTile(Const.assetsNative + "actions/action_moveto.png"));
+		addImage(Const.imgActionCityBuild, Tile.getTile(Const.assetsNative + "actions/action_citybuild.png"));
+		addImage(Const.imgActionBuildRecruit, Tile.getTile(Const.assetsNative + "actions/action_buildrecruit.png"));
+		addImage(Const.imgActionMine, Tile.getTile(Const.assetsNative + "actions/action_mine.png"));
 	}
 	
 	private void loadFont() throws FontFormatException, IOException {

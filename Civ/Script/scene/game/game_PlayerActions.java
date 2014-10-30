@@ -5,6 +5,7 @@ import recources.Recources;
 import scenedata.game.GameData;
 import script.unit.unit_BuildRecruit;
 import script.unit.unit_CityBuild;
+import script.unit.unit_Mine;
 import script.unit.unit_MoveTo;
 import database.DB;
 import misc.Const;
@@ -79,7 +80,7 @@ public class game_PlayerActions {
 					break;
 					
 				case DB.unitRecruit:
-					unitSelectedRecruit(gui, gamedata, unitId);
+					unitSelectedRecruit(gui, gamedata, unitId);				
 					break;
 					
 				case DB.unitCity:
@@ -128,6 +129,7 @@ public class game_PlayerActions {
 	
 	private static void unitSelectedAvatar(GUI gui, GameData gamedata, int unitId){
 		buttonMoveTo(gui, gamedata); // 0
+		buttonMine(gui, gamedata, unitId); // 1
 		buttonCityBuild(gui, gamedata, unitId); // 5
 	}
 	
@@ -161,5 +163,13 @@ public class game_PlayerActions {
 		button0.setActionIcon(Const.imgActionBuildRecruit);
 		button0.setVisible(true);
 		button0.setScript(new unit_BuildRecruit(gamedata, unitId));
+	}
+	
+	private static void buttonMine(GUI gui, GameData gamedata, int unitId){
+		// action 1 - "mine"
+		GuiElementButtonUnitAction button1 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton1);
+		button1.setActionIcon(Const.imgActionMine);
+		button1.setVisible(true);
+		button1.setScript(new unit_Mine(gamedata, unitId));
 	}
 }

@@ -37,6 +37,10 @@ public class GameActionsLogic {
 				case UNIT_BUILD_UNIT:
 					unitBuildUnit(action);
 					break;
+				
+				case UNIT_MINE:
+					unitMine(action);
+					break;
 			}
 		}
 	}
@@ -85,12 +89,20 @@ public class GameActionsLogic {
 		// build new unit
 		Unit unit = gamedata.units.getUnit(action.unitId);
 		
-		if(unit.type == DB.unitCity && !unit.movementEnd){
+		if(unit != null && unit.type == DB.unitCity && !unit.movementEnd){
 			unit.movementEnd = true;
 			
 			Unit newunit = new Unit(unit.playerId, action.unitType, unit.x, unit.y);
 			gamedata.units.addUnit(newunit, gamedata.broad);
 		}
 	}
+	
 
+	private void unitMine(Action action) {
+		Unit unit = gamedata.units.getUnit(action.unitId);
+		
+		if(unit != null){
+			// 
+		}
+	}
 }
