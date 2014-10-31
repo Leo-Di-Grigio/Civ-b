@@ -9,9 +9,9 @@ public class Node {
 	public byte geology = 0;
 	
 	// Units data
-	public HashSet<Integer> units;
+	public HashSet<Integer> gameObjects;
 	
 	public Node(){
-		units = new HashSet<Integer>();
+		gameObjects = new HashSet<Integer>();
 	}
 }

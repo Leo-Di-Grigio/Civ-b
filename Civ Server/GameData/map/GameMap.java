@@ -43,16 +43,16 @@ public class GameMap {
 		System.gc();
 	}
 	
-	public void addUnit(int x, int y, int unitId){
-		map[x][y].units.add(unitId);
+	public void addObject(int x, int y, int objectId){
+		map[x][y].gameObjects.add(objectId);
 	}
 	
-	public void removeUnit(int x, int y, int unitId){
-		map[x][y].units.remove(unitId);
+	public void removeObject(int x, int y, int objectId){
+		map[x][y].gameObjects.remove(objectId);
 	}
 	
-	public HashSet<Integer> getUnits(int x, int y){
-		return map[x][y].units;
+	public HashSet<Integer> getObjects(int x, int y){
+		return map[x][y].gameObjects;
 	}
 	
 	public HashSet<Point> getSpawnPoints(int teamsCount){
