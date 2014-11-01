@@ -61,10 +61,10 @@ public class Recources {
 			case DB.unitAvatar:
 				return getImage(Const.imgUnitAvatar);
 				
-			case DB.unitCity:
+			case DB.buildingCity:
 				return getImage(Const.imgUnitCity);
 				
-			case DB.unitRecruit:
+			case DB.unitNovice:
 				return getImage(Const.imgUnitRecruit);
 		}
 		

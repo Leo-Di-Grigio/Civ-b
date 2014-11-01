@@ -26,7 +26,7 @@ public class Action {
 	public int y;
 	
 	// additional data
-	public int unitType;
+	public int objectType;
 	
 	private Action(PlayerAction prefix){
 		this.id = ID++;
@@ -56,7 +56,7 @@ public class Action {
 		switch(prefix){
 			case UNIT_BUILD_UNIT:
 				this.objectId = field1;   // unit who build new unit
-				this.unitType = field2; // new unit type to build
+				this.objectType = field2; // new unit type to build
 				break;
 				
 			default: 

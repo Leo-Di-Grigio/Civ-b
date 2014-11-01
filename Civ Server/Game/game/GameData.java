@@ -2,6 +2,8 @@ package game;
 
 import gameobject.GameObject;
 import gameobject.GameObjectMng;
+import gameobject.Unit;
+import gameobject.unit.Avatar;
 
 import java.awt.Point;
 import java.io.IOException;
@@ -165,7 +167,7 @@ public class GameData{
 			spawn = teams.getSpawn(teamId);
 			
 			for(Integer playerId: teams.getPlayers(teamId)){
-				avatars.add(new GameObject(playerId, DB.unitAvatar, spawn.x, spawn.y));
+				avatars.add(new Avatar(playerId, spawn.x, spawn.y));
 			}
 		}
 		
@@ -199,46 +201,46 @@ public class GameData{
 	}
 
 	private void actionMoveTo(int clientId, String[] arr) throws IOException {
-		// key:(int)unitId:(int)toX:(int)toY
-		int unitId = Integer.parseInt(arr[1]);
+		// key:(int)objectId:(int)toX:(int)toY
+		int objectId = Integer.parseInt(arr[1]);
 		int toX = Integer.parseInt(arr[2]);
 		int toY = Integer.parseInt(arr[3]);
 		
-		GameObject unit = gameObjects.getObject(unitId);
+		Unit unit = (Unit)gameObjects.getObject(objectId);
 		
 		if(unit.playerId == clientId){
 			ArrayList<Point> way = PathFinding.getPath(unit.x, unit.y, toX, toY, DB.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
 		
 			if(way != null){
 				// correct way
-				actions.addAction(clientId, new Action(PlayerAction.UNIT_MOVE_TO, unitId, toX, toY));
-				broad.sendToTeam(players.get(clientId).teamId, new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + unitId + ":" + toX + ":" + toY));
+				actions.addAction(clientId, new Action(PlayerAction.UNIT_MOVE_TO, objectId, toX, toY));
+				broad.sendToTeam(players.get(clientId).teamId, new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + objectId + ":" + toX + ":" + toY));
 			}
 			else{
 				// null way
-				actions.addAction(clientId, new Action(PlayerAction.UNIT_MOVE_TO, unitId, unit.x, unit.y));
-				broad.sendToTeam(players.get(clientId).teamId, new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + unitId + ":" + unit.x + ":" + unit.y));
+				actions.addAction(clientId, new Action(PlayerAction.UNIT_MOVE_TO, objectId, unit.x, unit.y));
+				broad.sendToTeam(players.get(clientId).teamId, new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + objectId + ":" + unit.x + ":" + unit.y));
 			}
 			
-			unit.way = way;
+			unit.movementPath = way;
 		}
 	}
 	
 	private void actionCityBuild(int clientId, String [] arr) {
-		// key:(int)unitId
-		int unitId = Integer.parseInt(arr[1]);
-		actions.addAction(clientId, new Action(PlayerAction.UNIT_CITY_BUILD, unitId));
+		// key:(int)objectId
+		int objectId = Integer.parseInt(arr[1]);
+		actions.addAction(clientId, new Action(PlayerAction.UNIT_CITY_BUILD, objectId));
 	}
 
 	private void actionBuildUnit(int clientId, String [] arr){
-		int unitId = Integer.parseInt(arr[1]);
+		int objectId = Integer.parseInt(arr[1]);
 		int unitType = Integer.parseInt(arr[2]);
-		actions.addAction(clientId, new Action(PlayerAction.UNIT_BUILD_UNIT, unitId, unitType));
+		actions.addAction(clientId, new Action(PlayerAction.UNIT_BUILD_UNIT, objectId, unitType));
 	}
 	
 	private void actionMine(int clientId, String[] arr) {
-		int unitId = Integer.parseInt(arr[1]);
-		actions.addAction(clientId, new Action(PlayerAction.UNIT_MINE, unitId));
+		int objectId = Integer.parseInt(arr[1]);
+		actions.addAction(clientId, new Action(PlayerAction.UNIT_MINE, objectId));
 	}
 
 	public void gameTurnEnd(int clientId) throws IOException {

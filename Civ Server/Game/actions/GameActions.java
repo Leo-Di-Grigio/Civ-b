@@ -10,6 +10,7 @@ import database.DB;
 import misc.Log;
 import game.GameData;
 import gameobject.GameObject;
+import gameobject.Unit;
 
 public class GameActions {
 	
@@ -96,6 +97,10 @@ public class GameActions {
 		}
 	}
 	
+	public void nextTurn(){
+		this.TURN++;
+	}
+	
 	// remove all team actions and unregister team
 	public void unregisterTeam(int teamId){
 		HashMap<Integer, TreeSet<Integer>> turnTeamActions = teamActions.get(TURN + 1);
@@ -146,13 +151,17 @@ public class GameActions {
 		HashSet<Integer> players =  gamedata.teams.getPlayers(teamId);
 		
 		for(Integer playerId: players){
-			HashSet<Integer> units = gamedata.gameObjects.getPlayersObjects(playerId);
+			HashSet<Integer> objects = gamedata.gameObjects.getPlayersObjects(playerId);
 			
-			// reset units turn stats
-			for(Integer unitId: units){
-				GameObject unit = gamedata.gameObjects.getObject(unitId);
-				unit.movementEnd = false;
-				unit.movementPoints = DB.getMovementPoints(unit.type);
+			// reset object turn stats
+			for(Integer objectId: objects){
+				GameObject object = gamedata.gameObjects.getObject(objectId);
+				object.turnEnd = false;
+				
+				if(DB.isUnit(object.type)){
+					Unit unit = (Unit)object;
+					unit.resetMovementPoints();
+				}
 			}
 		}
 	}
@@ -170,9 +179,5 @@ public class GameActions {
 				}
 			}
 		}
-	}
-	
-	public void nextTurn(){
-		this.TURN++;
 	}
 }

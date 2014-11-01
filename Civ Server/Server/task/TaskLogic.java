@@ -105,45 +105,40 @@ public class TaskLogic {
 		}
 	}
 	
+	private static int getGameId(Task task){
+		return ClientPool.getClient(task.clientId).gameId;
+	}
+	
 	private static void requestGameLeave(Task task) throws IOException {
-		int gameId = ClientPool.getClient(task.clientId).gameId;
-		GamesMng.get(gameId).logic.removePlayer(task.clientId);
+		GamesMng.get(getGameId(task)).logic.removePlayer(task.clientId);
 	}
 
 	private static void requestGameData(Task task) throws IOException {
-		int gameId = ClientPool.getClient(task.clientId).gameId;
-		GamesMng.get(gameId).logic.sendGameData(task.clientId);
+		GamesMng.get(getGameId(task)).logic.sendGameData(task.clientId);
 	}
 	
 	private static void requestTeamCreate(Task task) throws IOException {
-		int gameId = ClientPool.getClient(task.clientId).gameId;
-		GamesMng.get(gameId).logic.addTeam(task.clientId, task.msg.data);
+		GamesMng.get(getGameId(task)).logic.addTeam(task.clientId, task.msg.data);
 	}
 	
 	private static void requestTeamChoose(Task task) throws IOException {
-		int gameId = ClientPool.getClient(task.clientId).gameId;
-		GamesMng.get(gameId).logic.teamChoose(task.clientId, task.msg.data);
+		GamesMng.get(getGameId(task)).logic.teamChoose(task.clientId, task.msg.data);
 	}
 	
 	private static void requestReadyCheck(Task task) throws IOException {
-		int gameId = ClientPool.getClient(task.clientId).gameId;
-		GamesMng.get(gameId).logic.playerReadyCheck(task.clientId);
+		GamesMng.get(getGameId(task)).logic.playerReadyCheck(task.clientId);
 	}
 	
 	private static void playerAction(Task task) throws IOException {
-		int gameId = ClientPool.getClient(task.clientId).gameId;
-		GamesMng.get(gameId).logic.playerAction(task.clientId, task.msg.data);
+		GamesMng.get(getGameId(task)).logic.playerAction(task.clientId, task.msg.data);
 	}
 	
 	private static void gameTurnEnd(Task task) throws IOException {
-		int gameId = ClientPool.getClient(task.clientId).gameId;
-		GamesMng.get(gameId).logic.gameTurnEnd(task.clientId);
+		GamesMng.get(getGameId(task)).logic.gameTurnEnd(task.clientId);
 	}
 	
-
 	private static void chatMsg(Task task) throws IOException {
-		int gameId = ClientPool.getClient(task.clientId).gameId;
-		GamesMng.get(gameId).logic.gameChat(task.clientId, task.msg.data);
+		GamesMng.get(getGameId(task)).logic.gameChat(task.clientId, task.msg.data);
 	}
 
 }

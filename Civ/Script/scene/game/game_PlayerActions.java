@@ -79,11 +79,11 @@ public class game_PlayerActions {
 					unitSelectedAvatar(gui, gamedata, unitId);
 					break;
 					
-				case DB.unitRecruit:
+				case DB.unitNovice:
 					unitSelectedRecruit(gui, gamedata, unitId);				
 					break;
 					
-				case DB.unitCity:
+				case DB.buildingCity:
 					unitSelectedCity(gui, gamedata, unitId);
 					break;
 					

@@ -24,6 +24,6 @@ public class unit_BuildRecruit extends ScriptGui {
 	public void execute(Task task) throws IOException {
 		Log.debug("Execute unit_BuildRecruit by unitId: " + this.unitId);
 		// msg.data = "ConstAction:unitId:unitType"
-		Network.sendMsg(new Message(Prefix.PLAYER_ACTION, "" + ConstAction.cityBuildUnit + ":" + this.unitId + ":" + DB.unitRecruit));
+		Network.sendMsg(new Message(Prefix.PLAYER_ACTION, "" + ConstAction.cityBuildUnit + ":" + this.unitId + ":" + DB.unitNovice));
 	}
 }

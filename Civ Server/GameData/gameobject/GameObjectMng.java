@@ -30,7 +30,7 @@ public class GameObjectMng {
 		playerObjects.remove(playerId);
 	}
 	
-	public void addUnit(GameObject object, GameBroadcasting broad) throws IOException{
+	public void addObject(GameObject object, GameBroadcasting broad) throws IOException{
 		objects.put(object.id, object);
 		playerObjects.get(object.playerId).add(object.id);
 		map.addObject(object.x, object.y, object.id);
@@ -40,11 +40,11 @@ public class GameObjectMng {
 	
 	public void addObjects(HashSet<GameObject> objectSet, GameBroadcasting broad) throws IOException{
 		for(GameObject object: objectSet){
-			addUnit(object, broad); 
+			addObject(object, broad); 
 		}
 	}
 	
-	public void removeUnit(int objectId, GameBroadcasting broad) throws IOException{
+	public void removeObject(int objectId, GameBroadcasting broad) throws IOException{
 		GameObject object = objects.remove(objectId);
 		
 		if(object != null){

@@ -8,6 +8,8 @@ import actions.Action.PlayerAction;
 import misc.Log;
 import game.GameData;
 import gameobject.GameObject;
+import gameobject.Unit;
+import gameobject.city.City;
 
 public class GameActionsLogic {
 	
@@ -46,17 +48,17 @@ public class GameActionsLogic {
 	}
 
 	private void unitMoveTo(Action action) throws IOException {		
-		GameObject object = gamedata.gameObjects.getObject(action.objectId);
+		Unit unit = (Unit)gamedata.gameObjects.getObject(action.objectId);
 		
-		if(!object.movementEnd && object.way != null && object.movementPoints > 0){
-			object.movementEnd = true;
+		if(!unit.turnEnd && unit.movementPath != null && unit.movementPoints > 0){
+			unit.turnEnd = true;
 			
 			Point endPoint = null;
-			if(object.way.size() >= object.movementPoints){
+			if(unit.movementPath.size() >= unit.movementPoints){
 				// move to a part way, remove completed way points
 				
-				for(int i = 0; i < object.movementPoints && i < object.way.size(); ++i){
-					endPoint = object.way.remove(i);
+				for(int i = 0; i < unit.movementPoints && i < unit.movementPath.size(); ++i){
+					endPoint = unit.movementPath.remove(i);
 				}
 				
 				// add movement continue to next turn if movement not complete
@@ -64,24 +66,24 @@ public class GameActionsLogic {
 			}
 			else{
 				// move to end of way and remove way
-				endPoint = object.way.get(object.way.size() - 1);
-				object.way = null;
+				endPoint = unit.movementPath.get(unit.movementPath.size() - 1);
+				unit.movementPath = null;
 			}
 			
-			object.x = endPoint.x;
-			object.y = endPoint.y;
-			gamedata.broad.sendToPlayers(object.toMessageUpdate("xy"));
+			unit.x = endPoint.x;
+			unit.y = endPoint.y;
+			gamedata.broad.sendToPlayers(unit.toMessageUpdate("xy"));
 		}
 	}
 	
 	private void unitCityBuild(Action action) throws IOException {
-		GameObject object = gamedata.gameObjects.getObject(action.objectId);
+		Unit unit = (Unit)gamedata.gameObjects.getObject(action.objectId);
 		
-		if(object.type == DB.unitAvatar && !object.movementEnd && object.way == null && object.movementPoints > 0){
-			object.movementEnd = true;
+		if(unit.type == DB.unitAvatar && !unit.turnEnd && unit.movementPath == null && unit.movementPoints > 0){
+			unit.turnEnd = true;
 			
-			GameObject city = new GameObject(object.playerId, DB.unitCity, object.x, object.y);
-			gamedata.gameObjects.addUnit(city, gamedata.broad);
+			City city = new City(unit.playerId, unit.x, unit.y);
+			gamedata.gameObjects.addObject(city, gamedata.broad);
 		}
 	}
 	
@@ -89,11 +91,11 @@ public class GameActionsLogic {
 		// build new unit
 		GameObject object = gamedata.gameObjects.getObject(action.objectId);
 		
-		if(object != null && object.type == DB.unitCity && !object.movementEnd){
-			object.movementEnd = true;
+		if(object != null && object.type == DB.buildingCity && !object.turnEnd){
+			object.turnEnd = true;
 			
-			GameObject newunit = new GameObject(object.playerId, action.unitType, object.x, object.y);
-			gamedata.gameObjects.addUnit(newunit, gamedata.broad);
+			Unit newUnit = new Unit(object.playerId, action.objectType, object.x, object.y);
+			gamedata.gameObjects.addObject(newUnit, gamedata.broad);
 		}
 	}
 	
