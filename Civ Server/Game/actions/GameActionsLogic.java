@@ -13,10 +13,10 @@ import gameobject.city.City;
 
 public class GameActionsLogic {
 	
-	protected GameActions gameactions;
+	protected GameActionsPool gameactions;
 	protected GameData gamedata;
 	
-	public GameActionsLogic(GameData gamedata, GameActions actions) {
+	public GameActionsLogic(GameData gamedata, GameActionsPool actions) {
 		this.gamedata = gamedata;
 		this.gameactions = actions;
 	}
@@ -54,11 +54,12 @@ public class GameActionsLogic {
 			unit.turnEnd = true;
 			
 			Point endPoint = null;
-			if(unit.movementPath.size() >= unit.movementPoints){
+			if(unit.movementPath.size() > unit.movementPoints){
 				// move to a part way, remove completed way points
 				
 				for(int i = 0; i < unit.movementPoints && i < unit.movementPath.size(); ++i){
 					endPoint = unit.movementPath.remove(i);
+					unit.movementPoints--;
 				}
 				
 				// add movement continue to next turn if movement not complete

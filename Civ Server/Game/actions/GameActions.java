@@ -1,183 +1,120 @@
 package actions;
 
+import java.awt.Point;
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.TreeSet;
+import java.util.ArrayList;
 
+import net.Message;
+import net.Message.Prefix;
+import actions.Action.PlayerAction;
+import algorithms.PathFinding;
+import database.ConstAction;
 import database.DB;
-import misc.Log;
 import game.GameData;
-import gameobject.GameObject;
 import gameobject.Unit;
 
 public class GameActions {
+
+	private GameActionsPool pool;
+	private GameData gamedata;
 	
-	protected int TURN = 0;
-	protected GameData gamedata;
-	protected GameActionsLogic logic;
+	public GameActions(GameData gamedata) {
+		this.pool = new GameActionsPool(gamedata);
+		this.gamedata = gamedata;
+	}
+
+	public void registerPlayer(int playerId) {
+		this.pool.registerPlayer(playerId);
+	}
+
+	public void unregisterPlayer(int playerId) {
+		this.pool.unregisterPlayer(playerId);
+	}
+
+	public void registerTeam(int teamId) {
+		this.pool.registerTeam(teamId);
+	}
+
+	public void unregisterTeam(int teamId) {
+		this.pool.unregisterTeam(teamId);
+	}
 	
-	private HashMap<Integer, HashMap<Integer, Action>> turnActions; 		   // <turn, map<actionId, Action>>
-	private HashMap<Integer, HashMap<Integer, TreeSet<Integer>>> teamActions;  // <turn, map<teamId, set<actionId>>>
-	private HashMap<Integer, HashMap<Integer, TreeSet<Integer>>> playerActions; // <turn, map<playerId, set<actionId>>>
+	// Turn logic
+	public void nextTurn() {
+		this.pool.nextTurn();
+	}
+
+	public void teamActionsProcess(int teamId) throws IOException {
+		this.pool.teamActionsProcess(teamId);
+	}
 	
-	protected class InvertSort implements Comparator<Integer>{
-		@Override
-		public int compare(Integer a, Integer b) {
-			if(a == b){
-				return 0;
+	// Logic
+	public void addPlayerAction(int clientId, String data) throws IOException {
+		String [] arr = data.split(":");
+		int action = Integer.parseInt(arr[0]);
+		
+		switch(action){
+			case ConstAction.moveTo:
+				actionMoveTo(clientId, arr);
+				break;
+			
+			case ConstAction.cityBuild:
+				actionCityBuild(clientId, arr);
+				break;
+				
+			case ConstAction.cityBuildUnit:
+				actionBuildUnit(clientId, arr);
+				break;
+				
+			case ConstAction.mine:
+				actionMine(clientId, arr);
+				break;
+				
+			default: 
+				break;
+		}
+	}
+	
+	private void actionMoveTo(int clientId, String[] arr) throws IOException {
+		// key:(int)objectId:(int)toX:(int)toY
+		int objectId = Integer.parseInt(arr[1]);
+		int toX = Integer.parseInt(arr[2]);
+		int toY = Integer.parseInt(arr[3]);
+		
+		Unit unit = (Unit)gamedata.gameObjects.getObject(objectId);
+		
+		if(unit.playerId == clientId){
+			ArrayList<Point> way = PathFinding.getPath(unit.x, unit.y, toX, toY, DB.getMovementType(unit.type), gamedata.map.height, gamedata.map.sizeX, gamedata.map.sizeY);
+		
+			if(way != null){
+				// correct way
+				pool.addAction(clientId, new Action(PlayerAction.UNIT_MOVE_TO, objectId, toX, toY));
+				gamedata.broad.sendToTeam(gamedata.players.get(clientId).teamId, new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + objectId + ":" + toX + ":" + toY));
 			}
 			else{
-				if(a < b){
-					return 1;
-				}
-				else{
-					return -1;
-				}
+				// null way
+				pool.addAction(clientId, new Action(PlayerAction.UNIT_MOVE_TO, objectId, unit.x, unit.y));
+				gamedata.broad.sendToTeam(gamedata.players.get(clientId).teamId, new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + objectId + ":" + unit.x + ":" + unit.y));
 			}
+			
+			unit.movementPath = way;
 		}
-	};
+	}
 	
-	public GameActions(GameData gamedata){
-		this.gamedata = gamedata;
-		this.logic = new GameActionsLogic(gamedata, this);
-		
-		this.turnActions = new HashMap<Integer, HashMap<Integer, Action>>();
-		this.turnActions.put(this.TURN, new HashMap<Integer, Action>());
-		
-		this.teamActions = new HashMap<Integer, HashMap<Integer, TreeSet<Integer>>>();
-		this.teamActions.put(TURN, new HashMap<Integer, TreeSet<Integer>>());
-		this.teamActions.get(TURN).put(0, new TreeSet<Integer>(new InvertSort()));
-		
-		this.playerActions = new HashMap<Integer, HashMap<Integer, TreeSet<Integer>>>();
+	private void actionCityBuild(int clientId, String [] arr) {
+		// key:(int)objectId
+		int objectId = Integer.parseInt(arr[1]);
+		pool.addAction(clientId, new Action(PlayerAction.UNIT_CITY_BUILD, objectId));
 	}
 
-	public void addAction(int clientId, Action action) {
-		action.turn = this.TURN + 1;
-		action.teamId = gamedata.players.get(clientId).teamId;
-		action.playerId = clientId;
-		
-		// Turn actions
-		if(!turnActions.containsKey(action.turn)){
-			turnActions.put(action.turn, new HashMap<Integer, Action>());
-		}
-		turnActions.get(action.turn).put(action.id, action);
-		
-		// Team actions
-		if(!teamActions.containsKey(action.turn)){
-			teamActions.put(action.turn, new HashMap<Integer, TreeSet<Integer>>());
-		}
-		if(!teamActions.get(action.turn).containsKey(action.teamId)){
-			teamActions.get(action.turn).put(action.teamId, new TreeSet<Integer>(new InvertSort()));
-		}
-		teamActions.get(action.turn).get(action.teamId).add(action.id);
-		
-		// Player actions
-		if(!playerActions.containsKey(action.turn)){
-			playerActions.put(action.turn, new HashMap<Integer, TreeSet<Integer>>());
-		}
-		if(!playerActions.get(action.turn).containsKey(action.playerId)){
-			playerActions.get(action.turn).put(action.playerId, new TreeSet<Integer>(new InvertSort()));
-		}
-		playerActions.get(action.turn).get(action.playerId).add(action.id);
+	private void actionBuildUnit(int clientId, String [] arr){
+		int objectId = Integer.parseInt(arr[1]);
+		int unitType = Integer.parseInt(arr[2]);
+		pool.addAction(clientId, new Action(PlayerAction.UNIT_BUILD_UNIT, objectId, unitType));
 	}
 	
-	public void registerPlayer(int playerId){
-		if(!playerActions.containsKey(playerId)){
-			playerActions.put(TURN, new HashMap<Integer, TreeSet<Integer>>());
-			playerActions.get(TURN).put(playerId, new TreeSet<Integer>(new InvertSort()));
-		}
-	}
-	
-	public void registerTeam(int teamId){
-		if(!teamActions.containsKey(teamId)){
-			teamActions.put(TURN, new HashMap<Integer, TreeSet<Integer>>());
-			teamActions.get(TURN).put(teamId, new TreeSet<Integer>(new InvertSort()));
-		}
-	}
-	
-	public void nextTurn(){
-		this.TURN++;
-	}
-	
-	// remove all team actions and unregister team
-	public void unregisterTeam(int teamId){
-		HashMap<Integer, TreeSet<Integer>> turnTeamActions = teamActions.get(TURN + 1);
-		
-		if(turnTeamActions != null){
-			TreeSet<Integer> teamActionsIds = turnTeamActions.remove(teamId);
-		
-			if(teamActionsIds != null){
-				HashMap<Integer, Action> turn = turnActions.get(TURN + 1);
-				
-				for(Integer actionId: teamActionsIds){
-					turn.remove(actionId);
-				}
-			}
-		
-			System.gc();
-		}
-	}
-	
-	// remove all player actions and unregister player
-	public void unregisterPlayer(int playerId){
-		HashMap<Integer, TreeSet<Integer>> turnPlayeresActions = playerActions.get(TURN + 1);
-		
-		if(turnPlayeresActions != null){
-			TreeSet<Integer> playerActionsIds = turnPlayeresActions.remove(playerId);
-		
-			if(playerActionsIds != null){
-				HashMap<Integer, Action> turn = turnActions.get(TURN + 1);
-				
-				for(Integer actionId: playerActionsIds){
-					turn.remove(actionId);
-				}
-			}
-		
-			System.gc();
-		}
-	}
-	
-	public void teamActionsProcess(int teamId) throws IOException{
-		Log.service("" + gamedata.gameId + " - Turn " + TURN);
-			
-		newTeamTurn(teamId);
-		turnActions(teamId);
-	}
-	
-	private void newTeamTurn(int teamId) throws IOException{
-		// reset all turn stats of team
-		HashSet<Integer> players =  gamedata.teams.getPlayers(teamId);
-		
-		for(Integer playerId: players){
-			HashSet<Integer> objects = gamedata.gameObjects.getPlayersObjects(playerId);
-			
-			// reset object turn stats
-			for(Integer objectId: objects){
-				GameObject object = gamedata.gameObjects.getObject(objectId);
-				object.turnEnd = false;
-				
-				if(DB.isUnit(object.type)){
-					Unit unit = (Unit)object;
-					unit.resetMovementPoints();
-				}
-			}
-		}
-	}
-	
-	private void turnActions(int teamId) throws IOException{
-		HashMap<Integer, Action> map = turnActions.get(TURN);
-		
-		if(map != null){
-			TreeSet<Integer> keys = teamActions.get(TURN).get(teamId);
-
-			if(keys != null){
-				for(Integer actionId: keys){
-					Action action = map.get(actionId);
-					logic.execute(action);
-				}
-			}
-		}
+	private void actionMine(int clientId, String[] arr) {
+		int objectId = Integer.parseInt(arr[1]);
+		pool.addAction(clientId, new Action(PlayerAction.UNIT_MINE, objectId));
 	}
 }

@@ -2,20 +2,13 @@ package game;
 
 import gameobject.GameObject;
 import gameobject.GameObjectMng;
-import gameobject.Unit;
 import gameobject.unit.Avatar;
 
 import java.awt.Point;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 
-import actions.Action;
-import actions.Action.PlayerAction;
 import actions.GameActions;
-import algorithms.PathFinding;
-import database.ConstAction;
-import database.DB;
 import net.Message;
 import net.Message.Prefix;
 import network.Client;
@@ -173,74 +166,9 @@ public class GameData{
 		
 		gameObjects.addObjects(avatars, broad);
 	}
-
-	public void playerAction(int clientId, String data) throws IOException {
-		String [] arr = data.split(":");
-		int action = Integer.parseInt(arr[0]);
-		
-		switch(action){
-			case ConstAction.moveTo:
-				actionMoveTo(clientId, arr);
-				break;
-			
-			case ConstAction.cityBuild:
-				actionCityBuild(clientId, arr);
-				break;
-				
-			case ConstAction.cityBuildUnit:
-				actionBuildUnit(clientId, arr);
-				break;
-				
-			case ConstAction.mine:
-				actionMine(clientId, arr);
-				break;
-				
-			default: 
-				break;
-		}
-	}
-
-	private void actionMoveTo(int clientId, String[] arr) throws IOException {
-		// key:(int)objectId:(int)toX:(int)toY
-		int objectId = Integer.parseInt(arr[1]);
-		int toX = Integer.parseInt(arr[2]);
-		int toY = Integer.parseInt(arr[3]);
-		
-		Unit unit = (Unit)gameObjects.getObject(objectId);
-		
-		if(unit.playerId == clientId){
-			ArrayList<Point> way = PathFinding.getPath(unit.x, unit.y, toX, toY, DB.getMovementType(unit.type), map.height, map.sizeX, map.sizeY);
-		
-			if(way != null){
-				// correct way
-				actions.addAction(clientId, new Action(PlayerAction.UNIT_MOVE_TO, objectId, toX, toY));
-				broad.sendToTeam(players.get(clientId).teamId, new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + objectId + ":" + toX + ":" + toY));
-			}
-			else{
-				// null way
-				actions.addAction(clientId, new Action(PlayerAction.UNIT_MOVE_TO, objectId, unit.x, unit.y));
-				broad.sendToTeam(players.get(clientId).teamId, new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + objectId + ":" + unit.x + ":" + unit.y));
-			}
-			
-			unit.movementPath = way;
-		}
-	}
 	
-	private void actionCityBuild(int clientId, String [] arr) {
-		// key:(int)objectId
-		int objectId = Integer.parseInt(arr[1]);
-		actions.addAction(clientId, new Action(PlayerAction.UNIT_CITY_BUILD, objectId));
-	}
-
-	private void actionBuildUnit(int clientId, String [] arr){
-		int objectId = Integer.parseInt(arr[1]);
-		int unitType = Integer.parseInt(arr[2]);
-		actions.addAction(clientId, new Action(PlayerAction.UNIT_BUILD_UNIT, objectId, unitType));
-	}
-	
-	private void actionMine(int clientId, String[] arr) {
-		int objectId = Integer.parseInt(arr[1]);
-		actions.addAction(clientId, new Action(PlayerAction.UNIT_MINE, objectId));
+	public void addPlayerAction(int clientId, String data) throws IOException {
+		actions.addPlayerAction(clientId, data);
 	}
 
 	public void gameTurnEnd(int clientId) throws IOException {
@@ -260,7 +188,6 @@ public class GameData{
 	public void gameChat(int clientId, String data) throws IOException {
 		String name = players.get(clientId).name;
 		String time = Tools.getTime();
-		
 		broad.sendToPlayers(new Message(Prefix.CHAT_MSG, "[" + time + "][" + name + "]: " + data));
 	}
 }

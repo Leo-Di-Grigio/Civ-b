@@ -12,6 +12,7 @@ import script.ScriptsAPI;
 import main.Config;
 import misc.Const;
 import misc.Tools;
+import misc.ToolsConst;
 
 public class Engine {
 	
@@ -24,7 +25,7 @@ public class Engine {
 	
 	private void initFrame(){
 		frame = new JFrame();
-		frame.setTitle(Const.title + " v" + Const.version + "." + Const.subVersion 
+		frame.setTitle(Const.title + " v" + ToolsConst.version + "." + ToolsConst.subVersion 
 				+ " mode: " + Config.renderMode);
 		
 		Dimension dimension = new Dimension(Config.frameWidth, Config.frameHeight);

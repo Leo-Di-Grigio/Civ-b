@@ -12,7 +12,7 @@ import misc.Log;
 import net.Message;
 import net.Message.Prefix;
 import network.ClientPool;
-import player.Team;
+import team.Team;
 
 public class GameTeams {
 	

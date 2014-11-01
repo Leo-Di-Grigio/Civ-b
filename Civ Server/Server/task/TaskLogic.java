@@ -4,7 +4,7 @@ import game.GamesMng;
 
 import java.io.IOException;
 
-import misc.Const;
+import misc.ToolsConst;
 import net.Message;
 import net.Message.Prefix;
 import network.Client;
@@ -80,11 +80,11 @@ public class TaskLogic {
 	}
 	
 	private static void checkVersion(Task task) throws IOException{
-		if(task.msg.data.compareTo(""+Const.version+"."+Const.subVersion) == 0){
+		if(task.msg.data.compareTo(""+ToolsConst.version+"."+ToolsConst.subVersion) == 0){
 			ClientPool.sendMsg(task.clientId, new Message(Prefix.CONNECTION_OK, null));
 		}
 		else{
-			ClientPool.sendMsg(task.clientId, new Message(Prefix.CONNECTION_ERR, ""+Const.version+"."+Const.subVersion));
+			ClientPool.sendMsg(task.clientId, new Message(Prefix.CONNECTION_ERR, ""+ToolsConst.version+"."+ToolsConst.subVersion));
 		}
 	}
 	
@@ -130,7 +130,7 @@ public class TaskLogic {
 	}
 	
 	private static void playerAction(Task task) throws IOException {
-		GamesMng.get(getGameId(task)).logic.playerAction(task.clientId, task.msg.data);
+		GamesMng.get(getGameId(task)).logic.addPlayerAction(task.clientId, task.msg.data);
 	}
 	
 	private static void gameTurnEnd(Task task) throws IOException {
@@ -140,5 +140,4 @@ public class TaskLogic {
 	private static void chatMsg(Task task) throws IOException {
 		GamesMng.get(getGameId(task)).logic.gameChat(task.clientId, task.msg.data);
 	}
-
 }
