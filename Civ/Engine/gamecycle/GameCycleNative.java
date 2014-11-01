@@ -49,6 +49,9 @@ public class GameCycleNative extends GameCycle implements Runnable {
 	protected static long elapsedTime;
 	protected static long lastUpdate;
 	
+	// Frame number
+	protected static long tic;
+	
 	@Override
 	public void run(){
 		Environment.updateFrameSize(Render.getWidth(), Render.getHeight());
@@ -101,7 +104,7 @@ public class GameCycleNative extends GameCycle implements Runnable {
 	
 	@Override
 	void draw() throws IOException {
-		Painter.draw(g);
+		Painter.draw(g, tic++);
 	}
 
 	@Override

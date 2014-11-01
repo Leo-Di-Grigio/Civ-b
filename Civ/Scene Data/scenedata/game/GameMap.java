@@ -189,7 +189,7 @@ public class GameMap {
 		map[i][j].border = data;
 	}
 	
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		int minX = Environment.cameraX;
 		int minY = Environment.cameraY;
 		
@@ -205,7 +205,7 @@ public class GameMap {
 			for(int x = 0, i = minX; i < maxX; ++i, ++x){
 				for(int y = 0, j = minY; j < maxY; ++j, ++y){
 					if(y < sizeY && j < sizeY){
-						draw(g, i, j, x, y);
+						draw(g, i, j, x, y, tic);
 					}
 				}
 			}
@@ -219,20 +219,20 @@ public class GameMap {
 				
 				for(int i = minX; i < sizeX; ++i, ++x){
 					if(y < sizeX && j < sizeY){
-						draw(g, i, j, x, y);
+						draw(g, i, j, x, y, tic);
 					}
 				}
 				
 				for(int i = 0; i < maxX; ++i, ++x){
 					if(y < sizeY && j < sizeY){
-						draw(g, i, j, x, y);
+						draw(g, i, j, x, y, tic);
 					}
 				}
 			}
 		}
 	}
 	
-	private void draw(Graphics g, int i, int j, int x, int y){
+	private void draw(Graphics g, int i, int j, int x, int y, long tic){
 		switch(drawMode) {
 			case HEIGHT:	
 				g.drawImage(Recources.getImage("grey"+map[i][j].height), x*nodeX, y*nodeY, null);
@@ -268,7 +268,7 @@ public class GameMap {
 		
 		for(Integer unitId: nodeunits){
 			Unit unit = this.units.getUnit(unitId);
-			unit.draw(g, x*nodeX, y*nodeY);
+			unit.draw(g, x*nodeX, y*nodeY, tic);
 		}
 	}
 	

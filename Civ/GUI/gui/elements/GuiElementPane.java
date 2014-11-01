@@ -69,7 +69,7 @@ public class GuiElementPane extends GuiElement {
 	}
 	
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		if(visible){
 			if(selected){
 				g.drawImage(textureSelected, drawX, drawY, sizeX, sizeY, null);
@@ -79,7 +79,7 @@ public class GuiElementPane extends GuiElement {
 			}
 			
 			for(GuiElement element: elements.values()){
-				element.draw(g);
+				element.draw(g, tic);
 			}
 		}
 	}

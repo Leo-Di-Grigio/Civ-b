@@ -47,7 +47,7 @@ public class GuiElementChat extends GuiElement {
 	}
 	
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		if(visible){
 			if(selected){
 				g.drawImage(this.textureSelected, drawX, drawY, sizeX, sizeY, null);

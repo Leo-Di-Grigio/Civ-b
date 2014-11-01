@@ -74,15 +74,15 @@ public class Unit implements Sentble, Drawble {
 		}
 	}	
 	
-	public void draw(Graphics g, int drawX, int drawY) {
+	public void draw(Graphics g, int drawX, int drawY, long tic) {
 		this.drawX = drawX;
 		this.drawY = drawY;
-		draw(g);
+		draw(g, tic);
 	}
 	
 
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		g.drawImage(Recources.getImage(Const.imgUnitPlayerAtlas), drawX, drawY, 32, 32, null);
 		g.drawImage(Recources.getUnitImage(this.type), drawX, drawY, 32, 32, null);
 	}

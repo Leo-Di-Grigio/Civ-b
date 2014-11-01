@@ -25,7 +25,7 @@ public class GuiElementTitle extends GuiElement {
 	}
 	
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		g.setColor(color);
 		g.drawString(text, drawX, drawY);
 	}

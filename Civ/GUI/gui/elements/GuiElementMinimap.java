@@ -60,7 +60,7 @@ public class GuiElementMinimap extends GuiElement {
 	}
 	
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		if(this.visible){
 			
 			int w = Environment.frameSizeX/32;

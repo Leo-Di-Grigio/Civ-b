@@ -21,7 +21,7 @@ public class GuiElementButtonUnitAction extends GuiElementButton {
 	}
 	
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		if(this.visible){
 			g.setColor(Color.white); // for text drawing
 			

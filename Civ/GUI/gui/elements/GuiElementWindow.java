@@ -20,7 +20,7 @@ public class GuiElementWindow extends GuiElement {
 	}
 	
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		if(this.visible){
 			g.drawImage(this.textureNormal, drawX, drawY, sizeX, sizeY, null);
 			g.setColor(Color.black);

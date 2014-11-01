@@ -153,7 +153,7 @@ public class GuiElementTable extends GuiElement {
 	}
 	
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		if(visible){
 			g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
 			

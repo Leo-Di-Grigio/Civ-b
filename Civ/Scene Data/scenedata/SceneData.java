@@ -40,8 +40,8 @@ abstract public class SceneData {
 		}
 	}
 	
-	public void drawGui(Graphics g){
-		gui.draw(g);
+	public void drawGui(Graphics g, long tic){
+		gui.draw(g, tic);
 	}
 	
 	public void drawGui(GL3 gl){

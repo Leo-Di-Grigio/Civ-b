@@ -20,14 +20,15 @@ public class scene_Game extends Scene {
 	}
 
 	@Override
-	public void draw(Graphics g) {
-		gamedata.map.draw(g);
+	public void draw(Graphics g, long tic) {
+		gamedata.map.draw(g, tic);
 		
 		g.setColor(Color.white);
 		g.drawString("Scene: Game", 0, 10);
 		g.drawString("Camera x: " +Environment.cameraX + " y: " + Environment.cameraY , 0, 20);
 		g.drawString("Node selected x: " +Environment.nodeSelectedX + " y: " + Environment.nodeSelectedY , 0, 30);
 		g.drawString("Node draw x: " +Environment.nodeDrawCursorX + " y: " + Environment.nodeDrawCursorY , 0, 40);
+		g.drawString("Frame: " + tic , 0, 50);
 	}
 
 	@Override

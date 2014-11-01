@@ -34,8 +34,8 @@ abstract public class Scene {
 		tasks.add(e);
 	}
 	
-	public void drawGui(Graphics g){
-		data.drawGui(g);
+	public void drawGui(Graphics g, long tic){
+		data.drawGui(g, tic);
 	}
 	
 	public void drawGui(GL3 gl){
@@ -46,6 +46,6 @@ abstract public class Scene {
 		tasks.clear();
 	}
 	
-	abstract public void draw(Graphics g);
+	abstract public void draw(Graphics g, long tic);
 	abstract public void draw(GL3 gl);
 }

@@ -168,11 +168,11 @@ public class GUI implements Drawble {
 	}
 	
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		for(HashMap<String, GuiElement> gui: guiLayers.values()){
 			for(GuiElement element: gui.values()){
 				if(element.visible){
-					element.draw(g);
+					element.draw(g, tic);
 				}
 			}
 		}

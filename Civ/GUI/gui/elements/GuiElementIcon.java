@@ -13,7 +13,7 @@ public class GuiElementIcon extends GuiElement {
 	}
 
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		if(visible){
 			if(selected){
 				g.drawImage(textureSelected, drawX, drawY, sizeX, sizeY, null);

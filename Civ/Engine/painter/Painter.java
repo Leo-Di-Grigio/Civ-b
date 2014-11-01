@@ -60,10 +60,10 @@ public class Painter {
 		currentScene.addTask(new Task(Enums.Task.SCENE_LOADING, null));
 	}
 	
-	public static void draw(Graphics g) throws IOException{
+	public static void draw(Graphics g, long tic) throws IOException{
 		currentScene.update();
-		currentScene.draw(g);
-		currentScene.drawGui(g);
+		currentScene.draw(g, tic);
+		currentScene.drawGui(g, tic);
 	}
 	
 	public static void draw(GL3 gl) throws IOException{

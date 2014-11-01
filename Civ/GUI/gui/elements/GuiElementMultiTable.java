@@ -63,7 +63,7 @@ public class GuiElementMultiTable extends GuiElement {
 	}
 	
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		if(visible){
 			// afterscrolling update slider position
 			if(scrolled){
@@ -82,7 +82,7 @@ public class GuiElementMultiTable extends GuiElement {
 			g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
 			g.drawImage(textureSlider, drawX + sizeX - 15, drawY + sliderPos + 5, 15, sliderScale, null);
 			list.setDraw(drawX, drawY, scroll, sizeX, drawX);
-			list.draw(g);
+			list.draw(g, tic);
 		}
 	}
 

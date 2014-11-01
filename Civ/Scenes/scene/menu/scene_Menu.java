@@ -19,7 +19,7 @@ public class scene_Menu extends Scene {
 	}
 
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		g.drawImage(Recources.getImage(Const.imgMenu), 0, 0, Environment.frameSizeX, Environment.frameSizeY, null);
 		
 		g.setColor(Color.white);

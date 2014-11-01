@@ -65,14 +65,14 @@ public class Node implements Drawble {
 	private int drawX;
 	private int drawY;
 	
-	public void draw(Graphics g, int drawX, int drawY) {
+	public void draw(Graphics g, int drawX, int drawY, int tic) {
 		this.drawX = drawX;
 		this.drawY = drawY;
-		draw(g);
+		draw(g, tic);
 	}
 	
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		if(haveWaypoints()){
 			g.drawImage(Recources.getImage(Const.imgNull), drawX, drawY, 32, 32, null);
 		}

@@ -134,7 +134,7 @@ public class MultiTableLine implements Drawble {
 	}
 
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, long tic) {
 		if(!root){
 			if(selected){
 				g.setColor(this.selectColor);
@@ -150,7 +150,7 @@ public class MultiTableLine implements Drawble {
 			MultiTableLine item = list.get(i);
 			
 			item.setDraw(drawX + 10, drawY + (i + shift) * GuiElementMultiTable.lineSize + 20, scroll, sizeX, drawSelectingX);
-			item.draw(g);
+			item.draw(g, tic);
 			
 			
 			shift += item.getSize() - 1;
