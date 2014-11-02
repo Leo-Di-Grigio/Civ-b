@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 import database.DB;
 import misc.Log;
-import game.GameData;
+import gamedata.GameData;
 import gameobject.GameObject;
 import gameobject.Unit;
 import gameobject.city.Quarter;

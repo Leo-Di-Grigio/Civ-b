@@ -1,6 +1,6 @@
 package gameobject;
 
-import game.GameBroadcasting;
+import gamedata.GameBroadcasting;
 
 import java.io.IOException;
 import java.util.HashMap;

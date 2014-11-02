@@ -6,7 +6,7 @@ import java.io.IOException;
 import database.DB;
 import actions.Action.PlayerAction;
 import misc.Log;
-import game.GameData;
+import gamedata.GameData;
 import gameobject.GameObject;
 import gameobject.Unit;
 import gameobject.city.Quarter;

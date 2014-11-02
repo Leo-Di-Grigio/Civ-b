@@ -10,7 +10,7 @@ import actions.Action.PlayerAction;
 import algorithms.PathFinding;
 import database.ConstAction;
 import database.DB;
-import game.GameData;
+import gamedata.GameData;
 import gameobject.Unit;
 
 public class GameActions {

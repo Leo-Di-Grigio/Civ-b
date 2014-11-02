@@ -72,7 +72,7 @@ public class TaskLogic {
 		
 		if(client != null){
 			if(client.gameId != -1){
-				GamesMng.get(client.gameId).logic.removePlayer(task.clientId);
+				GamesMng.get(client.gameId).gamedata.removePlayer(task.clientId);
 			}
 			
 			client.disconnect();
@@ -98,7 +98,7 @@ public class TaskLogic {
 		if(arr != null && arr.length == 2){
 			int gameId = Integer.valueOf(arr[0]);
 			String playerName = arr[1];
-			GamesMng.get(gameId).logic.addPlayer(task.clientId, playerName);
+			GamesMng.get(gameId).gamedata.addPlayer(task.clientId, playerName);
 		}
 		else{
 			ClientPool.sendMsg(task.clientId, new Message(Prefix.GAME_JOIN_ERR, "no game selected or no playerName"));
@@ -110,34 +110,34 @@ public class TaskLogic {
 	}
 	
 	private static void requestGameLeave(Task task) throws IOException {
-		GamesMng.get(getGameId(task)).logic.removePlayer(task.clientId);
+		GamesMng.get(getGameId(task)).gamedata.removePlayer(task.clientId);
 	}
 
 	private static void requestGameData(Task task) throws IOException {
-		GamesMng.get(getGameId(task)).logic.sendGameData(task.clientId);
+		GamesMng.get(getGameId(task)).gamedata.sendGameData(task.clientId);
 	}
 	
 	private static void requestTeamCreate(Task task) throws IOException {
-		GamesMng.get(getGameId(task)).logic.addTeam(task.clientId, task.msg.data);
+		GamesMng.get(getGameId(task)).gamedata.addTeam(task.clientId, task.msg.data);
 	}
 	
 	private static void requestTeamChoose(Task task) throws IOException {
-		GamesMng.get(getGameId(task)).logic.teamChoose(task.clientId, task.msg.data);
+		GamesMng.get(getGameId(task)).gamedata.teamChoose(task.clientId, task.msg.data);
 	}
 	
 	private static void requestReadyCheck(Task task) throws IOException {
-		GamesMng.get(getGameId(task)).logic.playerReadyCheck(task.clientId);
+		GamesMng.get(getGameId(task)).gamedata.playerReadyCheck(task.clientId);
 	}
 	
 	private static void playerAction(Task task) throws IOException {
-		GamesMng.get(getGameId(task)).logic.addPlayerAction(task.clientId, task.msg.data);
+		GamesMng.get(getGameId(task)).gamedata.addPlayerAction(task.clientId, task.msg.data);
 	}
 	
 	private static void gameTurnEnd(Task task) throws IOException {
-		GamesMng.get(getGameId(task)).logic.gameTurnEnd(task.clientId);
+		GamesMng.get(getGameId(task)).gamedata.gameTurnEnd(task.clientId);
 	}
 	
 	private static void chatMsg(Task task) throws IOException {
-		GamesMng.get(getGameId(task)).logic.gameChat(task.clientId, task.msg.data);
+		GamesMng.get(getGameId(task)).gamedata.gameChat(task.clientId, task.msg.data);
 	}
 }

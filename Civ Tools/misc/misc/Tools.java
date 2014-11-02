@@ -78,7 +78,8 @@ public class Tools {
 		}
 	}
 	
-	public static String getTime(){
+	public static String getTime(long time){
+		date.setTime(time);
 		return dateFormat.format(date);
 	}
 }

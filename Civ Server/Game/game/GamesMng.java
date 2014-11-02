@@ -35,7 +35,7 @@ public class GamesMng {
 		str += games.size() + ":";
 		
 		for(Game game: games.values()){
-			str += game.id + ":" + game.title + ":" + game.logic.getState() + ":";
+			str += game.id + ":" + game.title + ":" + game.gamedata.getState() + ":";
 		}
 		
 		return str;
