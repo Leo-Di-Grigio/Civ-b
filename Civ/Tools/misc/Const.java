@@ -24,6 +24,7 @@ public class Const {
 	public static final String imgWindow = "window";
 	public static final String imgChat = "chat";
 	public static final String imgChatSelected = "chat_selected";
+	public static final String imgInventorySlot = "inventory_slot";
 	
 	// terrain atlas keys
 	public static final String imgTerrainWater = "terrain_water";
@@ -35,6 +36,7 @@ public class Const {
 	public static final String imgActionCityBuild = "action_citybuild";
 	public static final String imgActionBuildRecruit = "action_buildrecruit";
 	public static final String imgActionMine = "action_mine";
+	public static final String imgActionInventory = "action_inventory";
 	
 	public static final String imgButton = "button";
 	public static final String imgButtonSelected = "button_select";
@@ -53,4 +55,7 @@ public class Const {
 	public static final String imgMinimap = "minimap";
 	public static final String imgMinimapHeight = "minimap_height";
 	public static final String imgMinimapGeology = "minima_geology";
+	
+	// items
+	public static final String imgItemRecource = "item_recource";
 }

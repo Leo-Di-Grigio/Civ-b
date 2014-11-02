@@ -71,6 +71,10 @@ public class UnitsMng {
 					x = Integer.parseInt(arr[2]); 
 					y = Integer.parseInt(arr[3]); updPosition = true; 
 					break;
+					
+				case "clearway":
+					waypoints.removeWay(unitId);
+					break;
 			}
 			
 			if(updPosition){

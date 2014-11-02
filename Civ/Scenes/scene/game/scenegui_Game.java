@@ -19,6 +19,7 @@ import gui.elements.GuiElementPane;
 import gui.elements.GuiElementTable;
 import gui.elements.GuiElementTitle;
 import gui.elements.GuiElementWindow;
+import gui.elements.GuiElementInventory;
 
 public class scenegui_Game extends GUI {
 
@@ -48,6 +49,9 @@ public class scenegui_Game extends GUI {
 	// chat
 	public static final String uiChat = "UI_chat";
 	public static final String uiChatEntry = "UI_chatEntry";
+	
+	// inventory
+	public static final String uiInventory = "UI_Inventory";
 	
 	public scenegui_Game() {
 		super();
@@ -223,5 +227,13 @@ public class scenegui_Game extends GUI {
 		chatWindow.setLayer(2);
 		chatWindow.setTexture(Const.imgWindow);
 		this.add(chatWindow);
+		
+		GuiElementInventory inventory = new GuiElementInventory(uiInventory);
+		inventory.setPositionType(Enums.GuiPosition.BOTTOM_CENTER);
+		inventory.setPosition(0, -70);
+		inventory.setSize(330, 74);
+		inventory.setLayer(3);
+		inventory.setTexture(Const.imgWindow);
+		this.add(inventory);
 	}
 }

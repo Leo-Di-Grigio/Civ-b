@@ -88,8 +88,7 @@ public class GameActionsLogic {
 		Unit unit = (Unit)gamedata.gameObjects.getObject(action.objectId);
 		
 		if(unit.type == DB.unitAvatar && !unit.turnEnd && unit.movementPath == null && unit.movementPoints > 0){
-			unit.turnEnd = true;
-			
+			unit.turnEnd = true;			
 			Quarter quarter = new Quarter(unit.playerId, unit.x, unit.y);
 			gamedata.gameObjects.addObject(quarter, gamedata.broad);
 		}

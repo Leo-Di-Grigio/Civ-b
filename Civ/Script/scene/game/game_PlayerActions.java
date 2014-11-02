@@ -79,7 +79,7 @@ public class game_PlayerActions {
 					break;
 					
 				case DB.unitNovice:
-					unitSelectedRecruit(gui, gamedata, unitId);				
+					unitSelectedNovice(gui, gamedata, unitId);				
 					break;
 					
 				case DB.buildingQuarter:
@@ -129,13 +129,16 @@ public class game_PlayerActions {
 	private static void unitSelectedAvatar(GUI gui, GameData gamedata, int unitId){
 		buttonMoveTo(gui, gamedata); // 0
 		buttonMine(gui, gamedata, unitId); // 1
+		buttonInventory(gui, gamedata, unitId); // 4
 		buttonCityBuild(gui, gamedata, unitId); // 5
 	}
 	
-	private static void unitSelectedRecruit(GUI gui, GameData gamedata, int unitId){
+	private static void unitSelectedNovice(GUI gui, GameData gamedata, int unitId){
 		buttonMoveTo(gui, gamedata); // 0
+		buttonMine(gui, gamedata, unitId); // 1
+		buttonInventory(gui, gamedata, unitId); // 4
 	}
-	
+
 	private static void unitSelectedCity(GUI gui, GameData gamedata, int unitId){
 		
 	}
@@ -162,5 +165,14 @@ public class game_PlayerActions {
 		button1.setActionIcon(Const.imgActionMine);
 		button1.setVisible(true);
 		button1.setScript(new unit_Mine(gamedata, unitId));
+	}
+	
+	
+	private static void buttonInventory(GUI gui, GameData gamedata, int unitId) {
+		// action 4 - "inventory"
+		GuiElementButtonUnitAction button4 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton4);
+		button4.setActionIcon(Const.imgActionInventory);
+		button4.setVisible(true);
+		button4.setScript(new game_ShowInventory(gamedata, unitId));
 	}
 }

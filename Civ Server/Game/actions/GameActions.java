@@ -11,6 +11,7 @@ import algorithms.PathFinding;
 import database.ConstAction;
 import database.DB;
 import gamedata.GameData;
+import gameobject.GameObject;
 import gameobject.Unit;
 
 public class GameActions {
@@ -97,14 +98,29 @@ public class GameActions {
 		}
 	}
 	
-	private void actionCityBuild(int clientId, String [] arr) {
+	private void actionCityBuild(int clientId, String [] arr) throws IOException {
 		// key:(int)objectId
 		int objectId = Integer.parseInt(arr[1]);
+		
+		GameObject object = gamedata.gameObjects.getObject(objectId);
+		if(DB.isUnit(object.type)){
+			Unit unit = (Unit)object;
+			unit.movementPath = null;
+			gamedata.broad.sendToPlayerTeam(unit.playerId, unit.toMessageUpdate("clearway"));
+		}
+		
 		pool.addAction(clientId, new Action(PlayerAction.UNIT_QUARTER_BUILD, objectId));
 	}
 
-	private void actionMine(int clientId, String[] arr) {
+	private void actionMine(int clientId, String[] arr) throws IOException {
 		int objectId = Integer.parseInt(arr[1]);
+		GameObject object = gamedata.gameObjects.getObject(objectId);
+		
+		if(DB.isUnit(object.type)){
+			Unit unit = (Unit)object;
+			unit.movementPath = null;
+			gamedata.broad.sendToPlayerTeam(unit.playerId, unit.toMessageUpdate("clearway"));
+		}
 		pool.addAction(clientId, new Action(PlayerAction.UNIT_MINE, objectId));
 	}
 }

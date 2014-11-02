@@ -64,6 +64,9 @@ public class AssetsNative extends Assets {
 		// chat
 		addImage(Const.imgChat, Tile.getTile(Const.assetsNative + "gui/chat.png"));
 		addImage(Const.imgChatSelected, Tile.getTile(Const.assetsNative + "gui/chat_selected.png"));
+		
+		// inventory
+		addImage(Const.imgInventorySlot, Tile.getTile(Const.assetsNative + "gui/inventory_slot.png"));
 	}
 	
 	private void loadGreyTiles(){
@@ -147,6 +150,7 @@ public class AssetsNative extends Assets {
 		addImage(Const.imgActionCityBuild, Tile.getTile(Const.assetsNative + "actions/action_citybuild.png"));
 		addImage(Const.imgActionBuildRecruit, Tile.getTile(Const.assetsNative + "actions/action_buildrecruit.png"));
 		addImage(Const.imgActionMine, Tile.getTile(Const.assetsNative + "actions/action_mine.png"));
+		addImage(Const.imgActionInventory, Tile.getTile(Const.assetsNative + "actions/action_inventory.png"));
 	}
 	
 	private void loadFont() throws FontFormatException, IOException {
@@ -156,7 +160,11 @@ public class AssetsNative extends Assets {
 			ge.registerFont(font);
 		}
 	}
-	
+
+	private void loadItems() {
+		addImage(Const.imgItemRecource, Tile.getTile(Const.assetsNative + "items/recource.png"));
+	}
+
 	@Override
 	public void init() throws FontFormatException, IOException  {		
 		loadGui();
@@ -167,12 +175,13 @@ public class AssetsNative extends Assets {
 		loadUnits();
 		loadActions();
 		loadFont();
+		loadItems();
 		
 		System.gc();
 		Log.debug("Assets Native tiles loaded: " + tiles.size());
 		Log.debug("Assets Native cursors loaded: " + cursors.size());
 	}
-
+	
 	@Override
 	public Image getImage(String name) {
 		if(tiles.containsKey(name)){

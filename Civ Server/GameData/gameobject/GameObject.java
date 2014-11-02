@@ -73,6 +73,9 @@ abstract public class GameObject implements Sentble {
 			case "type":
 				data += type;
 				break;
+				
+			case "clearway":
+				break;
 		}
 
 		return new Message(Prefix.UPD_UNIT, data);

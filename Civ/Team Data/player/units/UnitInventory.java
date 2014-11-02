@@ -13,7 +13,7 @@ public class UnitInventory implements Sentble {
 		
 	}
 	
-	class Item {
+	public class Item {
 		
 		public int type;
 		public int value;

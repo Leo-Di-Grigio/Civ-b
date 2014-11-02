@@ -5,6 +5,7 @@ import java.util.HashSet;
 import database.DB;
 import gui.GUI;
 import gui.elements.GuiElementIcon;
+import gui.elements.GuiElementInventory;
 import gui.elements.GuiElementPane;
 import gui.elements.GuiElementTable;
 import gui.elements.GuiElementTitle;
@@ -29,7 +30,7 @@ public class game_SelectNode extends Script {
 		
 		Log.debug("Execute game_SelectNode (" + nodeX + "," + nodeY + ")");
 
-		if(nodeY >= 0 && nodeY < mapY){			
+		if(nodeY >= 0 && nodeY < mapY){
 			Painter.addTask(new Task(Enums.Task.GAME_SELECT_NODE, "" + nodeX +":" + nodeY + ":" + gamedata.clientId));
 		}
 		else{
@@ -39,6 +40,11 @@ public class game_SelectNode extends Script {
 
 	public static void updateGuiData(GUI gui, GameData gamedata, String data) {
 		GuiElementPane pane = (GuiElementPane)gui.get(scenegui_Game.uiInfopane);
+		
+		GuiElementInventory window = (GuiElementInventory)gui.get(scenegui_Game.uiInventory);
+		if(window != null){
+			window.setVisible(false);
+		}
 		
 		if(pane != null){
 			GuiElementIcon icon = (GuiElementIcon)pane.getElement(scenegui_Game.uiInfopaneIcon);
