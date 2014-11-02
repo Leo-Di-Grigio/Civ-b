@@ -30,91 +30,99 @@ public class ScriptsNetwork {
 		switch(msg.prefix){
 		
 			// normal connection
-			case CONNECTION_OK:{
+			case CONNECTION_OK:
 				Network.sendMsg(new Message(Prefix.REQ_GAMES_LIST, null));
-			} break;
+				break;
 			
 			// connection err, not valid game version
-			case CONNECTION_ERR:{
+			case CONNECTION_ERR:
 				Network.sendMsg(new Message(Prefix.REQ_DISCONNECT, null));
-			} break;
+				break;
 			
 			// games list in Hub
-			case DATA_GAMES_LIST:{
+			case DATA_GAMES_LIST:
 				Painter.addTask(new Task(Enums.Task.DATA_GAMELIST, msg.data));
-			} break;
+				break;
 			
 			// join to the game
-			case DATA_GAME:{
+			case DATA_GAME:
 				Painter.addTask(new Task(Enums.Task.GAME_JOIN_SUCCESS, msg.data));
-			} break;
+				break;
 			
-			case GAME_JOIN_ERR:{
+			case GAME_JOIN_ERR:
 				Painter.addTask(new Task(Enums.Task.GAME_JOIN_FAILED, msg.data));
-			} break;
+				break;
 			
-			case DEBUG:{
+			case DEBUG:
 				Log.debug("MSG: " + msg.prefix + ":" + msg.data);
-			} break;
+				break;
 			
 			// Data objects
-			case OBJ_PLAYER:{
+			case OBJ_PLAYER:
 				Painter.addTask(new Task(Enums.Task.GAME_OBJ_PLAYER, msg.data));
-			} break;
+				break;
 			
-			case OBJ_TEAM:{
+			case OBJ_TEAM:
 				Painter.addTask(new Task(Enums.Task.GAME_OBJ_TEAM, msg.data));
-			} break;
+				break;
 			
-			case OBJ_UNIT:{
+			case OBJ_UNIT:
 				Painter.addTask(new Task(Enums.Task.GAME_OBJ_UNIT, msg.data));
-			} break;
+				break;
 			
+			case OBJ_IVENTORY:
+				Painter.addTask(new Task(Enums.Task.GAME_OBJ_INVENTORY, msg.data));
+				break;
+				
 			// Data update
-			case UPD_PLAYER:{
+			case UPD_PLAYER:
 				Painter.addTask(new Task(Enums.Task.GAME_UPD_PLAYER, msg.data));
-			} break;
+				break;
 			
-			case UPD_TEAM:{
+			case UPD_TEAM:
 				Painter.addTask(new Task(Enums.Task.GAME_UPD_TEAM, msg.data));
-			} break;
+				break;
 			
-			case UPD_UNIT:{
+			case UPD_UNIT:
 				Painter.addTask(new Task(Enums.Task.GAME_UPD_UNIT, msg.data));
-			} break;
+				break;
+				
+			case UPD_INVENTORY:
+				Painter.addTask(new Task(Enums.Task.GAME_UPD_INVENTORY, msg.data));
+				break;
 			
 			// Data del
-			case DEL_PLAYER:{
+			case DEL_PLAYER:
 				Painter.addTask(new Task(Enums.Task.GAME_DEL_PLAYER, msg.data));
-			} break;
+				break;
 			
-			case DEL_TEAM:{
+			case DEL_TEAM:
 				Painter.addTask(new Task(Enums.Task.GAME_DEL_TEAM, msg.data));
-			} break;
+				break;
 			
-			case DEL_UNIT:{
+			case DEL_UNIT:
 				Painter.addTask(new Task(Enums.Task.GAME_DEL_UNIT, msg.data));
-			} break;
+				break;
 			
-			case GAME_BEGIN:{
+			case GAME_BEGIN:
 				Painter.addTask(new Task(Enums.Task.GAME_BEGIN, msg.data));
-			} break;
+				break;
 			
-			case PLAYER_ACTION:{
+			case PLAYER_ACTION:
 				Painter.addTask(new Task(Enums.Task.PLAYER_ACTION, msg.data));
-			} break;
+				break;
 			
-			case GAME_TURN: {
+			case GAME_TURN:
 				Painter.addTask(new Task(Enums.Task.GAME_TURN, msg.data));
-			} break;
+				break;
 			
-			case CHAT_MSG: {
+			case CHAT_MSG:
 				Painter.addTask(new Task(Enums.Task.CHAT_MSG, msg.data));
-			} break;
+				break;
 			
-			default:{
+			default:
 				Log.debug("MSG: " + msg.data);
-			} break;
+				break;
 		}
 	}
 }

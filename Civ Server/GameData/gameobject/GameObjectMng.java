@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import database.DB;
 import net.Message;
 import net.Message.Prefix;
 import map.GameMap;
@@ -35,7 +36,14 @@ public class GameObjectMng {
 		playerObjects.get(object.playerId).add(object.id);
 		map.addObject(object.x, object.y, object.id);
 		
-		broad.sendToPlayers(object.toMessage());
+		if(DB.isUnit(object.type)){
+			Unit unit = (Unit)object;
+			broad.sendToPlayers(unit.toMessage());
+			broad.sendToPlayer(unit.playerId, unit.inventory.toMessage());
+		}
+		else{
+			broad.sendToPlayers(object.toMessage());
+		}
 	}
 	
 	public void addObjects(HashSet<GameObject> objectSet, GameBroadcasting broad) throws IOException{

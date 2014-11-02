@@ -63,11 +63,13 @@ public class Enums {
 		GAME_OBJ_PLAYER, //
 		GAME_OBJ_TEAM,   //
 		GAME_OBJ_UNIT,
+		GAME_OBJ_INVENTORY,
 		
 		// Data update
 		GAME_UPD_PLAYER,
 		GAME_UPD_TEAM,
 		GAME_UPD_UNIT,
+		GAME_UPD_INVENTORY,
 		
 		// Data delete
 		GAME_DEL_PLAYER,
@@ -85,7 +87,7 @@ public class Enums {
 		NETWORK_MESSAGE_READ,
 		
 		// Player action
-		UNIT_ACTION;
+		UNIT_ACTION,
 	}
 	
 	public static enum GuiPosition {

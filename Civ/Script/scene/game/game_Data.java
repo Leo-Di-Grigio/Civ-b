@@ -116,4 +116,24 @@ public class game_Data {
 				break;
 		}
 	}
+
+	public static void objInventory(GUI gui, GameData gamedata, String data) {
+		String [] arr = data.split(":");
+		int unitId = Integer.parseInt(arr[0]);
+		Unit unit = gamedata.units.getUnit(unitId);
+		
+		if(unit != null && unit.inventory != null){
+			unit.inventory.buildObj(arr);
+		}
+	}
+
+	public static void updInventory(GUI gui, GameData gamedata, String data) {
+		String [] arr = data.split(":");
+		int unitId = Integer.parseInt(arr[0]);
+		Unit unit = gamedata.units.getUnit(unitId);
+		
+		if(unit != null && unit.inventory != null){
+			unit.inventory.updateObj(arr);
+		}
+	}
 }

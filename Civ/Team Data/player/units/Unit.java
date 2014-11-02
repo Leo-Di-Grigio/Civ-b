@@ -24,8 +24,12 @@ public class Unit implements Sentble, Drawble {
 	public int y;
 	public int type;
 
+	// items
+	public UnitInventory inventory;
+	
 	public Unit(String data){
 		String [] arr = data.split(":");
+		this.inventory = new UnitInventory();
 		buildObj(arr);
 	}
 

@@ -14,7 +14,12 @@ public class DB {
 	// cities
 	public static final int buildingQuarter = 1000;
 	
-
+	// items
+	public static final int itemRecource = 0;
+	
+	// expirience
+	public static final int expForMine = 10;
+	
 	// (const)food for new novice unit
 	public static final int foodForNovice = 20; // how many food need for spawn new novice
 	
@@ -134,10 +139,36 @@ public class DB {
 	}
 
 	public static int getUnitHP(int unitType) {
-		return 0;
+		switch(unitType){
+			case unitAvatar: return 30;
+			case unitNovice: return 30;
+		
+			default: return 0;
+		}
 	}
 
 	public static int getUnitPower(int unitType) {
-		return 0;
+		switch(unitType){
+			case unitAvatar: return 6;
+			case unitNovice: return 6;
+		
+			default: return 0;
+		}
+	}
+
+	public static int getInventorySize(int unitType) {
+		switch(unitType){
+			case unitAvatar: return 5;
+			case unitNovice: return 4;
+			
+			default: return 0;
+		}
+	}
+
+	public static int getItemIcon(int itemType) {
+		switch (itemType) {
+			case itemRecource: return 1;
+			default: return 0;
+		}		
 	}
 }

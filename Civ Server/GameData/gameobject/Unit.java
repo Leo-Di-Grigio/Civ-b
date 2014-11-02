@@ -2,7 +2,6 @@ package gameobject;
 
 import java.awt.Point;
 import java.util.ArrayList;
-
 import database.DB;
 import gameobject.unit.stats.UnitSkills;
 import gameobject.unit.stats.UnitStats;
@@ -18,12 +17,16 @@ public class Unit extends GameObject {
 	public ArrayList<Point> movementPath;
 	public int movementPoints;
 	
+	// expirience
+	public int exp;
+	public int level;
+	
 	public Unit(int playerId, int type, int x, int y) {
 		super(playerId, type, x, y);
 
 		this.skills = new UnitSkills();
 		this.stats = new UnitStats(this.type);
-		this.inventory = new UntiInventory();
+		this.inventory = new UntiInventory(this.id, DB.getInventorySize(this.type));
 		
 		// movement
 		this.movementPath = null;

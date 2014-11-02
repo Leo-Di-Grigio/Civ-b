@@ -119,6 +119,10 @@ public class scenedata_Game extends SceneData {
 			case GAME_OBJ_UNIT:
 				game_Data.objUnit(gui, gamedata, (String)task.data);
 				break;
+				
+			case GAME_OBJ_INVENTORY:
+				game_Data.objInventory(gui, gamedata, (String)task.data);
+				break;
 					
 			case GAME_UPD_PLAYER:
 				game_Data.updPlayer(gui, gamedata, (String)task.data);
@@ -130,6 +134,10 @@ public class scenedata_Game extends SceneData {
 					
 			case GAME_UPD_UNIT:
 				game_Data.updUnit(gui, gamedata, (String)task.data);
+				break;
+				
+			case GAME_UPD_INVENTORY:
+				game_Data.updInventory(gui, gamedata, (String)task.data);
 				break;
 				
 			case GAME_DEL_PLAYER:

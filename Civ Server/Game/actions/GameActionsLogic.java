@@ -1,5 +1,7 @@
 package actions;
 
+import items.Item;
+
 import java.awt.Point;
 import java.io.IOException;
 
@@ -106,11 +108,25 @@ public class GameActionsLogic {
 	}
 	
 
-	private void unitMine(Action action) {
+	private void unitMine(Action action) throws IOException {
 		GameObject object = gamedata.gameObjects.getObject(action.objectId);
 		
-		if(object != null){
-			// 
+		if(object != null && !object.turnEnd && DB.isUnit(object.type)){
+			Unit unit = (Unit)object;
+			unit.turnEnd = true;
+			
+			// digg resource
+			int recourceType = gamedata.map.geology[unit.x][unit.y];
+			Item item = new Item(DB.itemRecource, recourceType);
+			
+			if(unit.inventory.addItem(item)){
+				// success
+				unit.exp += DB.expForMine;
+				gamedata.broad.sendToPlayer(unit.playerId, unit.inventory.toMessageUpdate("items"));
+			}
+			else{
+				// inventory is full
+			}
 		}
 	}
 	
