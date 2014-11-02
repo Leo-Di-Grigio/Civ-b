@@ -132,4 +132,12 @@ public class DB {
 			default: return 0;
 		}
 	}
+
+	public static int getUnitHP(int unitType) {
+		return 0;
+	}
+
+	public static int getUnitPower(int unitType) {
+		return 0;
+	}
 }

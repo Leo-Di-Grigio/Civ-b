@@ -22,7 +22,7 @@ public class Unit extends GameObject {
 		super(playerId, type, x, y);
 
 		this.skills = new UnitSkills();
-		this.stats = new UnitStats();
+		this.stats = new UnitStats(this.type);
 		this.inventory = new UntiInventory();
 		
 		// movement
