@@ -6,9 +6,11 @@ public class Action {
 	
 	public static enum PlayerAction {
 		UNIT_MOVE_TO, 
-		UNIT_CITY_BUILD, 
+		UNIT_QUARTER_BUILD, 
 		UNIT_BUILD_UNIT, 
-		UNIT_MINE,
+		UNIT_MINE, 
+		
+		QUARTER_SPAWN_NOVICE,
 	};
 	
 	// id
@@ -37,11 +39,15 @@ public class Action {
 		this(prefix);
 		
 		switch (prefix) {
-			case UNIT_CITY_BUILD:
+			case UNIT_QUARTER_BUILD:
 				this.objectId = field;
 				break;
 			
 			case UNIT_MINE:
+				this.objectId = field;
+				break;
+			
+			case QUARTER_SPAWN_NOVICE:
 				this.objectId = field;
 				break;
 				

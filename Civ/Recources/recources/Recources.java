@@ -61,7 +61,7 @@ public class Recources {
 			case DB.unitAvatar:
 				return getImage(Const.imgUnitAvatar);
 				
-			case DB.buildingCity:
+			case DB.buildingQuarter:
 				return getImage(Const.imgUnitCity);
 				
 			case DB.unitNovice:

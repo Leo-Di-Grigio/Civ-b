@@ -12,7 +12,11 @@ public class DB {
 	public static final int unitNovice = 2;
 	
 	// cities
-	public static final int buildingCity = 1000;
+	public static final int buildingQuarter = 1000;
+	
+
+	// (const)food for new novice unit
+	public static final int foodForNovice = 20; // how many food need for spawn new novice
 	
 	public static ToolsEnums.UnitMovementType getMovementType(int unitType){
 		
@@ -62,7 +66,7 @@ public class DB {
 			case unitNovice: return "Novice";
 			
 			// city
-			case buildingCity: return "City";
+			case buildingQuarter: return "City";
 			case unitWaypoint: return "misc_waypoint";
 		
 			// null
@@ -80,12 +84,52 @@ public class DB {
 		}
 	}
 	
-	public static boolean isBuildint(int objectType){
-		if(objectType >= 1000){
+	public static boolean isBuilding(int objectType){
+		if(objectType > 1000){
 			return true;
 		}
 		else{
 			return false;
+		}
+	}
+	
+	public static boolean isQuarter(int objectType){
+		if(objectType == buildingQuarter){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public static int getFoodIncrease(int unitType) {
+		switch(unitType){
+			case buildingQuarter: return 2;
+				
+			default: return 0;
+		}
+	}
+
+	public static int getScinceIncrease(int unitType) {
+		switch(unitType){
+			case buildingQuarter: return 0;
+		
+			default: return 0;
+		}
+	}
+
+	public static int getCultureIncrease(int unitType) {
+		switch(unitType){
+			case buildingQuarter: return 0;
+		
+			default: return 0;
+		}
+	}
+
+	public static int getWorkersCapacity(int unitType) {		
+		switch(unitType){
+			
+			default: return 0;
 		}
 	}
 }

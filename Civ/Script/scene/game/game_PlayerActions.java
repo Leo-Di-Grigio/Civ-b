@@ -3,7 +3,6 @@ package scene.game;
 import player.units.Unit;
 import recources.Recources;
 import scenedata.game.GameData;
-import script.unit.unit_BuildRecruit;
 import script.unit.unit_CityBuild;
 import script.unit.unit_Mine;
 import script.unit.unit_MoveTo;
@@ -83,7 +82,7 @@ public class game_PlayerActions {
 					unitSelectedRecruit(gui, gamedata, unitId);				
 					break;
 					
-				case DB.buildingCity:
+				case DB.buildingQuarter:
 					unitSelectedCity(gui, gamedata, unitId);
 					break;
 					
@@ -138,7 +137,7 @@ public class game_PlayerActions {
 	}
 	
 	private static void unitSelectedCity(GUI gui, GameData gamedata, int unitId){
-		buttonCityBuildRecruit(gui, gamedata, unitId); // 0
+		
 	}
 	
 	private static void buttonMoveTo(GUI gui, GameData gamedata){
@@ -155,14 +154,6 @@ public class game_PlayerActions {
 		button5.setActionIcon(Const.imgActionCityBuild);
 		button5.setVisible(true);
 		button5.setScript(new unit_CityBuild(gamedata, unitId));
-	}
-	
-	private static void buttonCityBuildRecruit(GUI gui, GameData gamedata, int unitId){
-		// action 0 - "Build Recruit"
-		GuiElementButtonUnitAction button0 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton0);
-		button0.setActionIcon(Const.imgActionBuildRecruit);
-		button0.setVisible(true);
-		button0.setScript(new unit_BuildRecruit(gamedata, unitId));
 	}
 	
 	private static void buttonMine(GUI gui, GameData gamedata, int unitId){

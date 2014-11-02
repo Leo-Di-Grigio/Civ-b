@@ -12,6 +12,6 @@ public class Building extends GameObject {
 		super(playerId, type, x, y);
 
 		this.skills = new BuildingSkills();
-		this.stats = new BuildingStats();
+		this.stats = new BuildingStats(this.type);
 	}
 }

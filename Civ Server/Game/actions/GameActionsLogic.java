@@ -9,7 +9,8 @@ import misc.Log;
 import game.GameData;
 import gameobject.GameObject;
 import gameobject.Unit;
-import gameobject.city.City;
+import gameobject.city.Quarter;
+import gameobject.unit.Novice;
 
 public class GameActionsLogic {
 	
@@ -32,8 +33,8 @@ public class GameActionsLogic {
 					unitMoveTo(action);
 					break;
 					
-				case UNIT_CITY_BUILD:
-					unitCityBuild(action);
+				case UNIT_QUARTER_BUILD:
+					unitQuarterBuild(action);
 					break;
 					
 				case UNIT_BUILD_UNIT:
@@ -42,6 +43,10 @@ public class GameActionsLogic {
 				
 				case UNIT_MINE:
 					unitMine(action);
+					break;
+					
+				case QUARTER_SPAWN_NOVICE:
+					quarterSpawnNovice(action);
 					break;
 			}
 		}
@@ -77,14 +82,14 @@ public class GameActionsLogic {
 		}
 	}
 	
-	private void unitCityBuild(Action action) throws IOException {
+	private void unitQuarterBuild(Action action) throws IOException {
 		Unit unit = (Unit)gamedata.gameObjects.getObject(action.objectId);
 		
 		if(unit.type == DB.unitAvatar && !unit.turnEnd && unit.movementPath == null && unit.movementPoints > 0){
 			unit.turnEnd = true;
 			
-			City city = new City(unit.playerId, unit.x, unit.y);
-			gamedata.gameObjects.addObject(city, gamedata.broad);
+			Quarter quarter = new Quarter(unit.playerId, unit.x, unit.y);
+			gamedata.gameObjects.addObject(quarter, gamedata.broad);
 		}
 	}
 	
@@ -92,7 +97,7 @@ public class GameActionsLogic {
 		// build new unit
 		GameObject object = gamedata.gameObjects.getObject(action.objectId);
 		
-		if(object != null && object.type == DB.buildingCity && !object.turnEnd){
+		if(object != null && object.type == DB.buildingQuarter && !object.turnEnd){
 			object.turnEnd = true;
 			
 			Unit newUnit = new Unit(object.playerId, action.objectType, object.x, object.y);
@@ -106,6 +111,18 @@ public class GameActionsLogic {
 		
 		if(object != null){
 			// 
+		}
+	}
+	
+	private void quarterSpawnNovice(Action action) throws IOException {
+		Quarter quarter = (Quarter)gamedata.gameObjects.getObject(action.objectId);
+		
+		if(quarter != null){
+			if(quarter.food >= DB.foodForNovice){
+				quarter.food -= DB.foodForNovice; // pay food
+				Novice novice = new Novice(action.playerId, quarter.x, quarter.y); // spawn novice
+				gamedata.gameObjects.addObject(novice, gamedata.broad);
+			}
 		}
 	}
 }

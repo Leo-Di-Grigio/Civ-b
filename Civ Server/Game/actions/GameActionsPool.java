@@ -1,6 +1,7 @@
 package actions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import misc.Log;
 import game.GameData;
 import gameobject.GameObject;
 import gameobject.Unit;
+import gameobject.city.Quarter;
 
 public class GameActionsPool {
 	
@@ -161,6 +163,18 @@ public class GameActionsPool {
 				if(DB.isUnit(object.type)){
 					Unit unit = (Unit)object;
 					unit.resetMovementPoints();
+				}
+				
+				if(DB.isQuarter(object.type)){
+					// update quarter stats
+					Quarter quarter = (Quarter)object;
+					quarter.updateRecources();
+					
+					// get new quarter actions
+					ArrayList<Action> newActions = quarter.getActions();
+					for(Action action: newActions){
+						addAction(quarter.playerId, action);
+					}
 				}
 			}
 		}

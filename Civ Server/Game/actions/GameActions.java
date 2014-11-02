@@ -62,10 +62,6 @@ public class GameActions {
 				actionCityBuild(clientId, arr);
 				break;
 				
-			case ConstAction.cityBuildUnit:
-				actionBuildUnit(clientId, arr);
-				break;
-				
 			case ConstAction.mine:
 				actionMine(clientId, arr);
 				break;
@@ -104,15 +100,9 @@ public class GameActions {
 	private void actionCityBuild(int clientId, String [] arr) {
 		// key:(int)objectId
 		int objectId = Integer.parseInt(arr[1]);
-		pool.addAction(clientId, new Action(PlayerAction.UNIT_CITY_BUILD, objectId));
+		pool.addAction(clientId, new Action(PlayerAction.UNIT_QUARTER_BUILD, objectId));
 	}
 
-	private void actionBuildUnit(int clientId, String [] arr){
-		int objectId = Integer.parseInt(arr[1]);
-		int unitType = Integer.parseInt(arr[2]);
-		pool.addAction(clientId, new Action(PlayerAction.UNIT_BUILD_UNIT, objectId, unitType));
-	}
-	
 	private void actionMine(int clientId, String[] arr) {
 		int objectId = Integer.parseInt(arr[1]);
 		pool.addAction(clientId, new Action(PlayerAction.UNIT_MINE, objectId));
