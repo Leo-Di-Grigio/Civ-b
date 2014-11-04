@@ -12,8 +12,11 @@ public class Const {
 	public static final boolean debug = true;
 	public static final boolean service = true;
 	
-	// game settings
+	// game map settings
 	public static final int playersMax = 128;
 	public static final int mapSizeX = 150;
 	public static final int mapSizeY = 100;
+
+	public static int tMin = -20;
+	public static int tMax = 30;
 }

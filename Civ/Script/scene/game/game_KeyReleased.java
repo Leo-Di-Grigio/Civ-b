@@ -72,6 +72,10 @@ public class game_KeyReleased extends ScriptGui {
 					map.setMinimapTexture(Recources.getImage(Const.imgMinimapGeology));
 					break;
 					
+				case TERMAL:
+					map.setMinimapTexture(Recources.getImage(Const.imgMinimapTemperature));
+					break;
+					
 				default:
 					map.setMinimapTexture(Recources.getImage(Const.imgMinimap));
 					break;

@@ -27,6 +27,9 @@ public class Node implements Drawble {
 	// Geology
 	public byte geology;
 	
+	// Climat
+	public int termal; // temperature
+	
 	public Node() {
 		units = new HashSet<Integer>();
 		waypoint = new HashSet<Integer>();

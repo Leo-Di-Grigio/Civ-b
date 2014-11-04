@@ -13,11 +13,11 @@ public class GamesMng {
 		games = new HashMap<Integer, Game>();
 		
 		// test
-		add(new Game("Test 1 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax, "testdb.db"));
-		add(new Game("Test 2 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax, "testdb.db"));
-		add(new Game("Test 3 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax, "testdb.db"));
-		add(new Game("Test 4 ", Const.mapSizeX, Const.mapSizeY, 1, "testdb.db"));
-		add(new Game("Test 5 ", Const.mapSizeX, Const.mapSizeY, 0, "testdb.db"));
+		add(new Game("Test 1 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax, Const.tMin, Const.tMax, "testdb.db"));
+		add(new Game("Test 2 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax, Const.tMin, Const.tMax, "testdb.db"));
+		add(new Game("Test 3 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax, Const.tMin, Const.tMax, "testdb.db"));
+		add(new Game("Test 4 ", Const.mapSizeX, Const.mapSizeY, 1, Const.tMin, Const.tMax, "testdb.db"));
+		add(new Game("Test 5 ", Const.mapSizeX, Const.mapSizeY, 0, Const.tMin, Const.tMax, "testdb.db"));
 	}
 	
 	public static void add(Game game){

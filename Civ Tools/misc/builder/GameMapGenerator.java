@@ -67,6 +67,20 @@ public class GameMapGenerator {
 		return ret;
 	}
 	
+
+	public static byte [][] buildTermalMap(long seed, int sizeX, int sizeY, int tMin, int tMax) {
+		rand = new Random(seed);
+		byte[][] termal = new byte[sizeX][sizeY];
+		
+		for(int i = 0; i < sizeX; ++i){
+			for(int j = 0; j < sizeY; ++j){
+				termal[i][j] = (byte)Tools.rand(tMin, tMax, rand);
+			}
+		}
+		
+		return termal;
+	}
+	
 	public static void generateImageLog(byte [][] height, int sizeX, int sizeY, String fileName) {
 		BufferedImage img = new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_INT_RGB);
 		int rgb = 0;

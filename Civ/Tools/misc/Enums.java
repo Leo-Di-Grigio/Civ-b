@@ -121,7 +121,8 @@ public class Enums {
 	public static enum MapDrawMode {
 		HEIGHT,
 		GEOLOGY,
-		TERRAIN;
+		TERRAIN, 
+		TERMAL,
 	}
 	
 	public static enum TableMetadata {

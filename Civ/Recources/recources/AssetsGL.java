@@ -37,4 +37,9 @@ public class AssetsGL extends Assets {
 	public Font getFont() {
 		return null;
 	}
+
+	@Override
+	public void loadTemperatureColor(int tMin, int tMax) {
+		
+	}
 }

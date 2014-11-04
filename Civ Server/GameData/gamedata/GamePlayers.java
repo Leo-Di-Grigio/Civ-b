@@ -36,7 +36,7 @@ public class GamePlayers {
 		return list.size();
 	}
 	
-	public int add(int clientId, String playerName, long gameSeed, int sizeX, int sizeY, GameBroadcasting broad) throws IOException{
+	public int add(int clientId, String playerName, long gameSeed, int sizeX, int sizeY, int tMin, int tMax, GameBroadcasting broad) throws IOException{
 		if(list.size() < playersMax){
 			if(list.containsKey(clientId)){
 				Log.err("Player already in game");
@@ -56,7 +56,8 @@ public class GamePlayers {
 				broad.sendToPlayers(player.toMessage());
 				
 				// send data
-				ClientPool.sendMsg(clientId, new Message(Prefix.DATA_GAME, "" + gameSeed + ":" + sizeX + ":" + sizeY + ":" + clientId));
+				String dataGame = gameSeed + ":" + sizeX + ":" + sizeY + ":" + clientId + ":" + tMin + ":" + tMax;
+				ClientPool.sendMsg(clientId, new Message(Prefix.DATA_GAME, dataGame));
 				return player.id;
 			}
 		}

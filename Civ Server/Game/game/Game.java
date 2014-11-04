@@ -18,7 +18,7 @@ public class Game {
 	public GameData gamedata;
 	private GameDB db;
 	
-	public Game(String title, int mapSizeX, int mapSizeY, int playersMax, String dbPath) throws IOException{
+	public Game(String title, int mapSizeX, int mapSizeY, int playersMax, int tMin, int tMax, String dbPath) throws IOException{
 		this.id = ID++;
 		this.gameSeed = System.currentTimeMillis();
 		this.title = title;
@@ -28,7 +28,7 @@ public class Game {
 		
 		if(db.connect()){
 			Log.service("Game created. Name: " + this.title + " playersMax: " + playersMax);
-			gamedata = new GameData(id, gameSeed, mapSizeX, mapSizeY, playersMax, db);
+			gamedata = new GameData(id, gameSeed, mapSizeX, mapSizeY, playersMax, tMin, tMax, db);
 		}
 		else{
 			Log.service("Game creating error. DB \"" + db.dbFilePath + "\" is not found.");

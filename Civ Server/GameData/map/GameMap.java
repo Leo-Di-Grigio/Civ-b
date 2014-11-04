@@ -12,16 +12,21 @@ public class GameMap {
 	public long seed;
 	public int sizeX = 0;
 	public int sizeY = 0;
+	public int tMin = 0;
+	public int tMax = 0;
 	
 	// layers
 	private Node [][] map;
 	public  byte [][] height;
 	public  byte [][] geology;
+	public  byte [][] termal;
 	
-	public GameMap(long seed, int sizeX, int sizeY) {
+	public GameMap(long seed, int sizeX, int sizeY, int tMin, int tMax) {
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		this.seed = seed;
+		this.tMin = tMin;
+		this.tMax = tMax;
 		
 		buildMap();
 	}
@@ -31,12 +36,14 @@ public class GameMap {
 		
 		height  = GameMapGenerator.buildHeightMap(seed, sizeX, sizeY);
 		geology = GameMapGenerator.buildGeologyMap(seed, sizeX, sizeY);
+		termal  = GameMapGenerator.buildTermalMap(seed, sizeX, sizeY, tMin, tMax);
 		
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){
 				map[i][j] = new Node();
 				map[i][j].height = height[i][j];
 				map[i][j].geology = geology[i][j];
+				map[i][j].termal = termal[i][j];
 			}
 		}
 		

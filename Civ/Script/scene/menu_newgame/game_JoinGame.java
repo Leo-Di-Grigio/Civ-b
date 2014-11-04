@@ -22,9 +22,11 @@ public class game_JoinGame extends Script {
 		int mapSizeX = Integer.parseInt(info[1]);
 		int mapSizeY = Integer.parseInt(info[2]);
 		int playerId = Integer.parseInt(info[3]); // self ID for correct unit selecting and contol
+		int tMin = Integer.parseInt(info[4]);
+		int tMax = Integer.parseInt(info[5]);
 		
 		// prepare GAME scene
-		GameData gamedata = new GameData(playerId, seed, mapSizeX, mapSizeY);
+		GameData gamedata = new GameData(playerId, seed, mapSizeX, mapSizeY, tMin, tMax);
 		
 		scene_Prepare prepeare = new scene_Prepare(gamedata);
 		scene_Game scene = new scene_Game(gamedata);

@@ -11,6 +11,9 @@ public class Node {
 	// Units data
 	public HashSet<Integer> gameObjects;
 	
+	// temperature
+	public byte termal = 0;
+	
 	public Node(){
 		gameObjects = new HashSet<Integer>();
 	}

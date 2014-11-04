@@ -93,6 +93,7 @@ public class AssetsNative extends Assets {
 
 	private void loadGeologyTiles() {
 		int rgb = 0;
+		
 		for(int i = 0; i < 128; ++i){
 			BufferedImage img = new BufferedImage(32, 32, BufferedImage.TYPE_INT_RGB);
 			
@@ -113,6 +114,60 @@ public class AssetsNative extends Assets {
 			
 			addImage("geology"+i, new Tile(img));
 		}
+	}	
+	
+	private void loadTermalTiles(int tMin, int tMax) {
+		int tic = Math.abs(tMax - tMin + 5) / 5;
+		int colorTic = 255/tic;
+		
+		int t = tMin;
+		int r = 255;
+		int g = 0;
+		int b = 0;
+		
+		// r,0,b -> 0,0,b
+		for(int i = 0; i < tic; ++i){
+			r -= colorTic;
+			setColor(r, g, b, t++);
+		}
+		
+		// 0,0,b -> 0,g,b
+		for(int i = 0; i < tic; ++i){
+			g += colorTic;
+			setColor(r, g, b, t++);
+		}
+		
+		// 0,g,b -> 0,g,0
+		for(int i = 0; i < tic; ++i){
+			b -= colorTic;
+			setColor(r, g, b, t++);
+		}
+		
+		// 0,g,0 -> r,g,0
+		for(int i = 0; i < tic; ++i){
+			r += colorTic;
+			setColor(r, g, b, t++);
+		}
+		// r,g,0 -> r,0,0
+		for(int i = 0; i < tic; ++i){
+			g -= colorTic;
+			setColor(r, g, b, t++);
+		}
+	}
+	
+	private void setColor(int r, int g, int b, int t){
+		BufferedImage img = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
+		int a = 48;
+		int col = (a << 24) + (r << 16) + (g << 8) + b;
+		
+		for(int x = 0; x < 32; ++x){
+			for(int y = 0; y < 32; ++y){
+				img.setRGB(x, y, col);
+			}
+		}
+		
+		addImage("temp"+t, new Tile(img));
+		Log.debug("temp"+t);
 	}
 	
 	private void loadCursors(){
@@ -180,6 +235,11 @@ public class AssetsNative extends Assets {
 		System.gc();
 		Log.debug("Assets Native tiles loaded: " + tiles.size());
 		Log.debug("Assets Native cursors loaded: " + cursors.size());
+	}
+	
+	@Override
+	public void loadTemperatureColor(int tMin, int tMax) {
+		loadTermalTiles(tMin, tMax);
 	}
 	
 	@Override

@@ -54,7 +54,8 @@ public class Const {
 	// minimap
 	public static final String imgMinimap = "minimap";
 	public static final String imgMinimapHeight = "minimap_height";
-	public static final String imgMinimapGeology = "minima_geology";
+	public static final String imgMinimapGeology = "minimap_geology";
+	public static final String imgMinimapTemperature = "minimap_temperature";
 	
 	// items
 	public static final String imgItemRecource = "item_recource";

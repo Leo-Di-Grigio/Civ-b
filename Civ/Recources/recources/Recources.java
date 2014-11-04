@@ -70,4 +70,8 @@ public class Recources {
 		
 		return img;
 	}
+
+	public static void loadTemperatureColor(int tMin, int tMax) {
+		assets.loadTemperatureColor(tMin, tMax);
+	}
 }

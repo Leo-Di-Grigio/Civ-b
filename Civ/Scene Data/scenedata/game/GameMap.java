@@ -39,10 +39,18 @@ public class GameMap {
 	public Node [][] map;
 	public byte [][] height;
 	
-	public GameMap(long seed, int sizeX, int sizeY) {
+	// temperature
+	public int tMin;
+	public int tMax;
+	
+	public GameMap(long seed, int sizeX, int sizeY, int tMin, int tMax) {
 		this.seed = seed;
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
+		
+		this.tMin = tMin;
+		this.tMax = tMax;
+		Recources.loadTemperatureColor(tMin, tMax);
 		
 		loadImg();
 		
@@ -63,11 +71,14 @@ public class GameMap {
 		map = new Node[sizeX][sizeY];
 		height = GameMapGenerator.buildHeightMap(seed, sizeX, sizeY);
 		byte [][] geology = GameMapGenerator.buildGeologyMap(seed, sizeX, sizeY);
+		byte [][] termal = GameMapGenerator.buildTermalMap(seed, sizeX, sizeY, tMin, tMax);
+		
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){
 				map[i][j] = new Node();
 				map[i][j].height = height[i][j];
 				map[i][j].geology = geology[i][j];
+				map[i][j].termal = termal[i][j];
 			}
 		}
 	}
@@ -237,7 +248,8 @@ public class GameMap {
 			case HEIGHT:	
 				g.drawImage(Recources.getImage("grey"+map[i][j].height), x*nodeX, y*nodeY, null);
 				break;
-				
+			
+			case TERMAL:
 			case TERRAIN:
 				// draw Terrain
 				if(map[i][j].terrainType == Enums.Terrain.WATER){
@@ -250,6 +262,11 @@ public class GameMap {
 				// draw border
 				if(map[i][j].border != 0){
 					drawBorder(g, imgTerrainWaterBorder, i, j, x, y);
+				}
+				
+				if(drawMode == Enums.MapDrawMode.TERMAL){
+					// draw termal map
+					g.drawImage(Recources.getImage("temp"+map[i][j].termal), x*nodeX, y*nodeY, null);
 				}
 				break;
 				
@@ -306,14 +323,16 @@ public class GameMap {
 		BufferedImage img = new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_INT_RGB);
 		BufferedImage imgHeight = new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_INT_RGB);
 		BufferedImage imgGeology = new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_INT_RGB);
+		BufferedImage imgTemperature = new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_INT_RGB);
 		
 		int rgb = 0;
 		int rgbHeight = 0;
 		int rgbGeology = 0;
+		int rgbTemperature = 0;
 		
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){
-
+				// height
 				if(map[i][j].height == 0){
 					rgb = 0x0000FF;
 					rgbHeight = 0x0000FF;
@@ -323,6 +342,7 @@ public class GameMap {
 					rgbHeight = ((int)map[i][j].height*16 << 16)  + ((int)map[i][j].height*16 << 8) + (int)map[i][j].height*16;
 				}
 				
+				// geology
 				int geology = map[i][j].geology;
 				if(geology % 4 == 0)
 					rgbGeology = (int)geology*16 << 16 + (int)geology << 8 + (int)geology;
@@ -333,15 +353,22 @@ public class GameMap {
 				if(geology % 4 == 3)
 					rgbGeology = (int)geology*16 << 16 + (int)geology*16 << 8 + (int)geology*16;
 				
+				// temperature
+				BufferedImage tmp = (BufferedImage)(Recources.getImage("temp" + map[i][j].termal));
+				rgbTemperature = tmp.getRGB(0, 0);
+				
+				// set colors
 				img.setRGB(i, j, rgb);
 				imgHeight.setRGB(i, j, rgbHeight);
 				imgGeology.setRGB(i, j, rgbGeology);
+				imgTemperature.setRGB(i, j, rgbTemperature);
 			}
 		}
 		
 		Recources.addImage(Const.imgMinimap, new Tile(img));
 		Recources.addImage(Const.imgMinimapHeight, new Tile(imgHeight));
 		Recources.addImage(Const.imgMinimapGeology, new Tile(imgGeology));
+		Recources.addImage(Const.imgMinimapTemperature, new Tile(imgTemperature));
 	}
 
 	public void drawModeSwitch() {
@@ -356,6 +383,10 @@ public class GameMap {
 				break;
 				
 			case GEOLOGY:
+				drawMode = Enums.MapDrawMode.TERMAL;
+				break;
+				
+			case TERMAL:
 				drawMode = Enums.MapDrawMode.TERRAIN;
 				break;
 		}

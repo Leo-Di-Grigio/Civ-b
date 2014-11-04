@@ -16,4 +16,5 @@ abstract public class Assets {
 	abstract public void setCursor(String name);
 	abstract public void addImage(String name, Tile tile);
 	abstract public Font getFont();
+	abstract public void loadTemperatureColor(int tMin, int tMax);
 }
