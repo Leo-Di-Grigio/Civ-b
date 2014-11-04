@@ -68,13 +68,12 @@ public class GameMapGenerator {
 	}
 	
 
-	public static byte [][] buildTermalMap(long seed, int sizeX, int sizeY, int tMin, int tMax) {
-		rand = new Random(seed);
+	public static byte [][] buildTermalMap(byte [][] heightMap, int sizeX, int sizeY, int tMin, int tMax) {
 		byte[][] termal = new byte[sizeX][sizeY];
 		
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){
-				termal[i][j] = (byte)Tools.rand(tMin, tMax, rand);
+				termal[i][j] = 0;
 			}
 		}
 		

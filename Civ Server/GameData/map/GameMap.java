@@ -36,7 +36,7 @@ public class GameMap {
 		
 		height  = GameMapGenerator.buildHeightMap(seed, sizeX, sizeY);
 		geology = GameMapGenerator.buildGeologyMap(seed, sizeX, sizeY);
-		termal  = GameMapGenerator.buildTermalMap(seed, sizeX, sizeY, tMin, tMax);
+		termal  = GameMapGenerator.buildTermalMap(height, sizeX, sizeY, tMin, tMax);
 		
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){

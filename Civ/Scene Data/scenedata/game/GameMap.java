@@ -71,7 +71,7 @@ public class GameMap {
 		map = new Node[sizeX][sizeY];
 		height = GameMapGenerator.buildHeightMap(seed, sizeX, sizeY);
 		byte [][] geology = GameMapGenerator.buildGeologyMap(seed, sizeX, sizeY);
-		byte [][] termal = GameMapGenerator.buildTermalMap(seed, sizeX, sizeY, tMin, tMax);
+		byte [][] termal = GameMapGenerator.buildTermalMap(height, sizeX, sizeY, tMin, tMax);
 		
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){
