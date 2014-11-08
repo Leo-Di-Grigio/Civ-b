@@ -136,6 +136,10 @@ public class GameActions {
 				break;
 				
 			case ConstAction.interactAttack:
+				int unitId = Integer.parseInt(arr[2]);
+				int x = Integer.parseInt(arr[3]);
+				int y = Integer.parseInt(arr[4]);
+				pool.addAction(clientId, new Action(PlayerAction.UNIT_ATTACK, unitId, x, y));
 				break;
 				
 			case ConstAction.interactTalk:

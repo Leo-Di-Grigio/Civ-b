@@ -4,10 +4,13 @@ import items.Item;
 
 import java.awt.Point;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import database.DB;
 import actions.Action.PlayerAction;
+import map.Node;
 import misc.Log;
+import misc.Tools;
 import gamedata.GameData;
 import gameobject.GameObject;
 import gameobject.Unit;
@@ -46,9 +49,16 @@ public class GameActionsLogic {
 				case UNIT_MINE:
 					unitMine(action);
 					break;
+
+				case UNIT_ATTACK:
+					unitAttack(action);
+					break;
 					
 				case QUARTER_SPAWN_NOVICE:
 					quarterSpawnNovice(action);
+					break;
+				
+				default:
 					break;
 			}
 		}
@@ -88,9 +98,17 @@ public class GameActionsLogic {
 		Unit unit = (Unit)gamedata.gameObjects.getObject(action.objectId);
 		
 		if(unit.type == DB.unitAvatar && !unit.turnEnd && unit.movementPath == null && unit.movementPoints > 0){
-			unit.turnEnd = true;			
-			Quarter quarter = new Quarter(unit.playerId, unit.x, unit.y);
-			gamedata.gameObjects.addObject(quarter, gamedata.broad);
+			Node node = gamedata.map.getNode(unit.x, unit.y);
+			
+			if(!node.isCity()){
+				if(node.isNodeUpdate()){
+					gamedata.gameObjects.removeObject(node.getNodeUpdateId(), gamedata.broad);
+				}
+				
+				unit.turnEnd = true;	
+				Quarter quarter = new Quarter(unit.playerId, unit.x, unit.y);
+				gamedata.gameObjects.addObject(quarter, gamedata.broad);
+			}
 		}
 	}
 	
@@ -137,6 +155,40 @@ public class GameActionsLogic {
 				quarter.food -= DB.foodForNovice; // pay food
 				Novice novice = new Novice(action.playerId, quarter.x, quarter.y); // spawn novice
 				gamedata.gameObjects.addObject(novice, gamedata.broad);
+			}
+		}
+	}
+	
+
+	private void unitAttack(Action action) throws IOException {
+		Unit unit = (Unit)gamedata.gameObjects.getObject(action.objectId);
+		
+		if(unit != null){
+			int range = Tools.getRange(unit.x, unit.y, action.x, action.y, gamedata.map.sizeX);
+			
+			if(range > 1){
+				// move to (x,y)
+			}
+			else{
+				Node node = gamedata.map.getNode(action.x, action.y);
+				ArrayList<Integer> nodeObjectsId = node.getAllObjects();
+				
+				if(nodeObjectsId != null && nodeObjectsId.size() > 0){
+					for(int i = 0; i < nodeObjectsId.size(); ++i){
+						GameObject object = gamedata.gameObjects.getObject(nodeObjectsId.get(i));
+						
+						if(DB.isUnit(object.type)){
+							Unit target = (Unit)object;
+							target.stats.hp -= unit.stats.power;
+							
+							if(target.stats.hp <= 0){ // kill the target
+								gamedata.gameObjects.removeObject(target.id, gamedata.broad);
+							}
+							
+							break;
+						}
+					}
+				}
 			}
 		}
 	}

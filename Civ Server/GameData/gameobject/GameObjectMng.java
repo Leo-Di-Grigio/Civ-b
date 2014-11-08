@@ -3,6 +3,7 @@ package gameobject;
 import gamedata.GameBroadcasting;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -34,7 +35,7 @@ public class GameObjectMng {
 	public void addObject(GameObject object, GameBroadcasting broad) throws IOException{
 		objects.put(object.id, object);
 		playerObjects.get(object.playerId).add(object.id);
-		map.addObject(object.x, object.y, object.id);
+		map.addObject(object.x, object.y, object);
 		
 		if(DB.isUnit(object.type)){
 			Unit unit = (Unit)object;
@@ -58,7 +59,7 @@ public class GameObjectMng {
 		if(object != null){
 			map.removeObject(object.x, object.y, object.id);
 			playerObjects.get(object.playerId).remove(object.id);
-			
+
 			broad.sendToPlayers(new Message(Prefix.DEL_UNIT, "" + object.id));
 		}
 	}
@@ -67,7 +68,7 @@ public class GameObjectMng {
 		return objects.get(objectId);
 	}
 	
-	public HashSet<Integer> getObjects(int x, int y){
+	public ArrayList<Integer> getObjects(int x, int y){
 		return map.getObjects(x, y);
 	}
 	

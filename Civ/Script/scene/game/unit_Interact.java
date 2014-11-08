@@ -113,7 +113,7 @@ public class unit_Interact extends ScriptGui {
 		button5.setVisible(false);
 	}
 	
-	private void showInteractMenu(Node node, GUI gui){
+	private void showInteractMenu(Node node, GUI gui) throws IOException{
 		GuiElementButtonUnitAction button0 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiInteractButton0);
 		GuiElementButtonUnitAction button1 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiInteractButton1);
 		GuiElementButtonUnitAction button2 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiInteractButton2);
@@ -166,7 +166,7 @@ public class unit_Interact extends ScriptGui {
 			
 			if(enemy){
 				button2.setActionIcon(Const.imgInteractAttack);
-				button2.setScript(new interact_Attack(gamedata, node, unit));
+				button2.setScript(new interact_Attack(gamedata, nodeX, nodeY, unit));
 				
 				button3.setActionIcon(Const.imgInteractTalk);
 				button3.setScript(new interact_Talk(gamedata, node, unit));

@@ -29,6 +29,13 @@ public class Tools {
 	}
 	
 	// for cycle map
+	public static int getRange(int x, int y, int toX, int toY, int sizeX){
+		int rangeX = getRangeX(x, toX, sizeX);
+		int rangeY = Math.abs(y - toY);
+		
+		return (int)Math.sqrt(rangeX*rangeX + rangeY*rangeY);
+	}
+	
 	public static int getRangeX(int x1, int x2, int sizeX){
 		if(x1 == x2){
 			return 0;

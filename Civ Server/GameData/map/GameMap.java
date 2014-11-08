@@ -1,6 +1,9 @@
 package map;
 
+import gameobject.GameObject;
+
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import misc.Tools;
@@ -50,16 +53,20 @@ public class GameMap {
 		System.gc();
 	}
 	
-	public void addObject(int x, int y, int objectId){
-		map[x][y].gameObjects.add(objectId);
+	public Node getNode(int x, int y){
+		return map[x][y];
+	}
+	
+	public void addObject(int x, int y, GameObject object){
+		map[x][y].addObject(object);
 	}
 	
 	public void removeObject(int x, int y, int objectId){
-		map[x][y].gameObjects.remove(objectId);
+		map[x][y].removeObject(objectId);
 	}
 	
-	public HashSet<Integer> getObjects(int x, int y){
-		return map[x][y].gameObjects;
+	public ArrayList<Integer> getObjects(int x, int y){
+		return map[x][y].getAllObjects();
 	}
 	
 	public HashSet<Point> getSpawnPoints(int teamsCount){

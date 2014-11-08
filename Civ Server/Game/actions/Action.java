@@ -10,7 +10,10 @@ public class Action {
 		UNIT_BUILD_UNIT, 
 		UNIT_MINE, 
 		
-		QUARTER_SPAWN_NOVICE,
+		// interact
+		UNIT_ATTACK,
+		
+		QUARTER_SPAWN_NOVICE, 
 	};
 	
 	// id
@@ -84,6 +87,13 @@ public class Action {
 		
 			case UNIT_MOVE_TO:
 				// unitId.move -> (x, y);
+				this.objectId = field1;
+				this.x = field2;
+				this.y = field3;
+				break;
+			
+			case UNIT_ATTACK:
+				// unitId.attack -> (x, y);
 				this.objectId = field1;
 				this.x = field2;
 				this.y = field3;
