@@ -67,6 +67,10 @@ public class GameActions {
 				actionMine(clientId, arr);
 				break;
 				
+			case ConstAction.interact:
+				actionInteract(clientId, arr);
+				break;
+				
 			default: 
 				break;
 		}
@@ -122,5 +126,38 @@ public class GameActions {
 			gamedata.broad.sendToPlayerTeam(unit.playerId, unit.toMessageUpdate("clearway"));
 		}
 		pool.addAction(clientId, new Action(PlayerAction.UNIT_MINE, objectId));
+	}
+	
+	private void actionInteract(int clientId, String [] arr) {
+		int scenario = Integer.parseInt(arr[1]);
+		
+		switch (scenario) {
+			case ConstAction.interactView:
+				break;
+				
+			case ConstAction.interactAttack:
+				break;
+				
+			case ConstAction.interactTalk:
+				break;
+				
+			case ConstAction.interactBuildNodeUpdate:
+				break;
+				
+			case ConstAction.interactBuildCityBuilding:
+				break;
+				
+			case ConstAction.interactRepair:
+				break;
+				
+			case ConstAction.interactMine:
+				break;
+				
+			case ConstAction.interactAssist:
+				break;
+				
+			case ConstAction.interactWorkAt:
+				break;
+		}
 	}
 }

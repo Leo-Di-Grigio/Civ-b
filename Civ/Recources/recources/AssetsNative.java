@@ -206,6 +206,7 @@ public class AssetsNative extends Assets {
 		addImage(Const.imgActionBuildRecruit, Tile.getTile(Const.assetsNative + "actions/action_buildrecruit.png"));
 		addImage(Const.imgActionMine, Tile.getTile(Const.assetsNative + "actions/action_mine.png"));
 		addImage(Const.imgActionInventory, Tile.getTile(Const.assetsNative + "actions/action_inventory.png"));
+		addImage(Const.imgActionInteract, Tile.getTile(Const.assetsNative + "actions/action_interact.png"));
 	}
 	
 	private void loadFont() throws FontFormatException, IOException {

@@ -56,15 +56,15 @@ public class game_PlayerActions {
 					break;
 				
 				case DB.unitAvatar:
-					unitSelectedAvatar(gui, gamedata, unit.id);
+					unitSelectedAvatar(gui, gamedata, unit);
 					break;
 					
 				case DB.unitNovice:
-					unitSelectedNovice(gui, gamedata, unit.id);				
+					unitSelectedNovice(gui, gamedata, unit);				
 					break;
 					
 				case DB.buildingQuarter:
-					unitSelectedCity(gui, gamedata, unit.id);
+					unitSelectedCity(gui, gamedata, unit);
 					break;
 					
 				default:
@@ -107,29 +107,39 @@ public class game_PlayerActions {
 		button5.setVisible(false);
 	}
 	
-	private static void unitSelectedAvatar(GUI gui, GameData gamedata, int unitId){
-		buttonMoveTo(gui, gamedata); // 0
-		buttonMine(gui, gamedata, unitId); // 1
-		buttonInventory(gui, gamedata, unitId); // 4
-		buttonCityBuild(gui, gamedata, unitId); // 5
-	}
-	
-	private static void unitSelectedNovice(GUI gui, GameData gamedata, int unitId){
-		buttonMoveTo(gui, gamedata); // 0
-		buttonMine(gui, gamedata, unitId); // 1
-		buttonInventory(gui, gamedata, unitId); // 4
+	private static void unitSelectedAvatar(GUI gui, GameData gamedata, Unit unit){
+		buttonMoveTo(gui, gamedata, unit); // 0
+		buttonInteract(gui, gamedata, unit); // 1
+		buttonMine(gui, gamedata, unit.id); // 2
+		buttonInventory(gui, gamedata, unit.id); // 4
+		buttonCityBuild(gui, gamedata, unit.id); // 5
 	}
 
-	private static void unitSelectedCity(GUI gui, GameData gamedata, int unitId){
+	private static void unitSelectedNovice(GUI gui, GameData gamedata, Unit unit){
+		buttonMoveTo(gui, gamedata, unit); // 0
+		buttonInteract(gui, gamedata, unit); // 1
+		buttonMine(gui, gamedata, unit.id); // 2
+		buttonInventory(gui, gamedata, unit.id); // 4
+	}
+
+	private static void unitSelectedCity(GUI gui, GameData gamedata, Unit unit){
 		
 	}
 	
-	private static void buttonMoveTo(GUI gui, GameData gamedata){
+	private static void buttonMoveTo(GUI gui, GameData gamedata, Unit unit){
 		// action 0 - "moveTo"
 		GuiElementButtonUnitAction button0 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton0);
 		button0.setActionIcon(Const.imgActionMoveto);
 		button0.setVisible(true);
-		button0.setScript(new unit_MoveTo(gamedata));
+		button0.setScript(new unit_MoveTo(gamedata, unit));
+	}
+	
+	private static void buttonInteract(GUI gui, GameData gamedata, Unit unit) {
+		// action 1 - "interact"
+		GuiElementButtonUnitAction button1 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton1);
+		button1.setActionIcon(Const.imgActionInteract);
+		button1.setVisible(true);
+		button1.setScript(new unit_Interact(gamedata, unit));
 	}
 	
 	private static void buttonCityBuild(GUI gui, GameData gamedata, int unitId){
@@ -141,11 +151,11 @@ public class game_PlayerActions {
 	}
 	
 	private static void buttonMine(GUI gui, GameData gamedata, int unitId){
-		// action 1 - "mine"
-		GuiElementButtonUnitAction button1 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton1);
-		button1.setActionIcon(Const.imgActionMine);
-		button1.setVisible(true);
-		button1.setScript(new unit_Mine(gamedata, unitId));
+		// action 2 - "mine"
+		GuiElementButtonUnitAction button2 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton2);
+		button2.setActionIcon(Const.imgActionMine);
+		button2.setVisible(true);
+		button2.setScript(new unit_Mine(gamedata, unitId));
 	}
 	
 	

@@ -1,8 +1,5 @@
 package script.unit;
 
-import gui.elements.GuiElementTable;
-import gui.misc.TableLine;
-
 import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +17,6 @@ import main.Config;
 import misc.Enums;
 import misc.Environment;
 import misc.Log;
-import scene.game.scenegui_Game;
 import scenedata.game.GameData;
 import scenedata.game.GameMap;
 import script.gui.ScriptGui;
@@ -33,25 +29,20 @@ public class unit_MoveTo extends ScriptGui {
 	private int nodeX;
 	private int nodeY;
 	
-	protected ArrayList<Point> path;
+	private ArrayList<Point> path;
+	private Unit unit;
 	
-	protected Unit unit;
-	
-	public unit_MoveTo(GameData gamedata) {
+	public unit_MoveTo(GameData gamedata, Unit unit) {
 		this.gamedata = gamedata;
 		this.map = gamedata.map;
+		this.unit = unit;
 	}
 	
 	@Override
 	public void execute(Task task) throws IOException {
 		Log.debug("Execute unit_MoveTo");
 		
-		GuiElementTable table = (GuiElementTable)task.sceneGui.get(scenegui_Game.uiUnitSelect);
-		
-		if(table != null){
-			TableLine line = table.getSelectedLine();
-			int unitId = Integer.parseInt(line.getCell(0));
-			this.unit = gamedata.units.getUnit(unitId);
+		if(unit != null){
 			Painter.addTask(new Task(Enums.Task.SCENE_SUBSCRIBER_ADD, this));
 		}
 	}
@@ -80,7 +71,7 @@ public class unit_MoveTo extends ScriptGui {
 			
 			// send player action
 			if(gamedata.units.haveWay(unit.id)){
-				Network.sendMsg(new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + this.unit.id + ":" + Environment.nodeSelectedX + ":" + Environment.nodeSelectedY));
+				Network.sendMsg(new Message(Prefix.PLAYER_ACTION, "" + ConstAction.moveTo + ":" + this.unit.id + ":" + nodeX + ":" + nodeY));
 			}
 		
 			Painter.addTask(new Task(Enums.Task.SCENE_SUBSCRIBER_DEL, null));

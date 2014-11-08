@@ -38,6 +38,8 @@ public class Const {
 	public static final String imgActionBuildRecruit = "action_buildrecruit";
 	public static final String imgActionMine = "action_mine";
 	public static final String imgActionInventory = "action_inventory";
+	public static final String imgActionInteract = "action_interact";
+	
 	
 	public static final String imgButton = "button";
 	public static final String imgButtonSelected = "button_select";
