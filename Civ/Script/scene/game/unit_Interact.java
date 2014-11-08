@@ -4,7 +4,6 @@ import gui.GUI;
 import gui.elements.GuiElementButtonUnitAction;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import net.Message;
@@ -125,58 +124,65 @@ public class unit_Interact extends ScriptGui {
 		HashSet<Integer> nodeUnits = node.getAll();
 		
 		boolean enemy = false;
-		boolean city = false;
+		boolean city = false; 
 		boolean nodeupd = false;
 		
+		Unit cityUnit = null;
+		Unit nodeupdUnit = null;
 		
 		if(nodeUnits.size() > 0){
 			for(Integer unitId: nodeUnits){
-				Unit unit = gamedata.units.getUnit(unitId);
+				Unit nodeUnit = gamedata.units.getUnit(unitId);
 			
-				if(DB.isQuarter(unit.type)){
+				if(DB.isQuarter(nodeUnit.type)){
 					city = true;
+					cityUnit = nodeUnit;
 				}
 				
-				if(DB.isNodeUpdata(unit.type)){
+				if(DB.isNodeUpdata(nodeUnit.type)){
 					nodeupd = true;
+					nodeupdUnit = nodeUnit;
 				}
 			
-				if(unit.playerId != gamedata.clientId){
+				if(nodeUnit.playerId != gamedata.clientId){
 					enemy = true;
 				}
 			}
 			
 			if(city){
 				button0.setActionIcon(Const.imgUnitCity);
-				button0.setScript(null);
+				button0.setScript(new interact_City(gamedata, cityUnit, unit));
 				
 				button1.setActionIcon(Const.imgInteractBuildCityBuilding);
-				button1.setScript(null);
+				button1.setScript(new interact_CityBuild(gamedata, cityUnit, unit));
+				
+				button4.setActionIcon(Const.imgInteractWorkAt);
+				button4.setScript(new interact_WorkAt(gamedata, cityUnit, unit));
 			}
 			else{
 				button0.setActionIcon(Const.imgInteractBuildUpdate);
-				button0.setScript(null);
+				button0.setScript(new interact_NodeUpd(gamedata, node, unit));
 			}
 			
 			if(enemy){
 				button2.setActionIcon(Const.imgInteractAttack);
-				button2.setScript(null);
+				button2.setScript(new interact_Attack(gamedata, node, unit));
 				
 				button3.setActionIcon(Const.imgInteractTalk);
-				button3.setScript(null);
+				button3.setScript(new interact_Talk(gamedata, node, unit));
 			}
 			
 			if(nodeupd){
 				button4.setActionIcon(Const.imgInteractWorkAt);
-				button4.setScript(null);
+				button4.setScript(new interact_WorkAt(gamedata, nodeupdUnit, unit));
 				
 				button5.setActionIcon(Const.imgInteractRepair);
-				button5.setScript(null);
+				button5.setScript(new interact_Repair(gamedata, node, unit));
 			}
 		}
 		else{
 			button0.setActionIcon(Const.imgInteractBuildUpdate);
-			button0.setScript(null);
+			button0.setScript(new interact_UpdateBuild(gamedata, node, unit));
 		}
 		
 		int x = Environment.mouseX;
