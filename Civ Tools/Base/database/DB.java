@@ -14,6 +14,9 @@ public class DB {
 	// cities
 	public static final int buildingQuarter = 1000;
 	
+	// node update
+	public static final int nodeupdNull = 9000;
+	
 	// items
 	public static final int itemRecource = 0;
 	
@@ -81,7 +84,16 @@ public class DB {
 	}
 	
 	public static boolean isUnit(int objectType){
-		if(objectType > 0 && objectType < 1000){
+		if(objectType > 0 && objectType < buildingQuarter){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public static boolean isNodeUpdata(int objectType){
+		if(objectType >= nodeupdNull && objectType <= 9100){
 			return true;
 		}
 		else{
@@ -90,7 +102,7 @@ public class DB {
 	}
 	
 	public static boolean isBuilding(int objectType){
-		if(objectType > 1000){
+		if(objectType > buildingQuarter && objectType < nodeupdNull){
 			return true;
 		}
 		else{

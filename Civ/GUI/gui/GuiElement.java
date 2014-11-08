@@ -72,7 +72,7 @@ abstract public class GuiElement implements Drawble {
 			case BOTTOM_CENTER:
 				setDrawPosition(xPos + w/2 - sizeX/2 + x, yPos + h - sizeY + y);
 				break;
-				
+			
 			case BOTTOM_LEFT:
 				setDrawPosition(xPos + x, yPos + h - sizeY + y);
 				break;
@@ -97,6 +97,7 @@ abstract public class GuiElement implements Drawble {
 				setDrawPosition(xPos + w/2 - sizeX/2 + x, yPos + y);
 				break;
 				
+			case ABSOLUTE:	
 			case TOP_LEFT:
 				setDrawPosition(xPos + x, yPos + y);
 				break;

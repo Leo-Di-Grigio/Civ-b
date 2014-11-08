@@ -167,7 +167,6 @@ public class AssetsNative extends Assets {
 		}
 		
 		addImage("temp"+t, new Tile(img));
-		Log.debug("temp"+t);
 	}
 	
 	private void loadCursors(){
@@ -201,12 +200,21 @@ public class AssetsNative extends Assets {
 	}
 	
 	private void loadActions() {
+		// actions
 		addImage(Const.imgActionMoveto, Tile.getTile(Const.assetsNative + "actions/action_moveto.png"));
 		addImage(Const.imgActionCityBuild, Tile.getTile(Const.assetsNative + "actions/action_citybuild.png"));
 		addImage(Const.imgActionBuildRecruit, Tile.getTile(Const.assetsNative + "actions/action_buildrecruit.png"));
 		addImage(Const.imgActionMine, Tile.getTile(Const.assetsNative + "actions/action_mine.png"));
 		addImage(Const.imgActionInventory, Tile.getTile(Const.assetsNative + "actions/action_inventory.png"));
 		addImage(Const.imgActionInteract, Tile.getTile(Const.assetsNative + "actions/action_interact.png"));
+		
+		// interact actions
+		addImage(Const.imgInteractAttack, Tile.getTile(Const.assetsNative + "actions/interact_attack.png"));
+		addImage(Const.imgInteractTalk, Tile.getTile(Const.assetsNative + "actions/interact_talk.png"));
+		addImage(Const.imgInteractWorkAt, Tile.getTile(Const.assetsNative + "actions/interact_workat.png"));
+		addImage(Const.imgInteractRepair, Tile.getTile(Const.assetsNative + "actions/interact_repair.png"));
+		addImage(Const.imgInteractBuildUpdate, Tile.getTile(Const.assetsNative + "actions/interact_build.png"));
+		addImage(Const.imgInteractBuildCityBuilding, Tile.getTile(Const.assetsNative + "actions/interact_build.png"));
 	}
 	
 	private void loadFont() throws FontFormatException, IOException {

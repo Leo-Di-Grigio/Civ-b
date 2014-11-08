@@ -99,7 +99,8 @@ public class Enums {
 		CENTER_RIGHT,
 		BOTTOM_LEFT,
 		BOTTOM_CENTER,
-		BOTTOM_RIGHT,
+		BOTTOM_RIGHT, 
+		ABSOLUTE,
 	}
 	
 	public static enum Direct {

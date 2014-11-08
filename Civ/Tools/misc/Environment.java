@@ -1,11 +1,14 @@
 package misc;
 
+import gui.GUI;
+
 import java.awt.Image;
 
 import main.Config;
 import painter.Painter;
 import player.units.Unit;
 import recources.Recources;
+import scene.game.unit_Interact;
 import tasks.Task;
 
 public class Environment {
@@ -81,7 +84,9 @@ public class Environment {
 		Painter.addTask(new Task(Enums.Task.GUI_UPDATE_POSITION, null));
 	}
 	
-	public static void moveCamera(Enums.Direct direct){
+	public static void moveCamera(GUI gui, Enums.Direct direct){
+		unit_Interact.resetInteractMenu(gui);
+		
 		Image mapImage = Recources.getImage(Const.imgMinimap);
 		int mapX = mapImage.getWidth(null);
 		int h = Environment.frameSizeY/32;

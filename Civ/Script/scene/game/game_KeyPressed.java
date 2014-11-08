@@ -46,19 +46,19 @@ public class game_KeyPressed extends ScriptGui {
 	private static void normalEnter(GameData gamedata, GUI gui, KeyEvent event){
 		switch(KeyEvent.getKeyText(event.getKeyCode())){
 			case "W":
-				Environment.moveCamera(Enums.Direct.UP);
+				Environment.moveCamera(gui, Enums.Direct.UP);
 				break;
 			
 			case "S":
-				Environment.moveCamera(Enums.Direct.DOWN);
+				Environment.moveCamera(gui, Enums.Direct.DOWN);
 				break;
 			
 			case "A":
-				Environment.moveCamera(Enums.Direct.LEFT);
+				Environment.moveCamera(gui, Enums.Direct.LEFT);
 				break;
 			
 			case "D":
-				Environment.moveCamera(Enums.Direct.RIGHT);
+				Environment.moveCamera(gui, Enums.Direct.RIGHT);
 				break;
 		}
 	}

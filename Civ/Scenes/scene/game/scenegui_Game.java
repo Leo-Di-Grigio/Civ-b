@@ -35,6 +35,14 @@ public class scenegui_Game extends GUI {
 	public static final String uiButton4 = "UI_button_4";
 	public static final String uiButton5 = "UI_button_5";
 	
+	// interact buttons
+	public static final String uiInteractButton0 = "UI_interactButton_0";
+	public static final String uiInteractButton1 = "UI_interactButton_1";
+	public static final String uiInteractButton2 = "UI_interactButton_2";
+	public static final String uiInteractButton3 = "UI_interactButton_3";
+	public static final String uiInteractButton4 = "UI_interactButton_4";
+	public static final String uiInteractButton5 = "UI_interactButton_5";
+	
 	public static final String uiButtonEndTurn = "UI_button_endturn";
 	public static final String uiButtonExit    = "UI_button_exit";
 	
@@ -234,5 +242,61 @@ public class scenegui_Game extends GUI {
 		inventory.setLayer(3);
 		inventory.setTexture(Const.imgWindow);
 		this.add(inventory);
+		
+		// Interact options
+		GuiElementButtonUnitAction interact = null;
+		interact = new GuiElementButtonUnitAction(uiInteractButton0);
+		interact.setPositionType(Enums.GuiPosition.ABSOLUTE);
+		interact.setSize(48, 48);
+		interact.setText("A-0");
+		interact.setTexture(Const.imgButton);
+		interact.setTextureSelected(Const.imgButtonSelected);
+		interact.setLayer(3);
+		this.add(interact);
+		
+		interact = new GuiElementButtonUnitAction(uiInteractButton1);
+		interact.setPositionType(Enums.GuiPosition.ABSOLUTE);
+		interact.setSize(48, 48);
+		interact.setText("A-1");
+		interact.setTexture(Const.imgButton);
+		interact.setTextureSelected(Const.imgButtonSelected);
+		interact.setLayer(3);
+		this.add(interact);
+		
+		interact = new GuiElementButtonUnitAction(uiInteractButton2);
+		interact.setPositionType(Enums.GuiPosition.ABSOLUTE);
+		interact.setSize(48, 48);
+		interact.setText("A-2");
+		interact.setTexture(Const.imgButton);
+		interact.setTextureSelected(Const.imgButtonSelected);
+		interact.setLayer(3);
+		this.add(interact);
+		
+		interact = new GuiElementButtonUnitAction(uiInteractButton3);
+		interact.setPositionType(Enums.GuiPosition.ABSOLUTE);
+		interact.setSize(48, 48);
+		interact.setText("A-3");
+		interact.setTexture(Const.imgButton);
+		interact.setTextureSelected(Const.imgButtonSelected);
+		interact.setLayer(3);
+		this.add(interact);
+		
+		interact = new GuiElementButtonUnitAction(uiInteractButton4);
+		interact.setPositionType(Enums.GuiPosition.ABSOLUTE);
+		interact.setSize(48, 48);
+		interact.setText("A-4");
+		interact.setTexture(Const.imgButton);
+		interact.setTextureSelected(Const.imgButtonSelected);
+		interact.setLayer(3);
+		this.add(interact);
+		
+		interact = new GuiElementButtonUnitAction(uiInteractButton5);
+		interact.setPositionType(Enums.GuiPosition.ABSOLUTE);
+		interact.setSize(48, 48);
+		interact.setText("A-5");
+		interact.setTexture(Const.imgButton);
+		interact.setTextureSelected(Const.imgButtonSelected);
+		interact.setLayer(3);
+		this.add(interact);
 	}
 }

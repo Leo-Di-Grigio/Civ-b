@@ -90,7 +90,7 @@ public class scenedata_Game extends SceneData {
 				break;
 			
 			case SCENE_SELECTON:
-				game_SelectNode.selectNode(gamedata);
+				game_SelectNode.selectNode(gui, gamedata);
 				break;
 				
 			case SCENE_SUBSCRIBER_ADD:

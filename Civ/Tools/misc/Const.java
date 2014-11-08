@@ -40,7 +40,15 @@ public class Const {
 	public static final String imgActionInventory = "action_inventory";
 	public static final String imgActionInteract = "action_interact";
 	
+	// action interact keys
+	public static final String imgInteractAttack = "interact_attak";
+	public static final String imgInteractTalk = "interact_talk";
+	public static final String imgInteractWorkAt = "interact_workat";
+	public static final String imgInteractRepair = "interact_repair";
+	public static final String imgInteractBuildUpdate = "interact_buildUpdate";
+	public static final String imgInteractBuildCityBuilding = "interact_buildBuilding";
 	
+	// buttons
 	public static final String imgButton = "button";
 	public static final String imgButtonSelected = "button_select";
 	public static final String imgButtonEndTurn = "button";

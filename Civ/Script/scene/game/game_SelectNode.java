@@ -22,13 +22,15 @@ import tasks.Task;
 
 public class game_SelectNode extends Script {
 
-	public static void selectNode(GameData gamedata) {
+	public static void selectNode(GUI gui, GameData gamedata) {
 		int nodeX = Environment.nodeSelectedX;
 		int nodeY = Environment.nodeSelectedY;
 		int mapY = gamedata.map.sizeY;
 		
 		Log.debug("Execute game_SelectNode (" + nodeX + "," + nodeY + ")");
-
+		
+		unit_Interact.resetInteractMenu(gui);
+		
 		if(nodeY >= 0 && nodeY < mapY){
 			Painter.addTask(new Task(Enums.Task.GAME_SELECT_NODE, "" + nodeX +":" + nodeY + ":" + gamedata.clientId));
 		}
