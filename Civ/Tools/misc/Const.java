@@ -25,6 +25,7 @@ public class Const {
 	public static final String imgChat = "chat";
 	public static final String imgChatSelected = "chat_selected";
 	public static final String imgInventorySlot = "inventory_slot";
+	public static final String imgSelect = "cursor_nodeselect";
 	
 	// terrain atlas keys
 	public static final String imgTerrainWater = "terrain_water";

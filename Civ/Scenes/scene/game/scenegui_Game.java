@@ -7,7 +7,6 @@ import misc.Enums;
 import recources.Recources;
 import script.gui.icon.gui_icon_Test;
 import script.gui.minimap.gui_minimap_MoveCamera;
-import script.gui.table.gui_table_Select;
 import gui.GUI;
 import gui.elements.GuiElementButton;
 import gui.elements.GuiElementButtonUnitAction;
@@ -16,8 +15,8 @@ import gui.elements.GuiElementCursor;
 import gui.elements.GuiElementIcon;
 import gui.elements.GuiElementMinimap;
 import gui.elements.GuiElementPane;
-import gui.elements.GuiElementTable;
 import gui.elements.GuiElementTitle;
+import gui.elements.GuiElementUnits;
 import gui.elements.GuiElementWindow;
 import gui.elements.GuiElementInventory;
 
@@ -82,13 +81,13 @@ public class scenegui_Game extends GUI {
 		pane.setScript(null);
 		
 		// unit selecting Pane
-		GuiElementTable select = new GuiElementTable(uiUnitSelect, 2);
+		GuiElementUnits select = new GuiElementUnits(uiUnitSelect);
 		select.setSize(300, 100);
 		select.setLayer(2);
-		select.setPosition(-5, -205);
+		select.setPosition(-5, -175);
 		select.setPositionType(Enums.GuiPosition.BOTTOM_RIGHT);
 		select.setTexture("pane");
-		select.setScript(new gui_table_Select());
+		select.setScript(new gui_unit_Select());
 		select.setVisible(false);
 		this.add(select);
 		

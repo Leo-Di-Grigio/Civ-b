@@ -1,11 +1,10 @@
 package scene.game;
 
-import gui.elements.GuiElementTable;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseWheelEvent;
 import java.io.IOException;
 
+import player.units.Unit;
 import net.Message;
 import misc.Enums;
 import scenedata.SceneData;
@@ -77,8 +76,8 @@ public class scenedata_Game extends SceneData {
 				gui_ElementSelect.execute(gui, (String)task.data);
 				break;
 				
-			case GUI_TABLE_UPDATESELECTION:
-				game_PlayerActions.updateTableSelection(gui, gamedata, (GuiElementTable)task.data);
+			case GUI_UNIT_SELECT:
+				game_PlayerActions.updateTableSelection(gui, gamedata, (Unit)task.data);
 				break;
 		
 			case PAINTER_CHANGE_SCENE:

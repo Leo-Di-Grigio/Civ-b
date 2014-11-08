@@ -56,7 +56,7 @@ public class AssetsNative extends Assets {
 		addImage(Const.imgPane, Tile.getTile(Const.assetsNative+"gui/pane.png"));
 		
 		// cursor
-		addImage("cursor_nodeselect", Tile.getTile(Const.assetsNative + "cursor/cursor_nodeselect_draw.png"));
+		addImage(Const.imgSelect, Tile.getTile(Const.assetsNative + "cursor/cursor_nodeselect_draw.png"));
 		
 		// window
 		addImage(Const.imgWindow, Tile.getTile(Const.assetsNative+"gui/window.png"));

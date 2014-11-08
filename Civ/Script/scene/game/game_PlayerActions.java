@@ -13,77 +13,58 @@ import gui.GUI;
 import gui.elements.GuiElementButtonUnitAction;
 import gui.elements.GuiElementIcon;
 import gui.elements.GuiElementPane;
-import gui.elements.GuiElementTable;
-import gui.misc.TableLine;
 
 public class game_PlayerActions {
 
-	public static void updateTableSelection(GUI gui, GameData gamedata, GuiElementTable table) {
+	public static void updateTableSelection(GUI gui, GameData gamedata, Unit unit) {
 		Log.debug("Execute game_PlayerActions.updateTableSelection(..)");
 		
-		if(table != null){
-			switch(table.getTitle()){
-				case scenegui_Game.uiUnitSelect:
-					selectUnit(gui, gamedata, table);
-					break;
-					
-				default:
-					clearButtonsAction(gui);
-					break;
-			}
+		if(unit != null){
+			selectUnit(gui, gamedata, unit);
+		}
+		else{
+			clearButtonsAction(gui);
 		}
 	}
 
-	private static void selectUnit(GUI gui, GameData gamedata, GuiElementTable table) {
+	private static void selectUnit(GUI gui, GameData gamedata, Unit unit) {
 		Log.debug("Execute game_PlayerActions.selectUnit(..)");
-		
-		TableLine line = table.getSelectedLine();
-		
-		if(line == null){
-			clearButtonsAction(gui);
-		}
-		else{
-			updateGui(gui, gamedata, line);
-			setButtonsAction(gui, gamedata, line);
-		}
+	
+		updateGui(gui, gamedata, unit);
+		setButtonsAction(gui, gamedata, unit);
 	}
 	
-	private static void updateGui(GUI gui, GameData gamedata, TableLine line) {
+	private static void updateGui(GUI gui, GameData gamedata, Unit unit) {
 		clearButtonsAction(gui);
 		
 		GuiElementPane pane = (GuiElementPane)gui.get(scenegui_Game.uiInfopane);
 		
 		if(pane != null){
 			GuiElementIcon icon = (GuiElementIcon)pane.getElement(scenegui_Game.uiInfopaneIcon);
-			GuiElementTable unitSelectTable = (GuiElementTable)gui.get(scenegui_Game.uiUnitSelect);
 			
 			if(icon != null){
-				int selectedUnitType = Integer.parseInt(unitSelectTable.getSelectedLine().getCell(2)); // get unit.type
-				icon.setTexture(Recources.getUnitImage(selectedUnitType));
+				icon.setTexture(Recources.getUnitImage(unit.type));
 			}
 		}
 	}
 
-	private static void setButtonsAction(GUI gui, GameData gamedata, TableLine line) {
-		int unitId = Integer.parseInt(line.getCell(0));
-		Unit unit = gamedata.units.getUnit(unitId);
-		
+	private static void setButtonsAction(GUI gui, GameData gamedata, Unit unit) {
 		if(unit.playerId == gamedata.clientId){
-			switch(gamedata.units.getUnit(unitId).type){
+			switch(unit.type){
 				case DB.unitNull:
 					clearButtonsAction(gui);
 					break;
 				
 				case DB.unitAvatar:
-					unitSelectedAvatar(gui, gamedata, unitId);
+					unitSelectedAvatar(gui, gamedata, unit.id);
 					break;
 					
 				case DB.unitNovice:
-					unitSelectedNovice(gui, gamedata, unitId);				
+					unitSelectedNovice(gui, gamedata, unit.id);				
 					break;
 					
 				case DB.buildingQuarter:
-					unitSelectedCity(gui, gamedata, unitId);
+					unitSelectedCity(gui, gamedata, unit.id);
 					break;
 					
 				default:

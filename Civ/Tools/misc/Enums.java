@@ -37,7 +37,7 @@ public class Enums {
 		GUI_CURSOR_HIDE,
 		GUI_SELECTION_RESET,  //(GUI)gui, null
 		GUI_SELECTION_SELECT, //(GUI)gui, (String)guiElementTitle
-		GUI_TABLE_UPDATESELECTION,
+		GUI_UNIT_SELECT,
 		
 		// Scene
 		SCENE_LOADING,
