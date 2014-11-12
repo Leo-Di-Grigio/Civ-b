@@ -89,6 +89,9 @@ public class UnitsMng {
 					unit_MoveTo.addWay(this, unitId, endPoint.x, endPoint.y);
 				}
 			}
+			else{
+				unit.updateObj(arr);
+			}
 		}
 	}
 }

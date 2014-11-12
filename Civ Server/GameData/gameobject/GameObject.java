@@ -1,5 +1,6 @@
 package gameobject;
 
+import database.DB;
 import net.Message;
 import net.Message.Prefix;
 import interfaces.Sentble;
@@ -38,14 +39,23 @@ abstract public class GameObject implements Sentble {
 		data += x + ":";
 		data += y + ":";
 		data += type + ":";
-
+		
+		if(DB.isUnit(type)){
+			Unit unit = (Unit)this;
+			
+			data += unit.stats.hp + ":";
+			data += unit.stats.power + ":";
+			data += unit.exp + ":";
+		}
+		
 		return new Message(Prefix.OBJ_UNIT, data);
 	}
 
 	@Override
 	public Message toMessageUpdate(String field) {
 		String data = new String("");
-
+		Unit unit = null;
+		
 		// 0-id, 1-fieldName, 2-field1, 3-field2
 		data += id + ":" + field + ":";
 
@@ -75,6 +85,21 @@ abstract public class GameObject implements Sentble {
 				break;
 				
 			case "clearway":
+				break;
+				
+			case "hp":
+				unit = (Unit)this;
+				data += unit.stats.hp;
+				break;
+				
+			case "power":
+				unit = (Unit)this;
+				data += unit.stats.power;
+				break;
+				
+			case "exp":
+				unit = (Unit)this;
+				data += unit.exp;
 				break;
 		}
 

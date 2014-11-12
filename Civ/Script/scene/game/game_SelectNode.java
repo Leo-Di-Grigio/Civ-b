@@ -54,30 +54,39 @@ public class game_SelectNode extends Script {
 			GuiElementTitle title3 = (GuiElementTitle)pane.getElement(scenegui_Game.uiInfopaneTitle2);
 			GuiElementUnits unitSelectTable = (GuiElementUnits)gui.get(scenegui_Game.uiUnitSelect);
 			
-			String [] arr = data.split(":");
-			int nodeX = Integer.parseInt(arr[0]);
-			int nodeY = Integer.parseInt(arr[1]);
-			int clientId = Integer.parseInt(arr[2]);
+			if(data != null){
+				String [] arr = data.split(":");
+				int nodeX = Integer.parseInt(arr[0]);
+				int nodeY = Integer.parseInt(arr[1]);
+				int clientId = Integer.parseInt(arr[2]);
 			
-			Node node = gamedata.map.map[nodeX][nodeY];
-			HashSet<Integer> units = null;
+				Node node = gamedata.map.map[nodeX][nodeY];
+				HashSet<Integer> units = null;
 			
-			if(node != null){
-				units = node.getAll();
-			}
-			
-			// Node map info
-			if(title1 != null){
-				if(node == null){
-					title1.setText("");
+				if(node != null){
+					units = node.getAll();
 				}
-				else{
-					title1.setText("Height in x: " + nodeX + " y: " + nodeY + " = " + node.height);
-				}
-			}
 			
-			// Node units
-			if(title2 != null){
+				// Node map info
+				if(title1 != null){
+					if(node == null){
+						title1.setText("");
+					}
+					else{
+						title1.setText("Height in x: " + nodeX + " y: " + nodeY + " = " + node.height);
+					}
+				}			
+			
+				if(title3 != null){
+					if(node == null){
+						title3.setText("");
+					}
+					else{
+						title3.setText("Recources type " + node.geology);
+					}
+				}
+			
+				// Node units
 				if(node == null){
 					title2.setText("");
 				}
@@ -99,17 +108,7 @@ public class game_SelectNode extends Script {
 								game_PlayerActions.clearButtonsAction(gui);
 							}
 						}
-						title2.setText("Units in node " + units.size());
 					}
-				}
-			}
-			
-			if(title3 != null){
-				if(node == null){
-					title3.setText("");
-				}
-				else{
-					title3.setText("Recources type " + node.geology);
 				}
 			}
 		}

@@ -178,10 +178,14 @@ public class GameActionsLogic {
 						if(DB.isUnit(object.type)){
 							Unit target = (Unit)object;
 							unit.turnEnd = true;
+							
 							target.stats.hp -= unit.stats.power;
 							
 							if(target.stats.hp <= 0){
-								gamedata.gameObjects.removeObject(target.id, gamedata.broad);
+								gamedata.gameObjects.removeObject(target.id, gamedata.broad); // kill the unit
+							}
+							else{
+								gamedata.broad.sendToPlayers(target.toMessageUpdate("hp")); // update HP
 							}
 							break;
 						}

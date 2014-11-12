@@ -13,6 +13,7 @@ import gui.GUI;
 import gui.elements.GuiElementButtonUnitAction;
 import gui.elements.GuiElementIcon;
 import gui.elements.GuiElementPane;
+import gui.elements.GuiElementTitle;
 
 public class game_PlayerActions {
 
@@ -41,9 +42,14 @@ public class game_PlayerActions {
 		
 		if(pane != null){
 			GuiElementIcon icon = (GuiElementIcon)pane.getElement(scenegui_Game.uiInfopaneIcon);
+			GuiElementTitle title = (GuiElementTitle)pane.getElement(scenegui_Game.uiInfopaneTitle1);
 			
 			if(icon != null){
 				icon.setTexture(Recources.getUnitImage(unit.type));
+			}
+			
+			if(title != null){
+				title.setText(DB.getUnitTitle(unit.type) + " HP: " + unit.hp + "/" + DB.getUnitHP(unit.type));
 			}
 		}
 	}

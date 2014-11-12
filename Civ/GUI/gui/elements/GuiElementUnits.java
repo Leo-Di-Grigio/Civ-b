@@ -1,10 +1,12 @@
 package gui.elements;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
 import javax.media.opengl.GL3;
 
+import database.DB;
 import misc.Const;
 import player.units.Unit;
 import recources.Recources;
@@ -86,8 +88,21 @@ public class GuiElementUnits extends GuiElement {
 						Unit unit = units.get(i * unitsPerLine + j);
 					
 						if(unit != null){
+							// draw unit icon
 							g.drawImage(Recources.getUnitImage(unit.type), drawX + 36*j + 5, drawY + 36*i + 5, 32, 32, null);
 							
+							// draw HP bar
+							if(unit.hp > 0){
+								// get HP bar width
+								int maxHP = DB.getUnitHP(unit.type);
+								float hpPerPixel = 32.0f/maxHP;
+								int barWidth = (int)(unit.hp * hpPerPixel);
+								
+								g.setColor(Color.red);
+								g.fillRect(drawX + 36*j + 5, drawY + 36*i + 34, barWidth, 3);
+							}
+							
+							// draw selection box
 							if(index == selected){
 								g.drawImage(Recources.getImage(Const.imgSelect), drawX + 36*j + 5, drawY + 36*i + 5, 32, 32, null);
 							}

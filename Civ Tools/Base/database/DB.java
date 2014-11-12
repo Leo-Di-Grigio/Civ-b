@@ -183,4 +183,10 @@ public class DB {
 			default: return 0;
 		}		
 	}
+	
+	public static String getRecourceTitle(int recourceId){
+		switch (recourceId) {
+			default: return "Unnamed recource";
+		}
+	}
 }
