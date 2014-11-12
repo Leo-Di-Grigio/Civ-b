@@ -1,5 +1,7 @@
 package gui;
 
+import gui.tooltip.GuiTooltip;
+
 import java.awt.Image;
 import java.io.IOException;
 
@@ -39,6 +41,9 @@ abstract public class GuiElement implements Drawble {
 	protected GuiLayer layer;
 	private ScriptGui script;
 	
+	// tooltip
+	protected GuiTooltip tooltip;
+	
 	public GuiElement(String titile) {
 		this.title = titile;
 		position = Enums.GuiPosition.TOP_LEFT;
@@ -46,7 +51,7 @@ abstract public class GuiElement implements Drawble {
 		setTexture("null");
 		setTextureSelected("null_selected");
 	}
-	
+
 	public void setPosition(int x, int y){
 		this.x = x;
 		this.y = y;
@@ -198,5 +203,13 @@ abstract public class GuiElement implements Drawble {
 
 	public void executeScript(Task task) throws IOException {
 		this.script.execute(task);
+	}
+	
+	public void setTooltip(GuiTooltip tooltip){
+		this.tooltip = tooltip;
+	}
+	
+	public GuiTooltip getToolTip(){
+		return tooltip;
 	}
 }

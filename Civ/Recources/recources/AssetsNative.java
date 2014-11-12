@@ -67,6 +67,9 @@ public class AssetsNative extends Assets {
 		
 		// inventory
 		addImage(Const.imgInventorySlot, Tile.getTile(Const.assetsNative + "gui/inventory_slot.png"));
+		
+		// tooltip
+		addImage(Const.imgToolTip, Tile.getTile(Const.assetsNative + "gui/tooltip_background.png"));
 	}
 	
 	private void loadGreyTiles(){

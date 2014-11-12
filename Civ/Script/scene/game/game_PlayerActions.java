@@ -14,6 +14,7 @@ import gui.elements.GuiElementButtonUnitAction;
 import gui.elements.GuiElementIcon;
 import gui.elements.GuiElementPane;
 import gui.elements.GuiElementTitle;
+import gui.tooltip.GuiTooltip;
 
 public class game_PlayerActions {
 
@@ -111,6 +112,8 @@ public class game_PlayerActions {
 		button3.setVisible(false);
 		button4.setVisible(false);
 		button5.setVisible(false);
+		
+		button0.setTooltip(null);
 	}
 	
 	private static void unitSelectedAvatar(GUI gui, GameData gamedata, Unit unit){
@@ -138,6 +141,7 @@ public class game_PlayerActions {
 		button0.setActionIcon(Const.imgActionMoveto);
 		button0.setVisible(true);
 		button0.setScript(new unit_MoveTo(gamedata, unit));
+		button0.setTooltip(new GuiTooltip("Move to"));
 	}
 	
 	private static void buttonInteract(GUI gui, GameData gamedata, Unit unit) {
@@ -146,6 +150,7 @@ public class game_PlayerActions {
 		button1.setActionIcon(Const.imgActionInteract);
 		button1.setVisible(true);
 		button1.setScript(new unit_Interact(gamedata, unit));
+		button1.setTooltip(new GuiTooltip("Interact"));
 	}
 	
 	private static void buttonCityBuild(GUI gui, GameData gamedata, int unitId){
@@ -154,6 +159,7 @@ public class game_PlayerActions {
 		button5.setActionIcon(Const.imgActionCityBuild);
 		button5.setVisible(true);
 		button5.setScript(new unit_CityBuild(gamedata, unitId));
+		button5.setTooltip(new GuiTooltip("Build city"));
 	}
 	
 	private static void buttonMine(GUI gui, GameData gamedata, int unitId){
@@ -162,6 +168,7 @@ public class game_PlayerActions {
 		button2.setActionIcon(Const.imgActionMine);
 		button2.setVisible(true);
 		button2.setScript(new unit_Mine(gamedata, unitId));
+		button2.setTooltip(new GuiTooltip("Mine"));
 	}
 	
 	
@@ -171,5 +178,6 @@ public class game_PlayerActions {
 		button4.setActionIcon(Const.imgActionInventory);
 		button4.setVisible(true);
 		button4.setScript(new game_ShowInventory(gamedata, unitId));
+		button4.setTooltip(new GuiTooltip("Inventory"));
 	}
 }
