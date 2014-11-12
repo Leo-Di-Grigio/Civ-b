@@ -190,8 +190,8 @@ public class GameData{
 			
 			actions.teamActionsProcess(teams.getTurnedTeam());
 			
-			teams.nextTeamTurn();
-			broad.sendToPlayer(teams.getTeamOwner(players.get(clientId).teamId), new Message(Prefix.GAME_TURN, null));
+			int turnedTeamId = teams.nextTeamTurn();
+			broad.sendToPlayer(teams.getTeamOwner(turnedTeamId), new Message(Prefix.GAME_TURN, null));
 		}
 	}
 

@@ -34,6 +34,8 @@ public class Unit implements Sentble, Drawble {
 	public int power;
 	public int exp;
 	
+	// city stats
+	
 	public Unit(String data){
 		String [] arr = data.split(":");
 		this.inventory = new UnitInventory();

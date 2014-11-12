@@ -15,6 +15,7 @@ import gui.elements.GuiElementCursor;
 import gui.elements.GuiElementIcon;
 import gui.elements.GuiElementMinimap;
 import gui.elements.GuiElementPane;
+import gui.elements.GuiElementTechnologies;
 import gui.elements.GuiElementTitle;
 import gui.elements.GuiElementUnits;
 import gui.elements.GuiElementWindow;
@@ -59,6 +60,10 @@ public class scenegui_Game extends GUI {
 	
 	// inventory
 	public static final String uiInventory = "UI_Inventory";
+	
+	// technologies
+	public static final String uiTechButton = "UI_TechButton";
+	public static final String uiTech = "UI_Tech";
 	
 	public scenegui_Game() {
 		super();
@@ -298,5 +303,26 @@ public class scenegui_Game extends GUI {
 		interact.setTextureSelected(Const.imgButtonSelected);
 		interact.setLayer(3);
 		this.add(interact);
+		
+		GuiElementButton techButton = new GuiElementButton(uiTechButton);
+		techButton.setPositionType(Enums.GuiPosition.TOP_LEFT);
+		techButton.setPosition(5, 100);
+		techButton.setLayer(2);
+		techButton.setSize(72, 32);
+		techButton.setText("Technology");
+		techButton.setTexture(Const.imgButton);
+		techButton.setTextureSelected(Const.imgButtonSelected);
+		techButton.setVisible(true);
+		techButton.setScript(new show_Tech());
+		this.add(techButton);
+		
+		GuiElementTechnologies tech = new GuiElementTechnologies(uiTech);
+		tech.setPositionType(Enums.GuiPosition.CENTER);
+		tech.setSize(640, 512);
+		tech.setLayer(4);
+		tech.setTexture("pane");
+		tech.setVisible(false);
+		tech.setScript(new gui_Tech());
+		this.add(tech);
 	}
 }

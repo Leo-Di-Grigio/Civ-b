@@ -1,7 +1,6 @@
 package scene.game;
 
 import java.util.ArrayList;
-
 import java.util.HashSet;
 
 import gui.GUI;
@@ -12,6 +11,7 @@ import gui.elements.GuiElementTitle;
 import gui.elements.GuiElementUnits;
 import painter.Painter;
 import player.units.Unit;
+import misc.Const;
 import misc.Enums;
 import misc.Environment;
 import misc.Log;
@@ -75,7 +75,11 @@ public class game_SelectNode extends Script {
 					else{
 						title1.setText("Height in x: " + nodeX + " y: " + nodeY + " = " + node.height);
 					}
-				}			
+				}
+				
+				if(title2 != null){
+					title2.setText("");
+				}
 			
 				if(title3 != null){
 					if(node == null){
@@ -85,7 +89,11 @@ public class game_SelectNode extends Script {
 						title3.setText("Recources type " + node.geology);
 					}
 				}
-			
+				
+				if(icon != null){
+					icon.setTexture(Const.imgVoid);
+				}
+				
 				// Node units
 				if(node == null){
 					title2.setText("");
