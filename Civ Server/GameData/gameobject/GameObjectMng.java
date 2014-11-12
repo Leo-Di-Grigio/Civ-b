@@ -64,6 +64,19 @@ public class GameObjectMng {
 		}
 	}
 	
+	public void moveObject(int objectId, int toX, int toY, GameBroadcasting broad) throws IOException{
+		GameObject object = objects.get(objectId);
+		
+		if(object != null){
+			map.removeObject(object.x, object.y, objectId);
+			object.x = toX;
+			object.y = toY;
+			map.addObject(object.x, object.y, object);
+			
+			broad.sendToPlayers(object.toMessageUpdate("xy"));
+		}
+	}
+	
 	public GameObject getObject(int objectId){
 		return objects.get(objectId);
 	}

@@ -88,9 +88,7 @@ public class GameActionsLogic {
 				unit.movementPath = null;
 			}
 			
-			unit.x = endPoint.x;
-			unit.y = endPoint.y;
-			gamedata.broad.sendToPlayers(unit.toMessageUpdate("xy"));
+			gamedata.gameObjects.moveObject(unit.id, endPoint.x, endPoint.y, gamedata.broad);
 		}
 	}
 	
@@ -167,24 +165,24 @@ public class GameActionsLogic {
 			int range = Tools.getRange(unit.x, unit.y, action.x, action.y, gamedata.map.sizeX);
 			
 			if(range > 1){
-				// move to (x,y)
+				// too far
 			}
 			else{
 				Node node = gamedata.map.getNode(action.x, action.y);
-				ArrayList<Integer> nodeObjectsId = node.getAllObjects();
+				ArrayList<Integer> nodeObjects = node.getAllObjects(); 
+				int size = nodeObjects.size();
 				
-				if(nodeObjectsId != null && nodeObjectsId.size() > 0){
-					for(int i = 0; i < nodeObjectsId.size(); ++i){
-						GameObject object = gamedata.gameObjects.getObject(nodeObjectsId.get(i));
-						
+				if(size > 0){					
+					for(int i = 0; i < size; ++i){
+						GameObject object = gamedata.gameObjects.getObject(nodeObjects.get(i));
 						if(DB.isUnit(object.type)){
 							Unit target = (Unit)object;
+							unit.turnEnd = true;
 							target.stats.hp -= unit.stats.power;
 							
-							if(target.stats.hp <= 0){ // kill the target
+							if(target.stats.hp <= 0){
 								gamedata.gameObjects.removeObject(target.id, gamedata.broad);
 							}
-							
 							break;
 						}
 					}
