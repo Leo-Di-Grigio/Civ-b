@@ -26,13 +26,6 @@ public class GuiElementButton extends GuiElement {
 			}
 			
 			g.drawString(this.text, drawX + sizeX/2 - g.getFontMetrics().stringWidth(text)/2, drawY +  g.getFontMetrics().getHeight());
-			
-			
-			if(selected){
-				if(this.tooltip != null){
-					tooltip.draw(g, tic);
-				}
-			}
 		}
 	}
 

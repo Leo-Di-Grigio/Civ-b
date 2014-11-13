@@ -2,6 +2,7 @@ package scene.game;
 
 import gui.GUI;
 import gui.elements.GuiElementButtonUnitAction;
+import gui.tooltip.GuiTooltip;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -111,6 +112,13 @@ public class unit_Interact extends ScriptGui {
 		button3.setVisible(false);
 		button4.setVisible(false);
 		button5.setVisible(false);
+		
+		button0.setTooltip(null);
+		button1.setTooltip(null);
+		button2.setTooltip(null);
+		button3.setTooltip(null);
+		button4.setTooltip(null);
+		button5.setTooltip(null);
 	}
 	
 	private void showInteractMenu(Node node, GUI gui) throws IOException{
@@ -152,37 +160,55 @@ public class unit_Interact extends ScriptGui {
 			if(city){
 				button0.setActionIcon(Const.imgUnitCity);
 				button0.setScript(new interact_City(gamedata, cityUnit, unit));
+				button0.setTooltip(new GuiTooltip("Show city"));
+				button0.getTooltip().setSize(60, 15);
 				
 				button1.setActionIcon(Const.imgInteractBuildCityBuilding);
 				button1.setScript(new interact_CityBuild(gamedata, cityUnit, unit));
+				button1.setTooltip(new GuiTooltip("Build in the city"));
+				button1.getTooltip().setSize(90, 15);
 				
 				button4.setActionIcon(Const.imgInteractWorkAt);
 				button4.setScript(new interact_WorkAt(gamedata, cityUnit, unit));
+				button4.setTooltip(new GuiTooltip("Work in the city"));
+				button4.getTooltip().setSize(90, 15);
 			}
 			else{
 				button0.setActionIcon(Const.imgInteractBuildUpdate);
 				button0.setScript(new interact_NodeUpd(gamedata, node, unit));
+				button0.setTooltip(new GuiTooltip("Build update"));
+				button0.getTooltip().setSize(60, 15);
 			}
 			
 			if(enemy){
 				button2.setActionIcon(Const.imgInteractAttack);
 				button2.setScript(new interact_Attack(gamedata, nodeX, nodeY, unit));
+				button2.setTooltip(new GuiTooltip("Attack"));
+				button2.getTooltip().setSize(60, 15);
 				
 				button3.setActionIcon(Const.imgInteractTalk);
 				button3.setScript(new interact_Talk(gamedata, node, unit));
+				button3.setTooltip(new GuiTooltip("Talk"));
+				button3.getTooltip().setSize(60, 15);
 			}
 			
 			if(nodeupd){
 				button4.setActionIcon(Const.imgInteractWorkAt);
 				button4.setScript(new interact_WorkAt(gamedata, nodeupdUnit, unit));
+				button4.setTooltip(new GuiTooltip("Work here"));
+				button4.getTooltip().setSize(60, 15);
 				
 				button5.setActionIcon(Const.imgInteractRepair);
 				button5.setScript(new interact_Repair(gamedata, node, unit));
+				button5.setTooltip(new GuiTooltip("Repair"));
+				button5.getTooltip().setSize(60, 15);
 			}
 		}
 		else{
 			button0.setActionIcon(Const.imgInteractBuildUpdate);
 			button0.setScript(new interact_UpdateBuild(gamedata, node, unit));
+			button0.setTooltip(new GuiTooltip("Build update"));
+			button0.getTooltip().setSize(60, 15);
 		}
 		
 		int x = Environment.mouseX;

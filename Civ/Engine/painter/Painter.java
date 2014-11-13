@@ -1,5 +1,7 @@
 package painter;
 
+import gui.tooltip.GuiTooltip;
+
 import java.awt.Graphics;
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,6 +23,7 @@ public class Painter {
 	
 	private static HashMap<Enums.Scene, Scene> scenes;
 	private static Scene currentScene;
+	private static GuiTooltip tooltip;
 	public static Enums.Scene currentSceneTitle;
 	
 	public Painter() {
@@ -60,10 +63,21 @@ public class Painter {
 		currentScene.addTask(new Task(Enums.Task.SCENE_LOADING, null));
 	}
 	
+	public static void setTooltip(GuiTooltip tooltip){
+		Painter.tooltip = tooltip;
+	}
+	
+	private static void drawTooltip(Graphics g, long tic){
+		if(Painter.tooltip != null){
+			Painter.tooltip.draw(g, tic);
+		}
+	}
+	
 	public static void draw(Graphics g, long tic) throws IOException{
 		currentScene.update();
 		currentScene.draw(g, tic);
 		currentScene.drawGui(g, tic);
+		Painter.drawTooltip(g, tic);
 	}
 	
 	public static void draw(GL3 gl) throws IOException{

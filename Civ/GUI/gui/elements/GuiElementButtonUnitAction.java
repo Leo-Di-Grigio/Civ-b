@@ -42,12 +42,6 @@ public class GuiElementButtonUnitAction extends GuiElementButton {
 			}
 			
 			g.drawString(this.text, drawX + 5, drawY + 15);
-			
-			if(selected){
-				if(tooltip != null){
-					tooltip.draw(g, tic);
-				}
-			}
 		}
 	}
 

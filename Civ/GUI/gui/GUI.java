@@ -99,18 +99,23 @@ public class GUI implements Drawble {
 		}
 	}
 	
-	public void selectionSelect(String title){
+	public GuiElement selectionSelect(String title){
 		GuiElement element = this.get(title);
 		
 		if(element != null){
 			if(selectedElementTitlte != null && selectedElementTitlte.compareTo(title) != 0){
 				selectionReset();
+				return null;
 			}
 			else{
 				element.setSelected(true);
 				cursorShow(false);
 				selectedElementTitlte = title;
+				return element;
 			}
+		}
+		else{
+			return null;
 		}
 	}
 	

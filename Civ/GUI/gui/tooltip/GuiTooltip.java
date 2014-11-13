@@ -52,7 +52,7 @@ public class GuiTooltip implements Drawble {
 		
 		g.drawImage(texture, x, y, sizeX, sizeY, null);
 		g.setColor(Color.white);
-		g.drawString(text, x, y + g.getFontMetrics().getHeight());
+		g.drawString(text, x, y + g.getFontMetrics().getHeight()/2 + 5);
 	}
 
 	@Override

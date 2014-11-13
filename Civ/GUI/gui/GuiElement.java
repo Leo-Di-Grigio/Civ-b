@@ -209,7 +209,7 @@ abstract public class GuiElement implements Drawble {
 		this.tooltip = tooltip;
 	}
 	
-	public GuiTooltip getToolTip(){
+	public GuiTooltip getTooltip(){
 		return tooltip;
 	}
 }

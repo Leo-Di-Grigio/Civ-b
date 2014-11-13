@@ -114,6 +114,11 @@ public class game_PlayerActions {
 		button5.setVisible(false);
 		
 		button0.setTooltip(null);
+		button1.setTooltip(null);
+		button2.setTooltip(null);
+		button3.setTooltip(null);
+		button4.setTooltip(null);
+		button5.setTooltip(null);
 	}
 	
 	private static void unitSelectedAvatar(GUI gui, GameData gamedata, Unit unit){
@@ -142,6 +147,7 @@ public class game_PlayerActions {
 		button0.setVisible(true);
 		button0.setScript(new unit_MoveTo(gamedata, unit));
 		button0.setTooltip(new GuiTooltip("Move to"));
+		button0.getTooltip().setSize(50, 15);
 	}
 	
 	private static void buttonInteract(GUI gui, GameData gamedata, Unit unit) {
@@ -151,6 +157,7 @@ public class game_PlayerActions {
 		button1.setVisible(true);
 		button1.setScript(new unit_Interact(gamedata, unit));
 		button1.setTooltip(new GuiTooltip("Interact"));
+		button1.getTooltip().setSize(60, 15);
 	}
 	
 	private static void buttonCityBuild(GUI gui, GameData gamedata, int unitId){
@@ -160,6 +167,7 @@ public class game_PlayerActions {
 		button5.setVisible(true);
 		button5.setScript(new unit_CityBuild(gamedata, unitId));
 		button5.setTooltip(new GuiTooltip("Build city"));
+		button5.getTooltip().setSize(60, 15);
 	}
 	
 	private static void buttonMine(GUI gui, GameData gamedata, int unitId){
@@ -169,6 +177,7 @@ public class game_PlayerActions {
 		button2.setVisible(true);
 		button2.setScript(new unit_Mine(gamedata, unitId));
 		button2.setTooltip(new GuiTooltip("Mine"));
+		button2.getTooltip().setSize(50, 15);
 	}
 	
 	
@@ -179,5 +188,6 @@ public class game_PlayerActions {
 		button4.setVisible(true);
 		button4.setScript(new game_ShowInventory(gamedata, unitId));
 		button4.setTooltip(new GuiTooltip("Inventory"));
+		button4.getTooltip().setSize(60, 15);
 	}
 }
