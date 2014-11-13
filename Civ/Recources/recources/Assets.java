@@ -17,4 +17,5 @@ abstract public class Assets {
 	abstract public void addImage(String name, Tile tile);
 	abstract public Font getFont();
 	abstract public void loadTemperatureColor(int tMin, int tMax);
+	abstract public Image getItem(int itemIcon);
 }

@@ -38,7 +38,6 @@ public class Unit implements Sentble, Drawble {
 	
 	public Unit(String data){
 		String [] arr = data.split(":");
-		this.inventory = new UnitInventory();
 		buildObj(arr);
 	}
 
@@ -62,6 +61,7 @@ public class Unit implements Sentble, Drawble {
 		this.type = Integer.parseInt(arr[4]);
 		
 		if(DB.isUnit(this.type)){
+			this.inventory = new UnitInventory(DB.getInventorySize(type));
 			this.hp = Integer.parseInt(arr[5]);
 			this.power = Integer.parseInt(arr[6]);
 			this.exp = Integer.parseInt(arr[7]);

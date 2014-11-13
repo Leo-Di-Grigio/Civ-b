@@ -99,13 +99,18 @@ public class GameActionsLogic {
 			Node node = gamedata.map.getNode(unit.x, unit.y);
 			
 			if(!node.isCity()){
-				if(node.isNodeUpdate()){
-					gamedata.gameObjects.removeObject(node.getNodeUpdateId(), gamedata.broad);
+				if(unit.inventory.haveItem(DB.itemCampPack)){
+					if(node.isNodeUpdate()){
+						gamedata.gameObjects.removeObject(node.getNodeUpdateId(), gamedata.broad);
+					}
+					
+					unit.turnEnd = true;
+					unit.inventory.removeItemType(DB.itemCampPack);
+					gamedata.broad.sendToPlayer(unit.playerId, unit.inventory.toMessageUpdate("items"));
+					
+					Quarter quarter = new Quarter(unit.playerId, unit.x, unit.y);
+					gamedata.gameObjects.addObject(quarter, gamedata.broad);
 				}
-				
-				unit.turnEnd = true;	
-				Quarter quarter = new Quarter(unit.playerId, unit.x, unit.y);
-				gamedata.gameObjects.addObject(quarter, gamedata.broad);
 			}
 		}
 	}

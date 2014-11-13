@@ -42,4 +42,9 @@ public class AssetsGL extends Assets {
 	public void loadTemperatureColor(int tMin, int tMax) {
 		
 	}
+
+	@Override
+	public Image getItem(int itemIcon) {
+		return null;
+	}
 }

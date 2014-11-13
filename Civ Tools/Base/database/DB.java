@@ -18,7 +18,8 @@ public class DB {
 	public static final int nodeupdNull = 9000;
 	
 	// items
-	public static final int itemRecource = 0;
+	public static final int itemRecource = 1;
+	public static final int itemCampPack = 2;
 	
 	// expirience
 	public static final int expForMine = 10;
@@ -180,6 +181,7 @@ public class DB {
 	public static int getItemIcon(int itemType) {
 		switch (itemType) {
 			case itemRecource: return 1;
+			case itemCampPack: return 2;
 			default: return 0;
 		}		
 	}

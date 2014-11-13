@@ -9,12 +9,11 @@ public class UnitInventory implements Sentble {
 	public int slots;
 	public Item [] items;
 	
-	public UnitInventory() {
-		
+	public UnitInventory(int size) {
+		items = new Item[size];
 	}
 	
 	public class Item {
-		
 		public int type;
 		public int value;
 		public int icon;
@@ -76,14 +75,26 @@ public class UnitInventory implements Sentble {
 		
 		for(int i = 0; i < slots; ++i){
 			if(4 + i*3 < arr.length){
-				int type = Integer.parseInt(arr[2 + i*3]);
-				int value = Integer.parseInt(arr[3 + i*3]);
-				int icon = Integer.parseInt(arr[4 + i*3]);
+				int type = Integer.parseInt(arr[3 + i*3]);
+				int value = Integer.parseInt(arr[4 + i*3]);
+				int icon = Integer.parseInt(arr[5 + i*3]);
 				items[i] = new Item(type, value, icon);
 			}
 			else{
 				break;
 			}
 		}
+	}
+	
+	public boolean haveItem(int type) {
+		for(int i = 0; i < items.length; ++i){
+			Item item = items[i];
+			
+			if(item != null && item.type == type){
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

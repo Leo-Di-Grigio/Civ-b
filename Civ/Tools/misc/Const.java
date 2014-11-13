@@ -76,4 +76,5 @@ public class Const {
 	
 	// items
 	public static final String imgItemRecource = "item_recource";
+	public static final String imgItemCampPack = "item_camppack";
 }

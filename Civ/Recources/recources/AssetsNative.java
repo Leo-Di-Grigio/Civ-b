@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
+import database.DB;
 import engine.Engine;
 import recources.nongl.Tile;
 import main.Config;
@@ -235,6 +236,7 @@ public class AssetsNative extends Assets {
 
 	private void loadItems() {
 		addImage(Const.imgItemRecource, Tile.getTile(Const.assetsNative + "items/recource.png"));
+		addImage(Const.imgItemCampPack, Tile.getTile(Const.assetsNative + "items/camppack.png"));
 	}
 
 	@Override
@@ -293,5 +295,14 @@ public class AssetsNative extends Assets {
 	@Override
 	public Font getFont(){
 		return font;
+	}
+
+	@Override
+	public Image getItem(int itemIcon) {
+		switch(itemIcon){
+			case DB.itemRecource: return getImage(Const.imgItemRecource);
+			case DB.itemCampPack: return getImage(Const.imgItemCampPack);
+			default: return getImage(Const.imgNull);
+		}
 	}
 }

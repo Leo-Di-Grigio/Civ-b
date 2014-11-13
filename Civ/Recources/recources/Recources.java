@@ -74,4 +74,8 @@ public class Recources {
 	public static void loadTemperatureColor(int tMin, int tMax) {
 		assets.loadTemperatureColor(tMin, tMax);
 	}
+
+	public static Image getItem(int itemIcon) {
+		return assets.getItem(itemIcon);
+	}
 }

@@ -37,7 +37,27 @@ public class UntiInventory implements Sentble {
 			return false;
 		}
 	}
+	
+	public boolean haveItem(int type){
+		for(int i = 0; i < items.length; ++i){
+			Item item = items[i];
+			
+			if(item != null && item.type == type){
+				return true;
+			}
+		}
+		return false;
+	}
 
+	public void removeItemType(int type) {
+		for(int i = 0; i < items.length; ++i){
+			if(items[i].type == type){
+				items[i] = null;
+				return;
+			}
+		}
+	}
+	
 	@Override
 	public Message toMessage() {
 		String data = new String("");

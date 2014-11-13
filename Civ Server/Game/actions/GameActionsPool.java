@@ -1,5 +1,7 @@
 package actions;
 
+import items.Item;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -195,6 +197,23 @@ public class GameActionsPool {
 					if(techId != -1){
 						gamedata.broad.sendToTeam(teamId, team.toMessageUpdate("tech"));
 						gamedata.broad.sendToPlayers(new Message(Prefix.CHAT_MSG, "teamId: " + teamId + " learned techId: " + techId));
+					}
+					
+					if(techId == team.tech.getTech("Fire").getId()){						
+						for(Integer playerId: gamedata.teams.getPlayers(team.id)){
+							
+							HashSet<Integer> objectsId = gamedata.gameObjects.getPlayersObjects(playerId);
+							
+							for(Integer objectId: objectsId){
+								GameObject object = gamedata.gameObjects.getObject(objectId);
+								
+								if(object.type == DB.unitAvatar){
+									Unit unit = (Unit)object;
+									unit.inventory.addItem(new Item(DB.itemCampPack, 1));
+									gamedata.broad.sendToPlayer(unit.playerId, unit.inventory.toMessageUpdate("items"));
+								}
+							}
+						}
 					}
 				}
 			}

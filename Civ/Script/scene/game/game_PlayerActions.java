@@ -126,7 +126,7 @@ public class game_PlayerActions {
 		buttonInteract(gui, gamedata, unit); // 1
 		buttonMine(gui, gamedata, unit.id); // 2
 		buttonInventory(gui, gamedata, unit.id); // 4
-		buttonCityBuild(gui, gamedata, unit.id); // 5
+		buttonCityBuild(gui, gamedata, unit); // 5
 	}
 
 	private static void unitSelectedNovice(GUI gui, GameData gamedata, Unit unit){
@@ -160,14 +160,16 @@ public class game_PlayerActions {
 		button1.getTooltip().setSize(60, 15);
 	}
 	
-	private static void buttonCityBuild(GUI gui, GameData gamedata, int unitId){
-		// action 5 - "city build"
-		GuiElementButtonUnitAction button5 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton5);
-		button5.setActionIcon(Const.imgActionCityBuild);
-		button5.setVisible(true);
-		button5.setScript(new unit_CityBuild(gamedata, unitId));
-		button5.setTooltip(new GuiTooltip("Build city"));
-		button5.getTooltip().setSize(60, 15);
+	private static void buttonCityBuild(GUI gui, GameData gamedata, Unit unit){
+		if(unit.inventory.haveItem(DB.itemCampPack)){
+			// action 5 - "city build"
+			GuiElementButtonUnitAction button5 = (GuiElementButtonUnitAction)gui.get(scenegui_Game.uiButton5);
+			button5.setActionIcon(Const.imgActionCityBuild);
+			button5.setVisible(true);
+			button5.setScript(new unit_CityBuild(gamedata, unit.id));
+			button5.setTooltip(new GuiTooltip("Build city"));
+			button5.getTooltip().setSize(60, 15);
+		}
 	}
 	
 	private static void buttonMine(GUI gui, GameData gamedata, int unitId){
