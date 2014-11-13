@@ -79,6 +79,11 @@ public class GameTeams {
 		return team.id;
 	}
 	
+
+	public Team getTeam(int teamId) {
+		return list.get(teamId);
+	}
+	
 	public void remove(int teamId, GameBroadcasting broad) throws IOException{
 		if(teamId != 0 && list.containsKey(teamId)){
 			list.remove(teamId);

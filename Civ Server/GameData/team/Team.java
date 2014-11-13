@@ -6,6 +6,7 @@ import java.util.HashMap;
 import database.tech.TeamTech;
 import database.tech.Tech;
 import player.Player;
+import misc.Enums;
 import net.Message;
 import net.Message.Prefix;
 import interfaces.Sentble;
@@ -25,12 +26,16 @@ public class Team implements Sentble  {
 	public Point spawn;
 	
 	// technology
+	public int scince; 
+	public Enums.TeamAge age;
 	public TeamTech tech;
 	
 	public Team(){
 		this.id = 0;
 		this.name = "No team";
 		this.ownerPlayerId = -1;
+		
+		this.age = Enums.TeamAge.PREHISTORIC;
 		this.tech = Tech.buildTechTree();
 	}
 	
@@ -38,6 +43,8 @@ public class Team implements Sentble  {
 		this.id = ID++;
 		this.name = name;
 		this.ownerPlayerId = ownerPlayerId;
+		
+		this.age = Enums.TeamAge.PREHISTORIC;
 		this.tech = Tech.buildTechTree();
 	}
 

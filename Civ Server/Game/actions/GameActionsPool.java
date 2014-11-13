@@ -7,7 +7,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+import net.Message;
+import net.Message.Prefix;
+import team.Team;
 import database.DB;
+import misc.Enums;
 import misc.Log;
 import gamedata.GameData;
 import gameobject.GameObject;
@@ -174,6 +178,23 @@ public class GameActionsPool {
 					ArrayList<Action> newActions = quarter.getActions();
 					for(Action action: newActions){
 						addAction(quarter.playerId, action);
+					}
+				}
+			}
+		}
+		
+		Team team = gamedata.teams.getTeam(teamId);
+		if(team != null){
+			if(team.age == Enums.TeamAge.PREHISTORIC){
+				team.scince++;
+				
+				if(team.scince % 10 == 0){
+					team.scince -= 10;
+					int techId = team.tech.learnPrehistory();
+					
+					if(techId != -1){
+						gamedata.broad.sendToTeam(teamId, team.toMessageUpdate("tech"));
+						gamedata.broad.sendToPlayers(new Message(Prefix.CHAT_MSG, "teamId: " + teamId + " learned techId: " + techId));
 					}
 				}
 			}

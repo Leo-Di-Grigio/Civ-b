@@ -8,15 +8,6 @@ public class TeamTech {
 	protected HashMap<String, Tech> techList;
 	protected HashMap<Integer, Tech> techListId;
 	
-	// TEAM DATA
-	// Prehistory
-	// Antiquity
-	// Middle ages
-	// Renaissance
-	// Industrial age
-	// New age
-	// Modern age
-	
 	public TeamTech(){
 		techList = new HashMap<String, Tech>();
 		techListId = new HashMap<Integer, Tech>();
@@ -62,5 +53,21 @@ public class TeamTech {
 				techListId.get(i).learn();
 			}
 		}
+	}
+
+	public int learnPrehistory() {
+		for(Tech tech: techListId.values()){
+			if(!tech.learned()){
+				for(Tech parent: tech.getParents()){
+					if(!parent.learned()){
+						return -1;
+					}
+				}
+				tech.learn();
+				return tech.getId();
+			}
+		}
+		
+		return -1;
 	}
 }
