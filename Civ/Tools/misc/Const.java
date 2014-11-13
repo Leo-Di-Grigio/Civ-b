@@ -28,6 +28,11 @@ public class Const {
 	public static final String imgSelect = "cursor_nodeselect";
 	public static final String imgToolTip = "tooltip_background";
 	
+	// tech
+	public static String imgTechUnlearn = "tech_unlearn";
+	public static String imgTechLearn = "tech_learn";
+	public static String imgTechAvaible = "tech_avaible";
+	
 	// terrain atlas keys
 	public static final String imgTerrainWater = "terrain_water";
 	public static final String imgTerrainWaterBorder = "terrain_water_border";

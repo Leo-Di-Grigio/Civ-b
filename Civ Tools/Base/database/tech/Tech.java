@@ -39,6 +39,10 @@ public class Tech {
 		return childs;
 	}
 	
+	public ArrayList<Tech> getParents() {
+		return parents;
+	}
+	
 	public int getCost(){
 		return scinceCost;
 	}
@@ -87,6 +91,7 @@ public class Tech {
 		teamTech.root.addChild(stone, teamTech);
 		
 		// prehistory
+		stone.learn();
 		stone.addChild(fire, teamTech);
 		fire.addChild(tailoring, teamTech);
 		tailoring.addChild(music, teamTech);

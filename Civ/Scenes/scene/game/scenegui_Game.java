@@ -318,7 +318,7 @@ public class scenegui_Game extends GUI {
 		
 		GuiElementTechnologies tech = new GuiElementTechnologies(uiTech);
 		tech.setPositionType(Enums.GuiPosition.CENTER);
-		tech.setSize(640, 512);
+		tech.setSize(700, 512);
 		tech.setLayer(4);
 		tech.setTexture("pane");
 		tech.setVisible(false);

@@ -70,6 +70,11 @@ public class AssetsNative extends Assets {
 		
 		// tooltip
 		addImage(Const.imgToolTip, Tile.getTile(Const.assetsNative + "gui/tooltip_background.png"));
+		
+		// tech
+		addImage(Const.imgTechUnlearn, Tile.getTile(Const.assetsNative + "gui/tech_unlearn.png"));
+		addImage(Const.imgTechLearn, Tile.getTile(Const.assetsNative + "gui/tech_learn.png"));
+		addImage(Const.imgTechAvaible, Tile.getTile(Const.assetsNative + "gui/tech_avaible.png"));
 	}
 	
 	private void loadGreyTiles(){
