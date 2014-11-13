@@ -3,6 +3,8 @@ package team;
 import java.awt.Point;
 import java.util.HashMap;
 
+import database.tech.TeamTech;
+import database.tech.Tech;
 import player.Player;
 import net.Message;
 import net.Message.Prefix;
@@ -22,16 +24,21 @@ public class Team implements Sentble  {
 	// players spawn point
 	public Point spawn;
 	
+	// technology
+	public TeamTech tech;
+	
 	public Team(){
 		this.id = 0;
 		this.name = "No team";
 		this.ownerPlayerId = -1;
+		this.tech = Tech.buildTechTree();
 	}
 	
 	public Team(int ownerPlayerId, String name) {
 		this.id = ID++;
 		this.name = name;
 		this.ownerPlayerId = ownerPlayerId;
+		this.tech = Tech.buildTechTree();
 	}
 
 	public int getTeamSize(HashMap<Integer, Player> players){
@@ -53,6 +60,7 @@ public class Team implements Sentble  {
 		data += id 	 + ":";
 		data += name + ":";
 		data += ownerPlayerId + ":";
+		data += tech.getData() + ":";
 		
 		return new Message(Prefix.OBJ_TEAM, data);
 	}
@@ -66,6 +74,7 @@ public class Team implements Sentble  {
 		switch(field){
 			case "name": data += name; break;
 			case "ownerPlayerId": data += ownerPlayerId; break;
+			case "tech": data += tech.getData(); break;
 		}
 		
 		return new Message(Prefix.UPD_TEAM, data);

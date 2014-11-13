@@ -44,8 +44,8 @@ public class GameData {
 		users.updPlayer(data);
 	}
 
-	public void updTeam(String data) {
-		users.updTeam(data);
+	public int updTeam(String data) {
+		return users.updTeam(data);
 	}
 
 	public void updUnit(String data) {

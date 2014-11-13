@@ -23,7 +23,7 @@ public class GamePlayersData {
 		teams.put(team.id, team);
 	}
 	
-	public void updTeam(String data){
+	public int updTeam(String data){
 		String [] arr = data.split(":");
 		int id = Integer.parseInt(arr[0]);
 		
@@ -40,6 +40,8 @@ public class GamePlayersData {
 				team.updateObj(arr);
 			}
 		}
+		
+		return id;
 	}
 	
 	public void updPlayer(String data){

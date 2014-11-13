@@ -86,6 +86,7 @@ public class scenedata_Game extends SceneData {
 			
 			case SCENE_LOADING:
 				gui_UpdatePosition.execute(gui);
+				gui_Tech.loadTech(gui, gamedata);
 				game_Turn.nextTurn(gui, gamedata);
 				break;
 			

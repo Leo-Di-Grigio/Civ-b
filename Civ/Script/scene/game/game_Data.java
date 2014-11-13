@@ -6,6 +6,7 @@ import misc.Environment;
 import gui.GUI;
 import gui.elements.GuiElementButton;
 import gui.elements.GuiElementTable;
+import gui.elements.GuiElementTechnologies;
 import painter.Painter;
 import player.Player;
 import player.Team;
@@ -33,6 +34,11 @@ public class game_Data {
 		if(Painter.currentSceneTitle == Enums.Scene.PREPEARE && gui != null){
 			GuiElementTable table = (GuiElementTable)gui.get(scenegui_Prepare.uiPlayersTable);
 			table.sort(gamedata);
+		}
+		
+		if(Painter.currentSceneTitle == Enums.Scene.GAME && gui != null){
+			GuiElementTechnologies tech = (GuiElementTechnologies)gui.get(scenegui_Game.uiTech);
+			tech.update(team.tech);
 		}
 	}
 	
@@ -63,11 +69,16 @@ public class game_Data {
 	}
 	
 	public static void updTeam(GUI gui, GameData gamedata, String data) {
-		gamedata.updTeam(data);
+		int id = gamedata.updTeam(data);
 		
 		if(Painter.currentSceneTitle == Enums.Scene.PREPEARE && gui != null){
 			GuiElementTable table = (GuiElementTable)gui.get(scenegui_Prepare.uiPlayersTable);
 			table.sort(gamedata);
+		}
+		
+		if(Painter.currentSceneTitle == Enums.Scene.GAME && gui != null){
+			GuiElementTechnologies tech = (GuiElementTechnologies)gui.get(scenegui_Game.uiTech);
+			tech.update(gamedata.users.teams.get(id).tech);
 		}
 	}
 	
