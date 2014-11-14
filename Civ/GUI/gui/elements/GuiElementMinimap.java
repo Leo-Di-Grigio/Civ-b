@@ -4,8 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
-import javax.media.opengl.GL3;
-
+import javax.media.opengl.GL2;
 import misc.Environment;
 import gui.GuiElement;
 
@@ -86,7 +85,7 @@ public class GuiElementMinimap extends GuiElement {
 	}
 
 	@Override
-	public void draw(GL3 gl) {
-
+	public void draw(GL2 gl) {
+		
 	}
 }

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
 
 import recources.Recources;
 
@@ -46,7 +46,7 @@ public class GuiElementButtonUnitAction extends GuiElementButton {
 	}
 
 	@Override
-	public void draw(GL3 gl) {
+	public void draw(GL2 gl) {
 		
 	}
 }

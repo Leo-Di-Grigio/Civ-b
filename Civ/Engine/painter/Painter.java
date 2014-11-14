@@ -6,7 +6,9 @@ import java.awt.Graphics;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
+
+import com.jogamp.opengl.util.awt.TextRenderer;
 
 import misc.Enums;
 import misc.Log;
@@ -67,12 +69,7 @@ public class Painter {
 		Painter.tooltip = tooltip;
 	}
 	
-	private static void drawTooltip(Graphics g, long tic){
-		if(Painter.tooltip != null){
-			Painter.tooltip.draw(g, tic);
-		}
-	}
-	
+	// Native
 	public static void draw(Graphics g, long tic) throws IOException{
 		currentScene.update();
 		currentScene.draw(g, tic);
@@ -80,9 +77,21 @@ public class Painter {
 		Painter.drawTooltip(g, tic);
 	}
 	
-	public static void draw(GL3 gl) throws IOException{
+	private static void drawTooltip(Graphics g, long tic){
+		if(Painter.tooltip != null){
+			Painter.tooltip.draw(g, tic);
+		}
+	}
+	
+	// GL
+	public static void draw(GL2 gl, TextRenderer textrender) throws IOException{
 		currentScene.update();
-		currentScene.draw(gl);
-		currentScene.drawGui(gl);
+		currentScene.draw(gl, textrender);
+		currentScene.drawGui(gl, textrender);
+		Painter.drawTooltip(gl, textrender);
+	}
+
+	private static void drawTooltip(GL2 gl, TextRenderer textrender) {
+		
 	}
 }

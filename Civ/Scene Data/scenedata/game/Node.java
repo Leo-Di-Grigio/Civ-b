@@ -3,7 +3,7 @@ package scenedata.game;
 import java.awt.Graphics;
 import java.util.HashSet;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
 
 import player.units.Unit;
 import recources.Recources;
@@ -82,7 +82,7 @@ public class Node implements Drawble {
 	}
 
 	@Override
-	public void draw(GL3 gl) {
+	public void draw(GL2 gl) {
 		
 	}
 }

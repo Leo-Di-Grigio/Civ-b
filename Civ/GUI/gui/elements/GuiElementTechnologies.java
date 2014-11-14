@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.util.HashMap;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
 
 import misc.Const;
 import recources.Recources;
@@ -95,7 +95,7 @@ public class GuiElementTechnologies extends GuiElement {
 	}
 
 	@Override
-	public void draw(GL3 gl) {
+	public void draw(GL2 gl) {
 
 	}
 }

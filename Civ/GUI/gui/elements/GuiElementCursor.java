@@ -2,7 +2,7 @@ package gui.elements;
 
 import java.awt.Graphics;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
 
 import recources.Recources;
 import misc.Const;
@@ -39,7 +39,7 @@ public class GuiElementCursor extends GuiElement {
 	}
 
 	@Override
-	public void draw(GL3 gl) {
+	public void draw(GL2 gl) {
 
 	}
 }

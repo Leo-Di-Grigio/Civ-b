@@ -3,7 +3,9 @@ package scene;
 import java.awt.Graphics;
 import java.io.IOException;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
+
+import com.jogamp.opengl.util.awt.TextRenderer;
 
 import scenedata.SceneData;
 import tasks.Task;
@@ -38,14 +40,14 @@ abstract public class Scene {
 		data.drawGui(g, tic);
 	}
 	
-	public void drawGui(GL3 gl){
-		data.drawGui(gl);
-	}
-
 	public void clearTasksPool() {
 		tasks.clear();
 	}
-	
+
+	public void drawGui(GL2 gl, TextRenderer textrender) {
+		data.drawGui(gl);
+	}
+
 	abstract public void draw(Graphics g, long tic);
-	abstract public void draw(GL3 gl);
+	abstract public void draw(GL2 gl, TextRenderer textrender);
 }

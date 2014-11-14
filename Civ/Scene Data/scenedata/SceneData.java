@@ -3,7 +3,7 @@ package scenedata;
 import java.awt.Graphics;
 import java.io.IOException;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
 
 import gui.GUI;
 import script.Script;
@@ -44,7 +44,7 @@ abstract public class SceneData {
 		gui.draw(g, tic);
 	}
 	
-	public void drawGui(GL3 gl){
+	public void drawGui(GL2 gl){
 		gui.draw(gl);
 	}
 	

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
 
 import misc.Enums;
 import misc.Environment;
@@ -184,7 +184,7 @@ public class GUI implements Drawble {
 	}
 
 	@Override
-	public void draw(GL3 gl) {
+	public void draw(GL2 gl) {
 		for(HashMap<String, GuiElement> gui: guiLayers.values()){
 			for(GuiElement element: gui.values()){
 				if(element.visible){

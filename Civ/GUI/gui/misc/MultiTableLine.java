@@ -6,7 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Vector;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
 
 import render.Drawble;
 
@@ -158,7 +158,7 @@ public class MultiTableLine implements Drawble {
 	}
 
 	@Override
-	public void draw(GL3 gl) {
+	public void draw(GL2 gl) {
 		
 	}
 }

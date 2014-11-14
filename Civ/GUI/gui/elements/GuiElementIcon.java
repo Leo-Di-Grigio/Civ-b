@@ -2,7 +2,7 @@ package gui.elements;
 
 import java.awt.Graphics;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
 
 import gui.GuiElement;
 
@@ -25,7 +25,7 @@ public class GuiElementIcon extends GuiElement {
 	}
 
 	@Override
-	public void draw(GL3 gl) {
-
+	public void draw(GL2 gl) {
+		
 	}
 }

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
 
 import main.Config;
 import misc.Log;
@@ -82,9 +82,9 @@ public class GuiElementChat extends GuiElement {
 			}
 		}
 	}
-
+	
 	@Override
-	public void draw(GL3 gl) {
-
+	public void draw(GL2 gl) {
+		
 	}
 }

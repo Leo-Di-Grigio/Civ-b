@@ -3,7 +3,9 @@ package scene.connect;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
+
+import com.jogamp.opengl.util.awt.TextRenderer;
 
 import misc.Const;
 import misc.Enums;
@@ -27,9 +29,13 @@ public class scene_Connect extends Scene {
 		g.drawString("2014 (c) Leo di Grigio and Sivalent", 0, 20);
 		g.drawString("Scene: Connect", 0, 30);
 	}
-
+	
 	@Override
-	public void draw(GL3 gl) {
-
+	public void draw(GL2 gl, TextRenderer textrender) {
+		textrender.beginRendering(Environment.frameSizeX, Environment.frameSizeY);
+		textrender.draw("" + Const.title + " v" + ToolsConst.version + "." + ToolsConst.subVersion, 0, Environment.frameSizeY - 10);
+		textrender.draw("2014 (c) Leo di Grigio and Sivalent", 0, Environment.frameSizeY - 20);
+		textrender.draw("Scene: Connect", 0, Environment.frameSizeY - 30);
+		textrender.endRendering();
 	}
 }

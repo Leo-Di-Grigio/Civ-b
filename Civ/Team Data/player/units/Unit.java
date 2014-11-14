@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
 
 import database.DB;
 import recources.Recources;
@@ -120,7 +120,7 @@ public class Unit implements Sentble, Drawble {
 	}
 
 	@Override
-	public void draw(GL3 gl) {
+	public void draw(GL2 gl) {
 		
 	}
 }

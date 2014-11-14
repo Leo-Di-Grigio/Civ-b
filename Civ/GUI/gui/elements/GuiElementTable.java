@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
 
 import misc.Enums;
 import player.Player;
@@ -169,7 +169,7 @@ public class GuiElementTable extends GuiElement {
 	}
 
 	@Override
-	public void draw(GL3 gl) {
+	public void draw(GL2 gl) {
 
 	}
 }

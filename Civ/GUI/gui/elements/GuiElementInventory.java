@@ -2,7 +2,7 @@ package gui.elements;
 
 import java.awt.Graphics;
 
-import javax.media.opengl.GL3;
+import javax.media.opengl.GL2;
 
 import database.DB;
 import misc.Const;
@@ -40,7 +40,7 @@ public class GuiElementInventory extends GuiElement {
 	}
 
 	@Override
-	public void draw(GL3 gl) {
+	public void draw(GL2 gl) {
 
 	}
 }
