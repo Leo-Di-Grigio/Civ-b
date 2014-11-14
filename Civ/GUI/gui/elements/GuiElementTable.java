@@ -9,6 +9,8 @@ import java.util.Vector;
 
 import javax.media.opengl.GL2;
 
+import com.jogamp.opengl.util.awt.TextRenderer;
+
 import misc.Enums;
 import player.Player;
 import player.Team;
@@ -169,7 +171,7 @@ public class GuiElementTable extends GuiElement {
 	}
 
 	@Override
-	public void draw(GL2 gl) {
+	public void draw(GL2 gl, TextRenderer textrender) {
 
 	}
 }

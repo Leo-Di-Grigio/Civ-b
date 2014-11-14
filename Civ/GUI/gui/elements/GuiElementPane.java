@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import javax.media.opengl.GL2;
 
+import com.jogamp.opengl.util.awt.TextRenderer;
+
 import script.gui.ScriptGui;
 import script.gui.pane.gui_pane_MouseRelease;
 import misc.Environment;
@@ -85,7 +87,7 @@ public class GuiElementPane extends GuiElement {
 	}
 
 	@Override
-	public void draw(GL2 gl) {
+	public void draw(GL2 gl, TextRenderer textrender) {
 
 	}
 }

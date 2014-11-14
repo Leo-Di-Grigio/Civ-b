@@ -4,6 +4,8 @@ import java.awt.Graphics;
 
 import javax.media.opengl.GL2;
 
+import com.jogamp.opengl.util.awt.TextRenderer;
+
 import database.DB;
 import misc.Const;
 import player.units.UnitInventory;
@@ -40,7 +42,7 @@ public class GuiElementInventory extends GuiElement {
 	}
 
 	@Override
-	public void draw(GL2 gl) {
+	public void draw(GL2 gl, TextRenderer textrender) {
 
 	}
 }

@@ -5,6 +5,10 @@ import java.awt.Graphics;
 
 import javax.media.opengl.GL2;
 
+import misc.Environment;
+
+import com.jogamp.opengl.util.awt.TextRenderer;
+
 import gui.GuiElement;
 
 public class GuiElementButton extends GuiElement {
@@ -30,7 +34,28 @@ public class GuiElementButton extends GuiElement {
 	}
 
 	@Override
-	public void draw(GL2 gl) {
-		
+	public void draw(GL2 gl, TextRenderer textrender) {
+		if(this.visible){
+			gl.glBegin(GL2.GL_QUADS);
+			if(this.selected){
+				gl.glColor4f(0.5f, 0.5f, 0.5f, 0.7f);
+				gl.glVertex3f(drawX, drawY, 0);
+				gl.glVertex3f(drawX, sizeY + drawY, 0);
+				gl.glVertex3f(sizeX + drawX, sizeY + drawY, 0);
+				gl.glVertex3f(sizeX + drawX, drawY, 0);
+			}
+			else{
+				gl.glColor4f(0.4f, 0.4f, 0.4f, 0.7f);
+				gl.glVertex3f(drawX, drawY, 0);
+				gl.glVertex3f(drawX, sizeY + drawY, 0);
+				gl.glVertex3f(sizeX + drawX, sizeY + drawY, 0);
+				gl.glVertex3f(sizeX + drawX, drawY, 0);
+			}
+			gl.glEnd();
+			
+			textrender.beginRendering(Environment.frameSizeX, Environment.frameSizeY);
+			textrender.draw(this.text, drawX + 10, Environment.frameSizeY - drawY - sizeY/2);
+			textrender.endRendering();
+		}
 	}
 }

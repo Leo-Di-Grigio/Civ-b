@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.media.opengl.GL2;
 
+import com.jogamp.opengl.util.awt.TextRenderer;
+
 import database.DB;
 import recources.Recources;
 import render.Drawble;
@@ -120,7 +122,7 @@ public class Unit implements Sentble, Drawble {
 	}
 
 	@Override
-	public void draw(GL2 gl) {
+	public void draw(GL2 gl, TextRenderer textrender) {
 		
 	}
 }

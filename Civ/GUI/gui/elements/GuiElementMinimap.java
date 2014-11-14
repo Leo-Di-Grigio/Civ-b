@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.media.opengl.GL2;
+
+import com.jogamp.opengl.util.awt.TextRenderer;
+
 import misc.Environment;
 import gui.GuiElement;
 
@@ -85,7 +88,7 @@ public class GuiElementMinimap extends GuiElement {
 	}
 
 	@Override
-	public void draw(GL2 gl) {
+	public void draw(GL2 gl, TextRenderer textrender) {
 		
 	}
 }

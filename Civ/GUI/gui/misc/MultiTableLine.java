@@ -8,6 +8,8 @@ import java.util.Vector;
 
 import javax.media.opengl.GL2;
 
+import com.jogamp.opengl.util.awt.TextRenderer;
+
 import render.Drawble;
 
 public class MultiTableLine implements Drawble {
@@ -158,7 +160,7 @@ public class MultiTableLine implements Drawble {
 	}
 
 	@Override
-	public void draw(GL2 gl) {
+	public void draw(GL2 gl, TextRenderer textrender) {
 		
 	}
 }

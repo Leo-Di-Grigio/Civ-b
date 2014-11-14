@@ -45,7 +45,7 @@ abstract public class Scene {
 	}
 
 	public void drawGui(GL2 gl, TextRenderer textrender) {
-		data.drawGui(gl);
+		data.drawGui(gl, textrender);
 	}
 
 	abstract public void draw(Graphics g, long tic);

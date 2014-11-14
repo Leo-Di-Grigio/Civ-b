@@ -6,6 +6,8 @@ import java.awt.Image;
 
 import javax.media.opengl.GL2;
 
+import com.jogamp.opengl.util.awt.TextRenderer;
+
 import misc.Const;
 import misc.Environment;
 import recources.Recources;
@@ -56,7 +58,7 @@ public class GuiTooltip implements Drawble {
 	}
 
 	@Override
-	public void draw(GL2 gl) {
+	public void draw(GL2 gl, TextRenderer textrender) {
 		
 	}
 }

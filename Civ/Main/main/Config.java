@@ -67,7 +67,7 @@ public class Config {
 		
 		
 		// render
-		renderMode = Enums.RenderMode.NATIVE;
+		renderMode = Enums.RenderMode.OPENGL;
 		fps = 60;
 		frameRate = 1000/fps;
 		
@@ -79,9 +79,9 @@ public class Config {
 		debug = true;
 		
 		// network
-		serverAddress = "127.0.0.1";
+		serverAddress = "134.17.159.64";
 		serverPort = 6600;
-		playerName = "LUMINATI";
+		playerName = "LDG";
 		teamName = "Default Team";
 		
 		Log.debug("Config load:\n" +

@@ -5,6 +5,8 @@ import java.util.HashSet;
 
 import javax.media.opengl.GL2;
 
+import com.jogamp.opengl.util.awt.TextRenderer;
+
 import player.units.Unit;
 import recources.Recources;
 import render.Drawble;
@@ -82,7 +84,7 @@ public class Node implements Drawble {
 	}
 
 	@Override
-	public void draw(GL2 gl) {
+	public void draw(GL2 gl, TextRenderer textrender) {
 		
 	}
 }

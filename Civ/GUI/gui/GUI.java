@@ -9,6 +9,8 @@ import java.util.TreeSet;
 
 import javax.media.opengl.GL2;
 
+import com.jogamp.opengl.util.awt.TextRenderer;
+
 import misc.Enums;
 import misc.Environment;
 import misc.Log;
@@ -184,14 +186,28 @@ public class GUI implements Drawble {
 	}
 
 	@Override
-	public void draw(GL2 gl) {
+	public void draw(GL2 gl, TextRenderer textrender) {
+		gl.glMatrixMode(GL2.GL_PROJECTION);
+		gl.glPushMatrix();
+		gl.glLoadIdentity();
+		gl.glOrtho(0.0, Environment.frameSizeX, Environment.frameSizeY, 0.0, -1.0, 1.0);
+		
+		gl.glMatrixMode(GL2.GL_MODELVIEW);
+		gl.glLoadIdentity();
+		gl.glDisable(GL2.GL_CULL_FACE);
+		gl.glClear(GL2.GL_DEPTH_BUFFER_BIT);
+		
 		for(HashMap<String, GuiElement> gui: guiLayers.values()){
 			for(GuiElement element: gui.values()){
 				if(element.visible){
-					element.draw(gl);
+					element.draw(gl, textrender);
 				}
 			}
 		}
+		
+		gl.glMatrixMode(GL2.GL_PROJECTION);
+		gl.glPopMatrix();
+		gl.glMatrixMode(GL2.GL_MODELVIEW);
 	}
 
 	public void cursorShow(boolean visible) {

@@ -6,6 +6,8 @@ import java.awt.Image;
 
 import javax.media.opengl.GL2;
 
+import com.jogamp.opengl.util.awt.TextRenderer;
+
 import recources.Recources;
 
 public class GuiElementButtonUnitAction extends GuiElementButton {
@@ -46,7 +48,7 @@ public class GuiElementButtonUnitAction extends GuiElementButton {
 	}
 
 	@Override
-	public void draw(GL2 gl) {
+	public void draw(GL2 gl, TextRenderer textrender) {
 		
 	}
 }

@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.media.opengl.GL2;
 
+import com.jogamp.opengl.util.awt.TextRenderer;
+
 import gui.GUI;
 import script.Script;
 import tasks.Task;
@@ -44,8 +46,8 @@ abstract public class SceneData {
 		gui.draw(g, tic);
 	}
 	
-	public void drawGui(GL2 gl){
-		gui.draw(gl);
+	public void drawGui(GL2 gl, TextRenderer textrender){
+		gui.draw(gl, textrender);
 	}
 	
 	public void subscriberAdd(Script subscriber,  Object subscriberAddData){
