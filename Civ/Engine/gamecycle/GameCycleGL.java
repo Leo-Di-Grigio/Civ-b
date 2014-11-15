@@ -7,18 +7,15 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
+import javax.media.opengl.GLException;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 
 import painter.Painter;
+import recources.Recources;
 import render.Render;
-import userapi.UserCanvasListener;
-import userapi.UserKey;
-import userapi.UserMotion;
-import userapi.UserMouse;
-import userapi.UserWheel;
 
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.awt.TextRenderer;
@@ -38,33 +35,29 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 	private TextRenderer textrender;
 	
 	private float scaling; // scaling coeficent
-	
+
 	public GameCycleGL(JFrame frame) {
 		super(Enums.RenderMode.OPENGL, frame);
 	}
 	
 	@Override
 	void initCycle() {
-        GLProfile glProfile = GLProfile.get(GLProfile.GL2);
-        GLCapabilities caps = new GLCapabilities(glProfile);
-        canvas = new GLCanvas(caps);
-        
-        // init FPS pusher
-        animator = new FPSAnimator(canvas, Config.fps);
-        canvas.addGLEventListener(this);
-        canvas.setSize(Config.frameWidth, Config.frameHeight);
-        
-        frame.getContentPane().add(canvas);
-        frame.setSize(frame.getContentPane().getPreferredSize());
-        frame.setVisible(true);
-        
-		canvas.addMouseListener(new UserMouse());
-		canvas.addMouseMotionListener(new UserMotion());
-		canvas.addMouseWheelListener(new UserWheel());
-		canvas.addKeyListener(new UserKey());
-		canvas.addComponentListener(new UserCanvasListener());
+		GLProfile glProfile = GLProfile.get(GLProfile.GL2);
+		GLCapabilities caps = new GLCapabilities(glProfile);
+		canvas = new GLCanvas(caps);
+	        
+		// init FPS pusher	
+		animator = new FPSAnimator(canvas, Config.fps);
+		canvas.setSize(Config.frameWidth, Config.frameHeight);
+	        
+		frame.getContentPane().add(canvas);
+		frame.setSize(frame.getContentPane().getPreferredSize());
+
 		
-        animator.start();
+		canvas.addGLEventListener(this);
+		frame.setVisible(true);
+		
+		animator.start();
 	}
 	
 	@Override
@@ -91,6 +84,15 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 		glu = new GLU();
 		
 		draw.getAnimator().setUpdateFPSFrames(10, null);
+		
+		try {
+			Recources.initGLRecources(gl, canvas);
+		} 
+		catch (GLException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		new Painter();
 		
 		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		gl.glShadeModel(GL2.GL_FLAT);
@@ -145,7 +147,7 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 
 	@Override
 	void draw() throws IOException {
-		Painter.draw(gl, textrender);
+		Painter.draw(gl, textrender);		
 	}
 
 	@Override

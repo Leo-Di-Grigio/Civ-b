@@ -5,8 +5,13 @@ import gui.tooltip.GuiTooltip;
 import java.awt.Image;
 import java.io.IOException;
 
+import com.jogamp.opengl.util.texture.Texture;
+
+import main.Config;
+import misc.Const;
 import misc.Enums;
 import misc.Environment;
+import misc.Log;
 import recources.Recources;
 import render.Drawble;
 import script.gui.ScriptGui;
@@ -29,6 +34,10 @@ abstract public class GuiElement implements Drawble {
 	protected Image textureNormal;
 	protected Image textureSelected;
 	
+	// texture GL
+	protected Texture glTexNormal;
+	protected Texture glTexSelected;
+	
 	// flags
 	protected boolean visible;
 	protected boolean selected;
@@ -48,8 +57,8 @@ abstract public class GuiElement implements Drawble {
 		this.title = titile;
 		position = Enums.GuiPosition.TOP_LEFT;
 		layer = new GuiLayer(0);
-		setTexture("null");
-		setTextureSelected("null_selected");
+		setTexture(Const.imgNull);
+		setTextureSelected(Const.imgNullSelected);
 	}
 
 	public void setPosition(int x, int y){
@@ -121,19 +130,39 @@ abstract public class GuiElement implements Drawble {
 	}
 	
 	public void setTexture(String name){
-		textureNormal = Recources.getImage(name);
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
+			textureNormal = Recources.getImage(name);
+		}
+		else{
+			glTexNormal = Recources.getTexutre(name);
+		}
 	}
 	
 	public void setTexture(Image image){
-		textureNormal = image;
+		if(Config.renderMode == Enums.RenderMode.OPENGL){
+			textureNormal = image;
+		}
+		else{
+			Log.err("Use NATIVE mode to setImage");
+		}
 	}
 	
 	public void setTextureSelected(String name){
-		textureSelected = Recources.getImage(name);
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
+			textureSelected = Recources.getImage(name);
+		}
+		else{
+			glTexSelected = Recources.getTexutre(name);
+		}
 	}
 	
 	public void setTextureSelected(Image image){
-		textureSelected  = image;
+		if(Config.renderMode == Enums.RenderMode.OPENGL){
+			textureSelected  = image;
+		}
+		else{
+			Log.err("Use NATIVE mode to setImage");
+		}
 	}
 	
 	public boolean checkCollision() {

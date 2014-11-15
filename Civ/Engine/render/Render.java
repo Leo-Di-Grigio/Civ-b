@@ -7,7 +7,7 @@ import gamecycle.GameCycleNative;
 import misc.Enums;
 import misc.Log;
 
-public class Render implements Runnable {
+public class Render {
 	
 	protected static GameCycle gameCycle;
 	
@@ -26,6 +26,8 @@ public class Render implements Runnable {
 				System.exit(0);
 				break;
 		}
+		
+		new Thread(gameCycle).start();
 	}
 	
 	public static int getWidth(){
@@ -44,10 +46,5 @@ public class Render implements Runnable {
 		else{
 			return 0;
 		}
-	}
-
-	@Override
-	public void run() {
-		gameCycle.run();
 	}
 }

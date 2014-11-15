@@ -11,6 +11,7 @@ import javax.media.opengl.GL2;
 
 import com.jogamp.opengl.util.awt.TextRenderer;
 
+import misc.Const;
 import misc.Enums;
 import player.Player;
 import player.Team;
@@ -29,7 +30,7 @@ public class GuiElementTable extends GuiElement {
 	
 	public GuiElementTable(String title, int collumns) {
 		super(title);
-		setTexture("pane");
+		setTexture(Const.imgPane);
 		this.collumns = collumns;
 		list = new Vector<TableLine>();
 	}

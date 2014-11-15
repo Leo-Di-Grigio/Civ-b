@@ -40,6 +40,6 @@ public class Engine {
 		new Tools();
 		new ScriptsAPI();
 		new Recources(Config.renderMode);		
-		new Thread(new Render(Config.renderMode, frame)).start();
+		new Render(Config.renderMode, frame);
 	}
 }

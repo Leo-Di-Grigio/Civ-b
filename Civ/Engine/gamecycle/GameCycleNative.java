@@ -21,11 +21,20 @@ import main.Config;
 import misc.Enums;
 import misc.Environment;
 
-public class GameCycleNative extends GameCycle implements Runnable {
+public class GameCycleNative extends GameCycle {
 	
 	private Graphics2D g;
 	private Canvas canvas;
+
+	//  cycle FPS varibales
+	protected static long cycleTime;
+	protected static long lastTime;
+	protected static long elapsedTime;
+	protected static long lastUpdate;
 	
+	// Frame number
+	protected static long tic;
+		
 	public GameCycleNative(JFrame frame) {
 		super(Enums.RenderMode.NATIVE, frame);
 	}
@@ -36,6 +45,8 @@ public class GameCycleNative extends GameCycle implements Runnable {
 		frame.getContentPane().add(canvas);
 		frame.setVisible(true);
 		
+		new Painter();
+		
 		canvas.addMouseListener(new UserMouse());
 		canvas.addMouseMotionListener(new UserMotion());
 		canvas.addMouseWheelListener(new UserWheel());
@@ -43,19 +54,12 @@ public class GameCycleNative extends GameCycle implements Runnable {
 		canvas.addComponentListener(new UserCanvasListener());
 	}
 	
-	//  cycle FPS varibales
-	protected static long cycleTime;
-	protected static long lastTime;
-	protected static long elapsedTime;
-	protected static long lastUpdate;
-	
-	// Frame number
-	protected static long tic;
-	
 	@Override
 	public void run(){
+		// update
 		Environment.updateFrameSize(Render.getWidth(), Render.getHeight());
 		
+		// begin
 		canvas.createBufferStrategy(2);
 		BufferStrategy strategy = canvas.getBufferStrategy();
 		

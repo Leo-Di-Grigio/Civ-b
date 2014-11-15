@@ -19,7 +19,7 @@ import main.Config;
 import misc.Const;
 import misc.Log;
 
-public class AssetsNative extends Assets {
+public class AssetsNative {
 
 	private static HashMap<String, Tile> tiles;
 	private static HashMap<String, Cursor> cursors;
@@ -31,6 +31,22 @@ public class AssetsNative extends Assets {
 		cursors = new HashMap<String, Cursor>();
 	}
 	
+	public void init() throws FontFormatException, IOException  {		
+		loadGui();
+		loadGreyTiles();
+		loadGeologyTiles();
+		loadTerrain();
+		loadCursors();
+		loadUnits();
+		loadActions();
+		loadFont();
+		loadItems();
+		
+		System.gc();
+		Log.debug("Assets Native tiles loaded: " + tiles.size());
+		Log.debug("Assets Native cursors loaded: " + cursors.size());
+	}
+	
 	private void loadGui(){
 		// Icon
 		addImage(Const.imgIcon, Tile.getTile(Const.assetsNative + "icon.ico"));
@@ -38,7 +54,7 @@ public class AssetsNative extends Assets {
 		// GUI ELEMENTS
 		addImage(Const.imgNull, Tile.getTile(Const.assetsNative+"gui/null.png"));
 		addImage(Const.imgVoid, Tile.getTile(Const.assetsNative+"gui/void.png"));
-		addImage("null_selected", Tile.getTile(Const.assetsNative+"gui/null_selected.png"));
+		addImage(Const.imgNullSelected, Tile.getTile(Const.assetsNative+"gui/null_selected.png"));
 		
 		// menu
 		addImage(Const.imgMenu, Tile.getTile(Const.assetsNative + "menu.png"));
@@ -47,8 +63,8 @@ public class AssetsNative extends Assets {
 		addImage(Const.imgButton, Tile.getTile(Const.assetsNative+"gui/button.png"));
 		addImage(Const.imgButtonSelected, Tile.getTile(Const.assetsNative+"gui/button_select.png"));
 		
-		addImage("button_menu", Tile.getTile(Const.assetsNative+"gui/button_menu.png"));
-		addImage("button_menu_select", Tile.getTile(Const.assetsNative+"gui/button_menu_select.png"));
+		addImage(Const.imgButtonMenu, Tile.getTile(Const.assetsNative+"gui/button_menu.png"));
+		addImage(Const.imgButtonMenuSelect, Tile.getTile(Const.assetsNative+"gui/button_menu_select.png"));
 		
 		// slider
 		addImage("slider", Tile.getTile(Const.assetsNative+"gui/slider.png"));
@@ -238,30 +254,11 @@ public class AssetsNative extends Assets {
 		addImage(Const.imgItemRecource, Tile.getTile(Const.assetsNative + "items/recource.png"));
 		addImage(Const.imgItemCampPack, Tile.getTile(Const.assetsNative + "items/camppack.png"));
 	}
-
-	@Override
-	public void init() throws FontFormatException, IOException  {		
-		loadGui();
-		loadGreyTiles();
-		loadGeologyTiles();
-		loadTerrain();
-		loadCursors();
-		loadUnits();
-		loadActions();
-		loadFont();
-		loadItems();
-		
-		System.gc();
-		Log.debug("Assets Native tiles loaded: " + tiles.size());
-		Log.debug("Assets Native cursors loaded: " + cursors.size());
-	}
 	
-	@Override
 	public void loadTemperatureColor(int tMin, int tMax) {
 		loadTermalTiles(tMin, tMax);
 	}
 	
-	@Override
 	public Image getImage(String name) {
 		if(tiles.containsKey(name)){
 			return tiles.get(name).getImage();
@@ -278,12 +275,10 @@ public class AssetsNative extends Assets {
 		}
 	}
 
-	@Override
 	public void addImage(String name, Tile tile) {
 		tiles.put(name, tile);
 	}
 
-	@Override
 	public void setCursor(String name) {
 		if(Config.os != "Linux"){
 			if(cursors.containsKey(name)){
@@ -292,12 +287,10 @@ public class AssetsNative extends Assets {
 		}
 	}
 	
-	@Override
 	public Font getFont(){
 		return font;
 	}
 
-	@Override
 	public Image getItem(int itemIcon) {
 		switch(itemIcon){
 			case DB.itemRecource: return getImage(Const.imgItemRecource);

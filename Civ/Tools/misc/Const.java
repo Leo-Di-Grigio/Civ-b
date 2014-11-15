@@ -15,9 +15,11 @@ public class Const {
 	// constant cursor keys
 	public static final String cursorNull = "null";
 	public static final String cursorVisible = "cursor";
+	
 	// constant image keys
 	public static final String imgNull = "null"; 
 	public static final String imgVoid = "void";
+	public static final String imgNullSelected = "null_selected";
 	public static final String imgIcon = "icon";
 	public static final String imgMenu = "menu_background";	
 	public static final String imgPane = "pane";
@@ -29,10 +31,10 @@ public class Const {
 	public static final String imgToolTip = "tooltip_background";
 	
 	// tech
-	public static String imgTechUnlearn = "tech_unlearn";
-	public static String imgTechLearn = "tech_learn";
-	public static String imgTechAvaible = "tech_avaible";
-	
+	public static final String imgTechUnlearn = "tech_unlearn";
+	public static final String imgTechLearn = "tech_learn";
+	public static final String imgTechAvaible = "tech_avaible";
+
 	// terrain atlas keys
 	public static final String imgTerrainWater = "terrain_water";
 	public static final String imgTerrainWaterBorder = "terrain_water_border";
@@ -58,6 +60,8 @@ public class Const {
 	public static final String imgButton = "button";
 	public static final String imgButtonSelected = "button_select";
 	public static final String imgButtonEndTurn = "button";
+	public static final String imgButtonMenu = "button_menu";
+	public static final String imgButtonMenuSelect = "button_menu_select";
 	
 	// units
 	public static final String imgUnitPlayerAtlas = "atlas_players";

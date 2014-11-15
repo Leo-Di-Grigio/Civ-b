@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
-import painter.Painter;
 import misc.Enums;
 import misc.Log;
 
@@ -14,11 +13,10 @@ public abstract class GameCycle extends Thread {
 	
 	public GameCycle(Enums.RenderMode mode, JFrame frame) {
 		super();
-		
 		this.frame = frame;
-		new Painter();
 		
 		initCycle();
+		
 		Log.msg("Load GameCycle " + mode);
 	}
 	

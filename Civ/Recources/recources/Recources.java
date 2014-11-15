@@ -5,6 +5,12 @@ import java.awt.FontFormatException;
 import java.awt.Image;
 import java.io.IOException;
 
+import javax.media.opengl.GL2;
+import javax.media.opengl.GLException;
+import javax.media.opengl.awt.GLCanvas;
+
+import com.jogamp.opengl.util.texture.Texture;
+
 import database.DB;
 import recources.nongl.Tile;
 import misc.Const;
@@ -13,44 +19,45 @@ import misc.Log;
 
 public class Recources {
 	
-	private static Assets assets;
+	private static AssetsNative assetsNative;
+	private static AssetsGL assetsGL;
 	
 	public Recources(Enums.RenderMode mode) throws FontFormatException, IOException{
 		Log.msg("Recources loaded " + mode);
 		
 		switch(mode){
 			case NATIVE:
-				assets = new AssetsNative();
+				assetsNative = new AssetsNative();
+				assetsNative.init();
 				break;
 			
 			case OPENGL:
-				assets = new AssetsGL();
+				assetsGL = new AssetsGL();
+				// assetsGL inited after GL context (GameCycleGL.java) initiation
 				break;
 			
 			default:
-				assets = null;
+				assetsNative = null;
 				Log.err("Assets is not avaible");
 				System.exit(0);
 				break;
 		}
-		
-		assets.init();
 	}
 	
 	public static Image getImage(String name){
-		return assets.getImage(name);
+		return assetsNative.getImage(name);
 	}
 	
 	public static void addImage(String name, Tile tile){
-		assets.addImage(name, tile);
+		assetsNative.addImage(name, tile);
 	}
 
 	public static void setCursor(String name) {
-		assets.setCursor(name);
+		assetsNative.setCursor(name);
 	}
 
 	public static Font getFont() {
-		return assets.getFont();
+		return assetsNative.getFont();
 	}
 
 	public static Image getUnitImage(int unitCode) {
@@ -72,10 +79,27 @@ public class Recources {
 	}
 
 	public static void loadTemperatureColor(int tMin, int tMax) {
-		assets.loadTemperatureColor(tMin, tMax);
+		assetsNative.loadTemperatureColor(tMin, tMax);
 	}
 
-	public static Image getItem(int itemIcon) {
-		return assets.getItem(itemIcon);
+	public static Image getImage(int itemIcon) {
+		return assetsNative.getItem(itemIcon);
+	}
+	
+	// GL
+	public static void initGLRecources(GL2 gl, GLCanvas canvas) throws GLException, IOException{
+		assetsGL.init(gl, canvas);
+	}
+	
+	public static void bindTexture(GL2 gl, String texKey){
+		assetsGL.bindTexure(gl, texKey);		
+	}
+	
+	public static void disableTexture(GL2 gl, String texKey){
+		assetsGL.disableTexure(gl, texKey);
+	}
+
+	public static Texture getTexutre(String name) {
+		return assetsGL.getTexture(name);
 	}
 }
