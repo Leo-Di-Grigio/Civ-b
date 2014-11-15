@@ -81,4 +81,11 @@ public class Const {
 	// items
 	public static final String imgItemRecource = "item_recource";
 	public static final String imgItemCampPack = "item_camppack";
+	
+	// color
+	public static final float [] colorBlack = {0.0f, 0.0f, 0.0f};
+	public static final float [] colorWhite = {1.0f, 1.0f, 1.0f};
+	public static final float [] colorRed   = {1.0f, 0.0f, 0.0f};
+	public static final float [] colorGreen = {0.0f, 1.0f, 0.0f};
+	public static final float [] colorBlue  = {0.0f, 0.0f, 1.0f};
 }

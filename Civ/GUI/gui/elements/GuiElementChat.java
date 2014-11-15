@@ -50,43 +50,66 @@ public class GuiElementChat extends GuiElement {
 	
 	@Override
 	public void draw(Graphics g, long tic) {
-		if(visible){
-			if(selected){
-				g.drawImage(this.textureSelected, drawX, drawY, sizeX, sizeY, null);
-			}
-			else{
-				g.drawImage(this.textureNormal, drawX, drawY, sizeX, sizeY, null);
-			}
+		if(selected){
+			g.drawImage(this.textureSelected, drawX, drawY, sizeX, sizeY, null);
+		}
+		else{
+			g.drawImage(this.textureNormal, drawX, drawY, sizeX, sizeY, null);
+		}
 			
-			g.setColor(Color.white);
+		g.setColor(Color.white);
+		
+		int line = chatLog.size() - viewLines - scroll;
+		int lineMax = chatLog.size() - scroll;
 			
-			int line = chatLog.size() - viewLines - scroll;
-			int lineMax = chatLog.size() - scroll;
-			
-			if(chatLog.size() != 0){
-				if(line < 0){
+		if(chatLog.size() != 0){
+			if(line < 0){
 					line = 0;
-				}
-				if(line >= chatLog.size()){
-					line = chatLog.size() - 1;
-				}
-			
-				if(lineMax > chatLog.size()){
-					lineMax = chatLog.size();
-				}
-				if(lineMax < 0){
-					lineMax = 0;
-				}
-			
-				for(int lineShift = 1; line < lineMax; ++line, ++lineShift){
-					g.drawString(chatLog.get(line), drawX, drawY + (g.getFontMetrics().getHeight() - 2) * lineShift);
-				}
+			}
+			if(line >= chatLog.size()){
+				line = chatLog.size() - 1;
+			}
+		
+			if(lineMax > chatLog.size()){
+				lineMax = chatLog.size();
+			}
+			if(lineMax < 0){
+				lineMax = 0;
+			}
+		
+			for(int lineShift = 1; line < lineMax; ++line, ++lineShift){
+				g.drawString(chatLog.get(line), drawX, drawY + (g.getFontMetrics().getHeight() - 2) * lineShift);
 			}
 		}
 	}
 	
 	@Override
 	public void draw(GL2 gl, TextRenderer textrender) {
+		bindTexture(gl);
+		drawQuad(gl, drawX, drawY, sizeX, sizeY);
+		disableTexture(gl);
 		
+		int line = chatLog.size() - viewLines - scroll;
+		int lineMax = chatLog.size() - scroll;
+			
+		if(chatLog.size() != 0){
+			if(line < 0){
+					line = 0;
+			}
+			if(line >= chatLog.size()){
+				line = chatLog.size() - 1;
+			}
+		
+			if(lineMax > chatLog.size()){
+				lineMax = chatLog.size();
+			}
+			if(lineMax < 0){
+				lineMax = 0;
+			}
+			
+			for(int lineShift = 1; line < lineMax; ++line, ++lineShift){
+				drawText(textrender, chatLog.get(line), drawX, drawY - (textrender.getFont().getSize() - 2) * lineShift);
+			}
+		}
 	}
 }

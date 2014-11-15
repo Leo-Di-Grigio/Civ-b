@@ -114,7 +114,7 @@ public class GuiElementTable extends GuiElement {
 			teamLine.setCell(0, "" + team.id);
 			teamLine.setCell(1, " " + team.name);
 			teamLine.metadata = Enums.TableMetadata.TEAM;
-			teamLine.selectingColor = Color.red;
+			teamLine.setColor(Color.red);
 			
 			list.add(teamLine);
 			
@@ -131,7 +131,7 @@ public class GuiElementTable extends GuiElement {
 					playerLine.setCell(3, " not ready");
 				}
 				playerLine.metadata = Enums.TableMetadata.PLAYER;
-				playerLine.selectingColor = Color.blue;
+				playerLine.setColor(Color.blue);
 				
 				list.add(playerLine);
 			}
@@ -153,26 +153,40 @@ public class GuiElementTable extends GuiElement {
 	
 	@Override
 	public void draw(Graphics g, long tic) {
-		if(visible){
-			g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
+		g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
 			
-			for(int i = 0; i < list.size(); ++i){
-				if(i == selectedLine){
-					g.setColor(list.get(i).selectingColor);
-					g.fillRect(drawX + 10, drawY + i * lineSize + 5, sizeX - 20, lineSize);
-					g.setColor(Color.white);
-					g.drawString(list.get(i).toString(), drawX + 10, drawY + i * lineSize + 20);
-				}
-				else{
-					g.setColor(Color.black);
-					g.drawString(list.get(i).toString(), drawX + 10, drawY + i * lineSize + 20);
-				}
+		for(int i = 0; i < list.size(); ++i){
+			if(i == selectedLine){
+				g.setColor(list.get(i).getColor());
+				g.fillRect(drawX + 10, drawY + i * lineSize + 5, sizeX - 20, lineSize);
+				g.setColor(Color.white);
+				g.drawString(list.get(i).toString(), drawX + 10, drawY + i * lineSize + 20);
+			}
+			else{
+				g.setColor(Color.black);
+				g.drawString(list.get(i).toString(), drawX + 10, drawY + i * lineSize + 20);
 			}
 		}
 	}
 
 	@Override
 	public void draw(GL2 gl, TextRenderer textrender) {
-
+		bindTexture(gl, glTexNormal);
+		drawQuad(gl, drawX, drawY, sizeX, sizeY);
+		disableTexture(gl, glTexNormal);
+		
+		for(int i = 0; i < list.size(); ++i){
+			if(i == selectedLine){
+				TableLine line = list.get(i);
+				gl.glColor3fv(line.getGlColor(), 0);
+				drawQuad(gl, drawX + 10, drawY + i * lineSize + 5, sizeX - 20, lineSize);
+				gl.glColor3fv(Const.colorWhite, 0); // white
+				drawText(textrender, list.get(i).toString(), drawX + 10, drawY + i * lineSize + 20);
+			}
+			else{
+				gl.glColor3fv(Const.colorBlack, 0); // black
+				drawText(textrender, list.get(i).toString(), drawX + 10, drawY + i * lineSize + 20);
+			}
+		}
 	}
 }

@@ -64,7 +64,6 @@ public class Recources {
 		Image img = getImage(Const.imgNull);
 		
 		switch(unitCode){
-			
 			case DB.unitAvatar:
 				return getImage(Const.imgUnitAvatar);
 				
@@ -87,7 +86,7 @@ public class Recources {
 	}
 	
 	// GL
-	public static void initGLRecources(GL2 gl, GLCanvas canvas) throws GLException, IOException{
+	public static void initGLRecources(GL2 gl, GLCanvas canvas) throws GLException, IOException, FontFormatException{
 		assetsGL.init(gl, canvas);
 	}
 	

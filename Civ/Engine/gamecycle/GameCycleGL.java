@@ -1,6 +1,7 @@
 package gamecycle;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.io.IOException;
 
 import javax.media.opengl.GL2;
@@ -88,7 +89,7 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 		try {
 			Recources.initGLRecources(gl, canvas);
 		} 
-		catch (GLException | IOException e) {
+		catch (GLException | IOException | FontFormatException e) {
 			e.printStackTrace();
 		}
 		
@@ -111,7 +112,7 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 		gl.glEnable(GL2.GL_POLYGON_SMOOTH);
 		gl.glHint(GL2.GL_POLYGON_SMOOTH_HINT, GL2.GL_NICEST);
 		
-		textrender = new TextRenderer(new Font("SansSerif", Font.TRUETYPE_FONT, 12));
+		textrender = new TextRenderer(new Font("ComicSans", Font.BOLD, 12));
 		textrender.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		
 		Environment.updateFrameSize(Render.getWidth(), Render.getHeight());
@@ -147,7 +148,7 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 
 	@Override
 	void draw() throws IOException {
-		Painter.draw(gl, textrender);		
+		Painter.draw(gl, textrender);
 	}
 
 	@Override

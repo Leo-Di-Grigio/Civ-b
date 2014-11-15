@@ -1,7 +1,6 @@
 package gui.misc;
 
 import java.awt.Color;
-
 import misc.Enums;
 
 public class TableLine{
@@ -12,7 +11,9 @@ public class TableLine{
 	public boolean [] hide;
 	public Enums.TableMetadata metadata;
 	
-	public Color selectingColor = Color.black;
+	// Color
+	private Color selectingColor;
+	private float [] glSelectingColor;
 	
 	public TableLine(int columns){
 		this.columns = columns;
@@ -20,6 +21,10 @@ public class TableLine{
 		hide = new boolean[columns];
 		
 		metadata = Enums.TableMetadata.NULL;
+		
+		selectingColor = Color.black;
+		glSelectingColor = new float[3];
+		
 		for(int i = 0; i < columns; ++i){
 			line[i] = new String("");
 			hide[i] = false;
@@ -40,6 +45,26 @@ public class TableLine{
 	
 	public void setVisible(int i){
 		hide[i] = false;
+	}
+	
+	public void setColor(Color color){
+		selectingColor = color;
+		
+		glSelectingColor[0] = ((float)color.getRed())/256;
+		glSelectingColor[1] = ((float)color.getGreen())/256;
+		glSelectingColor[2] = ((float)color.getBlue())/256;
+	}
+	
+	public void setColor(float [] color){
+		glSelectingColor = color;
+	}
+	
+	public Color getColor(){
+		return selectingColor;
+	}
+	
+	public float[] getGlColor(){
+		return glSelectingColor;
 	}
 	
 	@Override

@@ -5,6 +5,9 @@ import gui.tooltip.GuiTooltip;
 import java.awt.Image;
 import java.io.IOException;
 
+import javax.media.opengl.GL2;
+
+import com.jogamp.opengl.util.awt.TextRenderer;
 import com.jogamp.opengl.util.texture.Texture;
 
 import main.Config;
@@ -240,5 +243,58 @@ abstract public class GuiElement implements Drawble {
 	
 	public GuiTooltip getTooltip(){
 		return tooltip;
+	}
+	
+	// GL
+	protected void drawText(TextRenderer textrender, String text, int drawX, int drawY){
+		textrender.beginRendering(Environment.frameSizeX, Environment.frameSizeY);
+		textrender.draw(text, drawX, Environment.frameSizeY - drawY);
+		textrender.endRendering();
+	}
+	
+	protected void bindTexture(GL2 gl, Texture tex){
+		tex.bind(gl);
+		tex.enable(gl);
+	}
+	
+	protected void disableTexture(GL2 gl, Texture tex) {
+		tex.disable(gl);
+	}
+	
+	protected void bindTexture(GL2 gl, String texKey){
+		Recources.bindTexture(gl, texKey);
+	}
+	
+	protected void disabelTexture(GL2 gl, String texKey) {
+		Recources.disableTexture(gl, texKey);
+	}
+	
+	protected void bindTexture(GL2 gl){
+		if(this.selected){
+			glTexSelected.bind(gl);
+			glTexSelected.enable(gl);
+		}
+		else{
+			glTexNormal.bind(gl);
+			glTexNormal.enable(gl);
+		}
+	}
+	
+	protected void disableTexture(GL2 gl){
+		if(this.selected){
+			glTexSelected.disable(gl);
+		}
+		else{
+			glTexNormal.disable(gl);
+		}
+	}
+	
+	protected void drawQuad(GL2 gl, int posX, int posY, int sizeX, int sizeY){
+		gl.glBegin(GL2.GL_QUADS);
+			gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(posX, 			posY, 			0);
+			gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(posX, 			sizeY + posY, 	0);
+			gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(posX + sizeX, 	sizeY + posY, 	0);
+			gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(posX + sizeX, 	posY, 			0);
+		gl.glEnd();
 	}
 }

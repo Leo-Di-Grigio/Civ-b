@@ -16,18 +16,18 @@ public class GuiElementIcon extends GuiElement {
 
 	@Override
 	public void draw(Graphics g, long tic) {
-		if(visible){
-			if(selected){
-				g.drawImage(textureSelected, drawX, drawY, sizeX, sizeY, null);
-			}
-			else{
-				g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
-			}
+		if(selected){
+			g.drawImage(textureSelected, drawX, drawY, sizeX, sizeY, null);
+		}
+		else{
+			g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
 		}
 	}
 
 	@Override
 	public void draw(GL2 gl, TextRenderer textrender) {
-		
+		bindTexture(gl);
+		drawQuad(gl, drawX, drawY, sizeX, sizeY);
+		disableTexture(gl);
 	}
 }

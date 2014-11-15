@@ -35,13 +35,11 @@ public class GuiElementCursor extends GuiElement {
 	
 	@Override
 	public void draw(Graphics g, long tic) {
-		if(visible){
-			g.drawImage(textureNormal, Environment.nodeDrawCursorX*32, Environment.nodeDrawCursorY*32, sizeX, sizeY, null);
-		}
+		g.drawImage(textureNormal, Environment.nodeDrawCursorX*32, Environment.nodeDrawCursorY*32, sizeX, sizeY, null);		
 	}
 
 	@Override
 	public void draw(GL2 gl, TextRenderer textrender) {
-
+		//
 	}
 }
