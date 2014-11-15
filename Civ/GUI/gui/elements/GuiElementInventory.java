@@ -26,16 +26,14 @@ public class GuiElementInventory extends GuiElement {
 	
 	@Override
 	public void draw(Graphics g, long tic) {
-		if(visible){
-			g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
+		g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
 			
-			if(inventory != null && inventory.items != null){
-				for(int i = 0; i < inventory.items.length; ++i){
-					g.drawImage(Recources.getImage(Const.imgInventorySlot), drawX + (i * 64 + 5), drawY + 5, 64, 64, null);
+		if(inventory != null && inventory.items != null){
+			for(int i = 0; i < inventory.items.length; ++i){
+				g.drawImage(Recources.getImage(Const.imgInventorySlot), drawX + (i * 64 + 5), drawY + 5, 64, 64, null);
 					
-					if(inventory.items[i] != null){
-						g.drawImage(Recources.getImage(DB.getItemIcon(inventory.items[i].icon)), drawX + (i * 64 + 5), drawY + 5, 64, 64, null);
-					}
+				if(inventory.items[i] != null){
+					g.drawImage(Recources.getImage(DB.getItemIcon(inventory.items[i].icon)), drawX + (i * 64 + 5), drawY + 5, 64, 64, null);
 				}
 			}
 		}

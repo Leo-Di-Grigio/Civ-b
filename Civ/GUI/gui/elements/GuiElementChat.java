@@ -108,7 +108,7 @@ public class GuiElementChat extends GuiElement {
 			}
 			
 			for(int lineShift = 1; line < lineMax; ++line, ++lineShift){
-				drawText(textrender, chatLog.get(line), drawX, drawY - (textrender.getFont().getSize() - 2) * lineShift);
+				drawText(textrender, chatLog.get(line), drawX, drawY + (textrender.getFont().getSize() - 2) * lineShift);
 			}
 		}
 	}

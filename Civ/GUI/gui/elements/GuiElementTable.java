@@ -180,11 +180,9 @@ public class GuiElementTable extends GuiElement {
 				TableLine line = list.get(i);
 				gl.glColor3fv(line.getGlColor(), 0);
 				drawQuad(gl, drawX + 10, drawY + i * lineSize + 5, sizeX - 20, lineSize);
-				gl.glColor3fv(Const.colorWhite, 0); // white
 				drawText(textrender, list.get(i).toString(), drawX + 10, drawY + i * lineSize + 20);
 			}
 			else{
-				gl.glColor3fv(Const.colorBlack, 0); // black
 				drawText(textrender, list.get(i).toString(), drawX + 10, drawY + i * lineSize + 20);
 			}
 		}

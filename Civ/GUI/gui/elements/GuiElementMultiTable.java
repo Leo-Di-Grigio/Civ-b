@@ -66,26 +66,24 @@ public class GuiElementMultiTable extends GuiElement {
 	
 	@Override
 	public void draw(Graphics g, long tic) {
-		if(visible){
-			// afterscrolling update slider position
-			if(scrolled){
-				scrolled = false;
-				scaling = (float)elementsMax / (float)getTableSize();
-				sliderScale = (int)((sizeY - 10) * scaling);
-				sliderPos = (int)(scroll * scaling * GuiElementMultiTable.lineSize);
-			
-				if(sliderPos + sliderScale >= sizeY){
-					System.out.println("size " + sizeY + " pos " + (sliderPos + sliderScale));
-					sliderPos = sizeY - sliderScale - 5;
-				}
+		// afterscrolling update slider position
+		if(scrolled){
+			scrolled = false;
+			scaling = (float)elementsMax / (float)getTableSize();
+			sliderScale = (int)((sizeY - 10) * scaling);
+			sliderPos = (int)(scroll * scaling * GuiElementMultiTable.lineSize);
+		
+			if(sliderPos + sliderScale >= sizeY){
+				System.out.println("size " + sizeY + " pos " + (sliderPos + sliderScale));
+				sliderPos = sizeY - sliderScale - 5;
 			}
-			
-			// draw Table
-			g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
-			g.drawImage(textureSlider, drawX + sizeX - 15, drawY + sliderPos + 5, 15, sliderScale, null);
-			list.setDraw(drawX, drawY, scroll, sizeX, drawX);
-			list.draw(g, tic);
 		}
+			
+		// draw Table
+		g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
+		g.drawImage(textureSlider, drawX + sizeX - 15, drawY + sliderPos + 5, 15, sliderScale, null);
+		list.setDraw(drawX, drawY, scroll, sizeX, drawX);
+		list.draw(g, tic);
 	}
 
 

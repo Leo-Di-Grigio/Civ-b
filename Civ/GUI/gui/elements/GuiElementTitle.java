@@ -34,6 +34,6 @@ public class GuiElementTitle extends GuiElement {
 
 	@Override
 	public void draw(GL2 gl, TextRenderer textrender) {
-		
+		drawText(textrender, text, drawX, drawY);
 	}
 }

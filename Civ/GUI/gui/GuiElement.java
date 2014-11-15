@@ -265,7 +265,7 @@ abstract public class GuiElement implements Drawble {
 		Recources.bindTexture(gl, texKey);
 	}
 	
-	protected void disabelTexture(GL2 gl, String texKey) {
+	protected void disableTexture(GL2 gl, String texKey) {
 		Recources.disableTexture(gl, texKey);
 	}
 	
@@ -289,12 +289,12 @@ abstract public class GuiElement implements Drawble {
 		}
 	}
 	
-	protected void drawQuad(GL2 gl, int posX, int posY, int sizeX, int sizeY){
+	protected void drawQuad(GL2 gl, int drawX, int drawY, int sizeX, int sizeY){
 		gl.glBegin(GL2.GL_QUADS);
-			gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(posX, 			posY, 			0);
-			gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(posX, 			sizeY + posY, 	0);
-			gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(posX + sizeX, 	sizeY + posY, 	0);
-			gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(posX + sizeX, 	posY, 			0);
+			gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex2f(drawX, 			drawY	     );
+			gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex2f(drawX, 			drawY + sizeY);
+			gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex2f(drawX + sizeX,  	drawY + sizeY);
+			gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex2f(drawX + sizeX, 	drawY        );
 		gl.glEnd();
 	}
 }

@@ -77,27 +77,24 @@ public class GuiElementMinimap extends GuiElement {
 	
 	@Override
 	public void draw(Graphics g, long tic) {
-		if(this.visible){
+		int w = Environment.frameSizeX/32;
+		int h = Environment.frameSizeY/32;
+		int cameraX = Environment.cameraX;
+		int cameraY = Environment.cameraY;
 			
-			int w = Environment.frameSizeX/32;
-			int h = Environment.frameSizeY/32;
-			int cameraX = Environment.cameraX;
-			int cameraY = Environment.cameraY;
+		// draw background and minimap texture
+		g.drawImage(this.textureNormal, drawX, drawY, sizeX, sizeY, null);
+		g.drawImage(this.textureMinimap, drawX + 2, drawY + 2, sizeX - 4, sizeY - 4, null);
 			
-			// draw background and minimap texture
-			g.drawImage(this.textureNormal, drawX, drawY, sizeX, sizeY, null);
-			g.drawImage(this.textureMinimap, drawX + 2, drawY + 2, sizeX - 4, sizeY - 4, null);
-			
-			// draw camera rectangle
-			g.setColor(Color.white); 
-			if(cameraX + w < mapX){
-				g.drawRect(drawX + 2 + (int)(cameraX * X), drawY + 2 +(int)(cameraY * Y),(int)(w * X), (int)(h * Y));
-			}
-			else{
-				int delta = mapX - cameraX;
-				g.drawRect(drawX + 2 + (int)(cameraX * X), drawY + 2 +(int)(cameraY * Y),(int)(delta * X), (int)(h * Y));
-				g.drawRect(drawX + 2, drawY + 2 +(int)(cameraY * Y),(int)((w - delta) * X), (int)(h * Y));
-			}
+		// draw camera rectangle
+		g.setColor(Color.white); 
+		if(cameraX + w < mapX){
+			g.drawRect(drawX + 2 + (int)(cameraX * X), drawY + 2 +(int)(cameraY * Y),(int)(w * X), (int)(h * Y));
+		}
+		else{
+			int delta = mapX - cameraX;
+			g.drawRect(drawX + 2 + (int)(cameraX * X), drawY + 2 +(int)(cameraY * Y),(int)(delta * X), (int)(h * Y));
+			g.drawRect(drawX + 2, drawY + 2 +(int)(cameraY * Y),(int)((w - delta) * X), (int)(h * Y));
 		}
 	}
 

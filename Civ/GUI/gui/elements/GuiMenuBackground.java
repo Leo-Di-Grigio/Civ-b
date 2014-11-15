@@ -35,17 +35,9 @@ public class GuiMenuBackground extends GuiElement {
 	public void draw(GL2 gl, TextRenderer textrender) {
 		setSize(Environment.frameSizeX, Environment.frameSizeY);
 		
-		glTexNormal.bind(gl);
-		glTexNormal.enable(gl);
-		
-		gl.glBegin(GL2.GL_QUADS);
-			gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(drawX, drawY, 0);
-			gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(drawX, sizeY + drawY, 0);
-			gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(sizeX + drawX, sizeY + drawY, 0);
-			gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(sizeX + drawX, drawY, 0);
-		gl.glEnd();
-		
-		glTexNormal.disable(gl);
+		bindTexture(gl, glTexNormal);
+		drawQuad(gl, drawX, drawY, sizeX, sizeY);
+		disableTexture(gl, glTexNormal);
 		
 		textrender.beginRendering(Environment.frameSizeX, Environment.frameSizeY);
 		textrender.draw("" + Const.title + " v" + ToolsConst.version + "." + ToolsConst.subVersion, 0, Environment.frameSizeY - 10);

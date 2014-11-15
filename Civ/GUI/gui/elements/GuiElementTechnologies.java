@@ -30,6 +30,13 @@ public class GuiElementTechnologies extends GuiElement {
 	private static Texture glTexLearn;
 	private static Texture glTexAvaible;
 	
+	// draw
+	int nowRow;
+	int nowLine;
+	int nextRow;
+	int nextLine;
+	boolean direct;
+	
 	public GuiElementTechnologies(String titile) {
 		super(titile);
 		
@@ -66,46 +73,30 @@ public class GuiElementTechnologies extends GuiElement {
 		}
 	}
 	
+	private Texture glTechStatus(Tech tech){
+		if(tech.learned()){
+			return glTexLearn;
+		}
+		else{
+			for(Tech parent: tech.getParents()){
+				if(!parent.learned()){
+					return glTexUnlearn;
+				}
+			}
+			
+			return glTexAvaible;
+		}
+	}
+	
 	@Override
 	public void draw(Graphics g, long tic) {
 		g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
-			
-		// test
 		g.setColor(Color.black);
 		HashMap<Integer, Tech> list = tech.getList();
 
-		// stone
-			
-		int nowRow = 0;
-		int nowLine = 0;
-		int nextRow = 0;
-		int nextLine = 0;
-			
-		boolean direct = false;
-			
+		reset();
 		for(Tech tech: list.values()){
-			nowRow = nextRow;
-			nowLine = nextLine;
-			
-			if(!direct){
-				if(nextRow + 1 == 4){
-					direct = !direct;
-					nextLine++;
-					nextRow--;
-				}
-				
-				nextRow++;
-			}
-			else{
-				if(nextRow - 1 == -1){
-					direct = !direct;
-					nextLine++;
-					nextRow++;
-				}
-					
-				nextRow--;
-			}
-				
+			calcNextTechPosition();
 			g.drawImage(techStatus(tech), drawX + nowRow * 170 + 10, drawY + nowLine*65 + 10, 150, 48, null);
 			g.drawString(tech.getTitle(), drawX + nowRow * 170 + 60, drawY + nowLine*65 + 30);
 		}
@@ -113,6 +104,51 @@ public class GuiElementTechnologies extends GuiElement {
 
 	@Override
 	public void draw(GL2 gl, TextRenderer textrender) {
-
+		bindTexture(gl, glTexNormal);
+		drawQuad(gl, drawX, drawY, sizeX, sizeY);
+		disableTexture(gl, glTexNormal);
+		
+		HashMap<Integer, Tech> list = tech.getList();
+		
+		reset();
+		for(Tech tech: list.values()){
+			calcNextTechPosition();
+			bindTexture(gl, glTechStatus(tech));
+			drawQuad(gl, drawX + nowRow * 170 + 10, drawY + nowLine*65 + 10, 150, 48);
+			disableTexture(gl, glTechStatus(tech));
+			drawText(textrender, tech.getTitle(), drawX + nowRow * 170 + 60, drawY + nowLine*65 + 30);
+		}
+	}
+	
+	private void reset(){
+		nowRow = 0;
+		nowLine = 0;
+		nextRow = 0;
+		nextLine = 0;
+		direct = false;
+	}
+	
+	private void calcNextTechPosition(){
+		nowRow = nextRow;
+		nowLine = nextLine;
+		
+		if(!direct){
+			if(nextRow + 1 == 4){
+				direct = !direct;
+				nextLine++;
+				nextRow--;
+			}
+			
+			nextRow++;
+		}
+		else{
+			if(nextRow - 1 == -1){
+				direct = !direct;
+				nextLine++;
+				nextRow++;
+			}
+				
+			nextRow--;
+		}
 	}
 }

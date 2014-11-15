@@ -72,22 +72,26 @@ public class GuiElementPane extends GuiElement {
 	
 	@Override
 	public void draw(Graphics g, long tic) {
-		if(visible){
-			if(selected){
-				g.drawImage(textureSelected, drawX, drawY, sizeX, sizeY, null);
-			}
-			else{
-				g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
-			}
+		if(selected){
+			g.drawImage(textureSelected, drawX, drawY, sizeX, sizeY, null);
+		}
+		else{
+			g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
+		}
 			
-			for(GuiElement element: elements.values()){
-				element.draw(g, tic);
-			}
+		for(GuiElement element: elements.values()){
+			element.draw(g, tic);
 		}
 	}
 
 	@Override
 	public void draw(GL2 gl, TextRenderer textrender) {
-
+		bindTexture(gl);
+		drawQuad(gl, drawX, drawY, sizeX, sizeY);
+		disableTexture(gl);
+		
+		for(GuiElement element: elements.values()){
+			element.draw(gl, textrender);
+		}
 	}
 }
