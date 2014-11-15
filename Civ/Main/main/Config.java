@@ -67,7 +67,7 @@ public class Config {
 		
 		
 		// render
-		renderMode = Enums.RenderMode.OPENGL;
+		renderMode = Enums.RenderMode.NATIVE;
 		fps = 60;
 		frameRate = 1000/fps;
 		

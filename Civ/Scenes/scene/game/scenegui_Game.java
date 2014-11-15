@@ -44,8 +44,8 @@ public class scenegui_Game extends GUI {
 	public static final String uiInteractButton4 = "UI_interactButton_4";
 	public static final String uiInteractButton5 = "UI_interactButton_5";
 	
-	public static final String uiButtonEndTurn = "UI_button_endturn";
-	public static final String uiButtonExit    = "UI_button_exit";
+	public static final String uiButtonEndTurn	 = "UI_button_endturn";
+	public static final String uiButtonExit		 = "UI_button_exit";
 	
 	// infopane
 	public static final String uiInfopane   	= "UI_infopane";
@@ -55,15 +55,15 @@ public class scenegui_Game extends GUI {
 	public static final String uiInfopaneTitle2 = "UI_infopaneTitle2";
 	
 	// chat
-	public static final String uiChat = "UI_chat";
-	public static final String uiChatEntry = "UI_chatEntry";
+	public static final String uiChat 		= "UI_chat";
+	public static final String uiChatEntry 	= "UI_chatEntry";
 	
 	// inventory
-	public static final String uiInventory = "UI_Inventory";
+	public static final String uiInventory 	= "UI_Inventory";
 	
 	// technologies
 	public static final String uiTechButton = "UI_TechButton";
-	public static final String uiTech = "UI_Tech";
+	public static final String uiTech 		= "UI_Tech";
 	
 	public scenegui_Game() {
 		super();
@@ -77,7 +77,7 @@ public class scenegui_Game extends GUI {
 		minimap.setSize(300, 200);
 		minimap.setPosition(5, 0);
 		minimap.setPositionType(Enums.GuiPosition.BOTTOM_LEFT);
-		minimap.setTexture("pane");
+		minimap.setTexture(Const.imgPane);
 		minimap.setMinimapTexture(Recources.getImage(Const.imgMinimap));
 		minimap.setVisible(true);
 		minimap.setScript(new gui_minimap_MoveCamera());
@@ -88,8 +88,8 @@ public class scenegui_Game extends GUI {
 		pane.setSize(300, 200);
 		pane.setPosition(-5, 0);
 		pane.setPositionType(Enums.GuiPosition.BOTTOM_RIGHT);
-		pane.setTexture("pane");
-		pane.setTextureSelected("pane");
+		pane.setTexture(Const.imgPane);
+		pane.setTextureSelected(Const.imgPane);
 		pane.setVisible(true);
 		pane.setScript(null);
 		

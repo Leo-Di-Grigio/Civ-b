@@ -10,6 +10,7 @@ import net.Message.Prefix;
 import network.Network;
 import main.Config;
 import misc.Log;
+import scene.choosegame.scenegui_ChooseGame;
 import script.gui.ScriptGui;
 import tasks.Task;
 
@@ -22,7 +23,7 @@ public class gui_button_JoinTheGame extends ScriptGui {
 		GUI gui = (GUI)task.sceneGui;
 		
 		if(gui != null){
-			GuiElementTable list = (GuiElementTable)gui.get("gameslist");
+			GuiElementTable list = (GuiElementTable)gui.get(scenegui_ChooseGame.uiGameList);
 			
 			if(list != null){
 				TableLine line = list.getSelectedLine();

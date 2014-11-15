@@ -8,9 +8,11 @@ import gui.GUI;
 import gui.elements.GuiElementButton;
 import gui.elements.GuiElementTable;
 import gui.elements.GuiElementWindow;
+import gui.elements.GuiMenuBackground;
 
 public class scenegui_Prepare extends GUI {
 
+	public static final String uiMenuBack 			= "UI_menu";
 	public static final String uiWindiwNewTeam 		= "UI_windowNewTeam";
 	public static final String uiPlayersTable 		= "UI_playersTable";
 	public static final String uiButtonCreateTeam 	= "UI_buttonCreateTeam";
@@ -21,6 +23,11 @@ public class scenegui_Prepare extends GUI {
 	
 	public scenegui_Prepare() {
 		super();
+		
+		GuiMenuBackground menuBack = new GuiMenuBackground(uiMenuBack);
+		menuBack.setLayer(-1);
+		menuBack.setVisible(true);
+		this.add(menuBack);
 		
 		// Window
 		GuiElementWindow window = new GuiElementWindow(uiWindiwNewTeam);
@@ -53,8 +60,8 @@ public class scenegui_Prepare extends GUI {
 		button.setPosition(270, -248);
 		button.setSize(128, 32);
 		button.setPositionType(Enums.GuiPosition.CENTER);
-		button.setTexture("button_menu");
-		button.setTextureSelected("button_menu_select");
+		button.setTexture(Const.imgButtonMenu);
+		button.setTextureSelected(Const.imgButtonMenuSelect);
 		button.setText("Create new Team");
 		button.setVisible(true);
 		button.setScript(new gui_button_CreateTeam());
@@ -65,8 +72,8 @@ public class scenegui_Prepare extends GUI {
 		button.setPosition(270, -211);
 		button.setSize(128, 32);
 		button.setPositionType(Enums.GuiPosition.CENTER);
-		button.setTexture("button_menu");
-		button.setTextureSelected("button_menu_select");
+		button.setTexture(Const.imgButtonMenu);
+		button.setTextureSelected(Const.imgButtonMenuSelect);
 		button.setText("Join Team");
 		button.setVisible(true);
 		button.setScript(new gui_button_JoinTeam());
@@ -77,8 +84,8 @@ public class scenegui_Prepare extends GUI {
 		button.setPosition(270, -174);
 		button.setSize(128, 32);
 		button.setPositionType(Enums.GuiPosition.CENTER);
-		button.setTexture("button_menu");
-		button.setTextureSelected("button_menu_select");
+		button.setTexture(Const.imgButtonMenu);
+		button.setTextureSelected(Const.imgButtonMenuSelect);
 		button.setText("Leave Team");
 		button.setVisible(true);
 		button.setScript(new gui_button_LeaveTeam());
@@ -89,8 +96,8 @@ public class scenegui_Prepare extends GUI {
 		button.setPosition(270, -285);
 		button.setSize(128, 32);
 		button.setPositionType(Enums.GuiPosition.CENTER);
-		button.setTexture("button_menu");
-		button.setTextureSelected("button_menu_select");
+		button.setTexture(Const.imgButtonMenu);
+		button.setTextureSelected(Const.imgButtonMenuSelect);
 		button.setText("Ready!");
 		button.setVisible(false);
 		button.setScript(new gui_button_ReadyCheck());
@@ -101,8 +108,8 @@ public class scenegui_Prepare extends GUI {
 		button.setPosition(270, 285);
 		button.setSize(128, 32);
 		button.setPositionType(Enums.GuiPosition.CENTER);
-		button.setTexture("button_menu");
-		button.setTextureSelected("button_menu_select");
+		button.setTexture(Const.imgButtonMenu);
+		button.setTextureSelected(Const.imgButtonMenuSelect);
 		button.setText("Back");
 		button.setVisible(true);
 		button.setScript(new gui_button_LeaveGame());
