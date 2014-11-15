@@ -11,7 +11,6 @@ import gui.GUI;
 import gui.elements.GuiElementChat;
 import gui.elements.GuiElementMinimap;
 import gui.elements.GuiElementWindow;
-import recources.Recources;
 import scenedata.game.GameData;
 import script.gui.ScriptGui;
 
@@ -61,23 +60,23 @@ public class game_KeyReleased extends ScriptGui {
 		if(map != null){
 			switch(gamedata.map.drawMode){	
 				case TERRAIN:
-					map.setMinimapTexture(Recources.getImage(Const.imgMinimap));
+					map.setMinimapTexture(Const.imgMinimap);
 					break;
 				
 				case HEIGHT:
-					map.setMinimapTexture(Recources.getImage(Const.imgMinimapHeight));
+					map.setMinimapTexture(Const.imgMinimapHeight);
 					break;
 				
 				case GEOLOGY:
-					map.setMinimapTexture(Recources.getImage(Const.imgMinimapGeology));
+					map.setMinimapTexture(Const.imgMinimapGeology);
 					break;
 					
 				case TERMAL:
-					map.setMinimapTexture(Recources.getImage(Const.imgMinimapTemperature));
+					map.setMinimapTexture(Const.imgMinimapTemperature);
 					break;
 					
 				default:
-					map.setMinimapTexture(Recources.getImage(Const.imgMinimap));
+					map.setMinimapTexture(Const.imgMinimap);
 					break;
 			}
 		}

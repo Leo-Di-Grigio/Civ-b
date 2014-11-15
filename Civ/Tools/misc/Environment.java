@@ -1,13 +1,9 @@
 package misc;
 
 import gui.GUI;
-
-import java.awt.Image;
-
 import main.Config;
 import painter.Painter;
 import player.units.Unit;
-import recources.Recources;
 import scene.game.unit_Interact;
 import tasks.Task;
 
@@ -30,6 +26,10 @@ public class Environment {
 	public static int nodeSelectedY;
 	public static int nodeDrawCursorX;
 	public static int nodeDrawCursorY;
+
+	// game map
+	public static int mapSizeX;
+	public static int mapSizeY;
 	
 	public static void updateMousePosition(int x, int y){
 		Environment.mouseX = x;
@@ -49,22 +49,14 @@ public class Environment {
 	}
 	
 	private static void updateNodeSelectingNative(){
-		
-		Image map = Recources.getImage(Const.imgMinimap);
-		if(map == null){
-			return;
-		}
-		
-		int sizeX = map.getWidth(null);
-		
 		int x = mouseX/32;
 		int y = mouseY/32;
 				
 		if(x + cameraX < 0){
-			nodeSelectedX = sizeX + x + cameraX;
+			nodeSelectedX = mapSizeX + x + cameraX;
 		}
 		else{
-			nodeSelectedX = (x + cameraX)%sizeX;
+			nodeSelectedX = (x + cameraX)%mapSizeX;
 		}
 		
 		nodeSelectedY = y + cameraY;
@@ -86,9 +78,6 @@ public class Environment {
 	
 	public static void moveCamera(GUI gui, Enums.Direct direct){
 		unit_Interact.resetInteractMenu(gui);
-		
-		Image mapImage = Recources.getImage(Const.imgMinimap);
-		int mapX = mapImage.getWidth(null);
 		int h = Environment.frameSizeY/32;
 		
 		switch(direct){
@@ -99,14 +88,14 @@ public class Environment {
 			} break;
 			
 			case DOWN: {
-				if(cameraY + 1 < mapX - h){
+				if(cameraY + 1 < mapSizeX - h){
 					cameraY++;
 				}
 			} break;
 			
 			case LEFT: {
 				if(cameraX - 1 < 0){
-					cameraX = mapX - 1;
+					cameraX = mapSizeX - 1;
 				}
 				else{
 					cameraX--;
@@ -114,7 +103,7 @@ public class Environment {
 			} break;
 			
 			case RIGHT: {
-				if(cameraX + 1 > mapX - 1){
+				if(cameraX + 1 > mapSizeX - 1){
 					cameraX = 0;
 				}
 				else{
@@ -129,11 +118,6 @@ public class Environment {
 	}
 
 	public static void moveCameraToUnit(Unit unit) {
-		Image mapImage = Recources.getImage(Const.imgMinimap);
-		int mapX = mapImage.getWidth(null);
-		int mapY = mapImage.getHeight(null);
-		
-
 		cameraX = unit.x - frameSizeX/64;
 		cameraY = unit.y - frameSizeY/64;
 		
@@ -141,8 +125,8 @@ public class Environment {
 			cameraX = 0;
 		}
 		else{
-			if(cameraX >= mapX){
-				cameraX = mapX - frameSizeX/32 - 1;
+			if(cameraX >= mapSizeX){
+				cameraX = mapSizeX - frameSizeX/32 - 1;
 			}
 		}
 		
@@ -150,8 +134,8 @@ public class Environment {
 			cameraY = 0;
 		}
 		else{
-			if(cameraX >= mapY){
-				cameraY = mapY - frameSizeY/32 - 1;
+			if(cameraX >= mapSizeY){
+				cameraY = mapSizeY - frameSizeY/32 - 1;
 			}
 		}
 	}

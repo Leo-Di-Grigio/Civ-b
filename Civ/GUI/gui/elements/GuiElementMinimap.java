@@ -6,14 +6,20 @@ import java.awt.Image;
 
 import javax.media.opengl.GL2;
 
-import com.jogamp.opengl.util.awt.TextRenderer;
+import recources.Recources;
 
+import com.jogamp.opengl.util.awt.TextRenderer;
+import com.jogamp.opengl.util.texture.Texture;
+
+import main.Config;
+import misc.Enums;
 import misc.Environment;
 import gui.GuiElement;
 
 public class GuiElementMinimap extends GuiElement {
 
 	protected Image textureMinimap;
+	protected Texture glTextureMinimap;
 	
 	// scaling
 	protected float X;
@@ -27,13 +33,21 @@ public class GuiElementMinimap extends GuiElement {
 		super(title);
 	}
 	
-	public void setMinimapTexture(Image texture){
-		this.textureMinimap = texture;
-		
-		this.mapX = texture.getWidth(null);
-		this.mapY = texture.getHeight(null);
-		
-		setSize(this.sizeX, this.sizeY);
+	public void setMinimapTexture(String textureName){
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
+			// Native mode
+			this.textureMinimap = Recources.getImage(textureName);
+			this.mapX = this.textureMinimap.getWidth(null);
+			this.mapY = this.textureMinimap.getHeight(null);
+			setSize(this.sizeX, this.sizeY);
+		}
+		else{
+			// GL mode
+			this.glTextureMinimap = Recources.getTexutre(textureName);
+			this.mapX = this.glTextureMinimap.getWidth();
+			this.mapY = this.glTextureMinimap.getHeight();
+			setSize(this.sizeX, this.sizeY);
+		}
 	}
 	
 	public float getScaleFactorX(){

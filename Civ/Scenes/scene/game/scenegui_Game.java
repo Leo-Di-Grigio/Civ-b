@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import misc.Const;
 import misc.Enums;
-import recources.Recources;
 import script.gui.icon.gui_icon_Test;
 import script.gui.minimap.gui_minimap_MoveCamera;
 import gui.GUI;
@@ -78,7 +77,7 @@ public class scenegui_Game extends GUI {
 		minimap.setPosition(5, 0);
 		minimap.setPositionType(Enums.GuiPosition.BOTTOM_LEFT);
 		minimap.setTexture(Const.imgPane);
-		minimap.setMinimapTexture(Recources.getImage(Const.imgMinimap));
+		minimap.setMinimapTexture(Const.imgMinimap);
 		minimap.setVisible(true);
 		minimap.setScript(new gui_minimap_MoveCamera());
 		this.add(minimap);

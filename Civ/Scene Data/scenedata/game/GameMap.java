@@ -4,10 +4,10 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.HashSet;
-
 import player.units.Unit;
 import player.units.UnitsMng;
 import builder.GameMapGenerator;
+import main.Config;
 import misc.Const;
 import misc.Enums;
 import misc.Environment;
@@ -48,6 +48,9 @@ public class GameMap {
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		
+		Environment.mapSizeX = sizeX;
+		Environment.mapSizeY = sizeY;
+		
 		this.tMin = tMin;
 		this.tMax = tMax;
 		Recources.loadTemperatureColor(tMin, tMax);
@@ -62,9 +65,11 @@ public class GameMap {
 	}
 	
 	private void loadImg(){
-		this.imgTerrainWater = Recources.getImage(Const.imgTerrainWater);
-		this.imgTerrainWaterBorder = Recources.getImage(Const.imgTerrainWaterBorder);
-		this.imgTerrainLand = Recources.getImage(Const.imgTerrainLand);
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
+			this.imgTerrainWater = Recources.getImage(Const.imgTerrainWater);
+			this.imgTerrainWaterBorder = Recources.getImage(Const.imgTerrainWaterBorder);
+			this.imgTerrainLand = Recources.getImage(Const.imgTerrainLand);
+		}
 	}
 	
 	private void generateMap(){
@@ -354,8 +359,13 @@ public class GameMap {
 					rgbGeology = (int)geology*16 << 16 + (int)geology*16 << 8 + (int)geology*16;
 				
 				// temperature
-				BufferedImage tmp = (BufferedImage)(Recources.getImage("temp" + map[i][j].termal));
-				rgbTemperature = tmp.getRGB(0, 0);
+				if(Config.renderMode == Enums.RenderMode.NATIVE){
+					BufferedImage tmp = (BufferedImage)(Recources.getImage("temp" + map[i][j].termal));
+					rgbTemperature = tmp.getRGB(0, 0);
+				}
+				else{
+					// load GL minimap
+				}
 				
 				// set colors
 				img.setRGB(i, j, rgb);

@@ -8,8 +8,11 @@ import java.util.HashMap;
 import javax.media.opengl.GL2;
 
 import com.jogamp.opengl.util.awt.TextRenderer;
+import com.jogamp.opengl.util.texture.Texture;
 
+import main.Config;
 import misc.Const;
+import misc.Enums;
 import recources.Recources;
 import database.tech.TeamTech;
 import database.tech.Tech;
@@ -23,11 +26,25 @@ public class GuiElementTechnologies extends GuiElement {
 	private static Image texLearn;
 	private static Image texAvaible;
 	
+	private static Texture glTexUnlearn;
+	private static Texture glTexLearn;
+	private static Texture glTexAvaible;
+	
 	public GuiElementTechnologies(String titile) {
 		super(titile);
-		texUnlearn = Recources.getImage(Const.imgTechUnlearn);
-		texLearn = Recources.getImage(Const.imgTechLearn);
-		texAvaible = Recources.getImage(Const.imgTechAvaible);
+		
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
+			// Native
+			texUnlearn = Recources.getImage(Const.imgTechUnlearn);
+			texLearn = Recources.getImage(Const.imgTechLearn);
+			texAvaible = Recources.getImage(Const.imgTechAvaible);
+		}
+		else{
+			// GL
+			glTexUnlearn = Recources.getTexutre(Const.imgTechUnlearn);
+			glTexLearn = Recources.getTexutre(Const.imgTechLearn);
+			glTexAvaible = Recources.getTexutre(Const.imgTechAvaible);
+		}
 	}
 	
 	public void update(TeamTech tech){
@@ -51,48 +68,46 @@ public class GuiElementTechnologies extends GuiElement {
 	
 	@Override
 	public void draw(Graphics g, long tic) {
-		if(visible){
-			g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
+		g.drawImage(textureNormal, drawX, drawY, sizeX, sizeY, null);
 			
-			// test
-			g.setColor(Color.black);
-			HashMap<Integer, Tech> list = tech.getList();
+		// test
+		g.setColor(Color.black);
+		HashMap<Integer, Tech> list = tech.getList();
 
-			// stone
+		// stone
 			
-			int nowRow = 0;
-			int nowLine = 0;
-			int nextRow = 0;
-			int nextLine = 0;
+		int nowRow = 0;
+		int nowLine = 0;
+		int nextRow = 0;
+		int nextLine = 0;
 			
-			boolean direct = false;
+		boolean direct = false;
 			
-			for(Tech tech: list.values()){
-				nowRow = nextRow;
-				nowLine = nextLine;
-				
-				if(!direct){
-					if(nextRow + 1 == 4){
-						direct = !direct;
-						nextLine++;
-						nextRow--;
-					}
-					
-					nextRow++;
-				}
-				else{
-					if(nextRow - 1 == -1){
-						direct = !direct;
-						nextLine++;
-						nextRow++;
-					}
-					
+		for(Tech tech: list.values()){
+			nowRow = nextRow;
+			nowLine = nextLine;
+			
+			if(!direct){
+				if(nextRow + 1 == 4){
+					direct = !direct;
+					nextLine++;
 					nextRow--;
 				}
 				
-				g.drawImage(techStatus(tech), drawX + nowRow * 170 + 10, drawY + nowLine*65 + 10, 150, 48, null);
-				g.drawString(tech.getTitle(), drawX + nowRow * 170 + 60, drawY + nowLine*65 + 30);
+				nextRow++;
 			}
+			else{
+				if(nextRow - 1 == -1){
+					direct = !direct;
+					nextLine++;
+					nextRow++;
+				}
+					
+				nextRow--;
+			}
+				
+			g.drawImage(techStatus(tech), drawX + nowRow * 170 + 10, drawY + nowLine*65 + 10, 150, 48, null);
+			g.drawString(tech.getTitle(), drawX + nowRow * 170 + 60, drawY + nowLine*65 + 30);
 		}
 	}
 

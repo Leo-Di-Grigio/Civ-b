@@ -3,6 +3,7 @@ package recources;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.media.opengl.GL2;
@@ -13,6 +14,7 @@ import com.jogamp.opengl.util.texture.Texture;
 
 import database.DB;
 import recources.nongl.Tile;
+import main.Config;
 import misc.Const;
 import misc.Enums;
 import misc.Log;
@@ -49,11 +51,21 @@ public class Recources {
 	}
 	
 	public static void addImage(String name, Tile tile){
-		assetsNative.addImage(name, tile);
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
+			assetsNative.addImage(name, tile);
+		}
+		else{
+			assetsGL.initTexture(name, (BufferedImage)tile.getImage());
+		}
 	}
 
 	public static void setCursor(String name) {
-		assetsNative.setCursor(name);
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
+			assetsNative.setCursor(name);
+		}
+		else{
+			assetsGL.setCursor(name);
+		}
 	}
 
 	public static Font getFont() {
@@ -78,7 +90,12 @@ public class Recources {
 	}
 
 	public static void loadTemperatureColor(int tMin, int tMax) {
-		assetsNative.loadTemperatureColor(tMin, tMax);
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
+			assetsNative.loadTemperatureColor(tMin, tMax);
+		}
+		else{
+			assetsGL.loadTemperatureColor(tMin, tMax);
+		}
 	}
 
 	public static Image getImage(int itemIcon) {
