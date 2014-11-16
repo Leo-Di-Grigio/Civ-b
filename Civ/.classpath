@@ -14,10 +14,12 @@
 	<classpathentry kind="src" path="Team Data"/>
 	<classpathentry excluding="opengl/" kind="src" path="recources/assets"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="lib/gluegen-rt-natives-windows-amd64.jar"/>
-	<classpathentry kind="lib" path="lib/gluegen-rt.jar"/>
-	<classpathentry kind="lib" path="lib/jogl-all-natives-windows-amd64.jar"/>
-	<classpathentry kind="lib" path="lib/jogl-all.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Civ Tools"/>
+	<classpathentry kind="lib" path="F:/Dev/Civ/Civ-b/Civ/lib/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="F:/Dev/Civ/Civ-b/Civ/lib/gluegen-rt-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="F:/Dev/Civ/Civ-b/Civ/lib/gluegen-rt-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="F:/Dev/Civ/Civ-b/Civ/lib/jogl-all.jar"/>
+	<classpathentry kind="lib" path="F:/Dev/Civ/Civ-b/Civ/lib/jogl-all-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="F:/Dev/Civ/Civ-b/Civ/lib/jogl-all-natives-windows-i586.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

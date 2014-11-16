@@ -4,6 +4,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.HashSet;
+
+import javax.media.opengl.GL2;
+
+import com.jogamp.opengl.util.awt.TextRenderer;
+
 import player.units.Unit;
 import player.units.UnitsMng;
 import builder.GameMapGenerator;
@@ -11,10 +16,12 @@ import main.Config;
 import misc.Const;
 import misc.Enums;
 import misc.Environment;
+import misc.Log;
 import recources.Recources;
 import recources.nongl.Tile;
+import render.Drawble;
 
-public class GameMap {
+public class GameMap implements Drawble {
 	
 	// sizes
 	private static final int nodeX = 32;
@@ -204,50 +211,7 @@ public class GameMap {
 		
 		map[i][j].border = data;
 	}
-	
-	public void draw(Graphics g, long tic) {
-		int minX = Environment.cameraX;
-		int minY = Environment.cameraY;
 		
-		int w = Environment.frameSizeX/nodeX;
-		int h = Environment.frameSizeY/nodeY;
-		
-		int maxY = minY + h + 1;
-		
-		if(sizeX - minX > w){
-			// one-piece map
-			int maxX = minX + w + 1;
-			
-			for(int x = 0, i = minX; i < maxX; ++i, ++x){
-				for(int y = 0, j = minY; j < maxY; ++j, ++y){
-					if(y < sizeY && j < sizeY){
-						draw(g, i, j, x, y, tic);
-					}
-				}
-			}
-		}
-		else{
-			// two-piece map
-			int maxX = w + (sizeX - minX);
-			
-			for(int y = 0, j = minY; j < maxY; ++j, ++y){
-				int x = 0;
-				
-				for(int i = minX; i < sizeX; ++i, ++x){
-					if(y < sizeX && j < sizeY){
-						draw(g, i, j, x, y, tic);
-					}
-				}
-				
-				for(int i = 0; i < maxX; ++i, ++x){
-					if(y < sizeY && j < sizeY){
-						draw(g, i, j, x, y, tic);
-					}
-				}
-			}
-		}
-	}
-	
 	private void draw(Graphics g, int i, int j, int x, int y, long tic){
 		switch(drawMode) {
 			case HEIGHT:	
@@ -400,5 +364,111 @@ public class GameMap {
 				drawMode = Enums.MapDrawMode.TERRAIN;
 				break;
 		}
+	}
+
+	// Native
+	@Override
+	public void draw(Graphics g, long tic) {
+		int minX = Environment.cameraX;
+		int minY = Environment.cameraY;
+		
+		int w = Environment.frameSizeX/nodeX;
+		int h = Environment.frameSizeY/nodeY;
+		
+		int maxY = minY + h + 1;
+		
+		if(sizeX - minX > w){
+			// one-piece map
+			int maxX = minX + w + 1;
+			
+			for(int x = 0, i = minX; i < maxX; ++i, ++x){
+				for(int y = 0, j = minY; j < maxY; ++j, ++y){
+					if(y < sizeY && j < sizeY){
+						draw(g, i, j, x, y, tic);
+					}
+				}
+			}
+		}
+		else{
+			// two-piece map
+			int maxX = w + (sizeX - minX);
+			
+			for(int y = 0, j = minY; j < maxY; ++j, ++y){
+				int x = 0;
+				
+				for(int i = minX; i < sizeX; ++i, ++x){
+					if(y < sizeX && j < sizeY){
+						draw(g, i, j, x, y, tic);
+					}
+				}
+				
+				for(int i = 0; i < maxX; ++i, ++x){
+					if(y < sizeY && j < sizeY){
+						draw(g, i, j, x, y, tic);
+					}
+				}
+			}
+		}
+	}
+	
+	// GL
+	private final float angleRotation = 30.0f;
+	private final float angle = 180.0f - angleRotation;
+			
+	@Override
+	public void draw(GL2 gl, TextRenderer textrender) {
+		int count = 0;
+		
+		gl.glTranslatef(-Environment.cameraX, 0.0f, -25.0f);
+		gl.glRotatef(angle, 1.0f, 0.0f, 0.0f);
+		gl.glTranslatef(0.0f, -Environment.cameraY, 0.0f);
+		
+		drawAxis(gl);
+		
+		for(int i = 0; i < sizeX; ++i){
+			for(int j = 0; j < sizeY; ++j){
+				draw(gl, i, j, 0, 0);
+				count++;
+			}
+		}
+		
+		Log.err("Counter " + count);
+	}
+
+	private void draw(GL2 gl, int i, int j, int x, int y) {
+		gl.glPushMatrix();
+		gl.glTranslatef(i, j, 0);
+		
+		gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+        Recources.bindTexture(gl, Const.imgButton);
+		gl.glBegin(GL2.GL_QUADS);
+			gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(0.0f, 1.0f, 0.0f);
+			gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(1.0f, 1.0f, 0.0f);
+			gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(1.0f, 0.0f, 0.0f);
+			gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(0.0f, 0.0f, 0.0f);
+		gl.glEnd();
+		Recources.disableTexture(gl, Const.imgButton);
+		
+		gl.glPopMatrix();
+	}
+	
+	private void drawAxis(GL2 gl){
+		// x R
+        gl.glBegin(GL2.GL_LINES);
+        	gl.glColor3f(1.0f, 0.0f, 0.0f); gl.glVertex3f(0.0f, 0.001f, 0.0f); 
+        	gl.glColor3f(1.0f, 0.0f, 0.0f); gl.glVertex3f(100.0f, 0.001f, 0.0f);
+        gl.glEnd();
+        
+        // y G
+        gl.glBegin(GL2.GL_LINES);
+        	gl.glColor3f(0.0f, 1.0f, 0.0f); gl.glVertex3f(0.0f, 0.001f, 0.0f);
+        	gl.glColor3f(0.0f, 1.0f, 0.0f); gl.glVertex3f(0.0f, 100.001f, 0.0f);
+        gl.glEnd();
+    
+        // z B
+        gl.glBegin(GL2.GL_LINES);
+        	gl.glColor3f(0.0f, 0.0f, 1.0f); gl.glVertex3f(0.0f, 0.001f, 0.0f);
+        	gl.glColor3f(0.0f, 0.0f, 1.0f); gl.glVertex3f(0.0f, 0.001f, 100.0f);
+        gl.glEnd();
 	}
 }
