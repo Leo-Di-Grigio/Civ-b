@@ -109,8 +109,8 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 		gl.glEnable(GL2.GL_LINE_SMOOTH);               
 		gl.glHint(GL2.GL_LINE_SMOOTH_HINT, GL2.GL_NICEST);
 	        
-		gl.glEnable(GL2.GL_POLYGON_SMOOTH);
-		gl.glHint(GL2.GL_POLYGON_SMOOTH_HINT, GL2.GL_NICEST);
+		//gl.glEnable(GL2.GL_POLYGON_SMOOTH);
+		//gl.glHint(GL2.GL_POLYGON_SMOOTH_HINT, GL2.GL_NICEST);
 		
 		textrender = new TextRenderer(new Font("ComicSans", Font.BOLD, 12));
 		textrender.setColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -135,7 +135,7 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
         
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
-        glu.gluPerspective(45.0f, scaling, 0.1, 50.0);
+        glu.gluPerspective(45.0f, scaling, 0.1, 100.0);
         
         gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();

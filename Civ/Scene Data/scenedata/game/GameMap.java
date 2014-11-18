@@ -16,7 +16,6 @@ import main.Config;
 import misc.Const;
 import misc.Enums;
 import misc.Environment;
-import misc.Log;
 import recources.Recources;
 import recources.nongl.Tile;
 import render.Drawble;
@@ -65,7 +64,13 @@ public class GameMap implements Drawble {
 		loadImg();
 		
 		generateMap();
-		generateTerrain();
+		
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
+			generateTerrain();
+		}
+		else{
+			initializeTerrain();
+		}
 		generateMinimapImage();
 		
 		System.gc();
@@ -414,61 +419,110 @@ public class GameMap implements Drawble {
 	// GL
 	private final float angleRotation = 30.0f;
 	private final float angle = 180.0f - angleRotation;
-			
+
+	private float [][][] terrain;
+	private final float mapScale = 1.0f;
+	
+	private void initializeTerrain(){
+		terrain = new float[sizeX][sizeY][3];
+		
+	    for (int i = 0; i < sizeX; i++){
+	        for (int j = 0; j < sizeY; j++){
+	            terrain[i][j][0] = (float)i*mapScale;
+	            terrain[i][j][1] = (float)j*mapScale;
+	            terrain[i][j][2] = -(float)map[i][j].height;
+	        }
+	    }
+	}
+	
 	@Override
 	public void draw(GL2 gl, TextRenderer textrender) {
-		int count = 0;
+		int cameraX = Environment.cameraX;
+		int cameraY = Environment.cameraY;
 		
-		gl.glTranslatef(-Environment.cameraX, 0.0f, -25.0f);
+		gl.glTranslatef(-cameraX, 0.0f, -45.0f);
 		gl.glRotatef(angle, 1.0f, 0.0f, 0.0f);
-		gl.glTranslatef(0.0f, -Environment.cameraY, 0.0f);
+		gl.glTranslatef(0.0f, -cameraY, 0.0f);
 		
+		drawGrid(gl);
 		drawAxis(gl);
 		
-		for(int i = 0; i < sizeX; ++i){
-			for(int j = 0; j < sizeY; ++j){
-				draw(gl, i, j, 0, 0);
-				count++;
-			}
-		}
-		
-		Log.err("Counter " + count);
+		Recources.bindTexture(gl, Const.imgTerrainLand);
+		for (int i = 0; i < sizeX - 1; i++){
+	        gl.glBegin(GL2.GL_TRIANGLE_STRIP);
+	        for (int j = 0; j < sizeY - 1; j++){
+	            // draw vertex 0
+	        	gl.glColor3f(terrain[i][j][2]/-16.0f, terrain[i][j][2]/-16.0f, terrain[i][j][2]/-16.0f);
+	            gl.glTexCoord2f(0.0f, 0.0f);
+	            gl.glVertex3f(terrain[i][j][0], terrain[i][j][1], terrain[i][j][2]);
+
+	            // draw vertex 1
+	            gl.glTexCoord2f(1.0f, 0.0f);
+	            gl.glColor3f(terrain[i+1][j][2]/-16.0f, terrain[i+1][j][2]/-16.0f, terrain[i+1][j][2]/-16.0f);
+	            gl.glVertex3f(terrain[i+1][j][0], terrain[i+1][j][1], terrain[i+1][j][2]);
+
+	            // draw vertex 2
+	            gl.glTexCoord2f(0.0f, 1.0f);
+	            gl.glColor3f(terrain[i][j+1][2]/-16.0f, terrain[i][j+1][2]/-16.0f, terrain[i][j+1][2]/-16.0f);
+	            gl.glVertex3f(terrain[i][j+1][0], terrain[i][j+1][1], terrain[i][j+1][2]);
+
+	            // draw vertex 3
+	            gl.glColor3f(terrain[i+1][j+1][2]/-16.0f, terrain[i+1][j+1][2]/-16.0f, terrain[i+1][j+1][2]/-16.0f);
+	            gl.glTexCoord2f(1.0f, 1.0f);
+	            gl.glVertex3f(terrain[i+1][j+1][0], terrain[i+1][j+1][1], terrain[i+1][j+1][2]);
+	        }
+	        gl.glEnd();
+	    }
+		Recources.disableTexture(gl, Const.imgTerrainLand);
 	}
 
-	private void draw(GL2 gl, int i, int j, int x, int y) {
+	private void draw(GL2 gl, int i, int j) {
 		gl.glPushMatrix();
 		gl.glTranslatef(i, j, 0);
 		
-		gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        Recources.bindTexture(gl, Const.imgButton);
+		gl.glColor4f(1.0f, 1.0f, 1.0f, 0.9f);
 		gl.glBegin(GL2.GL_QUADS);
 			gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(0.0f, 1.0f, 0.0f);
 			gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(1.0f, 1.0f, 0.0f);
 			gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(1.0f, 0.0f, 0.0f);
 			gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(0.0f, 0.0f, 0.0f);
 		gl.glEnd();
-		Recources.disableTexture(gl, Const.imgButton);
-		
 		gl.glPopMatrix();
 	}
 	
 	private void drawAxis(GL2 gl){
 		// x R
         gl.glBegin(GL2.GL_LINES);
-        	gl.glColor3f(1.0f, 0.0f, 0.0f); gl.glVertex3f(0.0f, 0.001f, 0.0f); 
-        	gl.glColor3f(1.0f, 0.0f, 0.0f); gl.glVertex3f(100.0f, 0.001f, 0.0f);
+        	gl.glColor3f(1.0f, 0.0f, 0.0f); gl.glVertex3f(0.0f, 0.003f, 0.0f); 
+        	gl.glColor3f(1.0f, 0.0f, 0.0f); gl.glVertex3f(150.0f, 0.003f, 0.0f);
         gl.glEnd();
         
         // y G
         gl.glBegin(GL2.GL_LINES);
-        	gl.glColor3f(0.0f, 1.0f, 0.0f); gl.glVertex3f(0.0f, 0.001f, 0.0f);
-        	gl.glColor3f(0.0f, 1.0f, 0.0f); gl.glVertex3f(0.0f, 100.001f, 0.0f);
+        	gl.glColor3f(0.0f, 1.0f, 0.0f); gl.glVertex3f(0.0f, 0.003f, 0.0f);
+        	gl.glColor3f(0.0f, 1.0f, 0.0f); gl.glVertex3f(0.0f, 150.003f, 0.0f);
         gl.glEnd();
     
         // z B
         gl.glBegin(GL2.GL_LINES);
-        	gl.glColor3f(0.0f, 0.0f, 1.0f); gl.glVertex3f(0.0f, 0.001f, 0.0f);
-        	gl.glColor3f(0.0f, 0.0f, 1.0f); gl.glVertex3f(0.0f, 0.001f, 100.0f);
+        	gl.glColor3f(0.0f, 0.0f, 1.0f); gl.glVertex3f(0.0f, 0.000f, 0.0f);
+        	gl.glColor3f(0.0f, 0.0f, 1.0f); gl.glVertex3f(0.0f, 0.000f, -20.0f);
         gl.glEnd();
+	}
+	
+	public void drawGrid(GL2 gl) {
+		gl.glColor3f(0.4f, 0.4f, 0.4f);
+		
+		for(int i = 0; i < 150; ++i){
+			gl.glBegin(GL2.GL_LINES);
+	        gl.glVertex3f(0.002f,(float)i, 0.0f); 
+	        gl.glVertex3f(150.002f, (float)i, 0.0f);
+	        gl.glEnd();
+	        
+	        gl.glBegin(GL2.GL_LINES);
+	        gl.glVertex3f((float)i, 0.002f, 0.0f); 
+	        gl.glVertex3f((float)i, 150.002f, 0.0f);
+	        gl.glEnd();
+		}
 	}
 }

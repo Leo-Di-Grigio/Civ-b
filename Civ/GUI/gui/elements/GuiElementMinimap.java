@@ -100,6 +100,12 @@ public class GuiElementMinimap extends GuiElement {
 
 	@Override
 	public void draw(GL2 gl, TextRenderer textrender) {
+		bindTexture(gl);
+		drawQuad(gl, drawX, drawY, sizeX, sizeY);
+		disableTexture(gl);
 		
+		bindTexture(gl, glTextureMinimap);
+		drawQuad(gl, drawX + 2, drawY + 2, sizeX - 4, sizeY - 4);
+		disableTexture(gl, glTextureMinimap);
 	}
 }
