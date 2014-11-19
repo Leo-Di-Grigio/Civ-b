@@ -2,6 +2,7 @@ package gamecycle;
 
 import java.io.IOException;
 
+import javax.media.opengl.GL2;
 import javax.swing.JFrame;
 
 import misc.Enums;
@@ -25,4 +26,6 @@ public abstract class GameCycle extends Thread {
 
 	abstract public int getWidth();
 	abstract public int getHeight();
+	
+	abstract public GL2 getGL();
 }

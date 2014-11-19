@@ -451,9 +451,7 @@ public class GameMap implements Drawble {
 		gl.glRotatef(angle, 1.0f, 0.0f, 0.0f);
 		gl.glTranslatef(0.0f, -cameraY, 0.0f);
 		
-		//drawGrid(gl);
 		drawAxis(gl);
-		
 		drawTerrain(gl);
 		
 		gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
@@ -461,8 +459,8 @@ public class GameMap implements Drawble {
 	
 	private void drawTerrain(GL2 gl){
 		Recources.bindTexture(gl, Const.imgTerrainLand);
-		
 		gl.glColor3f(1.0f, 1.0f, 1.0f);
+		
 		for (int i = 0; i < sizeX - 1; i++){
 	        gl.glBegin(GL2.GL_TRIANGLE_STRIP);
 	        for (int j = 0; j < sizeY - 1; j++){
@@ -483,7 +481,7 @@ public class GameMap implements Drawble {
         gl.glTexCoord2f(1.0f, 0.0f);
         gl.glVertex3f(terrain[i+1][j][0], terrain[i+1][j][1], terrain[i+1][j][2]);
 
-        // draw vertex 2
+        //draw vertex 2
         gl.glTexCoord2f(0.0f, 1.0f);
         gl.glVertex3f(terrain[i][j+1][0], terrain[i][j+1][1], terrain[i][j+1][2]);
 

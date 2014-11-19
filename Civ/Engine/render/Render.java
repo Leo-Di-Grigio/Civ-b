@@ -1,9 +1,12 @@
 package render;
 
+import javax.media.opengl.GL2;
 import javax.swing.JFrame;
+
 import gamecycle.GameCycle;
 import gamecycle.GameCycleGL;
 import gamecycle.GameCycleNative;
+import main.Config;
 import misc.Enums;
 import misc.Log;
 
@@ -45,6 +48,15 @@ public class Render {
 		}
 		else{
 			return 0;
+		}
+	}
+	
+	public static GL2 getGL(){
+		if(Config.renderMode == Enums.RenderMode.OPENGL){
+			return gameCycle.getGL();
+		}
+		else{
+			return null;
 		}
 	}
 }

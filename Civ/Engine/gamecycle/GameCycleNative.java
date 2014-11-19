@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 
+import javax.media.opengl.GL2;
 import javax.swing.JFrame;
 
 import painter.Painter;
@@ -119,5 +120,10 @@ public class GameCycleNative extends GameCycle {
 	@Override
 	public int getHeight() {
 		return canvas.getHeight();
+	}
+
+	@Override
+	public GL2 getGL() {
+		return null;
 	}
 }

@@ -14,6 +14,7 @@ public class Environment {
 	public static int mouseY;
 	
 	// frame size
+	public static boolean frameFullscreen;
 	public static int frameSizeX;
 	public static int frameSizeY;
 	 

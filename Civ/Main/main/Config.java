@@ -22,8 +22,8 @@ public class Config {
 	public static boolean debug;
 	
 	// network
-	public static String serverAddress;
 	public static int serverPort;
+	public static String serverAddress;
 	public static String playerName;
 	public static String teamName;
 	
@@ -36,6 +36,7 @@ public class Config {
 	// gl
 	public static boolean glWiredMode;
 	public static boolean glShaderLoad;
+	public static boolean glFrameFullscreen;
 	
 	public Config() {
 		// os
@@ -102,6 +103,7 @@ public class Config {
 		
 		// gl
 		glWiredMode = false;
-		glShaderLoad = false;
+		glShaderLoad = true;
+		glFrameFullscreen = false;
 	}
 }
