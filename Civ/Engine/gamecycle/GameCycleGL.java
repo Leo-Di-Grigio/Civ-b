@@ -2,7 +2,9 @@ package gamecycle;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -22,6 +24,7 @@ import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.awt.TextRenderer;
 
 import main.Config;
+import misc.Const;
 import misc.Enums;
 import misc.Environment;
 
@@ -60,24 +63,6 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 		
 		animator.start();
 	}
-	
-	@Override
-	public void display(GLAutoDrawable draw) {
-		gl = draw.getGL().getGL2();
-		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
-		gl.glLoadIdentity();
-		
-		try {
-			draw();
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-		textrender.draw(draw.getAnimator().getLastFPS() + " FPS", 0, 0);
-		gl.glFlush();
-	}
 
 	@Override
 	public void init(GLAutoDrawable draw) {
@@ -88,6 +73,10 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 		
 		try {
 			Recources.initGLRecources(gl, canvas);
+			
+			if(Config.glShaderLoad){
+				initShaders(gl);
+			}
 		} 
 		catch (GLException | IOException | FontFormatException e) {
 			e.printStackTrace();
@@ -117,7 +106,57 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 		
 		Environment.updateFrameSize(Render.getWidth(), Render.getHeight());
 	}
+	
+	private String loadShader(String shaderPath) throws IOException {
+		Scanner in = new Scanner(new File(shaderPath));
 
+		String shaderSourceCode = "";
+		while(in.hasNext()){
+			shaderSourceCode += in.nextLine() + "\n";
+		}
+		
+		in.close();
+		return shaderSourceCode;
+	}
+	
+	private void initShaders(GL2 gl) throws IOException{
+		int vertexShader = gl.glCreateShader(GL2.GL_VERTEX_SHADER);
+		int fragmentShader = gl.glCreateShader(GL2.GL_FRAGMENT_SHADER);
+
+		String vsrc = loadShader(Const.glSahders + "Vertex.glsl");
+		gl.glShaderSource(vertexShader, 1, new String[] { vsrc }, (int[]) null, 0);
+		gl.glCompileShader(vertexShader);
+
+		String fsrc = loadShader(Const.glSahders + "Fragment.glsl");
+		gl.glShaderSource(fragmentShader, 1, new String[] { fsrc }, (int[]) null, 0);
+		gl.glCompileShader(fragmentShader);
+		
+		// init shaders work
+		int shaderProgram = gl.glCreateProgram();
+		gl.glAttachShader(shaderProgram, vertexShader);
+		gl.glAttachShader(shaderProgram, fragmentShader);
+		gl.glLinkProgram(shaderProgram);
+		gl.glValidateProgram(shaderProgram);
+
+		gl.glUseProgram(shaderProgram);
+	}
+	
+	@Override
+	public void display(GLAutoDrawable draw) {
+		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
+		gl.glLoadIdentity();
+		
+		try {
+			draw();
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		textrender.draw(draw.getAnimator().getLastFPS() + " FPS", 0, 0);
+		gl.glFlush();
+	}
+	
 	@Override
 	public void reshape(GLAutoDrawable draw, int x, int y, int w, int h) {
         gl = draw.getGL().getGL2();

@@ -13,6 +13,7 @@
 	<classpathentry kind="src" path="Scenes"/>
 	<classpathentry kind="src" path="Team Data"/>
 	<classpathentry excluding="opengl/" kind="src" path="recources/assets"/>
+	<classpathentry kind="src" path="shaders"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Civ Tools"/>
 	<classpathentry kind="lib" path="F:/Dev/Civ/Civ-b/Civ/lib/gluegen-rt.jar"/>

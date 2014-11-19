@@ -9,6 +9,9 @@ public class Const {
 	public static final String assetsNative = "recources/assets/native/";
 	public static final String assetsGL = "recources/assets/opengl/";
 	
+	// GL shaders
+	public static final String glSahders = "shaders/";
+	
 	// memory garbage collector
 	public static final int tasksForGC = 10000; // every 10000 tasks - call gc();
 	

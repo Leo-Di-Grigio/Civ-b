@@ -28,10 +28,14 @@ public class Config {
 	public static String teamName;
 	
 	// gameplay settings
-	public static boolean gameShowUnitPathPrevew = false;
+	public static boolean gameShowUnitPathPrevew;
 	
 	// chat
-	public static int chatHistorySize = 1024;
+	public static int chatHistorySize;
+	
+	// gl
+	public static boolean glWiredMode;
+	public static boolean glShaderLoad;
 	
 	public Config() {
 		// os
@@ -89,5 +93,15 @@ public class Config {
 				  "\t2) " + classPath + "\n" + 
 				  "\t3) renderMode: " + renderMode + "\n" +
 				  "\t4) " + frameWidth +"x" + frameHeight + ": fps " + fps);
+		
+		// gameplay settings
+		gameShowUnitPathPrevew = false;
+		
+		// chat
+		chatHistorySize = 1024;
+		
+		// gl
+		glWiredMode = false;
+		glShaderLoad = false;
 	}
 }
