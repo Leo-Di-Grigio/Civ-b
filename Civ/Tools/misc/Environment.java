@@ -1,9 +1,16 @@
 package misc;
 
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+
+import javax.media.opengl.GL2;
+import javax.media.opengl.glu.GLU;
+
 import gui.GUI;
 import main.Config;
 import painter.Painter;
 import player.units.Unit;
+import render.Render;
 import scene.game.unit_Interact;
 import tasks.Task;
 
@@ -32,6 +39,29 @@ public class Environment {
 	public static int mapSizeX;
 	public static int mapSizeY;
 	
+	// GL tools
+	public static float surfaceX;
+	public static float surfaceY;
+	public static float surfaceZ;
+	
+	private static FloatBuffer zBuffer;
+	private static FloatBuffer coordinates;	 
+	private static FloatBuffer modelview;
+	private static FloatBuffer projection;
+	private static IntBuffer viewport;
+	private static int realY;
+	
+	// rotate
+	public static float angle;
+	
+	public Environment(){
+		zBuffer = FloatBuffer.allocate(1);
+		coordinates = FloatBuffer.allocate(3);	 
+		modelview = FloatBuffer.allocate(16);
+		projection = FloatBuffer.allocate(16);
+		viewport = IntBuffer.allocate(4);	
+	}
+	
 	public static void updateMousePosition(int x, int y){
 		Environment.mouseX = x;
 		Environment.mouseY = y;
@@ -44,7 +74,9 @@ public class Environment {
 		}
 		
 		if(Config.renderMode == Enums.RenderMode.OPENGL){
-			updateNodeSelectingOpenGL();
+			if(Painter.currentSceneTitle == Enums.Scene.GAME){
+				updateNodeSelectingOpenGL();
+			}
 			return;
 		}
 	}
@@ -67,7 +99,21 @@ public class Environment {
 	}
 	
 	private static void updateNodeSelectingOpenGL(){
-		// opengl
+		GL2 gl = Render.getGL();
+		GLU glu = Render.getGLU();
+		
+		gl.glGetFloatv(GL2.GL_MODELVIEW_MATRIX, modelview);
+		gl.glGetFloatv(GL2.GL_PROJECTION_MATRIX, projection);
+		gl.glGetIntegerv(GL2.GL_VIEWPORT, viewport);
+	 
+		realY = Render.getHeight() - mouseY - 1;
+		 
+		gl.glReadPixels(mouseX, realY, 1, 1, GL2.GL_DEPTH_COMPONENT, GL2.GL_FLOAT, zBuffer);
+		glu.gluUnProject(mouseX, realY, zBuffer.get(0), modelview, projection, viewport, coordinates);
+		
+		surfaceX = coordinates.get(0);
+		surfaceY = coordinates.get(1);
+		surfaceZ = coordinates.get(2);
 	}
 	
 	public static void updateFrameSize(int width, int height){

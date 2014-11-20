@@ -430,7 +430,7 @@ public class GameMap implements Drawble {
 	        for (int j = 0; j < sizeY; j++){
 	            terrain[i][j][0] = (float)i*mapScale;
 	            terrain[i][j][1] = (float)j*mapScale;
-	            terrain[i][j][2] = -(float)map[i][j].height;
+	            terrain[i][j][2] = (float)map[i][j].height;
 	        }
 	    }
 	}
@@ -447,7 +447,7 @@ public class GameMap implements Drawble {
 		int cameraX = Environment.cameraX;
 		int cameraY = Environment.cameraY;
 		
-		gl.glTranslatef(-cameraX, 0.0f, -45.0f);
+		gl.glTranslatef(-cameraX, 0.0f, -55.0f);
 		gl.glRotatef(angle, 1.0f, 0.0f, 0.0f);
 		gl.glTranslatef(0.0f, -cameraY, 0.0f);
 		
@@ -458,18 +458,27 @@ public class GameMap implements Drawble {
 	}
 	
 	private void drawTerrain(GL2 gl){
-		Recources.bindTexture(gl, Const.imgTerrainLand);
+		
+		
 		gl.glColor3f(1.0f, 1.0f, 1.0f);
+		gl.glPushMatrix();
+		gl.glRotatef(-180.0f, 1.0f, 0.0f, 0.0f);
+		gl.glTranslatef(0.0f, -sizeY + 1, 0.0f);
+		
+		Recources.bindTexture(gl, Const.imgTerrainLand);
 		
 		for (int i = 0; i < sizeX - 1; i++){
 	        gl.glBegin(GL2.GL_TRIANGLE_STRIP);
+	        
 	        for (int j = 0; j < sizeY - 1; j++){
 	        	drawNode(gl, i, j);
 	        }
+	        
 	        gl.glEnd();
 	    }
-		
 		Recources.disableTexture(gl, Const.imgTerrainLand);
+		
+		gl.glPopMatrix();
 	}
 	
 	private void drawNode(GL2 gl, int i, int j) {

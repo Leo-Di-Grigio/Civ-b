@@ -1,6 +1,7 @@
 package render;
 
 import javax.media.opengl.GL2;
+import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 
 import gamecycle.GameCycle;
@@ -54,6 +55,15 @@ public class Render {
 	public static GL2 getGL(){
 		if(Config.renderMode == Enums.RenderMode.OPENGL){
 			return gameCycle.getGL();
+		}
+		else{
+			return null;
+		}
+	}
+	
+	public static GLU getGLU(){
+		if(Config.renderMode == Enums.RenderMode.OPENGL){
+			return gameCycle.getGLU();
 		}
 		else{
 			return null;

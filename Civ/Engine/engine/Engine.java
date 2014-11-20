@@ -11,6 +11,7 @@ import render.Render;
 import script.ScriptsAPI;
 import main.Config;
 import misc.Const;
+import misc.Environment;
 import misc.Tools;
 import misc.ToolsConst;
 
@@ -37,6 +38,7 @@ public class Engine {
 	}
 	
 	private void initEngine() throws IOException, FontFormatException{
+		new Environment();
 		new Tools();
 		new ScriptsAPI();
 		new Recources(Config.renderMode);		

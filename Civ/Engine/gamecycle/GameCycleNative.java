@@ -8,6 +8,7 @@ import java.awt.image.BufferStrategy;
 import java.io.IOException;
 
 import javax.media.opengl.GL2;
+import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 
 import painter.Painter;
@@ -124,6 +125,11 @@ public class GameCycleNative extends GameCycle {
 
 	@Override
 	public GL2 getGL() {
+		return null;
+	}
+
+	@Override
+	public GLU getGLU() {
 		return null;
 	}
 }

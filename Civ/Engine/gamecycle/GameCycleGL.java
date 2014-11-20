@@ -181,4 +181,9 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 	public GL2 getGL() {
 		return gl;
 	}
+
+	@Override
+	public GLU getGLU() {
+		return glu;
+	}
 }
