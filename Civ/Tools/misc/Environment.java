@@ -51,9 +51,6 @@ public class Environment {
 	private static IntBuffer viewport;
 	private static int realY;
 	
-	// rotate
-	public static float angle;
-	
 	public Environment(){
 		zBuffer = FloatBuffer.allocate(1);
 		coordinates = FloatBuffer.allocate(3);	 

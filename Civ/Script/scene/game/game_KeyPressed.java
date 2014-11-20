@@ -60,14 +60,6 @@ public class game_KeyPressed extends ScriptGui {
 			case "D":
 				Environment.moveCamera(gui, Enums.Direct.RIGHT);
 				break;
-				
-			case "Q":
-				Environment.angle += 5.0f;
-				break;
-			
-			case "E":
-				Environment.angle -= 5.0f;
-				break;
 		}
 	}
 }

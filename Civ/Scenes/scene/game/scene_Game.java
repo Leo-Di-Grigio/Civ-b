@@ -41,7 +41,6 @@ public class scene_Game extends Scene {
 		textrender.draw("Scene: Game", 0, Environment.frameSizeY - 10);
 		textrender.draw("Camera x: " +Environment.cameraX + " y: " + Environment.cameraY, 0, Environment.frameSizeY - 20);
 		textrender.draw("Node selected x: " + Environment.surfaceX + " y: " + Environment.surfaceY + " z: " + Environment.surfaceZ, 0, Environment.frameSizeY - 30);
-		textrender.draw("Angle: " + Environment.angle, 0, Environment.frameSizeY - 40);
 		textrender.endRendering();
 	}
 }
