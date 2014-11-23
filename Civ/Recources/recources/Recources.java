@@ -118,4 +118,16 @@ public class Recources {
 	public static Texture getTexutre(String name) {
 		return assetsGL.getTexture(name);
 	}
+
+	public static int getTextureId(String texKey) {
+		return assetsGL.getTextureId(texKey);
+	}
+
+	public static void bindMultiTex(GL2 gl, String [] texNames) {
+		assetsGL.bindMultiTexture(gl, texNames);
+	}
+
+	public static void disableMultiTexture(GL2 gl) {
+		assetsGL.disableMultiTexture(gl);
+	}
 }

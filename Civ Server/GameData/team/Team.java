@@ -2,7 +2,6 @@ package team;
 
 import java.awt.Point;
 import java.util.HashMap;
-
 import database.tech.TeamTech;
 import database.tech.Tech;
 import player.Player;

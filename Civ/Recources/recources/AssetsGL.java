@@ -4,14 +4,22 @@ import java.awt.Cursor;
 import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.IntBuffer;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLException;
 import javax.media.opengl.awt.GLCanvas;
 
+import shaders.ShaderMng;
 import userapi.UserCanvasListener;
 import userapi.UserKey;
 import userapi.UserMotion;
@@ -269,35 +277,32 @@ public class AssetsGL {
 		return font;
 	}
 	
-	protected void initTexture(String texName, BufferedImage img){
+	protected void initTexture(String texName, BufferedImage img){		
 		Texture t = AWTTextureIO.newTexture(gl.getGLProfile(), img, true);
-		t.setTexParameteri(gl, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR); 
-		t.setTexParameteri(gl, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR); 
-		t.setTexParameteri(gl, GL2.GL_TEXTURE_WRAP_S, GL2.GL_CLAMP_TO_EDGE); 
-		t.setTexParameteri(gl, GL2.GL_TEXTURE_WRAP_T, GL2.GL_CLAMP_TO_EDGE);
-		t.disable(gl);
-		
-		int index = tex.size();
-		indexes.put(texName, index);
-		tex.add(t);
+		initTexture(texName, t);
 	}
 	
 	private void initTexture(String texName, String path) throws GLException, IOException{
 		Texture t = TextureIO.newTexture(new File(path), false);
+		initTexture(texName, t);
+	}
+	
+	private void initTexture(String texName, Texture t){
 		t.setTexParameteri(gl, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR); 
 		t.setTexParameteri(gl, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR); 
 		t.setTexParameteri(gl, GL2.GL_TEXTURE_WRAP_S, GL2.GL_CLAMP_TO_EDGE); 
 		t.setTexParameteri(gl, GL2.GL_TEXTURE_WRAP_T, GL2.GL_CLAMP_TO_EDGE);
 		t.disable(gl);
-		
+				
 		int index = tex.size();
 		indexes.put(texName, index);
 		tex.add(t);
 	}
 
 	public void bindTexure(GL2 gl, String texKey) {
-		tex.get(indexes.get(texKey)).bind(gl);
-		tex.get(indexes.get(texKey)).enable(gl);
+		Texture t = tex.get(indexes.get(texKey));
+		t.bind(gl);
+		t.enable(gl);
 	}
 
 	public void disableTexure(GL2 gl, String texKey) {
@@ -306,5 +311,53 @@ public class AssetsGL {
 
 	public Texture getTexture(String texKey) {
 		return tex.get(indexes.get(texKey));
+	}
+	
+	public void bindMultiTexture(GL2 gl, String [] texNames){
+		int [] textures = new int[2];
+		gl.glGenTextures(2, textures, 0);
+		
+		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0]);
+		ByteBuffer b = genTexture(32);
+		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGBA8, 32, 32, 0, GL2.GL_RGB, GL2.GL_BYTE, b);
+		
+        gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[1]);
+        b = genTexture(32);
+        gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGBA8, 32, 32, 0, GL2.GL_RGB, GL2.GL_BYTE, b);
+		
+        gl.glEnable(GL2.GL_TEXTURE_2D);
+        gl.glActiveTexture(GL2.GL_TEXTURE0);
+        gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0]);
+        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR);
+        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
+
+        gl.glActiveTexture(GL2.GL_TEXTURE1);
+        gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[1]);
+        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR);
+        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
+        
+		// tex
+		gl.glUniform1i(ShaderMng.getTexWater(), 0);
+		gl.glUniform1i(ShaderMng.getTexLand(),  1);
+	}
+	
+	private ByteBuffer genTexture(int size) {
+		ByteBuffer b = ByteBuffer.allocate(size * size * 3);
+		byte [] b2 = new byte[size * size * 3];
+		Random r = new Random();
+		r.setSeed(System.nanoTime());
+		r.nextBytes(b2);
+		b.put(b2);
+		b.flip();
+		return b;
+	}
+	
+	public void disableMultiTexture(GL2 gl){
+		gl.glDisable(GL2.GL_TEXTURE_2D);
+		gl.glActiveTexture(GL2.GL_TEXTURE0);
+	}
+	
+	public int getTextureId(String texKey) {
+		return indexes.get(texKey);
 	}
 }

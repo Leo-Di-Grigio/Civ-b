@@ -8,7 +8,6 @@ import javax.media.opengl.GL2;
 import misc.Const;
 import misc.Log;
 
-
 public class ShaderMng {
 	private static GL2 gl;
 	
@@ -16,7 +15,11 @@ public class ShaderMng {
 	private static int shaderProgram;
 	
 	// uniform values
-	private static int mapHeight;
+	private static int shValHeight;
+	
+	// uniform textures
+	private static int shTexWater;
+	private static int shTexLand;
 	
 	public ShaderMng(GL2 gl) throws IOException{
 		ShaderMng.gl = gl;
@@ -26,9 +29,17 @@ public class ShaderMng {
 	}
 	
 	public static int getMapHeight(){
-		return mapHeight;
+		return shValHeight;
 	}
 	
+	public static int getTexWater(){
+		return shTexWater;
+	}
+	
+	public static int getTexLand(){
+		return shTexLand;
+	}
+
 	private static void initShaders() throws IOException{
 		int vertexShader = gl.glCreateShader(GL2.GL_VERTEX_SHADER);
 		int fragmentShader = gl.glCreateShader(GL2.GL_FRAGMENT_SHADER);
@@ -50,9 +61,11 @@ public class ShaderMng {
 		gl.glUseProgram(shaderProgram);
 		
 		// create uniform links
-		mapHeight = gl.glGetUniformLocation(shaderProgram, "mapHeight");
+		shValHeight = gl.glGetUniformLocation(shaderProgram, "mapHeight");
+		shTexWater = gl.glGetUniformLocation(shaderProgram, "texWater");
+		shTexLand = gl.glGetUniformLocation(shaderProgram, "texLand");
 	}
-		
+	
 	private static String loadShader(String shaderPath) throws IOException {
 		Scanner in = new Scanner(new File(shaderPath));
 

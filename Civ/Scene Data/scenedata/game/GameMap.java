@@ -19,6 +19,7 @@ import misc.Environment;
 import recources.Recources;
 import recources.nongl.Tile;
 import render.Drawble;
+import shaders.ShaderMng;
 
 public class GameMap implements Drawble {
 	
@@ -474,13 +475,14 @@ public class GameMap implements Drawble {
 		gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
 	}
 	
-	private void drawTerrain(GL2 gl){
+	private void drawTerrain(GL2 gl){		
 		gl.glColor3f(1.0f, 1.0f, 1.0f);
 		gl.glPushMatrix();
 		gl.glRotatef(-180.0f, 1.0f, 0.0f, 0.0f);
 		gl.glTranslatef(0.0f, -sizeY + 1, 0.0f);
 		
-		Recources.bindTexture(gl, Const.imgTerrainLand);
+		Recources.bindMultiTex(gl, new String [] {Const.imgTerrainWater, Const.imgTerrainLand});
+		
 		for (int i = 0; i < sizeX - 1; i++){
 	        gl.glBegin(GL2.GL_TRIANGLE_STRIP);
 	        
@@ -490,7 +492,8 @@ public class GameMap implements Drawble {
 	        
 	        gl.glEnd();
 	    }
-		Recources.disableTexture(gl, Const.imgTerrainLand);
+		
+		Recources.disableMultiTexture(gl);
 		
 		gl.glPopMatrix();
 	}
@@ -498,6 +501,8 @@ public class GameMap implements Drawble {
 	private void drawNode(GL2 gl, int i, int j) {
 		int I = i*2;
 		int J = j*2;
+		
+		gl.glUniform1f(ShaderMng.getMapHeight(), terrain[I][J][2]);
 		
 		// 00
 		//draw vertex 0
