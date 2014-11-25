@@ -2,15 +2,11 @@ package recources;
 
 import java.awt.Cursor;
 import java.awt.FontFormatException;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBuffer;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -19,6 +15,7 @@ import javax.media.opengl.GLException;
 import javax.media.opengl.awt.GLCanvas;
 
 import shaders.Shader;
+import shaders.ShaderMng;
 import userapi.UserCanvasListener;
 import userapi.UserKey;
 import userapi.UserMotion;
@@ -31,7 +28,6 @@ import com.jogamp.opengl.util.texture.TextureIO;
 import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 import engine.Engine;
-import gamecycle.GameCycleGL;
 import main.Config;
 import misc.Const;
 import misc.Log;
@@ -44,6 +40,8 @@ public class AssetsGL {
 	private static Font font;
 	
 	private static int [] terrain;
+	
+	private static ShaderMng shaders;
 	
 	private GL2 gl;
 	
@@ -321,6 +319,14 @@ public class AssetsGL {
 	
 	public Font getFont() {
 		return font;
+	}
+	
+	public static void loadSahders(GL2 gl) throws IOException {
+		shaders = new ShaderMng(gl);
+	}
+	
+	public static Shader getShader(String key){
+		return shaders.getShader(key);
 	}
 	
 	protected void initTexture(String texName, BufferedImage img){		

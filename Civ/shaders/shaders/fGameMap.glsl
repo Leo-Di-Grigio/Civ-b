@@ -1,13 +1,12 @@
 #version 150
 
 // USER
-uniform float h;
-
 uniform sampler2D tex0;
 uniform sampler2D tex1;
 
 // IN
 in vec2 tex_coord;
+in float h;
 
 // OUT
 out vec4 frgcolor;

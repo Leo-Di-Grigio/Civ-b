@@ -14,6 +14,7 @@ import com.jogamp.opengl.util.texture.Texture;
 
 import database.DB;
 import recources.nongl.Tile;
+import shaders.Shader;
 import main.Config;
 import misc.Const;
 import misc.Enums;
@@ -129,5 +130,13 @@ public class Recources {
 
 	public static void disableMultiTexture(GL2 gl) {
 		assetsGL.disableMultiTexture(gl);
+	}
+
+	public static void loadShaders(GL2 gl) throws IOException {
+		AssetsGL.loadSahders(gl);
+	}
+
+	public static Shader getShader(String shaderTitle) {
+		return AssetsGL.getShader(shaderTitle);
 	}
 }

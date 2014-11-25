@@ -91,4 +91,8 @@ public class Const {
 	public static final float [] colorRed   = {1.0f, 0.0f, 0.0f};
 	public static final float [] colorGreen = {0.0f, 1.0f, 0.0f};
 	public static final float [] colorBlue  = {0.0f, 0.0f, 1.0f};
+	
+	
+	// Shaders
+	public static final String shaderGameMap = "shader_GameMap";
 }

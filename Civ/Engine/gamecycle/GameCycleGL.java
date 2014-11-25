@@ -22,13 +22,11 @@ import javax.swing.JFrame;
 import painter.Painter;
 import recources.Recources;
 import render.Render;
-import shaders.Shader;
 
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.awt.TextRenderer;
 
 import main.Config;
-import misc.Const;
 import misc.Enums;
 import misc.Environment;
 
@@ -80,8 +78,6 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 		
 		animator.start();
 	}
-	
-	public static Shader shader;
 
 	@Override
 	public void init(GLAutoDrawable draw) {
@@ -94,10 +90,7 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 			Recources.initGLRecources(gl, canvas);
 			
 			if(Config.glShaderLoad){
-				shader = new Shader();
-				shader.loadFragmentShader(Const.glSahders + "Fragment.glsl");
-				shader.loadVertexShader(Const.glSahders + "Vertex.glsl");
-				shader.init(gl);
+				Recources.loadShaders(gl);
 			}
 		} 
 		catch (GLException | IOException | FontFormatException e) {
