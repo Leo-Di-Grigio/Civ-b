@@ -3,7 +3,6 @@ package scenedata.game;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.nio.FloatBuffer;
 import java.util.HashSet;
 
 import javax.media.opengl.GL2;
@@ -487,15 +486,15 @@ public class GameMap implements Drawble {
 		gl.glColor3f(1.0f, 1.0f, 1.0f);
 		gl.glPushMatrix();
 		gl.glRotatef(-180.0f, 1.0f, 0.0f, 0.0f);
-		gl.glTranslatef(0.0f, -sizeY + 1, 0.0f);
+		gl.glTranslatef(0.0f, -sizeY, 0.0f);
 		
 		Recources.bindMultiTex(gl, new String [] {Const.imgTerrainWater, Const.imgTerrainLand});
 		shader.bind(gl);
 		shader.prepeare(gl);
 		
-		for (int i = 0; i < sizeX - 1; i++){
+		for (int i = 0; i < sizeX*2 - 1; i++){
 			gl.glBegin(GL2.GL_TRIANGLE_STRIP);
-	        for (int j = 0; j < sizeY - 1; j++){
+	        for (int j = 0; j < sizeY*2 - 1; j++){
 	        	drawNode(gl, i, j, shader.getTexCoord());
 	        }
 	        gl.glEnd();
@@ -508,76 +507,21 @@ public class GameMap implements Drawble {
 	}
 	
 	private void drawNode(GL2 gl, int i, int j, int texCoord) {
-		int I = i*2;
-		int J = j*2;
-		
-		// 00
-		//draw vertex 0
-		gl.glVertexAttrib2f(texCoord, 0.0f, 0.0f);
-        gl.glVertex3f(terrain[I][J][0], terrain[I][J][1], terrain[I][J][2]);
-        
-        //draw vertex 1
-        gl.glVertexAttrib2f(texCoord, 1.0f, 0.0f);
-        gl.glVertex3f(terrain[I+1][J][0], terrain[I+1][J][1], terrain[I+1][J][2]);
-
-        //draw vertex 2
-        gl.glVertexAttrib2f(texCoord, 0.0f, 1.0f);
-        gl.glVertex3f(terrain[I][J+1][0], terrain[I][J+1][1], terrain[I][J+1][2]);
-
-        //draw vertex 3
-        gl.glVertexAttrib2f(texCoord, 1.0f, 1.0f);
-        gl.glVertex3f(terrain[I+1][J+1][0], terrain[I+1][J+1][1], terrain[I+1][J+1][2]);
-        
-        // 01
-		//draw vertex 0
+		// draw vertex 0
         gl.glVertexAttrib2f(texCoord, 0.0f, 0.0f);
-        gl.glVertex3f(terrain[I+1][J][0], terrain[I+1][J][1], terrain[I+1][J][2]);
-        
-        //draw vertex 1
+        gl.glVertex3f(terrain[i][j][0], terrain[i][j][1], terrain[i][j][2]);
+
+        // draw vertex 1
         gl.glVertexAttrib2f(texCoord, 1.0f, 0.0f);
-        gl.glVertex3f(terrain[I+2][J][0], terrain[I+2][J][1], terrain[I+2][J][2]);
+        gl.glVertex3f(terrain[i+1][j][0], terrain[i+1][j][1], terrain[i+1][j][2]);
 
-        //draw vertex 2
+        // draw vertex 2
         gl.glVertexAttrib2f(texCoord, 0.0f, 1.0f);
-        gl.glVertex3f(terrain[I+1][J+1][0], terrain[I+1][J+1][1], terrain[I+1][J+1][2]);
+        gl.glVertex3f(terrain[i][j+1][0], terrain[i][j+1][1], terrain[i][j+1][2]);
 
-        //draw vertex 3
+        // draw vertex 3
         gl.glVertexAttrib2f(texCoord, 1.0f, 1.0f);
-        gl.glVertex3f(terrain[I+2][J+1][0], terrain[I+2][J+1][1], terrain[I+2][J+1][2]);
-        
-        // 10
-		//draw vertex 0
-        gl.glVertexAttrib2f(texCoord, 0.0f, 0.0f);
-        gl.glVertex3f(terrain[I][J+1][0], terrain[I][J+1][1], terrain[I][J+1][2]);
-        
-        //draw vertex 1
-        gl.glVertexAttrib2f(texCoord, 1.0f, 0.0f);
-        gl.glVertex3f(terrain[I+1][J+1][0], terrain[I+1][J+1][1], terrain[I+1][J+1][2]);
-
-        //draw vertex 2
-        gl.glVertexAttrib2f(texCoord, 0.0f, 1.0f);
-        gl.glVertex3f(terrain[I][J+2][0], terrain[I][J+2][1], terrain[I][J+2][2]);
-
-        //draw vertex 3
-        gl.glVertexAttrib2f(texCoord, 1.0f, 1.0f);
-        gl.glVertex3f(terrain[I+1][J+2][0], terrain[I+1][J+2][1], terrain[I+1][J+2][2]);
-        
-        // 11
-		//draw vertex 0
-        gl.glVertexAttrib2f(texCoord, 0.0f, 0.0f);
-        gl.glVertex3f(terrain[I+1][J+1][0], terrain[I+1][J+1][1], terrain[I+1][J+1][2]);
-        
-        //draw vertex 1
-        gl.glVertexAttrib2f(texCoord, 1.0f, 0.0f);
-        gl.glVertex3f(terrain[I+2][J+1][0], terrain[I+2][J+1][1], terrain[I+2][J+1][2]);
-
-        //draw vertex 2
-        gl.glVertexAttrib2f(texCoord, 0.0f, 1.0f);
-        gl.glVertex3f(terrain[I+1][J+2][0], terrain[I+1][J+2][1], terrain[I+1][J+2][2]);
-
-        //draw vertex 3
-        gl.glVertexAttrib2f(texCoord, 1.0f, 1.0f);
-        gl.glVertex3f(terrain[I+2][J+2][0], terrain[I+2][J+2][1], terrain[I+2][J+2][2]);
+        gl.glVertex3f(terrain[i+1][j+1][0], terrain[i+1][j+1][1], terrain[i+1][j+1][2]);
 	}
 	
 	private void drawAxis(GL2 gl){
