@@ -2,13 +2,12 @@ package recources;
 
 import java.awt.Cursor;
 import java.awt.FontFormatException;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBuffer;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Random;
@@ -19,7 +18,7 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.GLException;
 import javax.media.opengl.awt.GLCanvas;
 
-import shaders.ShaderMng;
+import shaders.Shader;
 import userapi.UserCanvasListener;
 import userapi.UserKey;
 import userapi.UserMotion;
@@ -32,6 +31,7 @@ import com.jogamp.opengl.util.texture.TextureIO;
 import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 import engine.Engine;
+import gamecycle.GameCycleGL;
 import main.Config;
 import misc.Const;
 import misc.Log;
@@ -42,6 +42,8 @@ public class AssetsGL {
 	private static HashMap<String, Integer> indexes;
 	private static HashMap<String, Cursor> cursors;
 	private static Font font;
+	
+	private static int [] terrain;
 	
 	private GL2 gl;
 	
@@ -158,6 +160,50 @@ public class AssetsGL {
 		initTexture(Const.imgTerrainWater, Const.assetsGL + "terrain/water.png");
 		initTexture(Const.imgTerrainWaterBorder, Const.assetsGL + "terrain/waterBorder.png");
 		initTexture(Const.imgTerrainLand, Const.assetsGL + "terrain/land.png");
+		
+		terrain = new int[2];
+		gl.glGenTextures(terrain.length, terrain, 0);
+		
+		genTexture(Const.assetsGL + "terrain/water.png", 0);
+        genTexture(Const.assetsGL + "terrain/land.png" , 1);
+	}
+	
+	private void genTexture(String path, int index){
+		BufferedImage image = null;
+	    
+	    try {
+	    	File img = new File(Config.classPath + path);
+		    image = ImageIO.read(img);
+		    
+		    int size = image.getHeight() * image.getWidth() * 3;
+		    ByteBuffer buffer = ByteBuffer.allocate(size);
+		    
+		    int rgb = 0;
+		    for(int i = 0; i < image.getWidth(); ++i){
+		    	for(int j = 0; j < image.getHeight(); ++j){
+		    		rgb = image.getRGB(i, j);
+		    		
+		    		buffer.put((byte) ((rgb >> 16) & 0xFF)); // red
+		    		buffer.put((byte) ((rgb >> 8) & 0xFF));  // green
+                    buffer.put((byte) (rgb & 0xFF));         // blue
+		    	}
+		    }
+		    buffer.flip();
+		    
+		    // load tex into gpu
+		    gl.glBindTexture(GL2.GL_TEXTURE_2D, terrain[index]);
+		    gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, image.getWidth(), image.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, buffer);
+		    
+		    // setup tex
+	        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR);
+	        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
+	        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_S, GL2.GL_CLAMP_TO_EDGE); 
+	        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_T, GL2.GL_CLAMP_TO_EDGE);
+	    } 
+	    catch (IOException e){
+	    	Log.err("Cant read file " + Config.classPath + path);
+	        e.printStackTrace();
+	    }
 	}
 
 	private void loadGeologyTiles() {
@@ -314,42 +360,16 @@ public class AssetsGL {
 	}
 	
 	public void bindMultiTexture(GL2 gl, String [] texNames){
-		int [] textures = new int[2];
-		gl.glGenTextures(2, textures, 0);
-		
-		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0]);
-		ByteBuffer b = genTexture(32);
-		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGBA8, 32, 32, 0, GL2.GL_RGB, GL2.GL_BYTE, b);
-		
-        gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[1]);
-        b = genTexture(32);
-        gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGBA8, 32, 32, 0, GL2.GL_RGB, GL2.GL_BYTE, b);
-		
+        // enable
         gl.glEnable(GL2.GL_TEXTURE_2D);
-        gl.glActiveTexture(GL2.GL_TEXTURE0);
-        gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0]);
-        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR);
-        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
-
-        gl.glActiveTexture(GL2.GL_TEXTURE1);
-        gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[1]);
-        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR);
-        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
         
-		// tex
-		gl.glUniform1i(ShaderMng.getTexWater(), 0);
-		gl.glUniform1i(ShaderMng.getTexLand(),  1);
-	}
-	
-	private ByteBuffer genTexture(int size) {
-		ByteBuffer b = ByteBuffer.allocate(size * size * 3);
-		byte [] b2 = new byte[size * size * 3];
-		Random r = new Random();
-		r.setSeed(System.nanoTime());
-		r.nextBytes(b2);
-		b.put(b2);
-		b.flip();
-		return b;
+        // water
+        gl.glActiveTexture(GL2.GL_TEXTURE0);
+        gl.glBindTexture(GL2.GL_TEXTURE_2D, terrain[0]);
+
+        // land
+        gl.glActiveTexture(GL2.GL_TEXTURE1);
+        gl.glBindTexture(GL2.GL_TEXTURE_2D, terrain[1]);
 	}
 	
 	public void disableMultiTexture(GL2 gl){

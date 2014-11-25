@@ -1,18 +1,23 @@
-#version 110
+#version 150
 
-uniform float mapHeight;
+// USER
+uniform float h;
 
-uniform sampler2D texWater;
-uniform sampler2D texLand;
+uniform sampler2D tex0;
+uniform sampler2D tex1;
 
-varying vec2 Texcoord;
+// IN
+in vec2 tex_coord;
 
-void main(void)
-{
-	if(mapHeight < 1.0){
-		gl_FragColor = texture2D(texWater, Texcoord);
-	}
-	else{
-		gl_FragColor = texture2D(texLand, Texcoord);
-	}
+// OUT
+out vec4 frgcolor;
+
+void main()
+{	
+	if(h == 0.0){
+    	frgcolor = texture2D(tex0, tex_coord);
+    }
+    else{
+    	frgcolor = texture2D(tex1, tex_coord);
+    }
 }

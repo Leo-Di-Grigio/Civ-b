@@ -1,8 +1,11 @@
 package scenedata.game;
 
+import gamecycle.GameCycleGL;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.nio.FloatBuffer;
 import java.util.HashSet;
 
 import javax.media.opengl.GL2;
@@ -19,7 +22,7 @@ import misc.Environment;
 import recources.Recources;
 import recources.nongl.Tile;
 import render.Drawble;
-import shaders.ShaderMng;
+import shaders.Shader;
 
 public class GameMap implements Drawble {
 	
@@ -481,95 +484,113 @@ public class GameMap implements Drawble {
 		gl.glRotatef(-180.0f, 1.0f, 0.0f, 0.0f);
 		gl.glTranslatef(0.0f, -sizeY + 1, 0.0f);
 		
+		
 		Recources.bindMultiTex(gl, new String [] {Const.imgTerrainWater, Const.imgTerrainLand});
+		GameCycleGL.shader.useShader(gl);
+
+        int tex1 = gl.glGetUniformLocation(GameCycleGL.shader.getProgram(), "tex0");
+        int tex2 = gl.glGetUniformLocation(GameCycleGL.shader.getProgram(), "tex1");
+		
+        gl.glUniform1i(tex1, 0);
+        gl.glUniform1i(tex2, 1);
+		
+		FloatBuffer modelMatrix = FloatBuffer.allocate(16);
+		FloatBuffer projMatrix = FloatBuffer.allocate(16);
+		
+		gl.glGetFloatv(GL2.GL_MODELVIEW_MATRIX,  modelMatrix);
+		gl.glGetFloatv(GL2.GL_PROJECTION_MATRIX, projMatrix);
+		
+		gl.glUniformMatrix4fv(gl.glGetUniformLocation(GameCycleGL.shader.getProgram(), "MVMatrix"), 1, false, modelMatrix);
+		gl.glUniformMatrix4fv(gl.glGetUniformLocation(GameCycleGL.shader.getProgram(), "MPMatrix"), 1, false, projMatrix);
+		
+		int texcoord_index = gl.glGetAttribLocation(GameCycleGL.shader.getProgram(), "in_coord");
+		int h = gl.glGetUniformLocation(GameCycleGL.shader.getProgram(), "h");
+		gl.glUniform1f(h, 0.0f);
 		
 		for (int i = 0; i < sizeX - 1; i++){
-	        gl.glBegin(GL2.GL_TRIANGLE_STRIP);
-	        
+			gl.glBegin(GL2.GL_TRIANGLE_STRIP);
 	        for (int j = 0; j < sizeY - 1; j++){
-	        	drawNode(gl, i, j);
+	        	
+	        	drawNode(gl, i, j, texcoord_index);
 	        }
-	        
 	        gl.glEnd();
 	    }
-		
+		GameCycleGL.shader.dontUseShader(gl);
 		Recources.disableMultiTexture(gl);
 		
 		gl.glPopMatrix();
 	}
 	
-	private void drawNode(GL2 gl, int i, int j) {
+	private void drawNode(GL2 gl, int i, int j, int texcoord_index) {
 		int I = i*2;
 		int J = j*2;
 		
-		gl.glUniform1f(ShaderMng.getMapHeight(), terrain[I][J][2]);
-		
 		// 00
 		//draw vertex 0
-        gl.glTexCoord2f(0.0f, 0.0f);
+		gl.glVertexAttrib2f(texcoord_index, 0.0f, 0.0f);
         gl.glVertex3f(terrain[I][J][0], terrain[I][J][1], terrain[I][J][2]);
         
         //draw vertex 1
-        gl.glTexCoord2f(1.0f, 0.0f);
+        gl.glVertexAttrib2f(texcoord_index, 1.0f, 0.0f);
         gl.glVertex3f(terrain[I+1][J][0], terrain[I+1][J][1], terrain[I+1][J][2]);
 
         //draw vertex 2
-        gl.glTexCoord2f(0.0f, 1.0f);
+        gl.glVertexAttrib2f(texcoord_index, 0.0f, 1.0f);
         gl.glVertex3f(terrain[I][J+1][0], terrain[I][J+1][1], terrain[I][J+1][2]);
 
         //draw vertex 3
-        gl.glTexCoord2f(1.0f, 1.0f);
+        gl.glVertexAttrib2f(texcoord_index, 1.0f, 1.0f);
         gl.glVertex3f(terrain[I+1][J+1][0], terrain[I+1][J+1][1], terrain[I+1][J+1][2]);
         
         // 01
 		//draw vertex 0
-        gl.glTexCoord2f(0.0f, 0.0f);
+        gl.glVertexAttrib2f(texcoord_index, 0.0f, 0.0f);
         gl.glVertex3f(terrain[I+1][J][0], terrain[I+1][J][1], terrain[I+1][J][2]);
         
         //draw vertex 1
-        gl.glTexCoord2f(1.0f, 0.0f);
+        gl.glVertexAttrib2f(texcoord_index, 1.0f, 0.0f);
         gl.glVertex3f(terrain[I+2][J][0], terrain[I+2][J][1], terrain[I+2][J][2]);
 
         //draw vertex 2
-        gl.glTexCoord2f(0.0f, 1.0f);
+        gl.glVertexAttrib2f(texcoord_index, 0.0f, 1.0f);
         gl.glVertex3f(terrain[I+1][J+1][0], terrain[I+1][J+1][1], terrain[I+1][J+1][2]);
 
         //draw vertex 3
-        gl.glTexCoord2f(1.0f, 1.0f);
+        gl.glVertexAttrib2f(texcoord_index, 1.0f, 1.0f);
         gl.glVertex3f(terrain[I+2][J+1][0], terrain[I+2][J+1][1], terrain[I+2][J+1][2]);
         
         // 10
 		//draw vertex 0
-        gl.glTexCoord2f(0.0f, 0.0f);
+        gl.glVertexAttrib2f(texcoord_index, 0.0f, 0.0f);
         gl.glVertex3f(terrain[I][J+1][0], terrain[I][J+1][1], terrain[I][J+1][2]);
         
         //draw vertex 1
-        gl.glTexCoord2f(1.0f, 0.0f);
+        gl.glVertexAttrib2f(texcoord_index, 1.0f, 0.0f);
         gl.glVertex3f(terrain[I+1][J+1][0], terrain[I+1][J+1][1], terrain[I+1][J+1][2]);
 
         //draw vertex 2
-        gl.glTexCoord2f(0.0f, 1.0f);
+        gl.glVertexAttrib2f(texcoord_index, 0.0f, 1.0f);
         gl.glVertex3f(terrain[I][J+2][0], terrain[I][J+2][1], terrain[I][J+2][2]);
 
         //draw vertex 3
-        gl.glTexCoord2f(1.0f, 1.0f);
+        gl.glVertexAttrib2f(texcoord_index, 1.0f, 1.0f);
         gl.glVertex3f(terrain[I+1][J+2][0], terrain[I+1][J+2][1], terrain[I+1][J+2][2]);
         
         // 11
 		//draw vertex 0
-        gl.glTexCoord2f(0.0f, 0.0f);
+        gl.glVertexAttrib2f(texcoord_index, 0.0f, 0.0f);
         gl.glVertex3f(terrain[I+1][J+1][0], terrain[I+1][J+1][1], terrain[I+1][J+1][2]);
         
         //draw vertex 1
-        gl.glTexCoord2f(1.0f, 0.0f);
+        gl.glVertexAttrib2f(texcoord_index, 1.0f, 0.0f);
         gl.glVertex3f(terrain[I+2][J+1][0], terrain[I+2][J+1][1], terrain[I+2][J+1][2]);
 
         //draw vertex 2
-        gl.glTexCoord2f(0.0f, 1.0f);
+        gl.glVertexAttrib2f(texcoord_index, 0.0f, 1.0f);
         gl.glVertex3f(terrain[I+1][J+2][0], terrain[I+1][J+2][1], terrain[I+1][J+2][2]);
 
         //draw vertex 3
-        gl.glTexCoord2f(1.0f, 1.0f);
+        gl.glVertexAttrib2f(texcoord_index, 1.0f, 1.0f);
         gl.glVertex3f(terrain[I+2][J+2][0], terrain[I+2][J+2][1], terrain[I+2][J+2][2]);
 	}
 	
