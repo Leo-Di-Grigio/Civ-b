@@ -4,7 +4,9 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -62,21 +64,117 @@ public class GameMapGenerator {
 	}
 	
 	public static byte [][] buildGeologyMap(long seed, int sizeX, int sizeY){
-		rand = new Random(seed);
-		byte [][] ret = Voronoy.GenerateVoronoyMap(sizeX, sizeY, rand);		
+		byte [][] ret = new byte[sizeX][sizeY];
+		int n=sizeX*sizeY/100;
+		int[][]sites=new int[n][3];
+		int freeDots=0;
+		for(int i=0;i<sizeX;i++){
+			for(int t=0;t<sizeY;t++){
+				ret[i][t]=-1;
+				freeDots++;
+			}
+		}
+		for(int i=0;i<n;i++){
+			sites[i][0]=rand.nextInt(sizeX);
+			sites[i][1]=rand.nextInt(sizeY);
+			sites[i][2]=rand.nextInt(Byte.MAX_VALUE);
+			if(ret[sites[i][0]][sites[i][1]]==-1){
+				ret[sites[i][0]][sites[i][1]]=(byte) sites[i][2];
+				freeDots--;
+			}
+		}
+		ArrayList<HashSet<int[]>> sets=new ArrayList<HashSet<int[]>>();
+		for(int i=0;i<n;i++){
+			HashSet<int[]>l=new HashSet<int[]>();
+			l.add(sites[i]);
+			sets.add(l);
+		}
+		while(freeDots!=0){
+			ArrayList<HashSet<int[]>> newSets=new ArrayList<HashSet<int[]>>();
+			for(HashSet<int[]> set:sets){
+				HashSet<int[]>newSet=new HashSet<>();
+				for(int[] dots:set){
+					int x1,x2,x=dots[0];
+					int y=dots[1];
+					int v=dots[2];
+					
+					if(x==0){ 
+						x1=sizeX-1;
+					}
+					else{
+						x1=x-1;
+					}
+					
+					if(x==sizeX-1){
+						x2=0;
+					}
+					else{ 
+						x2=x+1;
+					}
+					
+					if(ret[x1][y]==-1){
+						newSet.add(new int[]{x1,y,v});
+						freeDots--;
+						ret[x1][y]=(byte) v;
+					}
+					
+					if(ret[x2][y]==-1){
+						newSet.add(new int[]{x2,y,v});
+						freeDots--;
+						ret[x2][y]=(byte) v;
+					}
+					
+					
+					if(y!=0){
+						if(ret[x][y-1]==-1){
+							newSet.add(new int[]{x,y-1,v});
+							freeDots--;
+							ret[x][y-1]=(byte) v;
+						}
+					}
+					if(y!=sizeY-1){
+						if(ret[x][y+1]==-1){
+							newSet.add(new int[]{x,y+1,v});
+							freeDots--;
+							ret[x][y+1]=(byte) v;
+						}
+					}
+				}
+				newSets.add(newSet);
+			}
+			sets=newSets;
+		}
 		return ret;
 	}
 	
 
 	public static byte [][] buildTermalMap(byte [][] heightMap, int sizeX, int sizeY, int tMin, int tMax) {
 		byte[][] termal = new byte[sizeX][sizeY];
-		
-		for(int i = 0; i < sizeX; ++i){
-			for(int j = 0; j < sizeY; ++j){
-				termal[i][j] = 0;
+		byte tempTMin=(byte) Math.abs(tMin);
+		tMin+=tempTMin;
+		tMax+=tempTMin;
+		byte[]heightTemp = new byte[16];
+		for(int i=0;i<15;i++){
+			heightTemp[i]=(byte) (((tMax-tMin)/16*(16-i))+tMin);
+		}
+		int h=sizeY/2+1;
+		byte[]sizeTemp=new byte[h];
+		for(int i=0;i<h;i++){
+			sizeTemp[i]=(byte) (((tMax-tMin)/(double)h*(i))+tMin);
+		}
+		for(int i=0;i<sizeX;i++){
+			for(int t=0;t<h;t++){
+				int q=sizeY-t-1;
+				termal[i][t]= (byte) (Math.sqrt(heightTemp[heightMap[i][t]]*sizeTemp[t])-tempTMin);
+				termal[i][q]= (byte) (Math.sqrt(heightTemp[heightMap[i][q]]*sizeTemp[t])-tempTMin);
 			}
 		}
-		
+		for(int i=1;i<sizeX-1;i++){
+			for(int t=1;t<sizeY-1;t++){
+				if(heightMap[i][t]!=15)
+					termal[i][t]=(byte) ((termal[i-1][t]+termal[i+1][t]+termal[i][t-1]+termal[i][t+1])/4);
+			}
+		}
 		return termal;
 	}
 	
@@ -232,53 +330,3 @@ class Fractals {
         return (random.nextDouble() - 0.5) * max;
     }
 }
-
-class Voronoy{
-	private static int sizeX;
-	
-	public static byte [][] GenerateVoronoyMap(int sizeX, int sizeY, Random rand){
-		Voronoy.sizeX = sizeX;
-		byte [][] ret = new byte[sizeX][sizeY];
-		int nearCount = sizeX * sizeY / 100;
-		int count = (rand.nextInt(nearCount) - nearCount) / 10 + nearCount;
-		int [][] dots = new int[count][2];
-		   
-		for(int i = 0; i < count; i++){
-			dots[i][0] = rand.nextInt(sizeX);
-			dots[i][1] = rand.nextInt(sizeY);
-			ret[ dots[i][0] ][ dots[i][1] ] = (byte)rand.nextInt(Byte.MAX_VALUE);
-		}
-	   	
-		for (int i = 0; i < sizeX; i++){
-			for (int j = 0; j < sizeY; j++){
-				int x = dots[0][0];
-				int y = dots[0][1];
-				int len = getLength(i, j, x, y);
-
-				for (int k = 1; k < dots.length; k++) {
-					int len1 = getLength(i, j, dots[k][0], dots[k][1]);
-
-					if(len > len1){
-						x = dots[k][0];
-						y = dots[k][1];
-						len = len1;
-					}
-				}
-
-				ret[i][j] = ret[x][y];
-			}
-		}
-		
-		return ret;
-	}
-	
-	private static int getLength(int x1, int y1, int x2, int y2) {
-		int r1 = (int) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));//Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2)); 
-		int r2 = (int) Math.sqrt(Math.pow(sizeX - Math.abs(x1 - x2), 2) + Math.pow(y1 - y2, 2));//Math.max(Math.abs(x1 - x2), sizeY - Math.abs(y1 - y2));
-		return Math.min(r1, r2);
-	}
-}
-
-
-
-
