@@ -13,11 +13,11 @@ public class GamesMng {
 		games = new HashMap<Integer, Game>();
 		
 		// test
-		add(new Game("Test 1 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax, Const.tMin, Const.tMax, "testdb.db"));
-		add(new Game("Test 2 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax, Const.tMin, Const.tMax, "testdb.db"));
-		add(new Game("Test 3 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax, Const.tMin, Const.tMax, "testdb.db"));
-		add(new Game("Test 4 ", Const.mapSizeX, Const.mapSizeY, 1, Const.tMin, Const.tMax, "testdb.db"));
-		add(new Game("Test 5 ", Const.mapSizeX, Const.mapSizeY, 0, Const.tMin, Const.tMax, "testdb.db"));
+		add(new Game("Test 1 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax, Const.tMin, Const.tMax, Const.landPercent, "testdb.db"));
+		add(new Game("Test 2 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax, Const.tMin, Const.tMax, Const.landPercent, "testdb.db"));
+		add(new Game("Test 3 ", Const.mapSizeX, Const.mapSizeY, Const.playersMax, Const.tMin, Const.tMax, Const.landPercent, "testdb.db"));
+		add(new Game("Test 4 ", Const.mapSizeX, Const.mapSizeY, 1, Const.tMin, Const.tMax, Const.landPercent, "testdb.db"));
+		add(new Game("Test 5 ", Const.mapSizeX, Const.mapSizeY, 0, Const.tMin, Const.tMax, Const.landPercent, "testdb.db"));
 	}
 	
 	public static void add(Game game){

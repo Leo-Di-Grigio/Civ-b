@@ -44,14 +44,14 @@ public class GameData{
 	// Actions
 	public GameActions actions;
 	
-	public GameData(int gameId, long seed, int mapSizeX, int mapSizeY, int playersMax, int tMin, int tMax, GameDB database) throws IOException {
+	public GameData(int gameId, long seed, int mapSizeX, int mapSizeY, int playersMax, int tMin, int tMax, int landPercent, GameDB database) throws IOException {
 		// id
 		this.gameId = gameId;
 		this.seed = seed;
 		this.state = Enums.GameState.PREPEARING;
 		
 		// map
-		this.map = new GameMap(seed, mapSizeX, mapSizeY, tMin, tMax);
+		this.map = new GameMap(seed, mapSizeX, mapSizeY, tMin, tMax, landPercent);
 		this.gameObjects = new GameObjectMng(this.map);
 		
 		// players
@@ -68,13 +68,13 @@ public class GameData{
 		this.database = database;
 		this.rules = database.getRules();
 	}
-	
+
 	public GameState getState() {
 		return state;
 	}
 	
 	public void addPlayer(int clientId, String playerName) throws IOException{
-		int playerId = players.add(clientId, playerName, seed, map.sizeX, map.sizeY, map.tMin, map.tMax, broad);
+		int playerId = players.add(clientId, playerName, seed, map.sizeX, map.sizeY, map.tMin, map.tMax, map.landPercent, broad);
 		
 		if(playerId != -1){ 
 			// successful created player

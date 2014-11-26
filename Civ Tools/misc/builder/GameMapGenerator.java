@@ -15,7 +15,7 @@ public class GameMapGenerator {
 	
 	private static Random rand;
 	
-	public static byte [][] buildHeightMap(long seed, int sizeX, int sizeY){
+	public static byte [][] buildHeightMap(long seed, int sizeX, int sizeY, int landPercent){
 		rand = new Random(seed);
 		
 		byte [][] nodes = new byte[sizeX][sizeY];

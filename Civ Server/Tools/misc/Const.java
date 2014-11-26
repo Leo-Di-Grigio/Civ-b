@@ -16,7 +16,7 @@ public class Const {
 	public static final int playersMax = 128;
 	public static final int mapSizeX = 150;
 	public static final int mapSizeY = 100;
-
-	public static int tMin = -20;
-	public static int tMax = 30;
+	public static final int landPercent = 60;
+	public static final int tMin = -20;
+	public static final int tMax = 30;
 }

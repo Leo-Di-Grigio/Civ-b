@@ -33,6 +33,7 @@ public class GameMap implements Drawble {
 	public long seed;
 	public int sizeX;
 	public int sizeY;
+	public int landPercent;
 	
 	// draw
 	public int drawNodes = 0;
@@ -50,10 +51,11 @@ public class GameMap implements Drawble {
 	public int tMin;
 	public int tMax;
 	
-	public GameMap(long seed, int sizeX, int sizeY, int tMin, int tMax) {
+	public GameMap(long seed, int sizeX, int sizeY, int tMin, int tMax, int landPercent) {
 		this.seed = seed;
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
+		this.landPercent = landPercent;
 		
 		Environment.mapSizeX = sizeX;
 		Environment.mapSizeY = sizeY;
@@ -88,7 +90,7 @@ public class GameMap implements Drawble {
 	
 	private void generateMap(){
 		map = new Node[sizeX][sizeY];
-		height = GameMapGenerator.buildHeightMap(seed, sizeX, sizeY);
+		height = GameMapGenerator.buildHeightMap(seed, sizeX, sizeY, landPercent);
 		byte [][] geology = GameMapGenerator.buildGeologyMap(seed, sizeX, sizeY);
 		byte [][] termal = GameMapGenerator.buildTermalMap(height, sizeX, sizeY, tMin, tMax);
 		
