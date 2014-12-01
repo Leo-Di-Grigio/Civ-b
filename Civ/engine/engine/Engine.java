@@ -1,0 +1,47 @@
+package engine;
+
+import java.awt.Dimension;
+import java.awt.FontFormatException;
+import java.io.IOException;
+
+import javax.swing.JFrame;
+
+import recources.Recources;
+import render.Render;
+import script.ScriptsAPI;
+import main.Config;
+import misc.Const;
+import misc.Environment;
+import misc.Tools;
+import misc.ToolsConst;
+
+public class Engine {
+	
+	public static JFrame frame;
+
+	public Engine() throws IOException, FontFormatException{
+		initFrame();
+		initEngine();
+	}
+	
+	private void initFrame(){
+		frame = new JFrame();
+		frame.setTitle(Const.title + " v" + ToolsConst.version + "." + ToolsConst.subVersion 
+				+ " mode: " + Config.renderMode);
+		
+		Dimension dimension = new Dimension(Config.frameWidth, Config.frameHeight);
+		frame.setSize(dimension);
+		frame.setMinimumSize(dimension);
+		
+		frame.setResizable(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	private void initEngine() throws IOException, FontFormatException{
+		new Environment();
+		new Tools();
+		new ScriptsAPI();
+		new Recources(Config.renderMode);		
+		new Render(Config.renderMode, frame);
+	}
+}
