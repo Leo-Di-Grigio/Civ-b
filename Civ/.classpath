@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="Main"/>
-	<classpathentry kind="src" path="Tools"/>
-	<classpathentry kind="src" path="Engine"/>
 	<classpathentry excluding="assets/|assets/|assets/|assets/opengl/" kind="src" path="recources"/>
-	<classpathentry kind="src" path="Script"/>
-	<classpathentry kind="src" path="Network"/>
-	<classpathentry kind="src" path="Task"/>
-	<classpathentry kind="src" path="UserAPI"/>
-	<classpathentry kind="src" path="Scene Data"/>
-	<classpathentry kind="src" path="GUI"/>
-	<classpathentry kind="src" path="Scenes"/>
-	<classpathentry kind="src" path="Team Data"/>
 	<classpathentry excluding="opengl/" kind="src" path="recources/assets"/>
 	<classpathentry kind="src" path="shaders"/>
+	<classpathentry kind="src" path="engine"/>
+	<classpathentry kind="src" path="gui"/>
+	<classpathentry kind="src" path="lib"/>
+	<classpathentry kind="src" path="main"/>
+	<classpathentry kind="src" path="network"/>
+	<classpathentry kind="src" path="scene data"/>
+	<classpathentry kind="src" path="scenes"/>
+	<classpathentry kind="src" path="script"/>
+	<classpathentry kind="src" path="task"/>
+	<classpathentry kind="src" path="team data"/>
+	<classpathentry kind="src" path="tools"/>
+	<classpathentry kind="src" path="userapi"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Civ Tools"/>
 	<classpathentry kind="lib" path="lib/gluegen-rt-natives-windows-amd64.jar"/>

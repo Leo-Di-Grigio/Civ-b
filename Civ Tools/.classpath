@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="misc"/>
 	<classpathentry kind="src" path="algorithm"/>
-	<classpathentry kind="src" path="Interfaces"/>
-	<classpathentry kind="src" path="Network"/>
-	<classpathentry kind="src" path="Base"/>
+	<classpathentry kind="src" path="base"/>
+	<classpathentry kind="src" path="interfaces"/>
+	<classpathentry kind="src" path="network"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
