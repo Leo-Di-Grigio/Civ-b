@@ -518,7 +518,7 @@ public class GameMap implements Drawble {
 	}
 	
 	private void drawUnits(GL2 gl) {
-		gl.glEnable(GL2.GL_COLOR_MATERIAL);
+		gl.glDisable(GL2.GL_TEXTURE_2D);
 		
 		for(int i = 0; i < sizeX; ++i){
 			for(int j = 0; j < sizeY; ++j){
@@ -526,7 +526,7 @@ public class GameMap implements Drawble {
 				
 				for(Integer unitId: nodeunits){
 					Unit unit = this.units.getUnit(unitId);
-					unit.draw(gl, map[i][j].height);
+					unit.draw(gl, (float)terrain[i*2][j*2][2] + 1.0f);
 				}
 			}
 		}

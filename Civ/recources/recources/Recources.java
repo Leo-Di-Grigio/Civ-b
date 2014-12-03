@@ -140,4 +140,20 @@ public class Recources {
 	public static Shader getShader(String shaderTitle) {
 		return AssetsGL.getShader(shaderTitle);
 	}
+	
+	public static void bindUnitTexture(GL2 gl, int unitCode){
+		switch(unitCode){
+			case DB.unitAvatar:
+				bindTexture(gl, Const.imgUnitAvatar);
+				break;
+			
+			case DB.buildingQuarter:
+				bindTexture(gl, Const.imgUnitCity);
+				break;
+			
+			case DB.unitNovice:
+				bindTexture(gl, Const.imgUnitRecruit); 
+				break;
+		}
+	}
 }
