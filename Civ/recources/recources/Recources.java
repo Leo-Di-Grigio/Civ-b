@@ -56,7 +56,8 @@ public class Recources {
 			assetsNative.addImage(name, tile);
 		}
 		else{
-			assetsGL.initTexture(name, (BufferedImage)tile.getImage());
+			BufferedImage img = (BufferedImage)tile.getImage();
+			assetsGL.initTexture(name, img);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package scenedata.game;
 
+import gamecycle.GameCycleGL;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -17,8 +19,10 @@ import misc.Const;
 import misc.Enums;
 import misc.Environment;
 import recources.Recources;
+import recources.gl.VBO;
 import recources.nongl.Tile;
 import render.Drawble;
+import render.Render;
 import shaders.list.shader_GameMap;
 
 public class GameMap implements Drawble {
@@ -426,6 +430,7 @@ public class GameMap implements Drawble {
 
 	private float [][][] terrain;
 	private final float mapScale = 1.0f;
+	private VBO vbo;
 	
 	private shader_GameMap shader;
 	
@@ -456,6 +461,9 @@ public class GameMap implements Drawble {
 	            terrain[I+1][J+1][2] = h;
 	        }
 	    }
+	    
+	    GL2 gl = Render.getGL();
+	    vbo = new VBO(gl, terrain, sizeX*2, sizeY*2);
 	}
 	
 	private void initShader() {
@@ -480,6 +488,7 @@ public class GameMap implements Drawble {
 		
 		drawAxis(gl);
 		drawTerrain(gl);
+		drawUnits(gl);
 		
 		gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
 	}
@@ -487,43 +496,58 @@ public class GameMap implements Drawble {
 	private void drawTerrain(GL2 gl){		
 		gl.glColor3f(1.0f, 1.0f, 1.0f);
 		gl.glPushMatrix();
-		gl.glRotatef(-180.0f, 1.0f, 0.0f, 0.0f);
-		gl.glTranslatef(0.0f, -sizeY, 0.0f);
 		
 		Recources.bindMultiTex(gl, new String [] {Const.imgTerrainWater, Const.imgTerrainLand});
 		shader.bind(gl);
 		shader.prepeare(gl);
 		
+		// Draw
 		for (int i = 0; i < sizeX*2 - 1; i++){
 			gl.glBegin(GL2.GL_TRIANGLE_STRIP);
 	        for (int j = 0; j < sizeY*2 - 1; j++){
 	        	drawNode(gl, i, j, shader.getTexCoord());
 	        }
 	        gl.glEnd();
-	    }
+		}
 		
+		// End
 		shader.unbind(gl);
 		Recources.disableMultiTexture(gl);
 		
 		gl.glPopMatrix();
 	}
 	
+	private void drawUnits(GL2 gl) {
+		gl.glEnable(GL2.GL_COLOR_MATERIAL);
+		
+		for(int i = 0; i < sizeX; ++i){
+			for(int j = 0; j < sizeY; ++j){
+				HashSet<Integer> nodeunits = map[i][j].getAll();
+				
+				for(Integer unitId: nodeunits){
+					Unit unit = this.units.getUnit(unitId);
+					unit.draw(gl, map[i][j].height);
+				}
+			}
+		}
+	}
+
 	private void drawNode(GL2 gl, int i, int j, int texCoord) {
 		// draw vertex 0
         gl.glVertexAttrib2f(texCoord, 0.0f, 0.0f);
-        gl.glVertex3f(terrain[i][j][0], terrain[i][j][1], terrain[i][j][2]);
+        gl.glVertex3f(terrain[i][j][0], terrain[i][j][1], -terrain[i][j][2]);
 
         // draw vertex 1
         gl.glVertexAttrib2f(texCoord, 1.0f, 0.0f);
-        gl.glVertex3f(terrain[i+1][j][0], terrain[i+1][j][1], terrain[i+1][j][2]);
+        gl.glVertex3f(terrain[i+1][j][0], terrain[i+1][j][1], -terrain[i+1][j][2]);
 
         // draw vertex 2
         gl.glVertexAttrib2f(texCoord, 0.0f, 1.0f);
-        gl.glVertex3f(terrain[i][j+1][0], terrain[i][j+1][1], terrain[i][j+1][2]);
+        gl.glVertex3f(terrain[i][j+1][0], terrain[i][j+1][1], -terrain[i][j+1][2]);
 
         // draw vertex 3
         gl.glVertexAttrib2f(texCoord, 1.0f, 1.0f);
-        gl.glVertex3f(terrain[i+1][j+1][0], terrain[i+1][j+1][1], terrain[i+1][j+1][2]);
+        gl.glVertex3f(terrain[i+1][j+1][0], terrain[i+1][j+1][1], -terrain[i+1][j+1][2]);
 	}
 	
 	private void drawAxis(GL2 gl){

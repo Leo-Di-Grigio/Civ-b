@@ -22,7 +22,6 @@ public class TaskPool {
 	
 	public static void clear(){
 		list.clear();
-		System.gc();
 	}
 
 	private static boolean hasNext(){

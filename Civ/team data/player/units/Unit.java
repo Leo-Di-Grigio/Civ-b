@@ -121,8 +121,58 @@ public class Unit implements Sentble, Drawble {
 		}
 	}
 
+
+	public void draw(GL2 gl, byte height) {
+		gl.glPushMatrix();
+		gl.glTranslatef(x, y, -height);
+		draw(gl, null);
+		gl.glPopMatrix();
+	}
+	
 	@Override
 	public void draw(GL2 gl, TextRenderer textrender) {
 		
+		Recources.bindTexture(gl, Const.imgUnitPlayerAtlas);
+		gl.glColor4f(1.0f,  1.0f, 1.0f, 1.0f);
+		gl.glBegin(GL2.GL_QUADS);
+		gl.glTexCoord2f(0.0f, 0.0f);  gl.glVertex3f(1.0f, 0.0f, 1.0f);
+		gl.glTexCoord2f(1.0f, 0.0f);  gl.glVertex3f(1.0f, 1.0f, 1.0f);
+		gl.glTexCoord2f(1.0f, 1.0f);  gl.glVertex3f(0.0f, 1.0f, 1.0f);
+		gl.glTexCoord2f(0.0f, 1.0f);  gl.glVertex3f(0.0f, 0.0f, 1.0f);
+		gl.glEnd();
+		 
+		// Purple side - RIGHT
+		gl.glBegin(GL2.GL_QUADS);
+		gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(1.0f, 0.0f, 0.0f);
+		gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(1.0f, 1.0f, 0.0f);
+		gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(1.0f, 1.0f, 1.0f);
+		gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(1.0f, 0.0f, 1.0f);
+		gl.glEnd();
+		 
+		// Green side - LEFT
+		gl.glBegin(GL2.GL_QUADS);
+		gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(0.0f, 0.0f, 1.0f);
+		gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(0.0f, 1.0f, 1.0f);
+		gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(0.0f, 1.0f, 0.0f);
+		gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(0.0f, 0.0f, 0.0f);
+		gl.glEnd();
+		 
+		// Blue side - TOP
+		gl.glBegin(GL2.GL_QUADS);	
+		gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(1.0f, 1.0f, 1.0f);
+		gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(1.0f, 1.0f, 0.0f);
+		gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(0.0f, 1.0f, 0.0f);
+		gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(0.0f, 1.0f, 1.0f);
+		gl.glEnd();
+		 
+		// Red side - BOTTOM
+		gl.glBegin(GL2.GL_QUADS);
+		gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(1.0f, 0.0f, 0.0f);
+		gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(1.0f, 0.0f, 1.0f);
+		gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(0.0f, 0.0f, 1.0f);
+		gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(0.0f, 0.0f, 0.0f);
+		gl.glEnd();
+		
+		Recources.disableTexture(gl, Const.imgUnitPlayerAtlas);
 	}
 }

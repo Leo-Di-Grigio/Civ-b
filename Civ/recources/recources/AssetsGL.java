@@ -329,8 +329,16 @@ public class AssetsGL {
 		return shaders.getShader(key);
 	}
 	
-	protected void initTexture(String texName, BufferedImage img){		
-		Texture t = AWTTextureIO.newTexture(gl.getGLProfile(), img, true);
+	protected void initTexture(String texName, BufferedImage img){
+		
+		BufferedImage imgR = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		for(int i = 0; i < img.getWidth(); ++i){
+			for(int j = 0, y = img.getHeight() - 1; j < img.getHeight(); ++j, --y){
+				imgR.setRGB(i, y, img.getRGB(i, j));
+			}
+		}
+		
+		Texture t = AWTTextureIO.newTexture(gl.getGLProfile(), imgR, true);
 		initTexture(texName, t);
 	}
 	
