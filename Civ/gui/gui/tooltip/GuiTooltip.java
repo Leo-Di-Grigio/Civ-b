@@ -7,8 +7,11 @@ import java.awt.Image;
 import javax.media.opengl.GL2;
 
 import com.jogamp.opengl.util.awt.TextRenderer;
+import com.jogamp.opengl.util.texture.Texture;
 
+import main.Config;
 import misc.Const;
+import misc.Enums;
 import misc.Environment;
 import recources.Recources;
 import render.Drawble;
@@ -24,10 +27,17 @@ public class GuiTooltip implements Drawble {
 	
 	// texture
 	private Image texture;
+	private Texture glTexture;
 	
 	public GuiTooltip(String text) {
 		this.text = text;
-		this.texture = Recources.getImage(Const.imgToolTip);
+		
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
+			this.texture = Recources.getImage(Const.imgToolTip);
+		}
+		else{
+			this.glTexture = Recources.getTexutre(Const.imgToolTip);
+		}
 	}
 	
 	public void setText(String text){

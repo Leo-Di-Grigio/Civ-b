@@ -156,4 +156,19 @@ public class Recources {
 				break;
 		}
 	}
+
+	public static Texture getUnitTexture(int unitCode) {
+		switch(unitCode){
+			case DB.unitAvatar:
+				return getTexutre(Const.imgUnitAvatar);
+		
+			case DB.buildingQuarter:
+				return getTexutre(Const.imgUnitCity);
+		
+			case DB.unitNovice:
+				return getTexutre(Const.imgUnitRecruit); 
+		}
+		
+		return getTexutre(Const.imgNull);
+	}
 }

@@ -142,7 +142,7 @@ abstract public class GuiElement implements Drawble {
 	}
 	
 	public void setTexture(Image image){
-		if(Config.renderMode == Enums.RenderMode.OPENGL){
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
 			textureNormal = image;
 		}
 		else{
@@ -160,11 +160,29 @@ abstract public class GuiElement implements Drawble {
 	}
 	
 	public void setTextureSelected(Image image){
-		if(Config.renderMode == Enums.RenderMode.OPENGL){
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
 			textureSelected  = image;
 		}
 		else{
 			Log.err("Use NATIVE mode to setImage");
+		}
+	}
+	
+	public void setTexture(Texture tex){
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
+			Log.err("Use OPENGL mode to setTextutre");
+		}
+		else{
+			glTexNormal = tex;
+		}
+	}
+	
+	public void setTextureSelected(Texture tex){
+		if(Config.renderMode == Enums.RenderMode.NATIVE){
+			Log.err("Use OPENGL mode to setTextutre");
+		}
+		else{
+			glTexSelected = tex;
 		}
 	}
 	

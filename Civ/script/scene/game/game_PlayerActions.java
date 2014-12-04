@@ -53,8 +53,7 @@ public class game_PlayerActions {
 				}
 				
 				if(Config.renderMode == Enums.RenderMode.OPENGL){
-					//
-					icon.setTextureSelected(Recources.getUnitImage(unit.type));
+					icon.setTexture(Recources.getUnitTexture(unit.type));
 				}
 			}
 			
