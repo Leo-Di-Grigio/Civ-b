@@ -488,8 +488,12 @@ public class GameMap implements Drawble {
 		
 		drawAxis(gl);
 		drawTerrain(gl);
-		drawUnits(gl);
+
+		// update mouse position
+		Environment.updateNodeSelectingOpenGL(gl, Render.getGLU(), mapScale);
 		
+		drawUnits(gl);
+		drawCursor(gl);
 		gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
 	}
 	
@@ -584,5 +588,52 @@ public class GameMap implements Drawble {
 	        gl.glVertex3f((float)i, 150.002f, 0.0f);
 	        gl.glEnd();
 		}
+	}
+	
+	public void drawCursor(GL2 gl){
+		gl.glPushMatrix();
+		gl.glTranslatef(Environment.nodeSelectedX, Environment.nodeSelectedY, Environment.surfaceZ);
+		gl.glColor4f(1.0f, 1.0f, 1.0f, 0.7f);
+		
+		gl.glBegin(GL2.GL_QUADS);
+			gl.glVertex3f(1.0f, 0.0f, -0.5f);
+			gl.glVertex3f(1.0f, 1.0f, -0.5f);
+			gl.glVertex3f(0.0f, 1.0f, -0.5f);
+			gl.glVertex3f(0.0f, 0.0f, -0.5f);
+		gl.glEnd();
+		 
+		// Purple side - RIGHT
+		gl.glBegin(GL2.GL_QUADS);
+			gl.glVertex3f(1.0f, 0.0f, 0.5f);
+			gl.glVertex3f(1.0f, 1.0f, 0.5f);
+			gl.glVertex3f(1.0f, 1.0f, -0.5f);
+			gl.glVertex3f(1.0f, 0.0f, -0.5f);
+		gl.glEnd();
+		 
+		// Green side - LEFT
+		gl.glBegin(GL2.GL_QUADS);
+			gl.glVertex3f(0.0f, 0.0f, -0.5f);
+			gl.glVertex3f(0.0f, 1.0f, -0.5f);
+			gl.glVertex3f(0.0f, 1.0f, 0.5f);
+			gl.glVertex3f(0.0f, 0.0f, 0.5f);
+		gl.glEnd();
+		 
+		// Blue side - TOP
+		gl.glBegin(GL2.GL_QUADS);	
+			gl.glVertex3f(1.0f, 1.0f, -0.5f);
+			gl.glVertex3f(1.0f, 1.0f, 0.5f);
+			gl.glVertex3f(0.0f, 1.0f, 0.5f);
+			gl.glVertex3f(0.0f, 1.0f, -0.5f);
+		gl.glEnd();
+		 
+		// Red side - BOTTOM
+		gl.glBegin(GL2.GL_QUADS);
+			gl.glVertex3f(1.0f, 0.0f, 0.5f);
+			gl.glVertex3f(1.0f, 0.0f, -0.5f);
+			gl.glVertex3f(0.0f, 0.0f, -0.5f);
+			gl.glVertex3f(0.0f, 0.0f, 0.5f);
+		gl.glEnd();
+		
+		gl.glPopMatrix();
 	}
 }

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.media.opengl.GL2;
+import javax.media.opengl.glu.GLU;
 
 import com.jogamp.opengl.util.awt.TextRenderer;
 
@@ -84,7 +85,7 @@ public class Painter {
 	}
 	
 	// GL
-	public static void draw(GL2 gl, TextRenderer textrender) throws IOException{
+	public static void draw(GL2 gl, GLU glu, TextRenderer textrender) throws IOException{
 		currentScene.update();
 		currentScene.draw(gl, textrender);
 		currentScene.drawGui(gl, textrender);

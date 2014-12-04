@@ -8,14 +8,12 @@ import java.io.IOException;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
-import javax.media.opengl.GL2ES1;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLException;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
-import javax.media.opengl.fixedfunc.GLLightingFunc;
 import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 
@@ -100,13 +98,14 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 		new Painter();
 		
 		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
-		gl.glClearDepth(1.0f);
+		gl.glShadeModel(GL2.GL_FLAT);
+		
 		gl.glEnable(GL2.GL_DEPTH_TEST);
 		gl.glDepthFunc(GL2.GL_LEQUAL);
 	        
 		gl.glEnable(GL2.GL_COLOR_MATERIAL);
-		gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
+		
+		gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
 		
 		gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
 		gl.glEnable(GL2.GL_BLEND);
@@ -119,6 +118,8 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 	
 	@Override
 	public void display(GLAutoDrawable draw) {
+		gl = draw.getGL().getGL2();
+		
 		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
 		
@@ -129,7 +130,7 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 			e.printStackTrace();
 		}
 		
-		textrender.draw(draw.getAnimator().getLastFPS() + " FPS", 0, Environment.frameSizeY - 50);
+		textrender.draw(draw.getAnimator().getLastFPS() + " FPS", 0, Environment.frameSizeY - 60);
 		gl.glFlush();
 	}
 	
@@ -163,7 +164,7 @@ public class GameCycleGL extends GameCycle implements GLEventListener {
 
 	@Override
 	void draw() throws IOException {
-		Painter.draw(gl, textrender);
+		Painter.draw(gl, glu, textrender);
 	}
 
 	@Override

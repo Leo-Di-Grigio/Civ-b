@@ -39,18 +39,6 @@ public class Environment {
 	public static int mapSizeX;
 	public static int mapSizeY;
 	
-	// GL tools
-	public static float surfaceX;
-	public static float surfaceY;
-	public static float surfaceZ;
-	
-	private static FloatBuffer zBuffer;
-	private static FloatBuffer coordinates;	 
-	private static FloatBuffer modelview;
-	private static FloatBuffer projection;
-	private static IntBuffer viewport;
-	private static int realY;
-	
 	public Environment(){
 		zBuffer = FloatBuffer.allocate(1);
 		coordinates = FloatBuffer.allocate(3);	 
@@ -66,13 +54,6 @@ public class Environment {
 		if(Config.renderMode == Enums.RenderMode.NATIVE){
 			if(Painter.currentSceneTitle == Enums.Scene.GAME){
 				updateNodeSelectingNative();
-			}
-			return;
-		}
-		
-		if(Config.renderMode == Enums.RenderMode.OPENGL){
-			if(Painter.currentSceneTitle == Enums.Scene.GAME){
-				updateNodeSelectingOpenGL();
 			}
 			return;
 		}
@@ -95,10 +76,19 @@ public class Environment {
 		nodeDrawCursorY = y;
 	}
 	
-	private static void updateNodeSelectingOpenGL(){
-		GL2 gl = Render.getGL();
-		GLU glu = Render.getGLU();
-		
+	// GL tools
+	public static float surfaceX;
+	public static float surfaceY;
+	public static float surfaceZ;
+	
+	private static FloatBuffer zBuffer;
+	private static FloatBuffer coordinates;	 
+	private static FloatBuffer modelview;
+	private static FloatBuffer projection;
+	private static IntBuffer viewport;
+	private static int realY;
+	
+	public static void updateNodeSelectingOpenGL(GL2 gl, GLU glu, float mapScale){
 		gl.glGetFloatv(GL2.GL_MODELVIEW_MATRIX, modelview);
 		gl.glGetFloatv(GL2.GL_PROJECTION_MATRIX, projection);
 		gl.glGetIntegerv(GL2.GL_VIEWPORT, viewport);
@@ -111,6 +101,9 @@ public class Environment {
 		surfaceX = coordinates.get(0);
 		surfaceY = coordinates.get(1);
 		surfaceZ = coordinates.get(2);
+		
+		nodeSelectedX = (int)(surfaceX / mapScale);
+		nodeSelectedY = (int)(surfaceY / mapScale);
 	}
 	
 	public static void updateFrameSize(int width, int height){

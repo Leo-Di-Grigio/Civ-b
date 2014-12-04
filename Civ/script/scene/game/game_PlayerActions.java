@@ -7,7 +7,9 @@ import script.unit.unit_CityBuild;
 import script.unit.unit_Mine;
 import script.unit.unit_MoveTo;
 import database.DB;
+import main.Config;
 import misc.Const;
+import misc.Enums;
 import misc.Log;
 import gui.GUI;
 import gui.elements.GuiElementButtonUnitAction;
@@ -46,7 +48,14 @@ public class game_PlayerActions {
 			GuiElementTitle title = (GuiElementTitle)pane.getElement(scenegui_Game.uiInfopaneTitle1);
 			
 			if(icon != null){
-				icon.setTexture(Recources.getUnitImage(unit.type));
+				if(Config.renderMode == Enums.RenderMode.NATIVE){
+					icon.setTexture(Recources.getUnitImage(unit.type));
+				}
+				
+				if(Config.renderMode == Enums.RenderMode.OPENGL){
+					//
+					icon.setTextureSelected(Recources.getUnitImage(unit.type));
+				}
 			}
 			
 			if(title != null){
